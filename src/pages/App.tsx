@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import theme from 'src/Theme';
 
-import Home from 'src/pages/Home/Herosection';
+import Home from 'src/pages/Home';
 
 const App: FunctionComponent<Record<string, never>> = () => {
   return (
