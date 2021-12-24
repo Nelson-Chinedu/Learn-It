@@ -1,15 +1,18 @@
 import { FunctionComponent } from 'react';
+import { ThemeProvider } from '@mui/material/styles';
 import { Routes, Route } from 'react-router-dom';
 
-import About from 'src/pages/About';
-import Home from 'src/pages/Home';
+import theme from 'src/Theme';
+
+import Home from 'src/pages/Home/Herosection';
 
 const App: FunctionComponent<Record<string, never>> = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/about" element={<About />} />
-    </Routes>
+    <ThemeProvider theme={theme}>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </ThemeProvider>
   );
 };
 export default App;

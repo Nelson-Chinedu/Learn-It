@@ -24,5 +24,11 @@
     "baseUrl": "."
   },
   "exclude": ["node_modules"],
-  "include": ["**/*.ts", "**/*.tsx"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "src/types/index.d.ts",
+    "src/stories/Button/Button.stories.tsx",
+    "src/stories/.storybook.preview.js"
+  ]
 }
