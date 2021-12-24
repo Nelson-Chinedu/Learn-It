@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
+import 'src/styles/index.css';
+
 import App from 'src/pages/App';
 import reportWebVitals from './reportWebVitals';
 
