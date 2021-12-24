@@ -93,12 +93,6 @@ const Home: FunctionComponent<Record<string, never>> = () => {
                     fullWidth={true}
                     size="large"
                     disableElevation={true}
-                    style={{
-                      height: '100%',
-                      padding: '5em 0px',
-                      borderTopRightRadius: '30px',
-                      borderBottomRightRadius: '30px',
-                    }}
                   >
                     Search
                   </Button>
