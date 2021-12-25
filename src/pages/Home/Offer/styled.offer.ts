@@ -21,6 +21,21 @@ export const useStyles = makeStyles({
     width: '75%',
     margin: 'auto',
   },
+  arrowDown: {
+    position: 'absolute',
+    left: 480,
+    '& img': {
+      width: '100px',
+    },
+  },
+  arrowUp: {
+    position: 'absolute',
+    bottom: -480,
+    right: 470,
+    '& img': {
+      width: '100px',
+    },
+  },
   expertWrapper: {
     position: 'relative',
     '& img': {

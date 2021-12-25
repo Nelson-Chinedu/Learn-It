@@ -14,6 +14,8 @@ import Support from 'src/assets/images/connecting_teams.svg';
 import Offer1 from 'src/assets/images/offer-1.svg';
 import Offer2 from 'src/assets/images/offer-2.svg';
 import Offer3 from 'src/assets/images/offer-3.svg';
+import ArrowUp from 'src/assets/images/arrowUp.svg';
+import ArrowDown from 'src/assets/images/arrowDown.svg';
 
 const Offer: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();
@@ -26,6 +28,9 @@ const Offer: FunctionComponent<Record<string, never>> = () => {
         </Typography>
       </Box>
       <Box className={classes.cardContainer}>
+        <Box className={classes.arrowDown}>
+          <img src={ArrowDown} />
+        </Box>
         <Box className={classes.expertWrapper}>
           <img src={Offer1} alt="offer step" />
           <Card width="250px" borderRadius="10px">
@@ -50,8 +55,11 @@ const Offer: FunctionComponent<Record<string, never>> = () => {
             </CardContent>
           </Card>
         </Box>
+        <Box className={classes.arrowUp}>
+          <img src={ArrowUp} />
+        </Box>
         <Box className={classes.supportWrapper}>
-          <img src={Offer3} />
+          <img src={Offer3} alt="offer step" />
           <Card width="250px" borderRadius="10px">
             <CardContent className={classes.cardContent}>
               <Typography variant="subtitle1">Lifetime support</Typography>
