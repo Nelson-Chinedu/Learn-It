@@ -6,10 +6,8 @@ export const useStyles = makeStyles({
       margin: '.3em 0px',
     },
     '& .MuiTypography-subtitle2': {
-      fontSize: '16px',
+      fontSize: '.9rem',
       lineHeight: '1.3em',
-      fontFamily: 'normal',
-      fontStyle: 'normal',
     },
   },
   title: {
