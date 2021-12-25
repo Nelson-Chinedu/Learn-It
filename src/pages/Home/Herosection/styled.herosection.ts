@@ -30,7 +30,7 @@ export const useStyles = makeStyles({
   },
   searchWrapper: {
     marginTop: '4em',
-    boxShadow: '0px 1px 2px 0px rgba(0,0,0,.2)',
+    boxShadow: '0px 2px 4px 0px rgba(0,0,0,.3)',
     borderRadius: '10px',
     overflow: 'hidden',
   },
