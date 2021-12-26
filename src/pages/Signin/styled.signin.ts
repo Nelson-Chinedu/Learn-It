@@ -34,7 +34,7 @@ export const useStyles = makeStyles({
       },
     },
   },
-  signin: {
+  signup: {
     textAlign: 'left',
     paddingLeft: '0px !important',
     width: '100%',
