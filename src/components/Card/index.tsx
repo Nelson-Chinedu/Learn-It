@@ -11,4 +11,4 @@ const Card: FunctionComponent<ICard> = ({ children, width, borderRadius }) => {
   return <MCard style={{ width, borderRadius }}>{children}</MCard>;
 };
 
-export default Card;
+export { Card };

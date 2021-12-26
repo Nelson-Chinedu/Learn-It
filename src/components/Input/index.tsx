@@ -68,4 +68,4 @@ const Input: FunctionComponent<ITextfield> = ({
   );
 };
 
-export default Input;
+export { Input };
