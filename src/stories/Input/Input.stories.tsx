@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
 
-import Input, { ITextfield } from 'src/components/Input';
+import { Input, ITextfield } from 'src/components/Input';
 
 export default {
   title: 'Input',

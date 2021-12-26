@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 
-import Button from 'src/components/Button';
+import { Button } from 'src/components/Button';
 
 import { NAVBAR } from 'src/constant/navbar';
 
@@ -57,4 +57,4 @@ const Navigation: FunctionComponent<Record<string, never>> = () => {
     </Container>
   );
 };
-export default Navigation;
+export { Navigation };

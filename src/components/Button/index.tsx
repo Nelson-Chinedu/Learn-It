@@ -40,4 +40,4 @@ const Button: FunctionComponent<IProps> = ({
   );
 };
 
-export default Button;
+export { Button };
