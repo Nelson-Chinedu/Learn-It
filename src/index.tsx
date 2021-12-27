@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import '@natscale/react-calendar/dist/main.css';
 
 import 'src/styles/index.css';
 

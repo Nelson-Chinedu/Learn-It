@@ -9,7 +9,7 @@ import { Button } from 'src/components/Button';
 
 import { NAVBAR } from 'src/constant/navbar';
 
-const Navigation: FunctionComponent<Record<string, never>> = () => {
+const Topnav: FunctionComponent<Record<string, never>> = () => {
   return (
     <Container maxWidth="xl">
       <Toolbar disableGutters>
@@ -57,4 +57,4 @@ const Navigation: FunctionComponent<Record<string, never>> = () => {
     </Container>
   );
 };
-export { Navigation };
+export { Topnav };

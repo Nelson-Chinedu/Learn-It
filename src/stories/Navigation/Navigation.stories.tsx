@@ -1,13 +1,13 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
 
-import { Navigation } from 'src/components/Navigation';
+import { Topnav } from 'src/components/Navigation/topnav';
 
 export default {
   title: 'Navigation',
-  component: Navigation,
+  component: Topnav,
 } as Meta;
 
-const Template: Story = (args) => <Navigation {...args} />;
+const Template: Story = (args) => <Topnav {...args} />;
 
 export const Navbar = Template.bind({});
