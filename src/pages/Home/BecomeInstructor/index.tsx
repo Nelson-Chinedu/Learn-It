@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
-import { Button } from 'src/components/Button';
+import { Button } from 'src/components';
 
 import Instructor from 'src/assets/images/instructor.gif';
 

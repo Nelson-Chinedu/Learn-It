@@ -7,8 +7,7 @@ import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 
-import { Card } from 'src/components/Card';
-import { Button } from 'src/components/Button';
+import { Card, Button } from 'src/components';
 
 import AvatarImg from 'src/assets/images/Avatar.png';
 

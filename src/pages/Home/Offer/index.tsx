@@ -4,7 +4,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import CardContent from '@mui/material/CardContent';
 
-import { Card } from 'src/components/Card';
+import { Card } from 'src/components';
 
 import { useStyles } from 'src/pages/Home/Offer/styled.offer';
 

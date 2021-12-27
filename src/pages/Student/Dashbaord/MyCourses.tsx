@@ -5,11 +5,9 @@ import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import Rating from '@mui/material/Rating';
 
-import { Card } from 'src/components/Card';
-import { Button } from 'src/components/Button';
+import { Card, Button, ProgressBar } from 'src/components';
 
 import { LineItem } from 'src/pages/Student/Dashbaord/LineItem';
-import { ProgressBar } from 'src/pages/Student/Dashbaord/Progress';
 
 import AvatarImg from 'src/assets/images/Avatar.png';
 

@@ -1,4 +1,5 @@
 import { FunctionComponent, ReactNode } from 'react';
+import { useLocation } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -16,8 +17,22 @@ type Props = {
   children: ReactNode;
 };
 
+const PAGE = [
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+  },
+  {
+    path: '/course',
+    name: 'My courses',
+  },
+];
+
 const Layout: FunctionComponent<Props> = ({ children }) => {
   const classes = useStyles();
+  const { pathname } = useLocation();
+  const [{ name }] = PAGE.filter((page) => page.path === pathname);
+
   return (
     <Box className={classes.root}>
       <Grid container spacing={2} alignItems="flex-start">
@@ -34,7 +49,7 @@ const Layout: FunctionComponent<Props> = ({ children }) => {
             style={{ marginBottom: '1em' }}
           >
             <Grid item>
-              <Typography variant="h4">Dashboard</Typography>
+              <Typography variant="h4">{name}</Typography>
             </Grid>
             <Grid item>
               <Grid
