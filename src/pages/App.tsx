@@ -7,6 +7,7 @@ import theme from 'src/Theme';
 import Home from 'src/pages/Home';
 import Signup from 'src/pages/Signup';
 import Signin from 'src/pages/Signin';
+import StudentDashboard from 'src/pages/Student';
 
 const App: FunctionComponent<Record<string, never>> = () => {
   return (
@@ -15,6 +16,7 @@ const App: FunctionComponent<Record<string, never>> = () => {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
+        <Route path="/dashboard" element={<StudentDashboard />} />
       </Routes>
     </ThemeProvider>
   );
