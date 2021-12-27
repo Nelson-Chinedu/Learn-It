@@ -7,9 +7,7 @@ import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import SearchIcon from '@mui/icons-material/Search';
 
-import { Topnav } from 'src/components/Navigation/topnav';
-import { Input } from 'src/components/Input';
-import { Button } from 'src/components/Button';
+import { Topnav, Input, Button } from 'src/components';
 
 import HerosectionImage from 'src/assets/images/student.gif';
 

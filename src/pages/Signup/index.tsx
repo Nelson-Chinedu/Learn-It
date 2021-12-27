@@ -4,8 +4,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
 
-import { Input } from 'src/components/Input';
-import { Button } from 'src/components/Button';
+import { Input, Button } from 'src/components';
 
 import { useStyles } from 'src/pages/Signup/styled.signup';
 

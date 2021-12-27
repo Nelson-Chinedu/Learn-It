@@ -10,7 +10,7 @@ import { MyCourses } from 'src/pages/Student/Dashbaord/MyCourses';
 
 import { useStyles } from 'src/pages/Student/Dashbaord/styled.dashboard';
 
-const Dashbaord: FunctionComponent<Record<string, never>> = () => {
+const Dashboard: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();
   const [value, setValue] = useState(new Date());
   const onChange = useCallback(
@@ -50,4 +50,4 @@ const Dashbaord: FunctionComponent<Record<string, never>> = () => {
   );
 };
 
-export default Dashbaord;
+export { Dashboard };
