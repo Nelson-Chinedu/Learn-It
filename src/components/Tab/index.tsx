@@ -1,34 +1,42 @@
 import * as React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import { makeStyles } from '@mui/styles';
 
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
+const useStyles = makeStyles({
+  root: {
+    '& .MuiTab-root': {
+      textTransform: 'inherit',
+    },
+  },
+});
 
-const TabPanel = (props: TabPanelProps) => {
-  const { children, value, index, ...other } = props;
+// interface TabPanelProps {
+//   children?: React.ReactNode;
+//   index: number;
+//   value: number;
+// }
 
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-};
+// const TabPanel = (props: TabPanelProps) => {
+//   const { children, value, index, ...other } = props;
+
+//   return (
+//     <div
+//       role="tabpanel"
+//       hidden={value !== index}
+//       id={`simple-tabpanel-${index}`}
+//       aria-labelledby={`simple-tab-${index}`}
+//       {...other}
+//     >
+//       {value === index && (
+//         <Box sx={{ p: 3 }}>
+//           <Typography>{children}</Typography>
+//         </Box>
+//       )}
+//     </div>
+//   );
+// };
 
 const a11yProps = (index: number) => {
   return {
@@ -37,7 +45,8 @@ const a11yProps = (index: number) => {
   };
 };
 
-const BasicTabs = () => {
+const TabNav = ({ nav }: { nav: Readonly<string[]> }) => {
+  const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
@@ -45,20 +54,19 @@ const BasicTabs = () => {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%' }} className={classes.root}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="Overview" {...a11yProps(0)} />
-          <Tab label="FAQ" {...a11yProps(1)} />
-          <Tab label="Discussion" {...a11yProps(2)} />
-          <Tab label="Reviews" {...a11yProps(2)} />
+          {nav.map((link: string, index: number) => (
+            <Tab label={link} {...a11yProps(index)} key={link} />
+          ))}
         </Tabs>
       </Box>
-      <TabPanel value={value} index={0}>
+      {/* <TabPanel value={value} index={0}>
         <Typography variant="subtitle1"> Overview content here</Typography>
         <Typography variant="subtitle2">
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam
@@ -93,9 +101,9 @@ const BasicTabs = () => {
           corrupti cumque tempora ratione dolorum enim facilis voluptates,
           accusantium magnam. Reprehenderit, eaque est!
         </Typography>
-      </TabPanel>
+      </TabPanel> */}
     </Box>
   );
 };
 
-export { BasicTabs };
+export { TabNav };

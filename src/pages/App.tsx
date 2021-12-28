@@ -10,6 +10,7 @@ import Signin from 'src/pages/Signin';
 import { Dashboard } from 'src/pages/Student/Dashbaord';
 import { Course } from 'src/pages/Student/Course';
 import { CoursePreview } from 'src/pages/Student/Course/Preview';
+import { Resources } from 'src/pages/Student/Resources';
 
 const App: FunctionComponent<Record<string, never>> = () => {
   return (
@@ -21,6 +22,7 @@ const App: FunctionComponent<Record<string, never>> = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/course" element={<Course />} />
         <Route path="/course/:title/:id" element={<CoursePreview />} />
+        <Route path="/resources" element={<Resources />} />
       </Routes>
     </ThemeProvider>
   );

@@ -16,11 +16,11 @@ import { useStyles } from 'src/pages/Student/Course/styled.course';
 
 import { Layout } from 'src/Layout/student';
 
-import { Card, Button } from 'src/components';
-
-import { BasicTabs } from 'src/pages/Student/Course/Tab';
+import { Card, Button, TabNav } from 'src/components';
 
 import { MODULES, STEPS } from 'src/constant/module';
+
+const LINKS = ['Overview', 'FAQ', 'Discussion', 'Reviews'];
 
 const CoursePreview: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();
@@ -54,7 +54,7 @@ const CoursePreview: FunctionComponent<Record<string, never>> = () => {
                   className={classes.btnMentor}
                 >
                   <Grid item md={9}>
-                    <BasicTabs />
+                    <TabNav nav={LINKS} />
                   </Grid>
                   <Grid item md={3}>
                     <Button
@@ -86,7 +86,7 @@ const CoursePreview: FunctionComponent<Record<string, never>> = () => {
                   </Typography>
                 </Box>
                 {MODULES.map((module: string, index: number) => (
-                  <Box style={{ margin: '1.5em 0px' }}>
+                  <Box style={{ margin: '1.5em 0px' }} key={module}>
                     <Grid
                       container
                       alignItems="center"
