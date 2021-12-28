@@ -27,4 +27,4 @@ export const sidenavMenu = [
     menu: 'Setting',
     path: '/setting',
   },
-];
+] as const;

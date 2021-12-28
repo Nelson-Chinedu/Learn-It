@@ -20,7 +20,9 @@ const Sidenav: FunctionComponent<Record<string, never>> = () => {
           <Link
             to={path}
             key={menu}
-            className={pathname === path ? classes.active : classes.inactive}
+            className={
+              pathname.includes(path) ? classes.active : classes.inactive
+            }
           >
             <Typography variant="subtitle2">{menu}</Typography>
           </Link>

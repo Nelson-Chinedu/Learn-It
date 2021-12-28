@@ -72,13 +72,13 @@ const Course: FunctionComponent<Record<string, never>> = () => {
                   justifyContent="center"
                   className={classes.enrollButton}
                 >
-                  <Grid item sm={6}>
+                  <Grid item sm={8}>
                     <Button
                       variant="outlined"
                       color="primary"
                       fullWidth
                       disableElevation
-                      size="small"
+                      size="medium"
                     >
                       Enroll Now
                     </Button>

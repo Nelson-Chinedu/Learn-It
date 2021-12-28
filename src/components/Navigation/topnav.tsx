@@ -31,7 +31,7 @@ const Topnav: FunctionComponent<Record<string, never>> = () => {
             ))}
             <Grid item>
               <Button
-                href="#"
+                href="/signin"
                 color="primary"
                 disableElevation={true}
                 fullWidth={true}
@@ -42,6 +42,7 @@ const Topnav: FunctionComponent<Record<string, never>> = () => {
             </Grid>
             <Grid item>
               <Button
+                href="/signup"
                 variant="contained"
                 color="primary"
                 size="small"
