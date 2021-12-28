@@ -13,7 +13,7 @@ const Sidenav: FunctionComponent<Record<string, never>> = () => {
   return (
     <Box className={classes.root}>
       <Typography variant="subtitle2" className={classes.logo}>
-        LearnIt
+        LearnIT
       </Typography>
       <Box style={{ margin: '2em 0px 3em' }}>
         {sidenavMenu.map(({ menu, path }: { menu: string; path: string }) => (

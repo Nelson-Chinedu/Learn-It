@@ -19,7 +19,7 @@ const Topnav: FunctionComponent<Record<string, never>> = () => {
           component="div"
           sx={{ mr: 2, flexGrow: 1, display: { xs: 'none', md: 'flex' } }}
         >
-          E Study
+          LearnIT
         </Typography>
 
         <Box sx={{ flexGrow: 0 }}>
