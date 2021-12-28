@@ -31,7 +31,7 @@ const PAGE = [
 const Layout: FunctionComponent<Props> = ({ children }) => {
   const classes = useStyles();
   const { pathname } = useLocation();
-  const [{ name }] = PAGE.filter((page) => page.path === pathname);
+  const [{ name }] = PAGE.filter((page) => pathname.includes(page.path));
 
   return (
     <Box className={classes.root}>

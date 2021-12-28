@@ -1,4 +1,4 @@
-export const LEARNING = ['Reading', 'Video', 'Writing', 'Assignment'];
+export const LEARNING = ['Reading', 'Video', 'Writing', 'Assignment'] as const;
 
 export const DATA = [
   { name: 'Group A', value: 400 },
@@ -7,4 +7,4 @@ export const DATA = [
   { name: 'Group D', value: 200 },
 ];
 
-export const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+export const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'] as const;

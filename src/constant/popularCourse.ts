@@ -30,4 +30,4 @@ export const POPULAR_COURSE = [
     lessonNumber: '14 Lesson',
     price: '$150',
   },
-];
+] as const;

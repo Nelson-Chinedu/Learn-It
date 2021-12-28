@@ -1,1 +1,1 @@
-export const COURSE_MENU = ['All', 'Ongoing', 'Completed'];
+export const COURSE_MENU = ['All', 'Ongoing', 'Completed'] as const;
