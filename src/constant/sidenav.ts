@@ -15,10 +15,10 @@ export const sidenavMenu = [
     menu: 'Chat',
     path: '/chat',
   },
-  {
-    menu: 'Schedule',
-    path: '/schedule',
-  },
+  // {
+  //   menu: 'Schedule',
+  //   path: '/schedule',
+  // },
   {
     menu: 'Profile',
     path: '/profile',

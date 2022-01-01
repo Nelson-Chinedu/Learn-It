@@ -2,6 +2,8 @@ import React, { FunctionComponent } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
 import { Input, Button } from 'src/components';
 
@@ -15,11 +17,36 @@ const Details: FunctionComponent<Record<string, never>> = () => {
   const handleChange = () => {};
   return (
     <Box className={classes.detail}>
-      <Avatar
-        src={AvatarUser}
-        alt="profile picture"
-        sx={{ width: 70, height: 70 }}
-      />
+      <Box
+        style={{
+          position: 'relative',
+          width: '20%',
+          margin: 'auto',
+        }}
+      >
+        <Avatar
+          src={AvatarUser}
+          alt="profile picture"
+          sx={{ width: 70, height: 70 }}
+        />
+        <Box className={classes.upload}>
+          <input
+            accept="image/*"
+            className={classes.input}
+            id="icon-button-file"
+            type="file"
+          />
+          <label htmlFor="icon-button-file">
+            <IconButton
+              disableRipple={true}
+              aria-label="upload picture"
+              component="span"
+            >
+              <PhotoCameraIcon fontSize="small" />
+            </IconButton>
+          </label>
+        </Box>
+      </Box>
       <Grid
         container
         spacing={2}

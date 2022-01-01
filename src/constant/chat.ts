@@ -1,0 +1,16 @@
+export const USER = [
+  { name: 'Kelvin Jake', message: 'Hello', newMessage: true },
+  { name: 'Kelvin Jake', message: 'Hello', newMessage: false },
+  { name: 'Kelvin Jake', message: 'Hello', newMessage: true },
+  { name: 'Kelvin Jake', message: 'Hello', newMessage: true },
+  { name: 'Kelvin Jake', message: 'Hello', newMessage: false },
+  { name: 'Kelvin Jake', message: 'Hello', newMessage: true },
+  { name: 'Kelvin Jake', message: 'Hello', newMessage: true },
+  { name: 'Kelvin Jake', message: 'Hello', newMessage: true },
+  { name: 'Kelvin Jake', message: 'Hello', newMessage: false },
+  { name: 'Kelvin Jake', message: 'Hello', newMessage: true },
+  { name: 'Kelvin Jake', message: 'Hello', newMessage: true },
+  { name: 'Kelvin Jake', message: 'Hello', newMessage: false },
+  { name: 'Kelvin Jake', message: 'Hello', newMessage: true },
+  { name: 'Kelvin Jake', message: 'Hello', newMessage: true },
+];
