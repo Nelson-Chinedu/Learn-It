@@ -50,9 +50,9 @@ const customTheme = {
     },
     body1: {
       fontFamily: "'Raleway', sans-serif",
-      fontWeight: 700,
+      // fontWeight: 700,
       fontStyle: 'normal',
-      fontSize: '1.313rem',
+      // fontSize: '1.313rem',
       lineHeight: 'auto',
       letterSpacing: '0.15%',
     },
