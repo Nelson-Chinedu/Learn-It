@@ -11,8 +11,4 @@ export const useStyles = makeStyles({
       fontWeight: 500,
     },
   },
-  avatar: {
-    width: '40px !important',
-    height: '40px !important',
-  },
 });

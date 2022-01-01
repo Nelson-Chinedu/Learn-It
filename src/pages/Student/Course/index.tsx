@@ -35,7 +35,7 @@ const Course: FunctionComponent<Record<string, never>> = () => {
                       justifyContent="space-between"
                     >
                       <Grid item>
-                        <Avatar src={AvatarUser} />
+                        <Avatar src={AvatarUser} alt="course instructor" />
                       </Grid>
                       <Grid item>
                         <MoreHorizOutlinedIcon fontSize="small" />

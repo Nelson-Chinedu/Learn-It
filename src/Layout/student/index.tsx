@@ -82,7 +82,11 @@ const Layout: FunctionComponent<Props> = ({ children }) => {
                   <NotificationsNoneOutlinedIcon fontSize="small" />
                 </Grid>
                 <Grid item>
-                  <Avatar src={User} className={classes.avatar} />
+                  <Avatar
+                    alt="Profile picture"
+                    src={User}
+                    sx={{ width: 35, height: 35 }}
+                  />
                 </Grid>
                 <Grid
                   item
