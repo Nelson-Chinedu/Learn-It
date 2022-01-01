@@ -5,5 +5,6 @@ import { Sidenav } from 'src/components/Navigation/sidenav';
 import { Topnav } from 'src/components/Navigation/topnav';
 import { ProgressBar } from 'src/components/Progress';
 import { TabNav } from 'src/components/Tab';
+import { Switch } from 'src/components/Switch';
 
-export { Button, Card, Input, Sidenav, Topnav, ProgressBar, TabNav };
+export { Button, Card, Input, Sidenav, Topnav, ProgressBar, TabNav, Switch };
