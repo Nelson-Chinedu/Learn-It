@@ -5,6 +5,7 @@ import Offer from 'src/pages/Home/Offer';
 import PopularCourse from 'src/pages/Home/PopularCourse';
 import BecomeInstructor from 'src/pages/Home/BecomeInstructor';
 import Alumni from 'src/pages/Home/Alumni';
+import { Footer } from 'src/components';
 
 const Home: FunctionComponent<Record<string, never>> = () => {
   return (
@@ -14,6 +15,7 @@ const Home: FunctionComponent<Record<string, never>> = () => {
       <PopularCourse />
       <BecomeInstructor />
       <Alumni />
+      <Footer />
     </>
   );
 };

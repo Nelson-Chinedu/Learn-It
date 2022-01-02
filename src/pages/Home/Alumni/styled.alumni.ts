@@ -2,6 +2,7 @@ import { makeStyles } from '@mui/styles';
 
 export const useStyles = makeStyles({
   root: {
+    marginBottom: '15em',
     display: 'flex !important',
     justifyContent: 'space-between',
     textAlign: 'center',
