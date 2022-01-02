@@ -12,6 +12,10 @@ export const sidenavMenu = [
     path: '/resources',
   },
   {
+    menu: 'Task',
+    path: '/task',
+  },
+  {
     menu: 'Chat',
     path: '/chat',
   },

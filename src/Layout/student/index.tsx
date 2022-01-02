@@ -31,6 +31,10 @@ const PAGE = [
     name: 'Resources',
   },
   {
+    path: '/task',
+    name: 'Task',
+  },
+  {
     path: '/chat',
     name: 'Chat',
   },
