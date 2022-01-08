@@ -17,6 +17,7 @@ import { Chat } from 'src/pages/Student/Chat';
 import { Task } from 'src/pages/Student/Task';
 
 import { TeacherDashboard } from 'src/pages/Teacher/Dashboard';
+import { TeacherCourse } from 'src/pages/Teacher/Course';
 
 const App: FunctionComponent<Record<string, never>> = () => {
   return (
@@ -34,6 +35,7 @@ const App: FunctionComponent<Record<string, never>> = () => {
         <Route path="/setting" element={<Setting />} />
         <Route path="/task" element={<Task />} />
         <Route path="/app/dashboard" element={<TeacherDashboard />} />
+        <Route path="app/course" element={<TeacherCourse />} />
       </Routes>
     </ThemeProvider>
   );
