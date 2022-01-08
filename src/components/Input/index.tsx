@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 export interface ITextfield {
   variant: 'outlined' | 'filled' | 'standard';
   value?: string;
-  type: 'text' | 'password' | 'email' | 'search' | 'tel';
+  type?: 'text' | 'password' | 'email' | 'search' | 'tel';
   size: 'small' | 'medium';
   name: string;
   fullWidth: boolean;
