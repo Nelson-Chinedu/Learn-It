@@ -5,9 +5,12 @@ import Typography from '@mui/material/Typography';
 
 import { useStyles } from 'src/components/Navigation/styled.sidenav';
 
-import { sidenavMenu } from 'src/constant/sidenav';
+import {
+  STUDENT_SIDENAV_MENU,
+  TEACHER_SIDENAV_MENU,
+} from 'src/constant/sidenav';
 
-const Sidenav: FunctionComponent<Record<string, never>> = () => {
+const StudentSidenav: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();
   const { pathname } = useLocation();
   return (
@@ -16,20 +19,49 @@ const Sidenav: FunctionComponent<Record<string, never>> = () => {
         LearnIT
       </Typography>
       <Box style={{ margin: '2em 0px 3em' }}>
-        {sidenavMenu.map(({ menu, path }: { menu: string; path: string }) => (
-          <Link
-            to={path}
-            key={menu}
-            className={
-              pathname.includes(path) ? classes.active : classes.inactive
-            }
-          >
-            <Typography variant="subtitle2">{menu}</Typography>
-          </Link>
-        ))}
+        {STUDENT_SIDENAV_MENU.map(
+          ({ menu, path }: { menu: string; path: string }) => (
+            <Link
+              to={path}
+              key={menu}
+              className={
+                pathname.includes(path) ? classes.active : classes.inactive
+              }
+            >
+              <Typography variant="subtitle2">{menu}</Typography>
+            </Link>
+          )
+        )}
       </Box>
     </Box>
   );
 };
 
-export { Sidenav };
+const TeacherSidenav: FunctionComponent<Record<string, never>> = () => {
+  const classes = useStyles();
+  const { pathname } = useLocation();
+  return (
+    <Box className={classes.root}>
+      <Typography variant="subtitle2" className={classes.logo}>
+        LearnIT
+      </Typography>
+      <Box style={{ margin: '2em 0px 3em' }}>
+        {TEACHER_SIDENAV_MENU.map(
+          ({ menu, path }: { menu: string; path: string }) => (
+            <Link
+              to={path}
+              key={menu}
+              className={
+                pathname.includes(path) ? classes.active : classes.inactive
+              }
+            >
+              <Typography variant="subtitle2">{menu}</Typography>
+            </Link>
+          )
+        )}
+      </Box>
+    </Box>
+  );
+};
+
+export { StudentSidenav, TeacherSidenav };

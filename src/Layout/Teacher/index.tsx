@@ -9,7 +9,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 import User from 'src/assets/images/Avatar.png';
 
-import { StudentSidenav } from 'src/components';
+import { TeacherSidenav } from 'src/components';
 
 import { useStyles } from 'src/Layout/student/styled.student';
 
@@ -27,12 +27,12 @@ const PAGE = [
     name: 'My courses',
   },
   {
-    path: '/resources',
-    name: 'Resources',
+    path: '/student',
+    name: 'Students',
   },
   {
-    path: '/task',
-    name: 'Task',
+    path: '/transaction',
+    name: 'Transactions',
   },
   {
     path: '/chat',
@@ -43,8 +43,8 @@ const PAGE = [
     name: 'Schedule',
   },
   {
-    path: '/profile',
-    name: 'My Profile',
+    path: '/live-class',
+    name: 'Live Class',
   },
   {
     path: '/setting',
@@ -62,7 +62,7 @@ const Layout: FunctionComponent<Props> = ({ children }) => {
       <Grid container spacing={2} alignItems="flex-start">
         <Grid item sm={2}>
           <Box>
-            <StudentSidenav />
+            <TeacherSidenav />
           </Box>
         </Grid>
         <Grid item sm={10}>
