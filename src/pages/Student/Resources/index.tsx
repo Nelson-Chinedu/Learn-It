@@ -44,4 +44,4 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
   );
 };
 
-export { Resources };
+export default Resources;

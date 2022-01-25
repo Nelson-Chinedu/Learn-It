@@ -1,42 +1,46 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, Suspense, lazy } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { Routes, Route } from 'react-router-dom';
 
 import theme from 'src/Theme';
 
-import Home from 'src/pages/Home';
-import Signup from 'src/pages/Signup';
-import Signin from 'src/pages/Signin';
-import { Dashboard } from 'src/pages/Student/Dashbaord';
-import { Course } from 'src/pages/Student/Course';
-import { CoursePreview } from 'src/pages/Student/Course/Preview';
-import { Resources } from 'src/pages/Student/Resources';
-import { Profile } from 'src/pages/Student/Profile';
-import { Setting } from 'src/pages/Student/Setting';
-import { Chat } from 'src/pages/Student/Chat';
-import { Task } from 'src/pages/Student/Task';
+const Home = lazy(() => import('src/pages/Home'));
+const Signup = lazy(() => import('src/pages/Signup'));
+const Signin = lazy(() => import('src/pages/Signin'));
+const Dashboard = lazy(() => import('src/pages/Student/Dashbaord'));
+const Course = lazy(() => import('src/pages/Student/Course'));
+const CoursePreview = lazy(() => import('src/pages/Student/Course/Preview'));
+const Resources = lazy(() => import('src/pages/Student/Resources'));
+const Profile = lazy(() => import('src/pages/Student/Profile'));
+const Setting = lazy(() => import('src/pages/Student/Setting'));
+const Chat = lazy(() => import('src/pages/Student/Chat'));
+const Task = lazy(() => import('src/pages/Student/Task'));
 
-import { TeacherDashboard } from 'src/pages/Teacher/Dashboard';
-import { TeacherCourse } from 'src/pages/Teacher/Course';
+const TeacherDashboard = lazy(() => import('src/pages/Teacher/Dashboard'));
+const TeacherCourse = lazy(() => import('src/pages/Teacher/Course'));
+const Student = lazy(() => import('src/pages/Teacher/Students'));
 
 const App: FunctionComponent<Record<string, never>> = () => {
   return (
     <ThemeProvider theme={theme}>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/course" element={<Course />} />
-        <Route path="/course/:title/:id" element={<CoursePreview />} />
-        <Route path="/resources" element={<Resources />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/chat" element={<Chat />} />
-        <Route path="/setting" element={<Setting />} />
-        <Route path="/task" element={<Task />} />
-        <Route path="/app/dashboard" element={<TeacherDashboard />} />
-        <Route path="app/course" element={<TeacherCourse />} />
-      </Routes>
+      <Suspense fallback={<p>Loading</p>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/course" element={<Course />} />
+          <Route path="/course/:title/:id" element={<CoursePreview />} />
+          <Route path="/resources" element={<Resources />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/chat" element={<Chat />} />
+          <Route path="/setting" element={<Setting />} />
+          <Route path="/task" element={<Task />} />
+          <Route path="/app/dashboard" element={<TeacherDashboard />} />
+          <Route path="app/course" element={<TeacherCourse />} />
+          <Route path="/app/student" element={<Student />} />
+        </Routes>
+      </Suspense>
     </ThemeProvider>
   );
 };

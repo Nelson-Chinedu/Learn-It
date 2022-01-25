@@ -14,4 +14,4 @@ const Task: FunctionComponent<Record<string, never>> = () => {
   );
 };
 
-export { Task };
+export default Task;

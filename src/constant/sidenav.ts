@@ -44,11 +44,11 @@ export const TEACHER_SIDENAV_MENU = [
   },
   {
     menu: 'Student',
-    path: '/app/students',
+    path: '/app/student',
   },
   {
     menu: 'Transactions',
-    path: '/app/transactions',
+    path: '/app/transaction',
   },
   {
     menu: 'Chat',
