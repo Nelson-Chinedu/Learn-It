@@ -62,4 +62,4 @@ const Setting: FunctionComponent<Record<string, never>> = () => {
   );
 };
 
-export { Setting };
+export default Setting;

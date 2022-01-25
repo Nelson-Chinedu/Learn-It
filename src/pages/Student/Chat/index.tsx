@@ -148,4 +148,4 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
   );
 };
 
-export { Chat };
+export default Chat;

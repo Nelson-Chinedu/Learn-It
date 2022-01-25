@@ -19,8 +19,8 @@ const Course: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();
   return (
     <>
-      {POPULAR_COURSE.map((course) => (
-        <Grid item sm={3} className={classes.container}>
+      {POPULAR_COURSE.map((course, index: number) => (
+        <Grid item sm={3} className={classes.container} key={index}>
           <Card width="250px" borderRadius="10px">
             <CardMedia
               component="img"

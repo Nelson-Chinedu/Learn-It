@@ -55,4 +55,4 @@ const TeacherCourse: FunctionComponent<Record<string, never>> = () => {
   );
 };
 
-export { TeacherCourse };
+export default TeacherCourse;

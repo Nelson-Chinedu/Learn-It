@@ -88,4 +88,4 @@ const Profile: FunctionComponent<Record<string, never>> = () => {
   );
 };
 
-export { Profile };
+export default Profile;

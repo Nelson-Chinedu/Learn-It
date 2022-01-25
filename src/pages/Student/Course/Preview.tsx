@@ -157,4 +157,4 @@ const CoursePreview: FunctionComponent<Record<string, never>> = () => {
   );
 };
 
-export { CoursePreview };
+export default CoursePreview;

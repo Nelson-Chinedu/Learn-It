@@ -54,4 +54,4 @@ const Dashboard: FunctionComponent<Record<string, never>> = () => {
   );
 };
 
-export { Dashboard };
+export default Dashboard;

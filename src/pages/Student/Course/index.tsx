@@ -92,4 +92,4 @@ const Course: FunctionComponent<Record<string, never>> = () => {
   );
 };
 
-export { Course };
+export default Course;
