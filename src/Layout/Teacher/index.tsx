@@ -11,7 +11,7 @@ import User from 'src/assets/images/Avatar.png';
 
 import { TeacherSidenav } from 'src/components';
 
-import { useStyles } from 'src/Layout/student/styled.student';
+import { useStyles } from 'src/Layout/Teacher/styled.teacher';
 
 type Props = {
   children: ReactNode;
@@ -45,6 +45,10 @@ const PAGE = [
   {
     path: '/live-class',
     name: 'Live Class',
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
   },
   {
     path: '/setting',

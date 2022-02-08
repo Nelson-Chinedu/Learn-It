@@ -19,6 +19,7 @@ const Task = lazy(() => import('src/pages/Student/Task'));
 const TeacherDashboard = lazy(() => import('src/pages/Teacher/Dashboard'));
 const TeacherCourse = lazy(() => import('src/pages/Teacher/Course'));
 const Student = lazy(() => import('src/pages/Teacher/Students'));
+const LiveClass = lazy(() => import('src/pages/Teacher/LiveClass'));
 
 const App: FunctionComponent<Record<string, never>> = () => {
   return (
@@ -39,6 +40,9 @@ const App: FunctionComponent<Record<string, never>> = () => {
           <Route path="/app/dashboard" element={<TeacherDashboard />} />
           <Route path="app/course" element={<TeacherCourse />} />
           <Route path="/app/student" element={<Student />} />
+          <Route path="/app/live-class" element={<LiveClass />} />
+          <Route path="/app/live-class/create" element={<LiveClass />} />
+          <Route path="/app/live-class/add" element={<LiveClass />} />
         </Routes>
       </Suspense>
     </ThemeProvider>
