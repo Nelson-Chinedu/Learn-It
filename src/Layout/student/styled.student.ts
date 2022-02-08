@@ -8,7 +8,7 @@ export const useStyles = makeStyles({
       'linear-gradient(to right, #E9FCFC, #EEFEEA, #F8E5E3, #E6E9FF, #F1FFED)',
     '& .MuiTypography-h4': {
       fontSize: '1em',
-      fontWeight: 500,
+      fontWeight: 600,
     },
   },
 });

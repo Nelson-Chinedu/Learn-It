@@ -63,6 +63,10 @@ export const TEACHER_SIDENAV_MENU = [
     path: '/app/live-class',
   },
   {
+    menu: 'Profile',
+    path: '/app/profile',
+  },
+  {
     menu: 'Settings',
     path: '/app/setting',
   },
