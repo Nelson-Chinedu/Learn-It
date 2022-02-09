@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -7,9 +7,18 @@ import { Layout } from 'src/Layout/student';
 
 import { Card, Button, TabNav } from 'src/components';
 
-const LINKS = ['Blog site', 'Illustration site', 'Icon site', 'Image site'];
-
 const Resources: FunctionComponent<Record<string, never>> = () => {
+  const [links, setLinks] = useState([
+    'Blog site',
+    'Illustration site',
+    'Icon site',
+    'Image site',
+  ]);
+
+  const handleAddCategory = () => {
+    setLinks([...links, 'Category added']);
+  };
+
   return (
     <Layout>
       <Box component="section">
@@ -31,12 +40,13 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
                   fullWidth
                   disableElevation
                   size="medium"
+                  handleClick={handleAddCategory}
                 >
                   Add new category
                 </Button>
               </Grid>
             </Grid>
-            <TabNav nav={LINKS} />
+            <TabNav nav={links} />
           </Box>
         </Card>
       </Box>
