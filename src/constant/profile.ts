@@ -5,9 +5,4 @@ export const SUPPORT_LINKS = [
   'Delete account',
 ];
 
-export const PROFILE_LINKS = [
-  'Personal Details',
-  'Notification',
-  'Privacy',
-  'Payment',
-];
+export const PROFILE_LINKS = ['Personal Details', 'Notification', 'Privacy'];

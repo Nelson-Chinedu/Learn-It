@@ -60,6 +60,8 @@ const TabNav = ({ nav }: { nav: Readonly<string[]> }) => {
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
+          variant="scrollable"
+          scrollButtons="auto"
         >
           {nav.map((link: string, index: number) => (
             <Tab label={link} {...a11yProps(index)} key={link} />
