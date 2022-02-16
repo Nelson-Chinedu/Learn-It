@@ -48,7 +48,7 @@ const PAGE = [
   },
   {
     path: '/profile',
-    name: 'Profile',
+    name: 'My Profile',
   },
   {
     path: '/setting',

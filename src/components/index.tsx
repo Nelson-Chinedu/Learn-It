@@ -10,6 +10,7 @@ import { ProgressBar } from 'src/components/Progress';
 import { TabNav } from 'src/components/Tab';
 import { Switch } from 'src/components/Switch';
 import { Footer } from 'src/components/Footer';
+import { UploadAvatar } from 'src/components/UploadAvatar';
 
 export {
   Button,
@@ -22,4 +23,5 @@ export {
   TabNav,
   Switch,
   Footer,
+  UploadAvatar,
 };
