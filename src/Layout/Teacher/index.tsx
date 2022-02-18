@@ -51,8 +51,8 @@ const PAGE = [
     name: 'My Profile',
   },
   {
-    path: '/setting',
-    name: 'Setting',
+    path: '/settings',
+    name: 'Settings',
   },
 ] as const;
 
