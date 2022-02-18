@@ -68,6 +68,6 @@ export const TEACHER_SIDENAV_MENU = [
   },
   {
     menu: 'Settings',
-    path: '/app/setting',
+    path: '/app/settings',
   },
 ] as const;

@@ -35,3 +35,12 @@ export const EMAIL_NOTIFICATION = [
     checked: true,
   },
 ];
+
+export const TEACHER_SETTING_LINK = [
+  'General',
+  'Email Notification',
+  'Earning',
+  'Payment',
+  'Class Reminder',
+  'Account',
+];

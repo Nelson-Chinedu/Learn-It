@@ -20,7 +20,7 @@ import { Card, Button, TabNav } from 'src/components';
 
 import { MODULES, STEPS } from 'src/constant/module';
 
-const LINKS = ['Overview', 'FAQ', 'Discussion', 'Reviews'];
+const LINKS = ['Overview', 'FAQ', 'Discussion', 'Reviews', 'Resources'];
 
 const CoursePreview: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();

@@ -10,7 +10,7 @@ import { useStyles } from 'src/pages/Student/Course/styled.course';
 
 import { Layout } from 'src/Layout/student';
 
-import { Card, ProgressBar } from 'src/components';
+import { Card } from 'src/components';
 
 import { COURSE } from 'src/constant/course';
 
@@ -80,7 +80,6 @@ const Course: FunctionComponent<Record<string, never>> = () => {
                         </Typography>
                       </Grid>
                     </Grid>
-                    <ProgressBar />
                   </Box>
                 </Card>
               </Link>
