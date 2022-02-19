@@ -11,46 +11,13 @@ import User from 'src/assets/images/Avatar.png';
 
 import { StudentSidenav } from 'src/components';
 
+import { STUDENT as PAGE } from 'src/constant/pageTitle';
+
 import { useStyles } from 'src/Layout/student/styled.student';
 
 type Props = {
   children: ReactNode;
 };
-
-const PAGE = [
-  {
-    path: '/dashboard',
-    name: 'Dashboard',
-  },
-  {
-    path: '/course',
-    name: 'My courses',
-  },
-  {
-    path: '/resources',
-    name: 'Resources',
-  },
-  {
-    path: '/task',
-    name: 'Task',
-  },
-  {
-    path: '/chat',
-    name: 'Chat',
-  },
-  {
-    path: '/schedule',
-    name: 'Schedule',
-  },
-  {
-    path: '/profile',
-    name: 'My Profile',
-  },
-  {
-    path: '/setting',
-    name: 'Setting',
-  },
-] as const;
 
 const Layout: FunctionComponent<Props> = ({ children }) => {
   const classes = useStyles();

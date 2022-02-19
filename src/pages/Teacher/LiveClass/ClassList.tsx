@@ -6,11 +6,14 @@ import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import MoreHoriz from '@mui/icons-material/MoreHoriz';
 
-import { Card, Button } from 'src/components';
+import { Card, Button, Menu } from 'src/components';
+
+import useMenu from 'src/hooks/useMenu';
 
 const ClassList: FunctionComponent<Record<string, never>> = () => {
   const navigate = useNavigate();
   const [isSelected, setIsSelected] = useState<number>(0);
+  const { open, anchorEl, handleClick, handleClose } = useMenu();
 
   const handleSelected = (id: number) => {
     setIsSelected(id);
@@ -71,7 +74,7 @@ const ClassList: FunctionComponent<Record<string, never>> = () => {
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <IconButton size="small">
+                        <IconButton size="small" onClick={handleClick}>
                           <MoreHoriz fontSize="small" />
                         </IconButton>
                       </Grid>
@@ -115,6 +118,15 @@ const ClassList: FunctionComponent<Record<string, never>> = () => {
           </Card>
         </Box>
       </Box>
+      <Menu
+        onClose={handleClose}
+        open={open}
+        anchorEl={anchorEl}
+        menus={[
+          { name: 'Edit', path: '#' },
+          { name: 'Delete', path: '#' },
+        ]}
+      />
     </Box>
   );
 };
