@@ -11,6 +11,7 @@ import { TabNav } from 'src/components/Tab';
 import { Switch } from 'src/components/Switch';
 import { Footer } from 'src/components/Footer';
 import { UploadAvatar } from 'src/components/UploadAvatar';
+import { Modal } from 'src/components/Modal';
 
 export {
   Button,
@@ -24,4 +25,5 @@ export {
   Switch,
   Footer,
   UploadAvatar,
+  Modal,
 };
