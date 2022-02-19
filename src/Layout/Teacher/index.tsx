@@ -9,7 +9,11 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 import User from 'src/assets/images/Avatar.png';
 
-import { TeacherSidenav } from 'src/components';
+import { TeacherSidenav, Menu } from 'src/components';
+
+import useMenu from 'src/hooks/useMenu';
+
+import { TEACHER as PAGE } from 'src/constant/pageTitle';
 
 import { useStyles } from 'src/Layout/Teacher/styled.teacher';
 
@@ -17,48 +21,10 @@ type Props = {
   children: ReactNode;
 };
 
-const PAGE = [
-  {
-    path: '/dashboard',
-    name: 'Dashboard',
-  },
-  {
-    path: '/course',
-    name: 'My courses',
-  },
-  {
-    path: '/student',
-    name: 'Students',
-  },
-  {
-    path: '/transaction',
-    name: 'Transactions',
-  },
-  {
-    path: '/chat',
-    name: 'Chat',
-  },
-  {
-    path: '/schedule',
-    name: 'Schedule',
-  },
-  {
-    path: '/live-class',
-    name: 'Live Class',
-  },
-  {
-    path: '/profile',
-    name: 'My Profile',
-  },
-  {
-    path: '/settings',
-    name: 'Settings',
-  },
-] as const;
-
 const Layout: FunctionComponent<Props> = ({ children }) => {
   const classes = useStyles();
   const { pathname } = useLocation();
+  const { open, anchorEl, handleClick, handleClose } = useMenu();
   const [{ name }] = PAGE.filter((page) => pathname.includes(page.path));
 
   return (
@@ -103,7 +69,12 @@ const Layout: FunctionComponent<Props> = ({ children }) => {
                     alignItems: 'center',
                   }}
                 >
-                  <Grid container alignItems="center">
+                  <Grid
+                    container
+                    alignItems="center"
+                    onClick={handleClick}
+                    className="menu"
+                  >
                     <Grid item>
                       <Typography variant="subtitle2">John Doe</Typography>
                     </Grid>
@@ -118,6 +89,16 @@ const Layout: FunctionComponent<Props> = ({ children }) => {
           {children}
         </Grid>
       </Grid>
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        menus={[
+          { name: 'My Profile', path: '/app/profile' },
+          { name: 'Settings', path: '/app/settings' },
+          { name: 'Logout', path: '#' },
+        ]}
+      />
     </Box>
   );
 };

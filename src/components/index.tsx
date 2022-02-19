@@ -12,6 +12,7 @@ import { Switch } from 'src/components/Switch';
 import { Footer } from 'src/components/Footer';
 import { UploadAvatar } from 'src/components/UploadAvatar';
 import { Modal } from 'src/components/Modal';
+import { Menu } from 'src/components/Menu';
 
 export {
   Button,
@@ -26,4 +27,5 @@ export {
   Footer,
   UploadAvatar,
   Modal,
+  Menu,
 };

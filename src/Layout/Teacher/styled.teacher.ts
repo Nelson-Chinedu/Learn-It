@@ -10,5 +10,8 @@ export const useStyles = makeStyles({
       fontSize: '1em',
       fontWeight: 600,
     },
+    '& .menu': {
+      cursor: 'pointer',
+    },
   },
 });
