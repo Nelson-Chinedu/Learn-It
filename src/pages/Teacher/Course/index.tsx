@@ -1,6 +1,5 @@
 import { FunctionComponent } from 'react';
 import Box from '@mui/material/Box';
-// import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Grid from '@mui/material/Grid';
 import { Layout } from 'src/Layout/Teacher';
@@ -8,10 +7,20 @@ import { Layout } from 'src/Layout/Teacher';
 import { Button, Input } from 'src/components';
 
 import { CourseTable } from 'src/pages/Teacher/Course/CourseTable';
+import CourseModal from 'src/pages/Teacher/Modals/CourseModal';
+
+import useModal from 'src/hooks/useModal';
 
 const TeacherCourse: FunctionComponent<Record<string, never>> = () => {
+  const [state, setState] = useModal();
+
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const handleChangeCategory = () => {};
+
+  const handleAddNewCourse = () => {
+    setState({ ...state, modalName: 'AddCourse' });
+  };
+
   return (
     <Layout>
       <Box component="section">
@@ -42,6 +51,7 @@ const TeacherCourse: FunctionComponent<Record<string, never>> = () => {
               disableElevation
               fullWidth
               size="medium"
+              handleClick={handleAddNewCourse}
             >
               Add New Course
             </Button>
@@ -51,6 +61,7 @@ const TeacherCourse: FunctionComponent<Record<string, never>> = () => {
           <CourseTable />
         </Box>
       </Box>
+      <CourseModal />
     </Layout>
   );
 };
