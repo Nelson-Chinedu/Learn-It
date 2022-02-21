@@ -67,6 +67,10 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.17.5",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
     "@storybook/addon-actions": "^6.4.9",
     "@storybook/addon-essentials": "^6.4.9",
     "@storybook/addon-links": "^6.4.9",
@@ -82,9 +86,13 @@
     "@types/yup": "^0.29.13",
     "@typescript-eslint/eslint-plugin": "^5.8.0",
     "@typescript-eslint/parser": "^5.8.0",
+    "babel-jest": "^27.5.1",
     "eslint": "^8.5.0",
+    "jest": "^27.5.1",
+    "jest-watch-typeahead": "^1.0.0",
     "postcss-cli": "^9.1.0",
     "prettier": "^2.5.1",
+    "ts-node": "^10.5.0",
     "webpack": "^5.65.0"
   }
 }

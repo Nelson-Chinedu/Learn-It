@@ -1,4 +1,4 @@
-import { FunctionComponent, HTMLAttributes, ReactNode } from 'react';
+import React, { FunctionComponent, HTMLAttributes, ReactNode } from 'react';
 import { Button as MButton } from '@mui/material';
 
 export interface IProps extends HTMLAttributes<HTMLButtonElement> {
@@ -34,6 +34,7 @@ const Button: FunctionComponent<IProps> = ({
       href={href}
       disabled={disabled}
       disableElevation={disableElevation}
+      data-testid="button"
     >
       {children}
     </MButton>

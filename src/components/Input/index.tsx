@@ -1,4 +1,4 @@
-import { FunctionComponent, ReactNode, ChangeEvent } from 'react';
+import React, { FunctionComponent, ReactNode, ChangeEvent } from 'react';
 import TextField from '@mui/material/TextField';
 
 export interface ITextfield {
@@ -6,7 +6,7 @@ export interface ITextfield {
   value?: string;
   type?: 'text' | 'password' | 'email' | 'search' | 'tel';
   size: 'small' | 'medium';
-  name: string;
+  name?: string;
   fullWidth: boolean;
   color: 'primary' | 'secondary' | 'error' | 'success';
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -47,6 +47,7 @@ const Input: FunctionComponent<ITextfield> = ({
         fullWidth={fullWidth}
         color={color}
         onChange={handleChange}
+        data-testid="select"
         {...rest}
       >
         {children}
