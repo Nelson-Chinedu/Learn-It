@@ -38,4 +38,21 @@ describe('Button', () => {
     fireEvent.click(screen.getByTestId(/button/i));
     expect(mockedFn).toHaveBeenCalledTimes(1);
   });
+
+  it('should disable button when set to true', () => {
+    render(
+      <Button
+        color="primary"
+        size="small"
+        fullWidth={false}
+        disableElevation={false}
+        handleClick={mockedFn}
+        disabled={true}
+      >
+        Click me
+      </Button>
+    );
+    const btnElement = screen.getByTestId(/button/i);
+    expect(btnElement).toBeDisabled();
+  });
 });

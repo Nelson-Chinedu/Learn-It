@@ -24,7 +24,7 @@ describe('Input', () => {
     expect(inputElement).toBeInTheDocument();
   });
 
-  it('should be empty', () => {
+  it('should render empty input value', () => {
     render(
       <Input
         variant="outlined"
@@ -131,5 +131,21 @@ describe('Input', () => {
     );
     const inputElement = screen.getByTestId(/select/i);
     expect(inputElement).toBeInTheDocument();
+  });
+
+  it('should accept input props', () => {
+    render(
+      <Input
+        variant="outlined"
+        size="small"
+        placeholder="fullname"
+        fullWidth={false}
+        color={'primary'}
+        handleChange={mockedFn}
+        InputProps={{}}
+      />
+    );
+    const inputElement = screen.getByPlaceholderText(/fullname/i);
+    expect(inputElement).toMatchObject({});
   });
 });
