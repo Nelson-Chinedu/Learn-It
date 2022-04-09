@@ -53,6 +53,7 @@ const Home: FunctionComponent<Record<string, never>> = () => {
                         type="search"
                         color="primary"
                         placeholder="Search course..."
+                        onBlur={handleSearch}
                         InputProps={{
                           disableUnderline: true,
                           startAdornment: (
@@ -78,6 +79,7 @@ const Home: FunctionComponent<Record<string, never>> = () => {
                         InputProps={{ disableUnderline: true }}
                         fullWidth={true}
                         handleChange={handleSelect}
+                        onBlur={handleSearch}
                       >
                         <MenuItem value="Design">Design</MenuItem>
                       </Input>

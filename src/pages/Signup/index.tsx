@@ -1,8 +1,10 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, ReactText } from 'react';
+import { useFormik } from 'formik';
+import { Link, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import CircularProgress from '@mui/material/CircularProgress';
 import Grid from '@mui/material/Grid';
-import { Link } from 'react-router-dom';
 
 import { Input, Button } from 'src/components';
 
@@ -10,10 +12,78 @@ import { useStyles } from 'src/pages/Signup/styled.signup';
 
 import GetStarted from 'src/assets/images/getStartedImage.webp';
 
+import { useCreateNewUserMutation } from 'src/features/auth/authSlice';
+
+import {
+  successNotification,
+  errorNotification,
+} from 'src/helpers/notification';
+
+import { ISignup } from 'src/interface/auth';
+
+import { validationSchema } from 'src/validations/signup';
+
 const Signup: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const handleChange = () => {};
+  const navigate = useNavigate();
+  const [createNewUser] = useCreateNewUserMutation();
+
+  const _handleSignup = async (values: ISignup): Promise<ReactText> => {
+    const payload = {
+      firstname: values.firstname,
+      lastname: values.lastname,
+      email: values.email,
+      password: values.password,
+      role: 'mentee',
+    };
+    try {
+      const data = await createNewUser(payload).unwrap();
+      const {
+        status,
+        payload: { role },
+      } = data;
+      if (status === 201) {
+        resetForm();
+        successNotification(data.message);
+        if (role === 'mentee') {
+          navigate('/dashboard');
+        } else {
+          navigate('/app/dashboard');
+        }
+      }
+    } catch (error: any) {
+      if (error && error.status === 409)
+        return errorNotification(error.data.message);
+
+      if (error && error.status === 400)
+        return errorNotification(error.data.message);
+
+      return errorNotification('An error occurred, Please try again');
+    }
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      firstname: '',
+      lastname: '',
+      email: '',
+      password: '',
+    },
+    onSubmit: _handleSignup,
+    validationSchema,
+  });
+
+  const {
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    errors,
+    values,
+    touched,
+    isSubmitting,
+    resetForm,
+  } = formik;
+
   return (
     <Box className={classes.root}>
       <Grid container alignItems="center">
@@ -37,7 +107,11 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
                   fullWidth
                   color="primary"
                   name="firstname"
+                  value={values.firstname}
                   handleChange={handleChange}
+                  onBlur={handleBlur}
+                  helperText={touched.firstname && errors.firstname}
+                  error={touched.firstname && Boolean(errors.firstname)}
                 />
               </Grid>
               <Grid item sm={6}>
@@ -48,8 +122,12 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
                   variant="outlined"
                   fullWidth
                   color="primary"
-                  name="firstname"
+                  name="lastname"
+                  value={values.lastname}
                   handleChange={handleChange}
+                  onBlur={handleBlur}
+                  helperText={touched.lastname && errors.lastname}
+                  error={touched.lastname && Boolean(errors.lastname)}
                 />
               </Grid>
             </Grid>
@@ -62,8 +140,12 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
                   variant="outlined"
                   fullWidth
                   color="primary"
-                  name="firstname"
+                  name="email"
+                  value={values.email}
                   handleChange={handleChange}
+                  onBlur={handleBlur}
+                  helperText={touched.email && errors.email}
+                  error={touched.email && Boolean(errors.email)}
                 />
               </Grid>
             </Grid>
@@ -76,8 +158,12 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
                   variant="outlined"
                   fullWidth
                   color="primary"
-                  name="firstname"
+                  name="password"
+                  value={values.password}
                   handleChange={handleChange}
+                  onBlur={handleBlur}
+                  helperText={touched.password && errors.password}
+                  error={touched.password && Boolean(errors.password)}
                 />
               </Grid>
             </Grid>
@@ -89,8 +175,10 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
                   disableElevation
                   fullWidth
                   size="large"
+                  disabled={isSubmitting}
+                  handleClick={handleSubmit}
                 >
-                  Sign up
+                  {isSubmitting ? <CircularProgress size={28} /> : 'Sign up'}
                 </Button>
               </Grid>
               <Grid item className={classes.signin}>

@@ -1,4 +1,9 @@
-import React, { FunctionComponent, ReactNode, ChangeEvent } from 'react';
+import React, {
+  FunctionComponent,
+  ReactNode,
+  ChangeEvent,
+  FocusEvent,
+} from 'react';
 import TextField from '@mui/material/TextField';
 
 export interface ITextfield {
@@ -20,6 +25,7 @@ export interface ITextfield {
   helperText?: ReactNode;
   error?: boolean;
   multiline?: boolean;
+  onBlur: (e: FocusEvent<HTMLInputElement>) => void;
 }
 
 const Input: FunctionComponent<ITextfield> = ({

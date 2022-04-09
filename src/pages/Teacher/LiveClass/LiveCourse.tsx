@@ -45,6 +45,7 @@ const LiveCourse: FunctionComponent<Record<string, never>> = () => {
                 name="courseTitle"
                 color="primary"
                 handleChange={handleChange}
+                onBlur={handleChange}
               />
             </Grid>
             <Grid item md={6}>
@@ -56,6 +57,7 @@ const LiveCourse: FunctionComponent<Record<string, never>> = () => {
                 name="lecture"
                 color="primary"
                 handleChange={handleChange}
+                onBlur={handleChange}
               />
             </Grid>
           </Grid>
@@ -71,6 +73,7 @@ const LiveCourse: FunctionComponent<Record<string, never>> = () => {
                 name="description"
                 color="primary"
                 handleChange={handleChange}
+                onBlur={handleChange}
               />
             </Grid>
           </Grid>

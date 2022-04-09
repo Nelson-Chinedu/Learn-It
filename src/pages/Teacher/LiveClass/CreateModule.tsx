@@ -38,6 +38,7 @@ const CreateModule: FunctionComponent<Record<string, never>> = () => {
             size="small"
             name="className"
             handleChange={handleChange}
+            onBlur={handleChange}
           />
         </Box>
         <Box className="formContainer">
@@ -51,6 +52,7 @@ const CreateModule: FunctionComponent<Record<string, never>> = () => {
             size="small"
             name="module"
             handleChange={handleChange}
+            onBlur={handleChange}
           />
         </Box>
         <Grid container spacing={1}>

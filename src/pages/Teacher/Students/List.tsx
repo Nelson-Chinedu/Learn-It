@@ -29,6 +29,7 @@ const StudentList: FunctionComponent<Record<string, never>> = () => {
                   name="sort"
                   size="small"
                   handleChange={handleChange}
+                  onBlur={handleChange}
                   fullWidth
                 >
                   <MenuItem>All Student</MenuItem>
@@ -45,6 +46,7 @@ const StudentList: FunctionComponent<Record<string, never>> = () => {
               label="Search"
               fullWidth
               handleChange={handleChange}
+              onBlur={handleChange}
             />
           </Grid>
         </Grid>

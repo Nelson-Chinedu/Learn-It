@@ -1,6 +1,7 @@
 import { FunctionComponent, Suspense, lazy } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 import theme from 'src/Theme';
 
@@ -54,6 +55,7 @@ const App: FunctionComponent<Record<string, never>> = () => {
               <Route path="/app/profile" element={<TeacherProfile />} />
               <Route path="/app/settings" element={<TeacherSetting />} />
             </Routes>
+            <ToastContainer />
           </Suspense>
         </ModalContextProvider>
       </ErrorBoundary>

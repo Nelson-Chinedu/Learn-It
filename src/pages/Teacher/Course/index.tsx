@@ -38,6 +38,7 @@ const TeacherCourse: FunctionComponent<Record<string, never>> = () => {
               name="category"
               fullWidth
               handleChange={handleChangeCategory}
+              onBlur={handleChangeCategory}
               size="small"
               color="primary"
             >
