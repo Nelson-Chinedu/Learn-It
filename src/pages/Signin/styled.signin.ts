@@ -16,6 +16,11 @@ export const useStyles = makeStyles({
     '& .MuiButton-contained': {
       textTransform: 'capitalize',
     },
+    '& .MuiCircularProgress-svg': {
+      '& > *': {
+        color: 'white',
+      },
+    },
   },
   imageWrapper: {
     '& img': {
