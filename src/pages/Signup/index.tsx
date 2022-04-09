@@ -1,10 +1,14 @@
-import { FunctionComponent, ReactText } from 'react';
+import { FunctionComponent, ReactText, useState } from 'react';
 import { useFormik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import Grid from '@mui/material/Grid';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import IconButton from '@mui/material/IconButton';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import { Input, Button } from 'src/components';
 
@@ -26,7 +30,12 @@ import { validationSchema } from 'src/validations/signup';
 const Signup: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
   const [createNewUser] = useCreateNewUserMutation();
+
+  const _handleTogglePassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const _handleSignup = async (values: ISignup): Promise<ReactText> => {
     const payload = {
@@ -96,7 +105,7 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
               <Typography variant="h2">Sign up</Typography>
             </Grid>
           </Grid>
-          <form>
+          <form onSubmit={handleSubmit}>
             <Grid container spacing={2}>
               <Grid item sm={6}>
                 <Input
@@ -153,7 +162,7 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
               <Grid item sm={12}>
                 <Input
                   label="Password*"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   size="small"
                   variant="outlined"
                   fullWidth
@@ -164,6 +173,15 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
                   onBlur={handleBlur}
                   helperText={touched.password && errors.password}
                   error={touched.password && Boolean(errors.password)}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={_handleTogglePassword}>
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
               </Grid>
             </Grid>
