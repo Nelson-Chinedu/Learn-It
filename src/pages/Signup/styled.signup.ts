@@ -3,18 +3,23 @@ import { makeStyles } from '@mui/styles';
 export const useStyles = makeStyles({
   root: {
     '& .MuiOutlinedInput-input': {
-      fontWeight: 100,
+      fontWeight: 400,
       fontStyle: 'normal',
       '& label': {
         fontSize: '15px',
       },
     },
     '& .MuiFormLabel-root': {
-      fontWeight: 100,
+      fontWeight: 400,
       fontStyle: 'normal',
     },
     '& .MuiButton-contained': {
       textTransform: 'capitalize',
+    },
+    '& .MuiCircularProgress-svg': {
+      '& > *': {
+        color: 'white',
+      },
     },
   },
   imageWrapper: {

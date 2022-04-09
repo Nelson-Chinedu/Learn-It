@@ -30,6 +30,7 @@ const Form: FunctionComponent<Record<string, never>> = () => {
                 color="primary"
                 size="small"
                 handleChange={handleChange}
+                onBlur={handleChange}
               />
             </Grid>
             <Grid item md={6}>
@@ -41,6 +42,7 @@ const Form: FunctionComponent<Record<string, never>> = () => {
                 color="primary"
                 size="small"
                 handleChange={handleChange}
+                onBlur={handleChange}
               />
             </Grid>
           </Grid>
@@ -59,6 +61,7 @@ const Form: FunctionComponent<Record<string, never>> = () => {
                 color="primary"
                 size="small"
                 handleChange={handleChange}
+                onBlur={handleChange}
               />
             </Grid>
             <Grid item md={6}>
@@ -70,6 +73,7 @@ const Form: FunctionComponent<Record<string, never>> = () => {
                 color="primary"
                 size="small"
                 handleChange={handleChange}
+                onBlur={handleChange}
               />
             </Grid>
           </Grid>
@@ -88,6 +92,7 @@ const Form: FunctionComponent<Record<string, never>> = () => {
                 color="primary"
                 size="small"
                 handleChange={handleChange}
+                onBlur={handleChange}
               />
             </Grid>
             <Grid item md={6}>
@@ -99,6 +104,7 @@ const Form: FunctionComponent<Record<string, never>> = () => {
                 color="primary"
                 size="small"
                 handleChange={handleChange}
+                onBlur={handleChange}
               />
             </Grid>
           </Grid>
@@ -117,6 +123,7 @@ const Form: FunctionComponent<Record<string, never>> = () => {
                 color="primary"
                 size="small"
                 handleChange={handleChange}
+                onBlur={handleChange}
               />
             </Grid>
             <Grid item md={6}>
@@ -129,6 +136,7 @@ const Form: FunctionComponent<Record<string, never>> = () => {
                 color="primary"
                 size="small"
                 handleChange={handleChange}
+                onBlur={handleChange}
               >
                 <MenuItem value="Nigeria">Nigeria</MenuItem>
               </Input>
@@ -149,6 +157,7 @@ const Form: FunctionComponent<Record<string, never>> = () => {
                 type="text"
                 name="address"
                 handleChange={handleChange}
+                onBlur={handleChange}
                 fullWidth
               />
             </Grid>

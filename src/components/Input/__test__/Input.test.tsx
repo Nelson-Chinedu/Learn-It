@@ -18,6 +18,7 @@ describe('Input', () => {
         fullWidth={false}
         color="primary"
         handleChange={mockedFn}
+        onBlur={mockedFn}
       />
     );
     const inputElement = screen.getByPlaceholderText(/Enter fullname/i);
@@ -34,6 +35,7 @@ describe('Input', () => {
         fullWidth={false}
         color={'primary'}
         handleChange={mockedFn}
+        onBlur={mockedFn}
       />
     );
     const inputElement = screen.getByDisplayValue('');
@@ -50,6 +52,7 @@ describe('Input', () => {
         placeholder="fullname"
         color={'primary'}
         handleChange={mockedFn}
+        onBlur={mockedFn}
       />
     );
     const inputElement: HTMLInputElement =
@@ -72,6 +75,7 @@ describe('Input', () => {
         placeholder="fullname"
         color={'primary'}
         handleChange={mockedFn}
+        onBlur={mockedFn}
       />
     );
     const inputElement: HTMLInputElement =
@@ -92,6 +96,7 @@ describe('Input', () => {
         placeholder="fullname"
         color={'primary'}
         handleChange={mockedFn}
+        onBlur={mockedFn}
       />
     );
     const inputElement = screen.getByPlaceholderText(/fullname/i);
@@ -109,6 +114,7 @@ describe('Input', () => {
         placeholder="fullname"
         color={'primary'}
         handleChange={mockedFn}
+        onBlur={mockedFn}
       />
     );
     const inputElement: HTMLInputElement =
@@ -125,6 +131,7 @@ describe('Input', () => {
         fullWidth={false}
         color={'primary'}
         handleChange={mockedFn}
+        onBlur={mockedFn}
       >
         <option>select</option>
       </Input>
@@ -143,6 +150,7 @@ describe('Input', () => {
         color={'primary'}
         handleChange={mockedFn}
         InputProps={{}}
+        onBlur={mockedFn}
       />
     );
     const inputElement = screen.getByPlaceholderText(/fullname/i);

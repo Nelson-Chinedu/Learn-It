@@ -27,6 +27,7 @@ const StudentsEnrolled: FunctionComponent<Record<string, never>> = () => {
               name="year"
               size="small"
               handleChange={handleChange}
+              onBlur={handleChange}
               fullWidth
             >
               <MenuItem>2022</MenuItem>

@@ -63,6 +63,8 @@ const CourseModal: FunctionComponent<Record<string, never>> = () => {
               size="small"
               color="primary"
               handleChange={handleChange}
+            onBlur={handleChange}
+
             />
           </Grid>
           <Grid item sm={6}>
@@ -74,6 +76,8 @@ const CourseModal: FunctionComponent<Record<string, never>> = () => {
               size="small"
               color="primary"
               handleChange={handleChange}
+            onBlur={handleChange}
+
             />
           </Grid>
         </Grid>

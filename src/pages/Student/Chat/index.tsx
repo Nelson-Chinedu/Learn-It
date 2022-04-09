@@ -50,6 +50,7 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
                     placeholder="Search"
                     fullWidth
                     handleChange={handleChange}
+                    onBlur={handleChange}
                   />
                 </Box>
                 <Box style={{ margin: '1em 0px 2em' }}>

@@ -38,6 +38,7 @@ const Signin: FunctionComponent<Record<string, never>> = () => {
                   color="primary"
                   name="firstname"
                   handleChange={handleChange}
+                  onBlur={handleChange}
                 />
               </Grid>
             </Grid>
@@ -52,6 +53,7 @@ const Signin: FunctionComponent<Record<string, never>> = () => {
                   color="primary"
                   name="firstname"
                   handleChange={handleChange}
+                  onBlur={handleChange}
                 />
               </Grid>
             </Grid>

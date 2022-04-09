@@ -28,6 +28,7 @@ const Details: FunctionComponent<Record<string, never>> = () => {
             type="text"
             name="firstname"
             handleChange={handleChange}
+            onBlur={handleChange}
             fullWidth
           />
         </Grid>
@@ -40,6 +41,7 @@ const Details: FunctionComponent<Record<string, never>> = () => {
             type="text"
             name="lastname"
             handleChange={handleChange}
+            onBlur={handleChange}
             fullWidth
           />
         </Grid>
@@ -59,6 +61,7 @@ const Details: FunctionComponent<Record<string, never>> = () => {
             type="text"
             name="emailAddress"
             handleChange={handleChange}
+            onBlur={handleChange}
             fullWidth
           />
         </Grid>
@@ -71,6 +74,7 @@ const Details: FunctionComponent<Record<string, never>> = () => {
             type="tel"
             name="phoneNumber"
             handleChange={handleChange}
+            onBlur={handleChange}
             fullWidth
           />
         </Grid>
@@ -90,6 +94,7 @@ const Details: FunctionComponent<Record<string, never>> = () => {
             type="text"
             name="city"
             handleChange={handleChange}
+            onBlur={handleChange}
             fullWidth
           />
         </Grid>
@@ -102,6 +107,7 @@ const Details: FunctionComponent<Record<string, never>> = () => {
             type="text"
             name="state"
             handleChange={handleChange}
+            onBlur={handleChange}
             fullWidth
           />
         </Grid>
@@ -121,6 +127,7 @@ const Details: FunctionComponent<Record<string, never>> = () => {
             type="text"
             name="zipCode"
             handleChange={handleChange}
+            onBlur={handleChange}
             fullWidth
           />
         </Grid>
@@ -133,6 +140,7 @@ const Details: FunctionComponent<Record<string, never>> = () => {
             type="text"
             name="country"
             handleChange={handleChange}
+            onBlur={handleChange}
             fullWidth
           />
         </Grid>
@@ -152,6 +160,7 @@ const Details: FunctionComponent<Record<string, never>> = () => {
             type="text"
             name="address"
             handleChange={handleChange}
+            onBlur={handleChange}
             fullWidth
           />
         </Grid>
