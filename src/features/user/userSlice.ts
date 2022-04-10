@@ -1,16 +1,18 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 interface IUser {
-  firstname: string;
-  lastname: string;
-  phone: string;
-  city: string;
-  state: string;
-  zipCode: string;
-  address: string;
-  country: string;
-  email: string;
-  role: string;
+  payload: {
+    firstname: string;
+    lastname: string;
+    phone: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    address: string;
+    country: string;
+    email: string;
+    role: string;
+  };
 }
 
 export const userSlice = createApi({
@@ -20,10 +22,17 @@ export const userSlice = createApi({
     credentials: 'include',
   }),
   endpoints: (builder) => ({
-    getUser: builder.query<IUser, void>({
+    getUserProfile: builder.query<IUser, void>({
       query: () => ({ url: '/user/me' }),
+    }),
+    updateUserProfile: builder.mutation({
+      query: (data) => ({
+        url: '/user/me',
+        method: 'PUT',
+        body: { ...data },
+      }),
     }),
   }),
 });
 
-export const { useGetUserQuery } = userSlice;
+export const { useGetUserProfileQuery, useUpdateUserProfileMutation } = userSlice;
