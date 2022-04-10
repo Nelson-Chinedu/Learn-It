@@ -42,6 +42,11 @@ export const useStyles = makeStyles({
         marginBottom: '1em',
       },
     },
+    '& .MuiCircularProgress-svg': {
+      '& > *': {
+        color: 'white',
+      },
+    },
   },
   detail: {
     margin: '2em 0px',
