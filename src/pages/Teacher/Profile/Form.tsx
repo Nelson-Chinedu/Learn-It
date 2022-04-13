@@ -8,10 +8,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import { Card, UploadAvatar, Input, Button } from 'src/components';
 
-import {
-  useGetUserProfileQuery,
-  useUpdateUserProfileMutation,
-} from 'src/features/user/userSlice';
+import { useUpdateUserProfileMutation } from 'src/features/user/userSlice';
 
 import { validationSchema } from 'src/validations/profile';
 import {
@@ -19,7 +16,9 @@ import {
   successNotification,
 } from 'src/helpers/notification';
 
-interface IValues {
+import useTeacherProfile from 'src/hooks/useTeacherProfile';
+
+type Values = {
   firstname: string;
   lastname: string;
   email: string;
@@ -29,13 +28,13 @@ interface IValues {
   zipCode: string;
   country: string;
   address: string;
-}
+};
 
 const Form: FunctionComponent<Record<string, never>> = () => {
-  const { data, isSuccess } = useGetUserProfileQuery();
+  const { data, isSuccess } = useTeacherProfile();
   const [updateUserProfile] = useUpdateUserProfileMutation();
 
-  const _handleUpdateProfile = async (values: IValues) => {
+  const _handleUpdateProfile = async (values: Values) => {
     const payload = {
       firstname: values.firstname,
       lastname: values.lastname,

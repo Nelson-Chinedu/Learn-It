@@ -4,12 +4,13 @@ import Grid from '@mui/material/Grid';
 
 import Info from 'src/pages/Teacher/Profile/Info';
 import Form from 'src/pages/Teacher/Profile/Form';
-
-import { Layout } from 'src/Layout/Teacher';
 import { useStyles } from 'src/pages/Teacher/Profile/styled.profile';
 
-const Profile: FunctionComponent<Record<string, never>> = () => {
+import { Layout } from 'src/Layout/Teacher';
+
+const Profile: FunctionComponent = () => {
   const classes = useStyles();
+
   return (
     <Layout>
       <Box component="section" className={classes.root}>
