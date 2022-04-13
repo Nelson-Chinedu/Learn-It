@@ -6,7 +6,10 @@ import Grid from '@mui/material/Grid';
 
 import AvatarUser from 'src/assets/images/Avatar.png';
 
+import useTeacherProfile from 'src/hooks/useTeacherProfile';
+
 const User: FunctionComponent<Record<string, never>> = () => {
+  const { data, isSuccess } = useTeacherProfile();
   return (
     <>
       <Avatar
@@ -15,7 +18,11 @@ const User: FunctionComponent<Record<string, never>> = () => {
         sx={{ width: 60, height: 60 }}
       />
       <Box className="username">
-        <Typography>William Joe</Typography>
+        <Typography>
+          {isSuccess &&
+            data &&
+            `${data.payload.firstname} ${data.payload.lastname}`}
+        </Typography>
         <Typography>vip</Typography>
       </Box>
       <Box>

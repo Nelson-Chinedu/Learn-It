@@ -6,6 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import theme from 'src/Theme';
 
 import ModalContextProvider from 'src/contexts/modal-ctx';
+import TeacherProfileContextProvider from 'src/contexts/teacher-profile-ctx';
 
 import ErrorBoundary from 'src/ErrorBoundary';
 
@@ -32,32 +33,34 @@ const App: FunctionComponent<Record<string, never>> = () => {
   return (
     <ThemeProvider theme={theme}>
       <ErrorBoundary>
-        <ModalContextProvider>
-          <Suspense fallback={<p>Loading</p>}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/signin" element={<Signin />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/course" element={<Course />} />
-              <Route path="/course/:title/:id" element={<CoursePreview />} />
-              <Route path="/resources" element={<Resources />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/chat" element={<Chat />} />
-              <Route path="/setting" element={<Setting />} />
-              <Route path="/task" element={<Task />} />
-              <Route path="/app/dashboard" element={<TeacherDashboard />} />
-              <Route path="app/course" element={<TeacherCourse />} />
-              <Route path="/app/student" element={<Student />} />
-              <Route path="/app/live-class" element={<LiveClass />} />
-              <Route path="/app/live-class/create" element={<LiveClass />} />
-              <Route path="/app/live-class/add" element={<LiveClass />} />
-              <Route path="/app/profile" element={<TeacherProfile />} />
-              <Route path="/app/settings" element={<TeacherSetting />} />
-            </Routes>
-            <ToastContainer />
-          </Suspense>
-        </ModalContextProvider>
+        <TeacherProfileContextProvider>
+          <ModalContextProvider>
+            <Suspense fallback={<p>Loading</p>}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/signin" element={<Signin />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/course" element={<Course />} />
+                <Route path="/course/:title/:id" element={<CoursePreview />} />
+                <Route path="/resources" element={<Resources />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/chat" element={<Chat />} />
+                <Route path="/setting" element={<Setting />} />
+                <Route path="/task" element={<Task />} />
+                <Route path="/app/dashboard" element={<TeacherDashboard />} />
+                <Route path="app/course" element={<TeacherCourse />} />
+                <Route path="/app/student" element={<Student />} />
+                <Route path="/app/live-class" element={<LiveClass />} />
+                <Route path="/app/live-class/create" element={<LiveClass />} />
+                <Route path="/app/live-class/add" element={<LiveClass />} />
+                <Route path="/app/profile" element={<TeacherProfile />} />
+                <Route path="/app/settings" element={<TeacherSetting />} />
+              </Routes>
+              <ToastContainer />
+            </Suspense>
+          </ModalContextProvider>
+        </TeacherProfileContextProvider>
       </ErrorBoundary>
     </ThemeProvider>
   );

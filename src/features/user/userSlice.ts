@@ -12,6 +12,7 @@ interface IUser {
     country: string;
     email: string;
     role: string;
+    mentorBio?: string;
   };
 }
 
@@ -32,7 +33,18 @@ export const userSlice = createApi({
         body: { ...data },
       }),
     }),
+    updateBio: builder.mutation({
+      query: (data) => ({
+        url: '/user/me/bio',
+        method: 'PUT',
+        body: { ...data },
+      }),
+    }),
   }),
 });
 
-export const { useGetUserProfileQuery, useUpdateUserProfileMutation } = userSlice;
+export const {
+  useGetUserProfileQuery,
+  useUpdateUserProfileMutation,
+  useUpdateBioMutation,
+} = userSlice;
