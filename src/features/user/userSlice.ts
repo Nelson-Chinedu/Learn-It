@@ -40,6 +40,13 @@ export const userSlice = createApi({
         body: { ...data },
       }),
     }),
+    addCourse: builder.mutation({
+      query: (data) => ({
+        url: '/add/course',
+        method: 'POST',
+        body: { ...data },
+      }),
+    }),
   }),
 });
 
@@ -47,4 +54,5 @@ export const {
   useGetUserProfileQuery,
   useUpdateUserProfileMutation,
   useUpdateBioMutation,
+  useAddCourseMutation,
 } = userSlice;
