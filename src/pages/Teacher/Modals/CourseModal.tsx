@@ -1,52 +1,148 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useState, useRef } from 'react';
+import axios from 'axios';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import IconButton from '@mui/material/IconButton';
-import Close from '@mui/icons-material/Cancel';
-import { makeStyles } from '@mui/styles';
+import CircularProgress from '@mui/material/CircularProgress';
 
-import { Modal, Input, Button, ProgressBar } from 'src/components';
+import { useStyles } from 'src/pages/Teacher/Modals/styled.modals';
+import { Upload } from 'src/pages/Teacher/Modals/Upload';
 
-import VideoIcon from 'src/assets/images/videoIcon.png';
+import { Modal, Input, Button } from 'src/components';
 
-const useStyles = makeStyles({
-  fileUpload: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    border: `1px dashed grey !important`,
-    borderRadius: '5px',
-    padding: '2em',
-    textAlign: 'center',
-    height: '150px',
-    cursor: 'pointer',
-    marginBottom: '2em',
-    '& input': {
-      display: 'none',
-    },
-  },
-  uploadedFile: {
-    '& .MuiGrid-item:nth-child(1)': {
-      textAlign: 'center',
-    },
-    '& .MuiGrid-item:nth-child(3)': {
-      textAlign: 'center',
-    },
-  },
+import {
+  errorNotification,
+  successNotification,
+} from 'src/helpers/notification';
+
+import { useAddCourseMutation } from 'src/features/user/userSlice';
+
+import useModal from 'src/hooks/useModal';
+
+const validationSchema = Yup.object().shape({
+  courseName: Yup.string().required('Required'),
+  price: Yup.string().required('Required'),
 });
 
 const CourseModal: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();
+  const [state, setState] = useModal();
+  const [addCourse] = useAddCourseMutation();
+  const ref = useRef(null);
+  const [uploadingFile, setUploadingFile] = useState<{
+    name: string;
+    status: number;
+  }>({ name: '', status: 0 });
+  const [uploadedFiles, setUploadedFiles] = useState<Array<{ name: string }>>(
+    []
+  );
+  const [isUploading, setIsUploading] = useState<boolean>(false);
+  const [videoUrl, setVideoUrl] = useState<Array<string>>([]);
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const handleChange = () => {};
+  const _handleAddCourse = async (values: {
+    courseName: string;
+    price: string;
+  }) => {
+    const payload = {
+      video_url: videoUrl,
+      course_name: values.courseName,
+      price: values.price,
+    };
+    try {
+      const data = await addCourse(payload).unwrap();
+      if (data.status === 201) {
+        successNotification(data.message);
+        values.courseName = '';
+        values.price = '';
+        ref.current.value = '';
+        setState({ ...state, modalName: '' });
+        setUploadedFiles([]);
+        setVideoUrl([]);
+        setIsUploading(false);
+        setUploadingFile({ name: '', status: 0 });
+      }
+    } catch (error: any) {
+      if (error && error.status === 400) {
+        return errorNotification(error.data.message);
+      }
+      errorNotification('An error occurred please try again');
+    }
+  };
+
+  const handleUpload = async (e: {
+    preventDefault: () => void;
+    target: HTMLInputElement;
+  }) => {
+    e.preventDefault();
+    const filename = e.target.files[0].name;
+
+    const form = new FormData();
+    form.append('video', e.target.files[0]);
+
+    try {
+      setIsUploading(true);
+      const res = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/upload/video`,
+        form,
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+          onUploadProgress: (progressEvent) => {
+            const percentCompleted = Math.round(
+              (progressEvent.loaded * 100) / progressEvent.total
+            );
+            setUploadingFile({ name: filename, status: percentCompleted });
+          },
+        }
+      );
+
+      if (res) {
+        const {
+          status,
+
+          payload: { url },
+        } = res.data;
+        if (status === 201) {
+          ref.current.value = '';
+          setVideoUrl((prev) => [...prev, url]);
+          setUploadedFiles((prev) => [...prev, { name: filename }]);
+          setUploadingFile(null);
+          setIsUploading(false);
+        }
+      }
+    } catch (error) {
+      setIsUploading(false);
+      errorNotification('An error occurred while uploading video');
+    }
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      courseName: '',
+      price: '',
+    },
+    validationSchema,
+    onSubmit: _handleAddCourse,
+  });
+
+  const {
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    errors,
+    values,
+    touched,
+    isSubmitting,
+  } = formik;
 
   return (
     <Modal modalName="AddCourse">
-      <form>
+      <form onSubmit={handleSubmit}>
         <Grid
           container
           spacing={2}
@@ -62,9 +158,11 @@ const CourseModal: FunctionComponent<Record<string, never>> = () => {
               variant="outlined"
               size="small"
               color="primary"
+              value={values.courseName}
               handleChange={handleChange}
-            onBlur={handleChange}
-
+              onBlur={handleBlur}
+              helperText={touched.courseName && errors.courseName}
+              error={touched.courseName && Boolean(errors.courseName)}
             />
           </Grid>
           <Grid item sm={6}>
@@ -75,9 +173,11 @@ const CourseModal: FunctionComponent<Record<string, never>> = () => {
               variant="outlined"
               size="small"
               color="primary"
+              value={values.price}
               handleChange={handleChange}
-            onBlur={handleChange}
-
+              onBlur={handleBlur}
+              helperText={touched.price && errors.price}
+              error={touched.price && Boolean(errors.price)}
             />
           </Grid>
         </Grid>
@@ -88,30 +188,20 @@ const CourseModal: FunctionComponent<Record<string, never>> = () => {
           <input
             type="file"
             accept="video/mp4,video/x-m4v,video/*"
-            onChange={handleChange}
+            onChange={handleUpload}
+            ref={ref}
           />
         </label>
         <Box sx={{ mb: 4 }}>
-          <Typography variant="subtitle2">Uploaded file</Typography>
-          <Grid
-            container
-            justifyContent="space-between"
-            alignItems="center"
-            className={classes.uploadedFile}
-          >
-            <Grid item md={1}>
-              <img src={VideoIcon} alt="video icon" width={40} height={40} />
-            </Grid>
-            <Grid item md={10}>
-              <Typography>Intro to JavaScript</Typography>
-              <ProgressBar />
-            </Grid>
-            <Grid item md={1}>
-              <IconButton>
-                <Close />
-              </IconButton>
-            </Grid>
-          </Grid>
+          {isUploading && uploadingFile !== null && (
+            <Upload
+              assetName={uploadingFile?.name}
+              status={uploadingFile?.status}
+            />
+          )}
+          {uploadedFiles.map((file: { name: string }, index: number) => (
+            <Upload assetName={file.name} key={index} />
+          ))}
         </Box>
         <Button
           variant="contained"
@@ -119,8 +209,14 @@ const CourseModal: FunctionComponent<Record<string, never>> = () => {
           color="primary"
           fullWidth={true}
           size="large"
+          handleClick={handleSubmit}
+          disabled={isSubmitting}
         >
-          Add Course
+          {isSubmitting ? (
+            <CircularProgress size={28} style={{ color: 'white' }} />
+          ) : (
+            'Add Course'
+          )}
         </Button>
       </form>
     </Modal>

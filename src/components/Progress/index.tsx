@@ -5,6 +5,10 @@ import LinearProgress, {
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
+type Props = {
+  uploadStatus?: number;
+};
+
 function LinearProgressWithLabel(
   props: LinearProgressProps & { value: number }
 ) {
@@ -22,10 +26,10 @@ function LinearProgressWithLabel(
   );
 }
 
-const ProgressBar: FunctionComponent<Record<string, never>> = () => {
+const ProgressBar: FunctionComponent<Props> = ({ uploadStatus = 0 }) => {
   return (
     <Box sx={{ width: '100%' }}>
-      <LinearProgressWithLabel value={30} />
+      <LinearProgressWithLabel value={uploadStatus} />
     </Box>
   );
 };
