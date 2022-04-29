@@ -25,6 +25,7 @@ export interface ITextfield {
   helperText?: ReactNode;
   error?: boolean;
   multiline?: boolean;
+  disabled?: boolean;
   onBlur: (e: FocusEvent<HTMLInputElement>) => void;
 }
 
