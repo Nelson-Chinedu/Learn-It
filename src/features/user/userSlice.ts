@@ -16,6 +16,18 @@ interface IUser {
   };
 }
 
+export interface ICourse {
+  name: string;
+  price: string;
+  count: string;
+  video: string[];
+}
+
+interface ICourses {
+  // payload: ICourse[];
+  payload: ICourse[];
+}
+
 export const userSlice = createApi({
   reducerPath: 'user',
   baseQuery: fetchBaseQuery({
@@ -47,6 +59,9 @@ export const userSlice = createApi({
         body: { ...data },
       }),
     }),
+    getCourses: builder.query<ICourses, void>({
+      query: () => ({ url: '/course/all' }),
+    }),
   }),
 });
 
@@ -55,4 +70,5 @@ export const {
   useUpdateUserProfileMutation,
   useUpdateBioMutation,
   useAddCourseMutation,
+  useGetCoursesQuery,
 } = userSlice;

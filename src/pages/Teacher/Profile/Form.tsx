@@ -21,7 +21,6 @@ import useTeacherProfile from 'src/hooks/useTeacherProfile';
 type Values = {
   firstname: string;
   lastname: string;
-  // email: string;
   phone: string;
   city: string;
   state: string;
@@ -38,7 +37,6 @@ const Form: FunctionComponent<Record<string, never>> = () => {
     const payload = {
       firstname: values.firstname,
       lastname: values.lastname,
-      // email: values.email,
       phone: values.phone,
       city: values.city,
       state: values.state,
