@@ -41,7 +41,7 @@ const Details: FunctionComponent<Record<string, never>> = () => {
     const payload = {
       firstname: values.firstname,
       lastname: values.lastname,
-      email: values.email,
+      // email: values.email,
       phone: values.phone,
       city: values.city,
       state: values.state,
@@ -150,6 +150,10 @@ const Details: FunctionComponent<Record<string, never>> = () => {
             handleChange={handleChange}
             onBlur={handleBlur}
             fullWidth
+            disabled={true}
+            InputProps={{
+              readOnly: true,
+            }}
             helperText={touched.email && errors.email}
             error={touched.email && Boolean(errors.email)}
           />

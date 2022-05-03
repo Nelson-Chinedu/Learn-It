@@ -12,12 +12,13 @@ import {
   successNotification,
 } from 'src/helpers/notification';
 
-import { useUpdateBioMutation } from 'src/features/user/userSlice';
-
-import useTeacherProfile from 'src/hooks/useTeacherProfile';
+import {
+  useGetUserBioQuery,
+  useUpdateBioMutation,
+} from 'src/features/user/userSlice';
 
 const Bio: FunctionComponent<Record<string, never>> = () => {
-  const { data, isSuccess } = useTeacherProfile();
+  const { data, isSuccess } = useGetUserBioQuery();
   const [isEditable, setIsEditable] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -63,7 +64,7 @@ const Bio: FunctionComponent<Record<string, never>> = () => {
           padding: isEditable && '10px',
         }}
       >
-        {isSuccess && data && data?.payload?.mentorBio}
+        {isSuccess && data && data?.payload?.bio?.mentorBio}
       </div>
 
       {isEditable && (

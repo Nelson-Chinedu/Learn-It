@@ -24,8 +24,15 @@ export interface ICourse {
 }
 
 interface ICourses {
-  // payload: ICourse[];
   payload: ICourse[];
+}
+
+interface IBio {
+  payload: {
+    bio: {
+      mentorBio: string;
+    };
+  };
 }
 
 export const userSlice = createApi({
@@ -34,9 +41,11 @@ export const userSlice = createApi({
     baseUrl: process.env.REACT_APP_BASE_URL,
     credentials: 'include',
   }),
+  tagTypes: ['Bio', 'Profile'],
   endpoints: (builder) => ({
     getUserProfile: builder.query<IUser, void>({
       query: () => ({ url: '/user/me' }),
+      providesTags: ['Profile'],
     }),
     updateUserProfile: builder.mutation({
       query: (data) => ({
@@ -44,6 +53,7 @@ export const userSlice = createApi({
         method: 'PUT',
         body: { ...data },
       }),
+      invalidatesTags: ['Profile'],
     }),
     updateBio: builder.mutation({
       query: (data) => ({
@@ -51,6 +61,11 @@ export const userSlice = createApi({
         method: 'PUT',
         body: { ...data },
       }),
+      invalidatesTags: ['Bio'],
+    }),
+    getUserBio: builder.query<IBio, void>({
+      query: () => ({ url: '/user/me/bio' }),
+      providesTags: ['Bio'],
     }),
     addCourse: builder.mutation({
       query: (data) => ({
@@ -69,6 +84,7 @@ export const {
   useGetUserProfileQuery,
   useUpdateUserProfileMutation,
   useUpdateBioMutation,
+  useGetUserBioQuery,
   useAddCourseMutation,
   useGetCoursesQuery,
 } = userSlice;
