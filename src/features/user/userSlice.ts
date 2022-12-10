@@ -35,13 +35,21 @@ interface IBio {
   };
 }
 
+interface ICategoryPayload {
+  id: string;
+  name: string;
+}
+interface ICategory {
+  payload: ICategoryPayload[];
+}
+
 export const userSlice = createApi({
   reducerPath: 'user',
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_BASE_URL,
     credentials: 'include',
   }),
-  tagTypes: ['Bio', 'Profile'],
+  tagTypes: ['Bio', 'Profile', 'Category'],
   endpoints: (builder) => ({
     getUserProfile: builder.query<IUser, void>({
       query: () => ({ url: '/user/me' }),
@@ -77,6 +85,25 @@ export const userSlice = createApi({
     getCourses: builder.query<ICourses, void>({
       query: () => ({ url: '/course/all' }),
     }),
+    getCategory: builder.query<ICategory, void>({
+      query: () => ({ url: '/category/all' }),
+      providesTags: ['Category'],
+    }),
+    addCategory: builder.mutation({
+      query: (data) => ({
+        url: '/category',
+        method: 'POST',
+        body: { ...data },
+      }),
+      invalidatesTags: ['Category'],
+    }),
+    addResource: builder.mutation({
+      query: (data) => ({
+        url: '/resource',
+        method: 'POST',
+        body: { ...data },
+      }),
+    }),
   }),
 });
 
@@ -87,4 +114,7 @@ export const {
   useGetUserBioQuery,
   useAddCourseMutation,
   useGetCoursesQuery,
+  useGetCategoryQuery,
+  useAddCategoryMutation,
+  useAddResourceMutation,
 } = userSlice;

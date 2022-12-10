@@ -37,7 +37,7 @@ const Modal: FunctionComponent<Props> = ({ children, modalName }) => {
             </IconButton>
           </Grid>
         </Grid>
-        <Box sx={{ p: 4 }}>{children}</Box>
+        <Box sx={{ pb: 4, px: 4 }}>{children}</Box>
       </Box>
     </CModal>
   );
