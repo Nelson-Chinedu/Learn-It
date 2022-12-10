@@ -11,6 +11,7 @@ export interface IProps extends HTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
   disableElevation: boolean;
   href?: string;
+  sx?: object;
 }
 
 const Button: FunctionComponent<IProps> = ({
@@ -23,6 +24,7 @@ const Button: FunctionComponent<IProps> = ({
   disabled,
   href,
   handleClick,
+  ...rest
 }) => {
   return (
     <MButton
@@ -35,6 +37,7 @@ const Button: FunctionComponent<IProps> = ({
       disabled={disabled}
       disableElevation={disableElevation}
       data-testid="button"
+      {...rest}
     >
       {children}
     </MButton>
