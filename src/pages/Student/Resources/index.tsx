@@ -1,30 +1,55 @@
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import AddIcon from '@mui/icons-material/Add';
+import Stack from '@mui/material/Stack';
+import IconEdit from '@mui/icons-material/EditOutlined';
+import IconDelete from '@mui/icons-material/DeleteOutline';
 
 import { Layout } from 'src/Layout/student';
 
-import { Card, Button, TabNav } from 'src/components';
-import { useGetCategoryQuery } from 'src/features/user/userSlice';
+import { Card, Button } from 'src/components';
+import {
+  useGetCategoryQuery,
+  useGetResourceQuery,
+} from 'src/features/user/userSlice';
 
 import ResourceModal from 'src/pages/Student/Modals/ResourceModal';
 import CategoryModal from 'src/pages/Student/Modals/CategoryModal';
 
 import useModal from 'src/hooks/useModal';
-import { TabPanel } from 'src/components/Tab';
 
 const Resources: FunctionComponent<Record<string, never>> = () => {
+  const [selectedTab, setSelectedTab] = useState<number | string>('');
   const { data, isLoading } = useGetCategoryQuery();
+  const { data: resourceData, isLoading: resourceIsLoading } =
+    useGetResourceQuery(selectedTab);
   const [state, setState] = useModal();
-  const [value, setValue] = useState(1);
+
+  const handleAddCategory = () => {
+    setState({ ...state, modalName: 'AddCategory' });
+  };
+
+  useEffect(() => {
+    const getIndexCategory = () => {
+      const category = data?.payload
+        ?.slice(0, 1)
+        ?.map((data) => data.id)
+        ?.toString();
+      setSelectedTab(category);
+    };
+    getIndexCategory();
+  }, [data]);
 
   const handleAddResource = () => {
     setState({ ...state, modalName: 'AddResource' });
   };
 
-  const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+  const handleCategory = (id: string | number) => {
+    setSelectedTab(id);
   };
 
   return (
@@ -58,15 +83,80 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
               <Typography>Fetching data</Typography>
             ) : (
               <>
-                <TabNav
-                  nav={data.payload.map((name: { name: string }) => name.name)}
-                  value={value}
-                  handleChange={handleChange}
-                >
-                  <TabPanel index={value} value={value}>
-                    <p>test {value}</p>
-                  </TabPanel>
-                </TabNav>
+                {data.payload.map(
+                  (data: { name: string; id: string | number }) => (
+                    <>
+                      <Button
+                        disableElevation
+                        fullWidth={false}
+                        variant="text"
+                        color="primary"
+                        size="small"
+                        handleClick={() => handleCategory(data.id)}
+                        sx={{
+                          textTransform: 'capitalize',
+                          color: data.id !== selectedTab && 'grey !important',
+                        }}
+                      >
+                        {data.name}
+                      </Button>
+                    </>
+                  )
+                )}
+                <IconButton size="small" onClick={handleAddCategory}>
+                  <AddIcon fontSize="small" />
+                </IconButton>
+                <Divider />
+
+                {resourceIsLoading ? (
+                  <Typography>fetching...</Typography>
+                ) : (
+                  <Box sx={{ mt: 3 }}>
+                    {resourceData.payload.length === 0 ? (
+                      <Box>
+                        <Typography>No resource added yet</Typography>
+                      </Box>
+                    ) : (
+                      resourceData.payload.map(
+                        (
+                          data: { name: string; url: string; id: string } | null
+                        ) => (
+                          <Stack
+                            key={data.id}
+                            sx={{
+                              my: 1,
+                              padding: '1em',
+                              borderRadius: '4px',
+                              cursor: 'pointer',
+                              '&:hover': {
+                                background: '#f8f8f8',
+                              },
+                              '& a': {
+                                textDecoration: 'none',
+                                color: 'inherit',
+                              },
+                            }}
+                            direction="row"
+                            alignItems="center"
+                            justifyContent="space-between"
+                          >
+                            <a href={data.url} target="_blank">
+                              <Typography>{data.name}</Typography>
+                            </a>
+                            <Box>
+                              <IconButton>
+                                <IconEdit fontSize="small" />
+                              </IconButton>
+                              <IconButton>
+                                <IconDelete fontSize="small" />
+                              </IconButton>
+                            </Box>
+                          </Stack>
+                        )
+                      )
+                    )}
+                  </Box>
+                )}
               </>
             )}
           </Box>

@@ -49,7 +49,7 @@ export const userSlice = createApi({
     baseUrl: process.env.REACT_APP_BASE_URL,
     credentials: 'include',
   }),
-  tagTypes: ['Bio', 'Profile', 'Category'],
+  tagTypes: ['Bio', 'Profile', 'Category', 'Resource'],
   endpoints: (builder) => ({
     getUserProfile: builder.query<IUser, void>({
       query: () => ({ url: '/user/me' }),
@@ -103,6 +103,13 @@ export const userSlice = createApi({
         method: 'POST',
         body: { ...data },
       }),
+      invalidatesTags: ['Resource'],
+    }),
+    getResource: builder.query({
+      query: (id) => ({
+        url: `/resource/all?category=${id}`,
+      }),
+      providesTags: ['Resource'],
     }),
   }),
 });
@@ -117,4 +124,5 @@ export const {
   useGetCategoryQuery,
   useAddCategoryMutation,
   useAddResourceMutation,
+  useGetResourceQuery,
 } = userSlice;
