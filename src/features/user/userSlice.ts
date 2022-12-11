@@ -43,6 +43,14 @@ interface ICategory {
   payload: ICategoryPayload[];
 }
 
+interface IResource {
+  payload: {
+    id: string;
+    name: string;
+    url: string;
+  }[];
+}
+
 export const userSlice = createApi({
   reducerPath: 'user',
   baseQuery: fetchBaseQuery({
@@ -105,7 +113,7 @@ export const userSlice = createApi({
       }),
       invalidatesTags: ['Resource'],
     }),
-    getResource: builder.query({
+    getResource: builder.query<IResource, string | number>({
       query: (id) => ({
         url: `/resource/all?category=${id}`,
       }),

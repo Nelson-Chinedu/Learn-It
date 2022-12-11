@@ -26,7 +26,7 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
   const [selectedTab, setSelectedTab] = useState<number | string>('');
   const { data, isLoading } = useGetCategoryQuery();
   const { data: resourceData, isLoading: resourceIsLoading } =
-    useGetResourceQuery(selectedTab);
+    useGetResourceQuery(selectedTab, { skip: !selectedTab });
   const [state, setState] = useModal();
 
   const handleAddCategory = () => {
@@ -79,11 +79,11 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
                 </Button>
               </Grid>
             </Grid>
-            {isLoading ? (
+            {isLoading && !data ? (
               <Typography>Fetching data</Typography>
             ) : (
               <>
-                {data.payload.map(
+                {data?.payload.map(
                   (data: { name: string; id: string | number }) => (
                     <>
                       <Button
@@ -108,16 +108,16 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
                 </IconButton>
                 <Divider />
 
-                {resourceIsLoading ? (
+                {resourceIsLoading && !resourceData ? (
                   <Typography>fetching...</Typography>
                 ) : (
                   <Box sx={{ mt: 3 }}>
-                    {resourceData.payload.length === 0 ? (
+                    {resourceData?.payload.length === 0 ? (
                       <Box>
                         <Typography>No resource added yet</Typography>
                       </Box>
                     ) : (
-                      resourceData.payload.map(
+                      resourceData?.payload.map(
                         (
                           data: { name: string; url: string; id: string } | null
                         ) => (
