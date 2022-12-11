@@ -57,7 +57,7 @@ export const userSlice = createApi({
     baseUrl: process.env.REACT_APP_BASE_URL,
     credentials: 'include',
   }),
-  tagTypes: ['Bio', 'Profile', 'Category', 'Resource'],
+  tagTypes: ['Bio', 'Profile', 'Category', 'Resource', 'Course'],
   endpoints: (builder) => ({
     getUserProfile: builder.query<IUser, void>({
       query: () => ({ url: '/user/me' }),
@@ -89,9 +89,11 @@ export const userSlice = createApi({
         method: 'POST',
         body: { ...data },
       }),
+      invalidatesTags: ['Course'],
     }),
     getCourses: builder.query<ICourses, void>({
       query: () => ({ url: '/course/all' }),
+      providesTags: ['Course'],
     }),
     getCategory: builder.query<ICategory, void>({
       query: () => ({ url: '/category/all' }),
