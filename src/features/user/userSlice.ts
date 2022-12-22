@@ -92,7 +92,11 @@ export const userSlice = createApi({
       invalidatesTags: ['Course'],
     }),
     getCourses: builder.query<ICourses, void>({
-      query: () => ({ url: '/course/all' }),
+      query: () => ({ url: '/courses' }),
+      providesTags: ['Course'],
+    }),
+    getAllCourses: builder.query<ICourses, void>({
+      query: () => ({ url: '/courses/all' }),
       providesTags: ['Course'],
     }),
     getCategory: builder.query<ICategory, void>({
@@ -131,6 +135,7 @@ export const {
   useGetUserBioQuery,
   useAddCourseMutation,
   useGetCoursesQuery,
+  useGetAllCoursesQuery,
   useGetCategoryQuery,
   useAddCategoryMutation,
   useAddResourceMutation,

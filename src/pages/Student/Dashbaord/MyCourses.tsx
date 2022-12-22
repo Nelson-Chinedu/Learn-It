@@ -4,19 +4,29 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import Rating from '@mui/material/Rating';
+import Skeleton from '@mui/material/Skeleton';
 
-import { Card, Button, ProgressBar } from 'src/components';
+import { Card, Button } from 'src/components';
 
 import { LineItem } from 'src/pages/Student/Dashbaord/LineItem';
+import { useStyles } from 'src/pages/Student/Dashbaord/styled.dashboard';
+import ViewCourseModal from 'src/pages/Student/Modals/ViewCourse';
 
 import AvatarImg from 'src/assets/images/Avatar.png';
 
-import { COURSE_MENU } from 'src/constant/courseMenu';
+import useModal from 'src/hooks/useModal';
 
-import { useStyles } from 'src/pages/Student/Dashbaord/styled.dashboard';
+import { useGetAllCoursesQuery } from 'src/features/user/userSlice';
 
 const MyCourses: FunctionComponent<Record<string, never>> = () => {
+  const { data, isLoading } = useGetAllCoursesQuery();
+  const [state, setState] = useModal();
   const classes = useStyles();
+
+  const handleViewCourse = (data: { name: string }) => {
+    setState({ ...state, modalName: 'ViewCourse', data });
+  };
+
   return (
     <Box style={{ width: '100%' }}>
       <Card borderRadius="10px" width="875px" height="700px" overflow="scroll">
@@ -25,78 +35,96 @@ const MyCourses: FunctionComponent<Record<string, never>> = () => {
           justifyContent="space-between"
           style={{ padding: '20px 15px' }}
         >
-          <Grid item md={7}>
-            <Typography variant="subtitle1">My Courses</Typography>
+          <Grid item>
+            <Typography variant="subtitle1">All Courses</Typography>
           </Grid>
-          <Grid item md={5}>
-            <Grid
-              container
-              justifyContent="space-evenly"
-              alignItems="flex-end"
-              style={{ textAlign: 'center' }}
-            >
-              {COURSE_MENU.map((menu: string) => (
-                <Grid item key={menu} md={3}>
-                  <Typography variant="subtitle2">{menu}</Typography>
-                </Grid>
-              ))}
-            </Grid>
+          <Grid item>
+            <Typography>Add filter by free or paid here</Typography>
           </Grid>
         </Grid>
         <Box>
-          {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((number) => (
-            <LineItem key={number}>
-              <Grid
-                container
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <Grid item md={5}>
-                  <Grid container spacing={1} className={classes.authorWrapper}>
-                    <Grid item>
-                      <Avatar src={AvatarImg} alt="course thumbnail" />
+          {isLoading && !data
+            ? [0, 1, 2, 3, 4].map((placeholder) => (
+                <Box
+                  key={placeholder}
+                  sx={{ width: '98%', margin: '10px auto 0px' }}
+                >
+                  <Skeleton height={100} sx={{ mt: -4 }} />
+                </Box>
+              ))
+            : data?.payload?.map((data: any) => (
+                <LineItem key={data.id}>
+                  <Grid
+                    container
+                    justifyContent="space-between"
+                    alignItems="center"
+                  >
+                    <Grid item md={5}>
+                      <Grid
+                        container
+                        spacing={1}
+                        className={classes.authorWrapper}
+                      >
+                        <Grid item>
+                          <Avatar src={AvatarImg} alt="course thumbnail" />
+                        </Grid>
+                        <Grid item>
+                          <Typography
+                            variant="subtitle2"
+                            sx={{ textTransform: 'capitalize' }}
+                          >
+                            {data.name}
+                          </Typography>
+                          <Typography
+                            variant="subtitle2"
+                            sx={{ textTransform: 'capitalize' }}
+                          >
+                            By{' '}
+                            {`${data?.profile?.firstname ?? 'Anonymous'} ${
+                              data?.profile?.lastname ?? ''
+                            }`}
+                          </Typography>
+                        </Grid>
+                      </Grid>
                     </Grid>
-                    <Grid item>
-                      <Typography variant="subtitle2">
-                        History of graphic design
-                      </Typography>
-                      <Typography variant="subtitle2">
-                        By william Joe
-                      </Typography>
+                    <Grid
+                      md={3}
+                      item
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <Rating
+                        name="course-rating"
+                        size="small"
+                        value={1}
+                        max={5}
+                        readOnly
+                      />
+                    </Grid>
+                    <Grid item md={2}>
+                      <Typography>{data.price}</Typography>
+                    </Grid>
+                    <Grid item md={2}>
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        disableElevation
+                        fullWidth
+                        size="medium"
+                        handleClick={() => handleViewCourse(data)}
+                      >
+                        View Course
+                      </Button>
                     </Grid>
                   </Grid>
-                </Grid>
-                <Grid item md={2}>
-                  <ProgressBar />
-                </Grid>
-                <Grid
-                  md={3}
-                  item
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <Rating name="course-rating" size="small" value={1} max={1} />
-                  4.3
-                </Grid>
-                <Grid item md={2}>
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    disableElevation
-                    fullWidth
-                    size="medium"
-                  >
-                    View Course
-                  </Button>
-                </Grid>
-              </Grid>
-            </LineItem>
-          ))}
+                </LineItem>
+              ))}
         </Box>
       </Card>
+      <ViewCourseModal />
     </Box>
   );
 };

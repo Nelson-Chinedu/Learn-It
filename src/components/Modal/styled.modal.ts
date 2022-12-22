@@ -10,6 +10,8 @@ export const useStyles = makeStyles({
     left: '50%',
     borderRadius: '10px',
     width: '50%',
+    maxHeight: '700px',
+    overflowY: 'scroll',
     '& .MuiBox-root': {
       outline: 'none',
       border: 'none',

@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import '@natscale/react-calendar/dist/main.css';
 import 'react-toastify/dist/ReactToastify.css';
+import 'video-react/dist/video-react.css';
 
 import { store } from 'src/store';
 

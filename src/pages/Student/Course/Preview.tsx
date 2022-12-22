@@ -1,8 +1,8 @@
 import { FunctionComponent, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Player, BigPlayButton } from 'video-react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 import Collapse from '@mui/material/Collapse';
 import Stepper from '@mui/material/Stepper';
@@ -16,7 +16,7 @@ import { useStyles } from 'src/pages/Student/Course/styled.course';
 
 import { Layout } from 'src/Layout/student';
 
-import { Card, Button, TabNav } from 'src/components';
+import { Card, TabNav } from 'src/components';
 
 import { MODULES, STEPS } from 'src/constant/module';
 
@@ -37,7 +37,9 @@ const CoursePreview: FunctionComponent<Record<string, never>> = () => {
           <Grid item md={8}>
             <Card width="100%" borderRadius="10px" height="100vh">
               <Box style={{ padding: '20px' }}>
-                <Skeleton variant="rectangular" height={250} />
+                <Player src="https://res.cloudinary.com/dbx3dhfkt/video/upload/v1670759001/LearnIT/video-1616afcf-61fb-4c08-b57b-46d1eb715ff5.mp4">
+                  <BigPlayButton position="center" />
+                </Player>
                 <Box style={{ margin: '1em 0px' }}>
                   <Typography variant="subtitle1">
                     {title?.split('-').join(' ')}
@@ -48,24 +50,12 @@ const CoursePreview: FunctionComponent<Record<string, never>> = () => {
                 </Box>
                 <Grid
                   container
-                  spacing={2}
                   alignItems="baseline"
-                  justifyContent="space-between"
+                  justifyContent="flex-start"
                   className={classes.btnMentor}
                 >
-                  <Grid item md={9}>
+                  <Grid item md={12}>
                     <TabNav nav={LINKS} />
-                  </Grid>
-                  <Grid item md={3}>
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      fullWidth
-                      disableElevation
-                      size="medium"
-                    >
-                      Become a mentor
-                    </Button>
                   </Grid>
                 </Grid>
               </Box>
