@@ -6,12 +6,14 @@ type Props = {
 
 type StateVal = {
   modalName: string;
+  data: null;
 };
 export const ModalContext = createContext(null);
 
 const ModalContextProvider: FunctionComponent<Props> = ({ children }) => {
   const [state, setState] = useState<StateVal>({
     modalName: '',
+    data: null,
   });
 
   return (
