@@ -2,11 +2,7 @@ import React, { ReactNode } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import AddIcon from '@mui/icons-material/Add';
-import IconButton from '@mui/material/IconButton';
 import { makeStyles } from '@mui/styles';
-
-import useModal from 'src/hooks/useModal';
 
 const useStyles = makeStyles({
   root: {
@@ -61,12 +57,6 @@ const TabNav = ({
 }) => {
   const classes = useStyles();
 
-  const [state, setState] = useModal();
-
-  const handleAddCategory = () => {
-    setState({ ...state, modalName: 'AddCategory' });
-  };
-
   return (
     <Box sx={{ width: '100%' }} className={classes.root}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -79,9 +69,6 @@ const TabNav = ({
           {nav.map((link: string, index: number) => (
             <Tab label={link} {...a11yProps(index)} key={link} />
           ))}
-          <IconButton size="small" onClick={handleAddCategory}>
-            <AddIcon fontSize="small" />
-          </IconButton>
         </Tabs>
       </Box>
       {children}

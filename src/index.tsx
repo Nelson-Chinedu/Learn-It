@@ -10,7 +10,7 @@ import { store } from 'src/store';
 
 import 'src/styles/index.css';
 
-import App from 'src/pages/App';
+import App from 'src/modules/App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(

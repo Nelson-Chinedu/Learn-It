@@ -1,5 +1,5 @@
 import { createContext, FunctionComponent, ReactNode } from 'react';
-import { useGetUserProfileQuery } from 'src/features/user/userSlice';
+import { useGetUserProfileQuery } from 'src/services/userSlice';
 
 type Props = {
   children: ReactNode;
