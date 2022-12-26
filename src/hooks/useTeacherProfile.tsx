@@ -16,6 +16,7 @@ interface IUser {
       email: string;
       role: string;
       mentorBio?: string;
+      picture?: string;
     };
   };
   isSuccess: boolean;

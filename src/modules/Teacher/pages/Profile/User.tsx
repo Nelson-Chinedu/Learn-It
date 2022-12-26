@@ -4,7 +4,7 @@ import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
-import AvatarUser from 'src/assets/images/Avatar.png';
+import DefaultUser from 'src/assets/images/default_user.png';
 
 import useTeacherProfile from 'src/hooks/useTeacherProfile';
 
@@ -13,12 +13,12 @@ const User: FunctionComponent<Record<string, never>> = () => {
   return (
     <>
       <Avatar
-        src={AvatarUser}
+        src={data?.payload?.picture || DefaultUser}
         alt="profile picture"
-        sx={{ width: 60, height: 60 }}
+        sx={{ width: 90, height: 90 }}
       />
       <Box className="username">
-        <Typography>
+        <Typography sx={{ textTransform: 'capitalize' }}>
           {isSuccess &&
             data &&
             `${data.payload.firstname} ${data.payload.lastname}`}

@@ -36,8 +36,22 @@ export const userSlice = createApi({
       }),
       invalidatesTags: ['Profile'],
     }),
+    updateProfilePicture: builder.mutation({
+      query: (data) => ({
+        url: '/user/profile',
+        method: 'PATCH',
+        headers: {
+          'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+        },
+        body: { ...data },
+      }),
+      invalidatesTags: ['Profile'],
+    }),
   }),
 });
 
-export const { useGetUserProfileQuery, useUpdateUserProfileMutation } =
-  userSlice;
+export const {
+  useGetUserProfileQuery,
+  useUpdateUserProfileMutation,
+  useUpdateProfilePictureMutation,
+} = userSlice;
