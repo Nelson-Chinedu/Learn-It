@@ -40,10 +40,7 @@ export const userSlice = createApi({
       query: (data) => ({
         url: '/user/profile',
         method: 'PATCH',
-        headers: {
-          'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
-        },
-        body: { ...data },
+        body: data,
       }),
       invalidatesTags: ['Profile'],
     }),
