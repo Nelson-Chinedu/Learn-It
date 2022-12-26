@@ -7,11 +7,13 @@ import Avatar from '@mui/material/Avatar';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-import User from 'src/assets/images/Avatar.png';
+import DefaultUser from 'src/assets/images/default_user.png';
 
 import { StudentSidenav } from 'src/components';
 
 import { STUDENT as PAGE } from 'src/constant/pageTitle';
+
+import useTeacherProfile from 'src/hooks/useTeacherProfile';
 
 import { useStyles } from 'src/Layout/student/styled.student';
 
@@ -22,6 +24,7 @@ type Props = {
 const Layout: FunctionComponent<Props> = ({ children }) => {
   const classes = useStyles();
   const { pathname } = useLocation();
+  const { data } = useTeacherProfile();
   const [{ name }] = PAGE.filter((page) => pathname.includes(page.path));
 
   return (
@@ -55,7 +58,7 @@ const Layout: FunctionComponent<Props> = ({ children }) => {
                 <Grid item>
                   <Avatar
                     alt="Profile picture"
-                    src={User}
+                    src={data?.payload?.picture || DefaultUser}
                     sx={{ width: 35, height: 35 }}
                   />
                 </Grid>
@@ -68,7 +71,14 @@ const Layout: FunctionComponent<Props> = ({ children }) => {
                 >
                   <Grid container alignItems="center">
                     <Grid item>
-                      <Typography variant="subtitle2">John Doe</Typography>
+                      <Typography
+                        variant="subtitle2"
+                        sx={{ textTransform: 'capitalize' }}
+                      >
+                        {(data &&
+                          `${data?.payload?.firstname} ${data?.payload?.lastname}`) ||
+                          ''}
+                      </Typography>
                     </Grid>
                     <Grid item>
                       <ArrowDropDownIcon fontSize="small" />

@@ -15,10 +15,13 @@ import { useStyles } from 'src/modules/Student/pages/Profile/styled.profile';
 
 import { PROFILE_LINKS, SUPPORT_LINKS } from 'src/constant/profile';
 
-import AvatarUser from 'src/assets/images/Avatar.png';
+import useTeacherProfile from 'src/hooks/useTeacherProfile';
+
+import DefaultUser from 'src/assets/images/default_user.png';
 
 const Profile: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();
+  const { data } = useTeacherProfile();
 
   return (
     <Layout>
@@ -33,11 +36,18 @@ const Profile: FunctionComponent<Record<string, never>> = () => {
             <Card width="100%" borderRadius="10px" height="100vh">
               <Box className="topLeft">
                 <Avatar
-                  src={AvatarUser}
+                  src={data?.payload?.picture || DefaultUser}
                   alt="profile picture"
-                  sx={{ width: 60, height: 60 }}
+                  sx={{ width: 90, height: 90 }}
                 />
-                <Typography variant="subtitle2">John Doe</Typography>
+                <Typography
+                  variant="subtitle2"
+                  sx={{ textTransform: 'capitalize' }}
+                >
+                  {(data &&
+                    `${data?.payload?.firstname} ${data?.payload?.lastname}`) ||
+                    ''}
+                </Typography>
                 <Grid
                   container
                   justifyContent="space-between"

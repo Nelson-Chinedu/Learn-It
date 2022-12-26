@@ -3,26 +3,49 @@ import { makeStyles } from '@mui/styles';
 export const useStyles = makeStyles({
   root: {
     position: 'relative',
-    width: '20%',
+    width: '50%',
     margin: 'auto',
-    '& .MuiAvatar-root': {
+    textAlign: 'center',
+    '& .container': {
+      position: 'relative',
+      width: '20%',
       margin: 'auto',
-    },
-  },
-  upload: {
-    position: 'absolute',
-    top: '30px',
-    left: '75px',
-    '& .MuiSvgIcon-root': {
-      background: '#128c7e',
-      borderRadius: '50px',
-      width: '13px !important',
-      height: '13px !important',
-      padding: '10px',
-      '& > *': {
-        padding: '1em',
-        color: 'white',
+      '& .MuiAvatar-root': {
+        margin: 'auto',
+        '& img': {
+          width: '100%',
+          objectFit: 'cover',
+          // opacity: 0.4,
+        },
       },
+      '& .upload': {
+        position: 'absolute',
+        top: '40px',
+        left: '45px',
+        '& .MuiSvgIcon-root': {
+          background: '#128c7e',
+          borderRadius: '50px',
+          width: '10px !important',
+          height: '10px !important',
+          padding: '6px',
+          '& > *': {
+            color: 'white',
+          },
+        },
+      },
+      '& .loader': {
+        position: 'absolute',
+        top: 25,
+        left: 30,
+        '& .MuiCircularProgress-svg': {
+          '& > *': {
+            color: '#128c7e',
+          },
+        },
+      },
+    },
+    '& .MuiTypography-subtitle2': {
+      fontSize: '12px',
     },
   },
   input: {
