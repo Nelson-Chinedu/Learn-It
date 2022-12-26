@@ -15,7 +15,7 @@ export const useStyles = makeStyles({
         '& img': {
           width: '100%',
           objectFit: 'cover',
-          // opacity: 0.4,
+          opacity: (props: { isLoading: boolean }) => props.isLoading && 0.4,
         },
       },
       '& .upload': {

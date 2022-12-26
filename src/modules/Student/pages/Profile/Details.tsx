@@ -41,7 +41,6 @@ const Details: FunctionComponent<Record<string, never>> = () => {
     const payload = {
       firstname: values.firstname,
       lastname: values.lastname,
-      // email: values.email,
       phone: values.phone,
       city: values.city,
       state: values.state,
