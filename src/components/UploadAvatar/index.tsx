@@ -58,7 +58,7 @@ const UploadAvatar: FunctionComponent<Record<string, never>> = () => {
         />
         <Box className="upload">
           <input
-            accept="image/*"
+            accept="image/png, image/jpg, image/jpeg"
             className={classes.input}
             onChange={handleUpdatePicture}
             id="icon-button-file"
