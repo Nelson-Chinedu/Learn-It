@@ -1,16 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export interface ICourse {
-  name: string;
-  price: string;
-  count: string;
-  video: string[];
-}
-
-interface ICourses {
-  payload: ICourse[];
-}
-
 interface ICategoryPayload {
   id: string;
   name: string;
@@ -36,11 +25,6 @@ export const studentSlice = createApi({
   }),
   tagTypes: ['Category', 'Resource', 'Course'],
   endpoints: (builder) => ({
-    getAllCourses: builder.query<ICourses, void>({
-      query: () => ({ url: '/courses/all' }),
-      providesTags: ['Course'],
-    }),
-
     getCategory: builder.query<ICategory, void>({
       query: () => ({ url: '/category/all' }),
       providesTags: ['Category'],
@@ -74,7 +58,6 @@ export const studentSlice = createApi({
 });
 
 export const {
-  useGetAllCoursesQuery,
   useGetCategoryQuery,
   useAddCategoryMutation,
   useAddResourceMutation,

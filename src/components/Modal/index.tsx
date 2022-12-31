@@ -2,6 +2,7 @@ import { FunctionComponent, ReactNode } from 'react';
 import { Modal as CModal } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -12,9 +13,10 @@ import useModal from 'src/hooks/useModal';
 type Props = {
   children: ReactNode;
   modalName: string;
+  title: string;
 };
 
-const Modal: FunctionComponent<Props> = ({ children, modalName }) => {
+const Modal: FunctionComponent<Props> = ({ children, modalName, title }) => {
   const classes = useStyles();
   const [state, setState] = useModal();
 
@@ -27,10 +29,15 @@ const Modal: FunctionComponent<Props> = ({ children, modalName }) => {
       <Box className={classes.root}>
         <Grid
           container
-          justifyContent="flex-end"
+          justifyContent="space-between"
           alignItems="center"
-          sx={{ p: 2 }}
+          sx={{ py: 2, px: 4 }}
         >
+          <Grid item>
+            <Typography variant="h2" sx={{ textTransform: 'capitalize' }}>
+              {title}
+            </Typography>
+          </Grid>
           <Grid item>
             <IconButton onClick={handleClose}>
               <CloseIcon />

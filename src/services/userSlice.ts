@@ -16,13 +16,30 @@ interface IUser {
   };
 }
 
+export interface ICourse {
+  name: string;
+  price: string;
+  count: string;
+  video: string[];
+  thumbnail?: string;
+  profile?: {
+    picture: string;
+    firstname: string;
+    lastname: string;
+  };
+}
+
+interface ICourses {
+  payload: ICourse[];
+}
+
 export const userSlice = createApi({
   reducerPath: 'user',
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_BASE_URL,
     credentials: 'include',
   }),
-  tagTypes: ['Profile'],
+  tagTypes: ['Profile', 'Course'],
   endpoints: (builder) => ({
     getUserProfile: builder.query<IUser, void>({
       query: () => ({ url: '/user/me' }),
@@ -44,6 +61,10 @@ export const userSlice = createApi({
       }),
       invalidatesTags: ['Profile'],
     }),
+    getAllCourses: builder.query<ICourses, void>({
+      query: () => ({ url: '/courses/all' }),
+      providesTags: ['Course'],
+    }),
   }),
 });
 
@@ -51,4 +72,5 @@ export const {
   useGetUserProfileQuery,
   useUpdateUserProfileMutation,
   useUpdateProfilePictureMutation,
+  useGetAllCoursesQuery,
 } = userSlice;

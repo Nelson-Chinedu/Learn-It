@@ -88,9 +88,8 @@ const ResourceModal: FunctionComponent<Record<string, never>> = () => {
   } = formik;
 
   return (
-    <Modal modalName="AddResource">
+    <Modal modalName="AddResource" title="Add New Resource">
       <Box className={classes.root}>
-        <Typography variant="subtitle2">Add New Resource</Typography>
         <Grid container spacing={2}>
           <Grid item sm={12}>
             <Input

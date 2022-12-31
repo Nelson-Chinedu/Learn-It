@@ -2,23 +2,22 @@ import { FunctionComponent } from 'react';
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import Grid from '@mui/material/Grid';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Layout } from 'src/Layout/Teacher';
 
 import { Button, Input } from 'src/components';
 
 import { CourseTable } from 'src/modules/Teacher/pages/Course/CourseTable';
-import CourseModal from 'src/modules/Teacher/components/Modals/CourseModal';
-
-import useModal from 'src/hooks/useModal';
 
 const TeacherCourse: FunctionComponent<Record<string, never>> = () => {
-  const [state, setState] = useModal();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const handleChangeCategory = () => {};
 
   const handleAddNewCourse = () => {
-    setState({ ...state, modalName: 'AddCourse' });
+    navigate(`${pathname}/add`);
   };
 
   return (
@@ -62,7 +61,6 @@ const TeacherCourse: FunctionComponent<Record<string, never>> = () => {
           <CourseTable />
         </Box>
       </Box>
-      <CourseModal />
     </Layout>
   );
 };
