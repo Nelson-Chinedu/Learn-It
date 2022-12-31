@@ -61,7 +61,7 @@ const Layout: FunctionComponent<Props> = ({ children }) => {
                   <Avatar
                     alt="Profile picture"
                     src={data?.payload?.picture || DefaultUser}
-                    sx={{ width: 35, height: 35 }}
+                    sx={{ width: 30, height: 30 }}
                   />
                 </Grid>
                 <Grid

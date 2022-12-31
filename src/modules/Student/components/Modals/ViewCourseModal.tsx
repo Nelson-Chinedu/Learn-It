@@ -1,9 +1,7 @@
 import { FunctionComponent } from 'react';
 import { Player, BigPlayButton } from 'video-react';
-import Typography from '@mui/material/Typography';
+import sanitizeHtml from 'sanitize-html';
 import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import { makeStyles } from '@mui/styles';
 
 import { Modal, Button } from 'src/components';
@@ -18,6 +16,15 @@ const useStyles = makeStyles({
       marginTop: '1em',
     },
   },
+  contentWrapper: {
+    lineHeight: '1.8em',
+    fontFamily: "'Work Sans', sans-serif",
+    fontWeight: 300,
+    fontSize: '14px',
+    '& h1, h2, h3, h4, h5, h6': {
+      margin: '.8em 0px',
+    },
+  },
 });
 
 const ViewCourseModal: FunctionComponent<Record<string, never>> = () => {
@@ -25,33 +32,22 @@ const ViewCourseModal: FunctionComponent<Record<string, never>> = () => {
   const [state] = useModal();
 
   return (
-    <Modal modalName="ViewCourse">
+    <Modal modalName="ViewCourse" title={state?.data?.name}>
       <Box className={classes.root}>
-        <Typography variant="subtitle2" sx={{ textTransform: 'capitalize' }}>
-          {state?.data?.name}
-        </Typography>
-
         <Player src={state?.data?.video[0]}>
           <BigPlayButton position="center" />
         </Player>
 
-        <Box>
-          <Typography variant="body2" sx={{ mt: 2 }}>
-            What you'll learn
-          </Typography>
-          {[0, 1, 2, 3, 4].map((item: any) => (
-            <List>
-              <ListItem
-                sx={{
-                  listStyleType: 'disc',
-                  display: 'list-item',
-                }}
-              >
-                Big ideas in finite-element analysis and computational fluid
-                dynamics {item}
-              </ListItem>
-            </List>
-          ))}
+        <Box sx={{ mt: 2 }}>
+          <Box
+            component="div"
+            className={classes.contentWrapper}
+            dangerouslySetInnerHTML={{
+              __html: sanitizeHtml(
+                JSON.parse(state?.data?.objectives ?? null)
+              )?.replace(/["]+/g, ''),
+            }}
+          />
         </Box>
         <Button
           color="primary"

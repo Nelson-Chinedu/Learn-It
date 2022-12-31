@@ -1,7 +1,6 @@
 import { FunctionComponent } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import { makeStyles } from '@mui/styles';
@@ -72,9 +71,8 @@ const CategoryModal: FunctionComponent<Record<string, never>> = () => {
   } = formik;
 
   return (
-    <Modal modalName="AddCategory">
+    <Modal modalName="AddCategory" title="Add New Category">
       <Box className={classes.root}>
-        <Typography variant="subtitle2">Add New Category</Typography>
         <Input
           variant="outlined"
           color="primary"

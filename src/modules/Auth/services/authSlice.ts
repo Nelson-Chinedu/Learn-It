@@ -6,6 +6,7 @@ export const authSlice = createApi({
     baseUrl: process.env.REACT_APP_BASE_URL,
     credentials: 'include',
   }),
+  tagTypes: ['Bio', 'Profile'],
   endpoints: (builder) => ({
     createNewUser: builder.mutation({
       query: (data) => ({
@@ -20,6 +21,7 @@ export const authSlice = createApi({
         method: 'POST',
         body: { ...data },
       }),
+      invalidatesTags: ['Bio', 'Profile'],
     }),
   }),
 });

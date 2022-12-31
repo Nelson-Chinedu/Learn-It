@@ -28,6 +28,7 @@ const TeacherDashboard = lazy(
   () => import('src/modules/Teacher/pages/Dashboard')
 );
 const TeacherCourse = lazy(() => import('src/modules/Teacher/pages/Course'));
+const AddCourse = lazy(() => import('src/modules/Teacher/pages/Course/Form'));
 const Student = lazy(() => import('src/modules/Teacher/pages/Students'));
 const LiveClass = lazy(() => import('src/modules/Teacher/pages/LiveClass'));
 const TeacherProfile = lazy(() => import('src/modules/Teacher/pages/Profile'));
@@ -54,6 +55,7 @@ const App: FunctionComponent<Record<string, never>> = () => {
                 <Route path="/task" element={<Task />} />
                 <Route path="/app/dashboard" element={<TeacherDashboard />} />
                 <Route path="app/course" element={<TeacherCourse />} />
+                <Route path="/app/course/add" element={<AddCourse />} />
                 <Route path="/app/student" element={<Student />} />
                 <Route path="/app/live-class" element={<LiveClass />} />
                 <Route path="/app/live-class/create" element={<LiveClass />} />

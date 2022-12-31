@@ -141,7 +141,7 @@ const CourseModal: FunctionComponent<Record<string, never>> = () => {
   } = formik;
 
   return (
-    <Modal modalName="AddCourse">
+    <Modal modalName="AddCourse" title="">
       <form onSubmit={handleSubmit}>
         <Grid
           container

@@ -28,10 +28,10 @@ export const useStyles = makeStyles({
   avatar: {
     position: 'absolute',
     right: 40,
-    top: 140,
+    top: 150,
     '& .MuiAvatar-circular': {
-      width: '2.5em',
-      height: '2.5em',
+      width: '2em',
+      height: '2em',
       border: '2px solid white',
     },
   },
@@ -46,6 +46,7 @@ export const useStyles = makeStyles({
   },
   category: {
     fontSize: '.8em !important',
+    textTransform: 'capitalize',
   },
   enrollButton: {
     '& .MuiButton-outlined': {
