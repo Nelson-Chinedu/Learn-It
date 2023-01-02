@@ -1,13 +1,13 @@
 import { FunctionComponent } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
 import { useStyles } from 'src/components/Navigation/styled.navigation';
 
 import {
-  STUDENT_SIDENAV_MENU,
   TEACHER_SIDENAV_MENU,
+  STUDENT_SIDENAV_MENU,
 } from 'src/constant/sidenav';
 
 const SideNavigation: FunctionComponent<Record<string, never>> = () => {
