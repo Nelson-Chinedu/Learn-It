@@ -1,10 +1,8 @@
 import { FunctionComponent, useCallback, useState } from 'react';
-import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import { Calendar } from '@natscale/react-calendar';
 
-import { Layout } from 'src/Layout/student';
+import { Layout } from 'src/Layout';
 
 import { UpcomingTask } from 'src/modules/Student/pages/Dashbaord/UpcomingTask';
 import { PaymentHistory } from 'src/modules/Student/pages/Dashbaord/PaymentHistory';
@@ -21,6 +19,7 @@ const Dashboard: FunctionComponent<Record<string, never>> = () => {
     },
     [setValue]
   );
+
   return (
     <Layout>
       <Grid
@@ -28,26 +27,20 @@ const Dashboard: FunctionComponent<Record<string, never>> = () => {
         spacing={2}
         justifyContent="space-between"
         className={classes.root}
+        sx={{ width: '100%' }}
       >
-        <Grid item md={9} component="section">
-          <Box className={classes.topWrapper}>
-            <Typography variant="subtitle1">Hi John Doe</Typography>
-            <Typography variant="subtitle2">
-              You have completed 0 courses{' '}
-            </Typography>
-          </Box>
-          <Grid container spacing={2}>
-            <Grid item>
-              <MyCourses />
-            </Grid>
-          </Grid>
+        <Grid
+          item
+          md={9}
+          component="section"
+          sx={{ width: '80%', marginLeft: '.6em' }}
+        >
+          <MyCourses />
         </Grid>
-        <Grid item md={3}>
-          <Box component="aside" className={classes.aside}>
-            <Calendar value={value} onChange={onChange} />
-            <UpcomingTask />
-            <PaymentHistory />
-          </Box>
+        <Grid item md={3} className={classes.aside} component="aside">
+          <Calendar value={value} onChange={onChange} />
+          <UpcomingTask />
+          <PaymentHistory />
         </Grid>
       </Grid>
     </Layout>

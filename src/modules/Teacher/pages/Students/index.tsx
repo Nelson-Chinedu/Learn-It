@@ -2,7 +2,7 @@ import { FunctionComponent } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
-import { Layout } from 'src/Layout/Teacher';
+import { Layout } from 'src/Layout';
 
 import { StudentsGeolocation } from 'src/modules/Teacher/pages/Students/Geolocation';
 import { StudentsEnrolled } from 'src/modules/Teacher/pages/Students/Enrolled';

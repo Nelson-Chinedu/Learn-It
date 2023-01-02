@@ -58,4 +58,4 @@ const Topnav: FunctionComponent<Record<string, never>> = () => {
     </Container>
   );
 };
-export { Topnav };
+export default Topnav;

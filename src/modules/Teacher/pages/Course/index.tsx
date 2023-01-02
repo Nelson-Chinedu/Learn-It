@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import Grid from '@mui/material/Grid';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Layout } from 'src/Layout/Teacher';
+import { Layout } from 'src/Layout';
 
 import { Button, Input } from 'src/components';
 

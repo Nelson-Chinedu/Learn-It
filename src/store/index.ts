@@ -6,12 +6,15 @@ import { studentSlice } from 'src/modules/Student/services/studentSlice';
 
 import { userSlice } from 'src/services/userSlice';
 
+import accountReducer from 'src/features/accountSlice';
+
 export const store = configureStore({
   reducer: {
     [authSlice.reducerPath]: authSlice.reducer,
     [userSlice.reducerPath]: userSlice.reducer,
     [teacherSlice.reducerPath]: teacherSlice.reducer,
     [studentSlice.reducerPath]: studentSlice.reducer,
+    account: accountReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false })

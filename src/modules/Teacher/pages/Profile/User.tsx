@@ -5,11 +5,11 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
 import DefaultUser from 'src/assets/images/default_user.png';
-
-import useTeacherProfile from 'src/hooks/useTeacherProfile';
+import useUserProfile from 'src/hooks/useUserProfile';
 
 const User: FunctionComponent<Record<string, never>> = () => {
-  const { data, isSuccess } = useTeacherProfile();
+  const { data, isSuccess } = useUserProfile();
+
   return (
     <>
       <Avatar

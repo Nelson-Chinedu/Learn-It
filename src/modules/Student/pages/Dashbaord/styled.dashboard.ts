@@ -4,6 +4,7 @@ export const useStyles = makeStyles({
   root: {
     '& .rc_root': {
       width: '100%',
+      borderRadius: '0px !important',
       '& .rc': {
         width: '100% !important',
       },
@@ -17,19 +18,16 @@ export const useStyles = makeStyles({
       fontSize: '14px',
     },
   },
-  topWrapper: {
-    background: '#4EC491',
-    borderRadius: '15px',
-    padding: '2em 1em',
-    color: 'white',
-    marginBottom: '1em',
-  },
   aside: {
     background: 'white',
     height: '100vh',
-    boxShadow:
-      '0px 1px 1px -1px rgb(0 0 0 / 20%), 0px 1px 2px 0px rgb(0 0 0 / 12%), 0px 1px 4px 0px rgb(0 0 0 / 5%)',
-    borderRadius: '25px',
+    borderLeft: '1px solid #e3e0e0',
+    width: '20%',
+    paddingTop: '0px !important',
+    paddingLeft: '0px !important',
+    position: 'fixed',
+    right: 0,
+    top: 64,
   },
   authorWrapper: {
     '& .MuiTypography-subtitle2': {

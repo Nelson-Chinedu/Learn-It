@@ -6,7 +6,7 @@ import Avatar from '@mui/material/Avatar';
 import Rating from '@mui/material/Rating';
 import Skeleton from '@mui/material/Skeleton';
 
-import { Card, Button } from 'src/components';
+import { Button } from 'src/components';
 
 import { LineItem } from 'src/modules/Student/pages/Dashbaord/LineItem';
 import { useStyles } from 'src/modules/Student/pages/Dashbaord/styled.dashboard';
@@ -31,113 +31,107 @@ const MyCourses: FunctionComponent<Record<string, never>> = () => {
   };
 
   return (
-    <Box style={{ width: '100%' }}>
-      <Card borderRadius="10px" width="875px" height="700px" overflow="scroll">
-        <Grid
-          container
-          justifyContent="space-between"
-          style={{ padding: '20px 15px' }}
-        >
-          <Grid item>
-            <Typography variant="subtitle1">All Courses</Typography>
-          </Grid>
-          <Grid item>
-            <Typography>Add filter by free or paid here</Typography>
-          </Grid>
+    <>
+      <Grid
+        container
+        justifyContent="space-between"
+        style={{ padding: '20px 15px' }}
+      >
+        <Grid item>
+          <Typography variant="subtitle1">All Courses</Typography>
         </Grid>
-        <Box>
-          {isLoading && !data ? (
-            [0, 1, 2, 3, 4].map((placeholder) => (
-              <Box
-                key={placeholder}
-                sx={{ width: '98%', margin: '10px auto 0px' }}
+        <Grid item>
+          <Typography>Add filter by free or paid here</Typography>
+        </Grid>
+      </Grid>
+      <Box>
+        {isLoading && !data ? (
+          [0, 1, 2, 3, 4].map((placeholder) => (
+            <Box
+              key={placeholder}
+              sx={{ width: '98%', margin: '10px auto 0px' }}
+            >
+              <Skeleton height={100} sx={{ mt: -4 }} />
+            </Box>
+          ))
+        ) : !isLoading && data && data?.payload?.length === 0 ? (
+          <Typography sx={{ textAlign: 'center' }}>
+            No course added yet
+          </Typography>
+        ) : (
+          data?.payload?.map((data: any) => (
+            <LineItem key={data.id}>
+              <Grid
+                container
+                justifyContent="space-between"
+                alignItems="center"
               >
-                <Skeleton height={100} sx={{ mt: -4 }} />
-              </Box>
-            ))
-          ) : !isLoading && data && data?.payload?.length === 0 ? (
-            <Typography sx={{ textAlign: 'center' }}>
-              No course added yet
-            </Typography>
-          ) : (
-            data?.payload?.map((data: any) => (
-              <LineItem key={data.id}>
-                <Grid
-                  container
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <Grid item md={5}>
-                    <Grid
-                      container
-                      spacing={1}
-                      className={classes.authorWrapper}
-                    >
-                      <Grid item>
-                        <Avatar
-                          src={data?.profile?.picture}
-                          alt="course thumbnail"
-                        />
-                      </Grid>
-                      <Grid item>
-                        <Typography
-                          variant="subtitle2"
-                          sx={{ textTransform: 'capitalize' }}
-                        >
-                          {data.name}
-                        </Typography>
-                        <Typography
-                          variant="subtitle2"
-                          sx={{ textTransform: 'capitalize' }}
-                        >
-                          By{' '}
-                          {`${data?.profile?.firstname ?? 'Anonymous'} ${
-                            data?.profile?.lastname ?? ''
-                          }`}
-                        </Typography>
-                      </Grid>
+                <Grid item md={5}>
+                  <Grid container spacing={1} className={classes.authorWrapper}>
+                    <Grid item>
+                      <Avatar
+                        src={data?.profile?.picture}
+                        alt="course thumbnail"
+                      />
+                    </Grid>
+                    <Grid item>
+                      <Typography
+                        variant="subtitle2"
+                        sx={{ textTransform: 'capitalize' }}
+                      >
+                        {data.name}
+                      </Typography>
+                      <Typography
+                        variant="subtitle2"
+                        sx={{ textTransform: 'capitalize' }}
+                      >
+                        By{' '}
+                        {`${data?.profile?.firstname ?? 'Anonymous'} ${
+                          data?.profile?.lastname ?? ''
+                        }`}
+                      </Typography>
                     </Grid>
                   </Grid>
-                  <Grid
-                    md={3}
-                    item
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <Rating
-                      name="course-rating"
-                      size="small"
-                      value={1}
-                      max={5}
-                      readOnly
-                    />
-                  </Grid>
-                  <Grid item md={2}>
-                    <Typography>{data.price}</Typography>
-                  </Grid>
-                  <Grid item md={2}>
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      disableElevation
-                      fullWidth
-                      size="medium"
-                      handleClick={() => handleViewCourse(data)}
-                    >
-                      View Course
-                    </Button>
-                  </Grid>
                 </Grid>
-              </LineItem>
-            ))
-          )}
-        </Box>
-      </Card>
+                <Grid
+                  md={3}
+                  item
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Rating
+                    name="course-rating"
+                    size="small"
+                    value={1}
+                    max={5}
+                    readOnly
+                  />
+                </Grid>
+                <Grid item md={2}>
+                  <Typography>{data.price}</Typography>
+                </Grid>
+                <Grid item md={2}>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    disableElevation
+                    fullWidth
+                    size="medium"
+                    handleClick={() => handleViewCourse(data)}
+                  >
+                    View Course
+                  </Button>
+                </Grid>
+              </Grid>
+            </LineItem>
+          ))
+        )}
+      </Box>
       <ViewCourseModal />
-    </Box>
+    </>
   );
 };
 

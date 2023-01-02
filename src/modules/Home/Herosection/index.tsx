@@ -7,7 +7,9 @@ import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import SearchIcon from '@mui/icons-material/Search';
 
-import { Topnav, Input, Button } from 'src/components';
+import { Input, Button } from 'src/components';
+
+import TopNavigation from 'src/modules/Home/Herosection/TopNav';
 
 import HerosectionImage from 'src/assets/images/student.gif';
 
@@ -26,7 +28,7 @@ const Home: FunctionComponent<Record<string, never>> = () => {
 
   return (
     <Box className={classes.root}>
-      <Topnav />
+      <TopNavigation />
       <Container maxWidth="xl">
         <Grid container justifyContent="space-between" alignItems="center">
           <Grid item md={5}>

@@ -16,7 +16,7 @@ import {
   successNotification,
 } from 'src/helpers/notification';
 
-import useTeacherProfile from 'src/hooks/useTeacherProfile';
+import useUserProfile from 'src/hooks/useUserProfile';
 
 type Values = {
   firstname: string;
@@ -30,7 +30,7 @@ type Values = {
 };
 
 const Form: FunctionComponent<Record<string, never>> = () => {
-  const { data, isSuccess } = useTeacherProfile();
+  const { data, isSuccess } = useUserProfile();
   const [updateUserProfile] = useUpdateUserProfileMutation();
 
   const _handleUpdateProfile = async (values: Values) => {

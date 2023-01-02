@@ -1,11 +1,8 @@
 import { Button } from 'src/components/Button';
 import { Card } from 'src/components/Card';
 import { Input } from 'src/components/Input';
-import {
-  StudentSidenav,
-  TeacherSidenav,
-} from 'src/components/Navigation/sidenav';
-import { Topnav } from 'src/components/Navigation/topnav';
+import { SideNavigation } from 'src/components/Navigation/Sidenav';
+import { TopNavigation } from 'src/components/Navigation/TopNavigation';
 import { ProgressBar } from 'src/components/Progress';
 import { TabNav } from 'src/components/Tab';
 import { Switch } from 'src/components/Switch';
@@ -18,9 +15,8 @@ export {
   Button,
   Card,
   Input,
-  StudentSidenav,
-  TeacherSidenav,
-  Topnav,
+  SideNavigation,
+  TopNavigation,
   ProgressBar,
   TabNav,
   Switch,
