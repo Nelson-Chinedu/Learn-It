@@ -1,7 +1,7 @@
 import { Button } from 'src/components/Button';
 import { Card } from 'src/components/Card';
 import { Input } from 'src/components/Input';
-import { SideNavigation } from 'src/components/Navigation/Sidenav';
+import { SideNavigation } from 'src/components/Navigation/sidenav';
 import { TopNavigation } from 'src/components/Navigation/TopNavigation';
 import { ProgressBar } from 'src/components/Progress';
 import { TabNav } from 'src/components/Tab';
