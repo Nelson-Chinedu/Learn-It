@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import Badge from '@mui/material/Badge';
 
-import { Layout } from 'src/Layout/student';
+import { Layout } from 'src/Layout';
 
 import { Card, TabNav } from 'src/components';
 
@@ -15,13 +15,12 @@ import { useStyles } from 'src/modules/Student/pages/Profile/styled.profile';
 
 import { PROFILE_LINKS, SUPPORT_LINKS } from 'src/constant/profile';
 
-import useTeacherProfile from 'src/hooks/useTeacherProfile';
-
 import DefaultUser from 'src/assets/images/default_user.png';
+import useUserProfile from 'src/hooks/useUserProfile';
 
 const Profile: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();
-  const { data } = useTeacherProfile();
+  const { data, isSuccess } = useUserProfile();
 
   return (
     <Layout>
@@ -45,6 +44,7 @@ const Profile: FunctionComponent<Record<string, never>> = () => {
                   sx={{ textTransform: 'capitalize' }}
                 >
                   {(data &&
+                    isSuccess &&
                     `${data?.payload?.firstname} ${data?.payload?.lastname}`) ||
                     ''}
                 </Typography>

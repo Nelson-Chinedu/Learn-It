@@ -22,7 +22,7 @@ import {
 
 import { useAddCourseMutation } from 'src/modules/Teacher/services/teacherSlice';
 
-import { Layout } from 'src/Layout/Teacher';
+import { Layout } from 'src/Layout';
 
 const validationSchema = Yup.object().shape({
   courseName: Yup.string().required('Required'),

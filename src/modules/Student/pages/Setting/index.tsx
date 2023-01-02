@@ -9,7 +9,7 @@ import { EMAIL_NOTIFICATION, SETTING_LINK } from 'src/constant/setting';
 
 import { Card, Switch } from 'src/components';
 
-import { Layout } from 'src/Layout/student';
+import { Layout } from 'src/Layout';
 
 const Setting: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();

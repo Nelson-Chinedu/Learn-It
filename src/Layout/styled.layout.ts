@@ -2,12 +2,14 @@ import { makeStyles } from '@mui/styles';
 
 export const useStyles = makeStyles({
   root: {
+    display: 'flex',
     background: 'white',
     height: '100vh',
-    borderRadius: '25px',
-    padding: '2em 0px 1.5em',
-    boxShadow:
-      '0px 1px 1px -1px rgb(0 0 0 / 20%), 0px 1px 2px 0px rgb(0 0 0 / 12%), 0px 1px 4px 0px rgb(0 0 0 / 5%)',
+    '& .sidenav-wrapper': {
+      width: '18%',
+      position: 'fixed',
+      height: '100vh',
+    },
     '& a': {
       textDecoration: 'none',
       '&:hover': {
@@ -23,17 +25,5 @@ export const useStyles = makeStyles({
         borderLeft: '4px solid white',
       },
     },
-  },
-  active: {
-    color: '#4EC491',
-    '& .MuiTypography-subtitle2': {
-      backgroundColor: '#EBF9F2',
-      borderLeft: '4px solid #4EC491 !important',
-    },
-  },
-  inactive: { color: '#848487' },
-  logo: {
-    textAlign: 'center',
-    fontWeight: 500,
   },
 });

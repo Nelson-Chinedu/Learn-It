@@ -6,9 +6,11 @@ import { ToastContainer } from 'react-toastify';
 import theme from 'src/Theme';
 
 import ModalContextProvider from 'src/contexts/modal-ctx';
-import TeacherProfileContextProvider from 'src/contexts/teacher-profile-ctx';
+import UserProfileContextProvider from 'src/contexts/user-profile-ctx';
 
 import ErrorBoundary from 'src/ErrorBoundary';
+
+import PrivateRoute from 'src/PrivateRoute';
 
 const Home = lazy(() => import('src/modules/Home'));
 const Signup = lazy(() => import('src/modules/Auth/Signup'));
@@ -38,35 +40,186 @@ const App: FunctionComponent<Record<string, never>> = () => {
   return (
     <ThemeProvider theme={theme}>
       <ErrorBoundary>
-        <TeacherProfileContextProvider>
-          <ModalContextProvider>
-            <Suspense fallback={<p>Loading</p>}>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/signin" element={<Signin />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/course" element={<Course />} />
-                <Route path="/course/:title/:id" element={<CoursePreview />} />
-                <Route path="/resources" element={<Resources />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/chat" element={<Chat />} />
-                <Route path="/setting" element={<Setting />} />
-                <Route path="/task" element={<Task />} />
-                <Route path="/app/dashboard" element={<TeacherDashboard />} />
-                <Route path="app/course" element={<TeacherCourse />} />
-                <Route path="/app/course/add" element={<AddCourse />} />
-                <Route path="/app/student" element={<Student />} />
-                <Route path="/app/live-class" element={<LiveClass />} />
-                <Route path="/app/live-class/create" element={<LiveClass />} />
-                <Route path="/app/live-class/add" element={<LiveClass />} />
-                <Route path="/app/profile" element={<TeacherProfile />} />
-                <Route path="/app/settings" element={<TeacherSetting />} />
-              </Routes>
-              <ToastContainer />
-            </Suspense>
-          </ModalContextProvider>
-        </TeacherProfileContextProvider>
+        <ModalContextProvider>
+          <Suspense fallback={<p>Loading</p>}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/signin" element={<Signin />} />
+              <Route
+                path="/dashboard"
+                element={
+                  <PrivateRoute>
+                    <UserProfileContextProvider>
+                      <Dashboard />
+                    </UserProfileContextProvider>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/course"
+                element={
+                  <PrivateRoute>
+                    <UserProfileContextProvider>
+                      <Course />
+                    </UserProfileContextProvider>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/course/:title/:id"
+                element={
+                  <PrivateRoute>
+                    <UserProfileContextProvider>
+                      <CoursePreview />
+                    </UserProfileContextProvider>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/resources"
+                element={
+                  <PrivateRoute>
+                    <UserProfileContextProvider>
+                      <Resources />
+                    </UserProfileContextProvider>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <PrivateRoute>
+                    <UserProfileContextProvider>
+                      <Profile />
+                    </UserProfileContextProvider>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/chat"
+                element={
+                  <PrivateRoute>
+                    <UserProfileContextProvider>
+                      <Chat />
+                    </UserProfileContextProvider>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/setting"
+                element={
+                  <PrivateRoute>
+                    <UserProfileContextProvider>
+                      <Setting />
+                    </UserProfileContextProvider>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/task"
+                element={
+                  <PrivateRoute>
+                    <UserProfileContextProvider>
+                      <Task />
+                    </UserProfileContextProvider>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/app/dashboard"
+                element={
+                  <PrivateRoute>
+                    <UserProfileContextProvider>
+                      <TeacherDashboard />
+                    </UserProfileContextProvider>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="app/course"
+                element={
+                  <PrivateRoute>
+                    <UserProfileContextProvider>
+                      <TeacherCourse />
+                    </UserProfileContextProvider>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/app/course/add"
+                element={
+                  <PrivateRoute>
+                    <UserProfileContextProvider>
+                      <AddCourse />
+                    </UserProfileContextProvider>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/app/student"
+                element={
+                  <PrivateRoute>
+                    <UserProfileContextProvider>
+                      <Student />
+                    </UserProfileContextProvider>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/app/live-class"
+                element={
+                  <PrivateRoute>
+                    <UserProfileContextProvider>
+                      <LiveClass />
+                    </UserProfileContextProvider>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/app/live-class/create"
+                element={
+                  <PrivateRoute>
+                    <UserProfileContextProvider>
+                      <LiveClass />
+                    </UserProfileContextProvider>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/app/live-class/add"
+                element={
+                  <PrivateRoute>
+                    <UserProfileContextProvider>
+                      <LiveClass />
+                    </UserProfileContextProvider>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/app/profile"
+                element={
+                  <PrivateRoute>
+                    <UserProfileContextProvider>
+                      <TeacherProfile />
+                    </UserProfileContextProvider>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/app/settings"
+                element={
+                  <PrivateRoute>
+                    <UserProfileContextProvider>
+                      <TeacherSetting />
+                    </UserProfileContextProvider>
+                  </PrivateRoute>
+                }
+              />
+            </Routes>
+            <ToastContainer />
+          </Suspense>
+        </ModalContextProvider>
       </ErrorBoundary>
     </ThemeProvider>
   );

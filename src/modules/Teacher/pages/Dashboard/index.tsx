@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 import Box from '@mui/material/Box';
-import { Layout } from 'src/Layout/Teacher';
+import { Layout } from 'src/Layout';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 

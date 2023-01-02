@@ -9,7 +9,7 @@ import Stack from '@mui/material/Stack';
 import IconEdit from '@mui/icons-material/EditOutlined';
 import IconDelete from '@mui/icons-material/DeleteOutline';
 
-import { Layout } from 'src/Layout/student';
+import { Layout } from 'src/Layout';
 
 import { Card, Button } from 'src/components';
 

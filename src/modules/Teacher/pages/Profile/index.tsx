@@ -6,7 +6,7 @@ import Info from 'src/modules/Teacher/pages/Profile/Info';
 import Form from 'src/modules/Teacher/pages/Profile/Form';
 import { useStyles } from 'src/modules/Teacher/pages/Profile/styled.profile';
 
-import { Layout } from 'src/Layout/Teacher';
+import { Layout } from 'src/Layout';
 
 const Profile: FunctionComponent = () => {
   const classes = useStyles();

@@ -13,7 +13,7 @@ import { USER } from 'src/constant/chat';
 
 import { Card, Input, Button } from 'src/components';
 
-import { Layout } from 'src/Layout/student';
+import { Layout } from 'src/Layout';
 
 import AvatarUser from 'src/assets/images/Avatar.png';
 
@@ -22,6 +22,7 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const handleChange = () => {};
+
   return (
     <Layout>
       <Box component="section" className={classes.root}>

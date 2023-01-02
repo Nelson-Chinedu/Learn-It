@@ -2,7 +2,7 @@ import { FunctionComponent } from 'react';
 import { useLocation } from 'react-router-dom';
 import Box from '@mui/material/Box';
 
-import { Layout } from 'src/Layout/Teacher';
+import { Layout } from 'src/Layout';
 
 import { Card } from 'src/components';
 

@@ -14,7 +14,7 @@ import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 
 import { useStyles } from 'src/modules/Student/pages/Course/styled.course';
 
-import { Layout } from 'src/Layout/student';
+import { Layout } from 'src/Layout';
 
 import { Card, TabNav } from 'src/components';
 

@@ -54,6 +54,9 @@ const StyledMenu = styled((props: MenuProps) => (
         textDecoration: 'none',
         color: 'inherit !important',
       },
+      '&:focus-visible': {
+        outline: 'none !important',
+      },
     },
   },
 }));

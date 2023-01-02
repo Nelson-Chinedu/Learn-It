@@ -8,8 +8,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import DefaultUser from 'src/assets/images/default_user.png';
 
-import useTeacherProfile from 'src/hooks/useTeacherProfile';
-
 import { useUpdateProfilePictureMutation } from 'src/services/userSlice';
 
 import {
@@ -17,10 +15,13 @@ import {
   successNotification,
 } from 'src/helpers/notification';
 
+import useUserProfile from 'src/hooks/useUserProfile';
+
 import { useStyles } from 'src/components/UploadAvatar/styled.uploadAvatar';
 
 const UploadAvatar: FunctionComponent<Record<string, never>> = () => {
-  const { data } = useTeacherProfile();
+  const { data, isSuccess } = useUserProfile();
+
   const [updateProfilePicture, { isLoading }] =
     useUpdateProfilePictureMutation();
   const classes = useStyles({ isLoading });
@@ -46,7 +47,7 @@ const UploadAvatar: FunctionComponent<Record<string, never>> = () => {
     <Box className={classes.root}>
       <Box className="container">
         <Avatar
-          src={data?.payload?.picture || DefaultUser}
+          src={(isSuccess && data?.payload?.picture) || DefaultUser}
           alt="profile picture"
           sx={{ width: 70, height: 70 }}
         />

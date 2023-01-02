@@ -8,7 +8,7 @@ import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 
 import { useStyles } from 'src/modules/Student/pages/Course/styled.course';
 
-import { Layout } from 'src/Layout/student';
+import { Layout } from 'src/Layout';
 
 import { Card } from 'src/components';
 

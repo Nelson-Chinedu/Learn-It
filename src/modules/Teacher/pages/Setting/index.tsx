@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import Box from '@mui/material/Box';
 
-import { Layout } from 'src/Layout/Teacher';
+import { Layout } from 'src/Layout';
 
 import { TabNav, Card } from 'src/components';
 
