@@ -6,7 +6,7 @@ import CardContent from '@mui/material/CardContent';
 
 import { Card } from 'src/components';
 
-import { useStyles } from 'src/modules/Home/Offer/styled.offer';
+import { useStyles } from 'src/modules/Landing/pages/Home/Offer/styled.offer';
 
 import ExpertMentor from 'src/assets/images/online_learning.svg';
 import Certificate from 'src/assets/images/certificate.svg';

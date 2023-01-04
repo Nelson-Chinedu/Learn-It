@@ -7,7 +7,7 @@ import Happy from 'src/assets/images/happy.svg';
 import Completed from 'src/assets/images/completed.svg';
 import Certificate from 'src/assets/images/cert.svg';
 
-import { useStyles } from 'src/modules/Home/Alumni/styled.alumni';
+import { useStyles } from 'src/modules/Landing/pages/Home/Alumni/styled.alumni';
 
 const Alumni: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();

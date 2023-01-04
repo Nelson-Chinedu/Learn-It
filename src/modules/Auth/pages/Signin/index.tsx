@@ -32,7 +32,9 @@ import { loggedState } from 'src/features/accountSlice';
 
 import useLocalStorage from 'src/hooks/useLocalStorage';
 
-import { useStyles } from 'src/modules/Auth/Signin/styled.signin';
+import { AUTH_PATHS, BASE_PATHS } from 'src/constant/path';
+
+import { useStyles } from 'src/modules/Auth/pages/Signin/styled.signin';
 
 const Signin: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();
@@ -64,9 +66,9 @@ const Signin: FunctionComponent<Record<string, never>> = () => {
         dispatch(loggedState(!isLoggedIn));
         setStoredValue(true); // set loggedin user to true which stores to localstorage
         if (role === 'mentee') {
-          navigate('/dashboard');
+          navigate('/s/dashboard');
         } else {
-          navigate('/app/dashboard');
+          navigate('/m/dashboard');
         }
       }
     } catch (error: any) {
@@ -177,7 +179,10 @@ const Signin: FunctionComponent<Record<string, never>> = () => {
               </Grid>
               <Grid item className={classes.signup}>
                 <Typography variant="subtitle2">
-                  Not yet a member? <Link to="/signup">Sign up</Link>
+                  Not yet a member?{' '}
+                  <Link to={`/${BASE_PATHS.AUTH}/${AUTH_PATHS.SIGNUP}`}>
+                    Sign up
+                  </Link>
                 </Typography>
               </Grid>
             </Grid>

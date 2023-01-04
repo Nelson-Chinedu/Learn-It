@@ -4,9 +4,9 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 
-import { useStyles } from 'src/modules/Home/PopularCourse/styled.popularcourse';
+import { useStyles } from 'src/modules/Landing/pages/Home/PopularCourse/styled.popularcourse';
 
-import Course from 'src/modules/Home/PopularCourse/Course';
+import Course from 'src/modules/Landing/pages/Home/PopularCourse/Course';
 
 const PopularCourse: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();

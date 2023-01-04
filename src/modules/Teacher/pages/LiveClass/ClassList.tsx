@@ -20,11 +20,11 @@ const ClassList: FunctionComponent<Record<string, never>> = () => {
   };
 
   const handleCreateClass = () => {
-    navigate('/app/live-class/create');
+    navigate('/m/live-class/create');
   };
 
   const handleStart = () => {
-    navigate('/app/live-class/start');
+    navigate('/m/live-class/start');
   };
 
   return (
@@ -119,7 +119,7 @@ const ClassList: FunctionComponent<Record<string, never>> = () => {
         </Box>
       </Box>
       <Menu
-        onClose={handleClose}
+        handleClose={handleClose}
         open={open}
         anchorEl={anchorEl}
         menus={[

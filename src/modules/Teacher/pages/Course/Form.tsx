@@ -22,8 +22,6 @@ import {
 
 import { useAddCourseMutation } from 'src/modules/Teacher/services/teacherSlice';
 
-import { Layout } from 'src/Layout';
-
 const validationSchema = Yup.object().shape({
   courseName: Yup.string().required('Required'),
   price: Yup.string().required('Required'),
@@ -222,134 +220,132 @@ const AddCourse: FunctionComponent<Record<string, never>> = () => {
   } = formik;
 
   return (
-    <Layout>
-      <Box component="form" onSubmit={handleSubmit} className={classes.root}>
-        <Grid
-          container
-          spacing={2}
-          alignItems="flex-start"
-          justifyContent="space-between"
-          sx={{ mb: 2 }}
-        >
-          <Grid item sm={6}>
-            <Typography variant="body1">Course Title</Typography>
-            <Input
-              placeholder="Course Title"
-              fullWidth={true}
-              name="courseName"
-              variant="outlined"
-              size="small"
-              color="primary"
-              value={values.courseName}
-              handleChange={handleChange}
-              onBlur={handleBlur}
-              helperText={touched.courseName && errors.courseName}
-              error={touched.courseName && Boolean(errors.courseName)}
-            />
-          </Grid>
-          <Grid item sm={6}>
-            <Typography variant="body1">Price</Typography>
-            <Input
-              placeholder="Price"
-              fullWidth={true}
-              name="price"
-              variant="outlined"
-              size="small"
-              color="primary"
-              value={values.price}
-              handleChange={handleChange}
-              onBlur={handleBlur}
-              helperText={touched.price && errors.price}
-              error={touched.price && Boolean(errors.price)}
-            />
-          </Grid>
+    <Box component="form" onSubmit={handleSubmit} className={classes.root}>
+      <Grid
+        container
+        spacing={2}
+        alignItems="flex-start"
+        justifyContent="space-between"
+        sx={{ mb: 2 }}
+      >
+        <Grid item sm={6}>
+          <Typography variant="body1">Course Title</Typography>
+          <Input
+            placeholder="Course Title"
+            fullWidth={true}
+            name="courseName"
+            variant="outlined"
+            size="small"
+            color="primary"
+            value={values.courseName}
+            handleChange={handleChange}
+            onBlur={handleBlur}
+            helperText={touched.courseName && errors.courseName}
+            error={touched.courseName && Boolean(errors.courseName)}
+          />
         </Grid>
-        <Typography variant="body1">Upload course thumbnail</Typography>
-        <label className={classes.fileUpload}>
-          <CloudUploadIcon fontSize="large" />
-          <Typography variant="subtitle2">Upload thumbnail</Typography>
-          <Typography variant="subtitle1">Click to browse file</Typography>
-          <input
-            type="file"
-            accept="image/jpg,image/png"
-            onChange={(e) => handleUploadFile(e, 'thumbnail')}
-            ref={thumbnailRef}
+        <Grid item sm={6}>
+          <Typography variant="body1">Price</Typography>
+          <Input
+            placeholder="Price"
+            fullWidth={true}
+            name="price"
+            variant="outlined"
+            size="small"
+            color="primary"
+            value={values.price}
+            handleChange={handleChange}
+            onBlur={handleBlur}
+            helperText={touched.price && errors.price}
+            error={touched.price && Boolean(errors.price)}
           />
-        </label>
-
-        <Typography variant="body1">Upload course preview</Typography>
-        <label className={classes.fileUpload}>
-          <CloudUploadIcon fontSize="large" />
-          <Typography variant="subtitle2">Upload course preview</Typography>
-          <Typography variant="subtitle1">Click to browse file</Typography>
-          <input
-            type="file"
-            accept="video/mp4,video/x-m4v"
-            onChange={(e) => handleUploadFile(e, 'course_preview')}
-            ref={previewRef}
-          />
-        </label>
-
-        <Typography variant="body1">Upload video(s) by modules</Typography>
-        <label className={classes.fileUpload}>
-          <CloudUploadIcon fontSize="large" />
-          <Typography variant="subtitle2">Upload Video</Typography>
-          <Typography variant="subtitle1">Click to browse file</Typography>
-          <input
-            type="file"
-            accept="video/mp4,video/x-m4v"
-            onChange={(e) => handleUploadFile(e, 'video')}
-            ref={ref}
-          />
-        </label>
-        <Box sx={{ mb: 4 }}>
-          {isUploading && uploadingFile !== null && (
-            <Upload
-              assetName={uploadingFile?.name}
-              status={uploadingFile?.status}
-            />
-          )}
-          {uploadedFiles.map((file: { name: string }, index: number) => (
-            <Upload assetName={file.name} key={index} />
-          ))}
-        </Box>
-        <Typography variant="body1">Objectives</Typography>
-        <SunEditor
-          getSunEditorInstance={getSunEditorInstance_Objective}
-          placeholder="Please enter objectives here..."
-          setOptions={{
-            buttonList: [['formatBlock', 'align', 'list', 'bold', 'underline']],
-          }}
-          onChange={_handleObjectives}
-          setContents={objectives}
+        </Grid>
+      </Grid>
+      <Typography variant="body1">Upload course thumbnail</Typography>
+      <label className={classes.fileUpload}>
+        <CloudUploadIcon fontSize="large" />
+        <Typography variant="subtitle2">Upload thumbnail</Typography>
+        <Typography variant="subtitle1">Click to browse file</Typography>
+        <input
+          type="file"
+          accept="image/jpg,image/png"
+          onChange={(e) => handleUploadFile(e, 'thumbnail')}
+          ref={thumbnailRef}
         />
-        <Typography variant="body1">FAQ</Typography>
-        <SunEditor
-          getSunEditorInstance={getSunEditorInstance_Faq}
-          placeholder="Please enter FAQ's here..."
-          setOptions={{
-            buttonList: [['formatBlock', 'align', 'list', 'bold', 'underline']],
-          }}
-          onChange={_handleFaq}
-          setContents={faq}
+      </label>
+
+      <Typography variant="body1">Upload course preview</Typography>
+      <label className={classes.fileUpload}>
+        <CloudUploadIcon fontSize="large" />
+        <Typography variant="subtitle2">Upload course preview</Typography>
+        <Typography variant="subtitle1">Click to browse file</Typography>
+        <input
+          type="file"
+          accept="video/mp4,video/x-m4v"
+          onChange={(e) => handleUploadFile(e, 'course_preview')}
+          ref={previewRef}
         />
-        <Button
-          variant="contained"
-          disableElevation={true}
-          color="primary"
-          fullWidth={true}
-          size="large"
-          handleClick={handleSubmit}
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? (
-            <CircularProgress size={28} style={{ color: 'white' }} />
-          ) : (
-            'Add Course'
-          )}
-        </Button>
+      </label>
+
+      <Typography variant="body1">Upload video(s) by modules</Typography>
+      <label className={classes.fileUpload}>
+        <CloudUploadIcon fontSize="large" />
+        <Typography variant="subtitle2">Upload Video</Typography>
+        <Typography variant="subtitle1">Click to browse file</Typography>
+        <input
+          type="file"
+          accept="video/mp4,video/x-m4v"
+          onChange={(e) => handleUploadFile(e, 'video')}
+          ref={ref}
+        />
+      </label>
+      <Box sx={{ mb: 4 }}>
+        {isUploading && uploadingFile !== null && (
+          <Upload
+            assetName={uploadingFile?.name}
+            status={uploadingFile?.status}
+          />
+        )}
+        {uploadedFiles.map((file: { name: string }, index: number) => (
+          <Upload assetName={file.name} key={index} />
+        ))}
       </Box>
-    </Layout>
+      <Typography variant="body1">Objectives</Typography>
+      <SunEditor
+        getSunEditorInstance={getSunEditorInstance_Objective}
+        placeholder="Please enter objectives here..."
+        setOptions={{
+          buttonList: [['formatBlock', 'align', 'list', 'bold', 'underline']],
+        }}
+        onChange={_handleObjectives}
+        setContents={objectives}
+      />
+      <Typography variant="body1">FAQ</Typography>
+      <SunEditor
+        getSunEditorInstance={getSunEditorInstance_Faq}
+        placeholder="Please enter FAQ's here..."
+        setOptions={{
+          buttonList: [['formatBlock', 'align', 'list', 'bold', 'underline']],
+        }}
+        onChange={_handleFaq}
+        setContents={faq}
+      />
+      <Button
+        variant="contained"
+        disableElevation={true}
+        color="primary"
+        fullWidth={true}
+        size="large"
+        handleClick={handleSubmit}
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? (
+          <CircularProgress size={28} style={{ color: 'white' }} />
+        ) : (
+          'Add Course'
+        )}
+      </Button>
+    </Box>
   );
 };
 

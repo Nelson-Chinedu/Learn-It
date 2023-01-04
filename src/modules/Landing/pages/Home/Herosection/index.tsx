@@ -9,11 +9,11 @@ import SearchIcon from '@mui/icons-material/Search';
 
 import { Input, Button } from 'src/components';
 
-import TopNavigation from 'src/modules/Home/Herosection/TopNav';
+import TopNavigation from 'src/modules/Landing/pages/Home/Herosection/TopNav';
 
 import HerosectionImage from 'src/assets/images/student.gif';
 
-import { useStyles } from 'src/modules/Home/Herosection/styled.herosection';
+import { useStyles } from 'src/modules/Landing/pages/Home/Herosection/styled.herosection';
 
 const Home: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();

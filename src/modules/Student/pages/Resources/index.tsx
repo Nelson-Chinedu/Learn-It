@@ -9,9 +9,7 @@ import Stack from '@mui/material/Stack';
 import IconEdit from '@mui/icons-material/EditOutlined';
 import IconDelete from '@mui/icons-material/DeleteOutline';
 
-import { Layout } from 'src/Layout';
-
-import { Card, Button } from 'src/components';
+import { Button } from 'src/components';
 
 import {
   useGetCategoryQuery,
@@ -54,118 +52,113 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
   };
 
   return (
-    <Layout>
+    <>
       <Box component="section">
-        <Card borderRadius="10px" width="100%" height="100vh">
-          <Box style={{ padding: '20px' }}>
-            <Grid
-              container
-              alignItems="center"
-              justifyContent="space-between"
-              style={{ marginBottom: '1em' }}
-            >
-              <Grid item>
-                <Typography>My Resources</Typography>
-              </Grid>
-              <Grid item>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                  disableElevation
-                  size="medium"
-                  handleClick={handleAddResource}
-                >
-                  Add Resource url
-                </Button>
-              </Grid>
+        <Box style={{ padding: '20px' }}>
+          <Grid
+            container
+            alignItems="center"
+            justifyContent="flex-end"
+            style={{ marginBottom: '1em' }}
+          >
+            <Grid item>
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                disableElevation
+                size="medium"
+                handleClick={handleAddResource}
+              >
+                Add Resource url
+              </Button>
             </Grid>
-            {isLoading && !data ? (
-              <Typography>Fetching data</Typography>
-            ) : (
-              <>
-                {data?.payload.map(
-                  (data: { name: string; id: string | number }) => (
-                    <>
-                      <Button
-                        disableElevation
-                        fullWidth={false}
-                        variant="text"
-                        color="primary"
-                        size="small"
-                        handleClick={() => handleCategory(data.id)}
-                        sx={{
-                          textTransform: 'capitalize',
-                          color: data.id !== selectedTab && 'grey !important',
-                        }}
-                      >
-                        {data.name}
-                      </Button>
-                    </>
-                  )
-                )}
-                <IconButton size="small" onClick={handleAddCategory}>
-                  <AddIcon fontSize="small" />
-                </IconButton>
-                <Divider />
+          </Grid>
+          {isLoading && !data ? (
+            <Typography>Fetching data</Typography>
+          ) : (
+            <>
+              {data?.payload.map(
+                (data: { name: string; id: string | number }) => (
+                  <>
+                    <Button
+                      disableElevation
+                      fullWidth={false}
+                      variant="text"
+                      color="primary"
+                      size="small"
+                      handleClick={() => handleCategory(data.id)}
+                      sx={{
+                        textTransform: 'capitalize',
+                        color: data.id !== selectedTab && 'grey !important',
+                      }}
+                    >
+                      {data.name}
+                    </Button>
+                  </>
+                )
+              )}
+              <IconButton size="small" onClick={handleAddCategory}>
+                <AddIcon fontSize="small" />
+              </IconButton>
+              <Divider />
 
-                {resourceIsLoading && !resourceData ? (
-                  <Typography>fetching...</Typography>
-                ) : (
-                  <Box sx={{ mt: 3 }}>
-                    {resourceData?.payload.length === 0 ? (
-                      <Box>
-                        <Typography>No resource added yet</Typography>
-                      </Box>
-                    ) : (
-                      resourceData?.payload.map(
-                        (
-                          data: { name: string; url: string; id: string } | null
-                        ) => (
-                          <Stack
-                            key={data.id}
-                            sx={{
-                              my: 1,
-                              padding: '1em',
-                              borderRadius: '4px',
-                              cursor: 'pointer',
-                              '&:hover': {
-                                background: '#f8f8f8',
-                              },
-                              '& a': {
-                                textDecoration: 'none',
-                                color: 'inherit',
-                              },
-                            }}
-                            direction="row"
-                            alignItems="center"
-                            justifyContent="space-between"
-                          >
-                            <a href={data.url} target="_blank">
-                              <Typography>{data.name}</Typography>
-                            </a>
-                            <Box>
-                              <IconButton>
-                                <IconEdit fontSize="small" />
-                              </IconButton>
-                              <IconButton>
-                                <IconDelete fontSize="small" />
-                              </IconButton>
-                            </Box>
-                          </Stack>
-                        )
+              {resourceIsLoading && !resourceData ? (
+                <Typography>fetching...</Typography>
+              ) : (
+                <Box sx={{ mt: 3 }}>
+                  {resourceData?.payload.length === 0 ? (
+                    <Box>
+                      <Typography>No resource added yet</Typography>
+                    </Box>
+                  ) : (
+                    resourceData?.payload.map(
+                      (
+                        data: { name: string; url: string; id: string } | null
+                      ) => (
+                        <Stack
+                          key={data.id}
+                          sx={{
+                            my: 1,
+                            padding: '1em',
+                            borderRadius: '4px',
+                            cursor: 'pointer',
+                            '&:hover': {
+                              background: '#f8f8f8',
+                            },
+                            '& a': {
+                              textDecoration: 'none',
+                              color: 'inherit',
+                            },
+                          }}
+                          direction="row"
+                          alignItems="center"
+                          justifyContent="space-between"
+                        >
+                          <a href={data.url} target="_blank">
+                            <Typography>{data.name}</Typography>
+                          </a>
+                          <Box>
+                            <IconButton>
+                              <IconEdit fontSize="small" />
+                            </IconButton>
+                            <IconButton>
+                              <IconDelete fontSize="small" />
+                            </IconButton>
+                          </Box>
+                        </Stack>
                       )
-                    )}
-                  </Box>
-                )}
-              </>
-            )}
-          </Box>
-        </Card>
+                    )
+                  )}
+                </Box>
+              )}
+            </>
+          )}
+        </Box>
       </Box>
       <CategoryModal />
       <ResourceModal />
-    </Layout>
+    </>
   );
 };
 

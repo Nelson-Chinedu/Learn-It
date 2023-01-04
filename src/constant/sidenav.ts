@@ -1,23 +1,23 @@
 export const STUDENT_SIDENAV_MENU = [
   {
     menu: 'Dashboard',
-    path: '/dashboard',
+    path: '/s/dashboard',
   },
   {
     menu: 'Course',
-    path: '/course',
+    path: '/s/course',
   },
   {
     menu: 'Resources',
-    path: '/resources',
+    path: '/s/resources',
   },
   {
     menu: 'Task',
-    path: '/task',
+    path: '/s/task',
   },
   {
     menu: 'Chat',
-    path: '/chat',
+    path: '/s/chat',
   },
   // {
   //   menu: 'Schedule',
@@ -25,49 +25,49 @@ export const STUDENT_SIDENAV_MENU = [
   // },
   {
     menu: 'Profile',
-    path: '/profile',
+    path: '/s/profile',
   },
   {
     menu: 'Setting',
-    path: '/setting',
+    path: '/s/settings',
   },
-] as const;
+];
 
 export const TEACHER_SIDENAV_MENU = [
   {
     menu: 'Dashboard',
-    path: '/app/dashboard',
+    path: '/m/dashboard',
   },
   {
     menu: 'Course',
-    path: '/app/course',
+    path: '/m/course',
   },
   {
     menu: 'Student',
-    path: '/app/student',
+    path: '/m/student',
   },
   {
     menu: 'Transactions',
-    path: '/app/transaction',
+    path: '/m/transaction',
   },
   {
     menu: 'Chat',
-    path: '/app/chat',
+    path: '/m/chat',
   },
   {
     menu: 'Schedule',
-    path: '/app/schedule',
+    path: '/m/schedule',
   },
   {
     menu: 'Live Class',
-    path: '/app/live-class',
+    path: '/m/live-class',
   },
   {
     menu: 'Profile',
-    path: '/app/profile',
+    path: '/m/profile',
   },
   {
     menu: 'Settings',
-    path: '/app/settings',
+    path: '/m/settings',
   },
-] as const;
+];

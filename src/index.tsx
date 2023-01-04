@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import '@natscale/react-calendar/dist/main.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,11 +15,9 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </BrowserRouter>
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
