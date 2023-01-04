@@ -12,7 +12,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import { Input, Button } from 'src/components';
 
-import { useStyles } from 'src/modules/Auth/Signup/styled.signup';
+import { AUTH_PATHS, BASE_PATHS } from 'src/constant/path';
 
 import GetStarted from 'src/assets/images/getStartedImage.webp';
 
@@ -26,6 +26,8 @@ import {
 import { ISignup } from 'src/interface/auth';
 
 import { validationSchema } from 'src/validations/signup';
+
+import { useStyles } from 'src/modules/Auth/pages/Signup/styled.signup';
 
 const Signup: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();
@@ -55,9 +57,9 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
         resetForm();
         successNotification(data.message);
         if (role === 'mentee') {
-          navigate('/dashboard');
+          navigate('/s/dashboard');
         } else {
-          navigate('/app/dashboard');
+          navigate('/m/dashboard');
         }
       }
     } catch (error: any) {
@@ -201,7 +203,10 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
               </Grid>
               <Grid item className={classes.signin}>
                 <Typography variant="subtitle2">
-                  Already a member? <Link to="/signin">Sign in</Link>
+                  Already a member?{' '}
+                  <Link to={`/${BASE_PATHS.AUTH}/${AUTH_PATHS.SIGNIN}`}>
+                    Sign in
+                  </Link>
                 </Typography>
               </Grid>
             </Grid>

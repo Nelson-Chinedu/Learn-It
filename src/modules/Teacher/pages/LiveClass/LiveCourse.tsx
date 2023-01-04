@@ -13,7 +13,7 @@ const LiveCourse: FunctionComponent<Record<string, never>> = () => {
   const handleChange = () => {};
 
   const handleNext = () => {
-    navigate('/app/live-class/add');
+    navigate('/m/live-class/add');
   };
 
   const handleBack = () => {

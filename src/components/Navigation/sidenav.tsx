@@ -5,18 +5,11 @@ import Box from '@mui/material/Box';
 
 import { useStyles } from 'src/components/Navigation/styled.navigation';
 
-import {
-  TEACHER_SIDENAV_MENU,
-  STUDENT_SIDENAV_MENU,
-} from 'src/constant/sidenav';
+import { ISidenav, IRoute } from 'src/interface/sidenav';
 
-const SideNavigation: FunctionComponent<Record<string, never>> = () => {
+const SideNavigation: FunctionComponent<ISidenav> = ({ SIDE_MENUS }) => {
   const classes = useStyles();
   const { pathname } = useLocation();
-
-  const SIDE_MENUS = pathname.includes('app')
-    ? TEACHER_SIDENAV_MENU
-    : STUDENT_SIDENAV_MENU;
 
   return (
     <Box className={classes.root}>
@@ -24,7 +17,7 @@ const SideNavigation: FunctionComponent<Record<string, never>> = () => {
         LearnIT
       </Typography>
       <Box style={{ margin: '2em 0px 3em' }}>
-        {SIDE_MENUS.map(({ menu, path }: { menu: string; path: string }) => (
+        {SIDE_MENUS.map(({ menu, path }: IRoute) => (
           <Link
             to={path}
             key={menu}
@@ -32,7 +25,9 @@ const SideNavigation: FunctionComponent<Record<string, never>> = () => {
               pathname.includes(path) ? classes.active : classes.inactive
             }
           >
-            <Typography variant="subtitle2">{menu}</Typography>
+            <Typography variant="subtitle2" className="menu">
+              {menu}
+            </Typography>
           </Link>
         ))}
       </Box>

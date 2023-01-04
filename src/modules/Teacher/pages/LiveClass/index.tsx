@@ -2,8 +2,6 @@ import { FunctionComponent } from 'react';
 import { useLocation } from 'react-router-dom';
 import Box from '@mui/material/Box';
 
-import { Layout } from 'src/Layout';
-
 import { Card } from 'src/components';
 
 import LiveCourse from 'src/modules/Teacher/pages/LiveClass/LiveCourse';
@@ -16,40 +14,34 @@ const LiveClass: FunctionComponent<Record<string, never>> = () => {
   const location = useLocation();
   const classes = useStyles();
 
-  if (location.pathname === '/app/live-class/create') {
+  if (location.pathname === '/m/live-class/create') {
     return (
-      <Layout>
-        <Box component="section" className={classes.root}>
-          <Card borderRadius="10px" width="100%" height="100vh">
-            <Box style={{ padding: '2em' }}>
-              <LiveCourse />
-            </Box>
-          </Card>
-        </Box>
-      </Layout>
+      <Box component="section" className={classes.root}>
+        <Card borderRadius="10px" width="100%" height="100vh">
+          <Box style={{ padding: '2em' }}>
+            <LiveCourse />
+          </Box>
+        </Card>
+      </Box>
     );
   }
 
-  if (location.pathname === '/app/live-class/add') {
+  if (location.pathname === '/m/live-class/add') {
     return (
-      <Layout>
-        <Box component="section" className={classes.root}>
-          <Card borderRadius="10px" width="100%" height="100vh">
-            <Box style={{ padding: '2em' }}>
-              <ClassModule />
-            </Box>
-          </Card>
-        </Box>
-      </Layout>
+      <Box component="section" className={classes.root}>
+        <Card borderRadius="10px" width="100%" height="100vh">
+          <Box style={{ padding: '2em' }}>
+            <ClassModule />
+          </Box>
+        </Card>
+      </Box>
     );
   }
 
   return (
-    <Layout>
-      <Box component="section" className={classes.root}>
-        <ClassList />
-      </Box>
-    </Layout>
+    <Box component="section" className={classes.root}>
+      <ClassList />
+    </Box>
   );
 };
 

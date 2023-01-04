@@ -7,7 +7,7 @@ import { Button } from 'src/components';
 
 import Instructor from 'src/assets/images/instructor.gif';
 
-import { useStyles } from 'src/modules/Home/BecomeInstructor/styled.becomeInstructor';
+import { useStyles } from 'src/modules/Landing/pages/Home/BecomeInstructor/styled.becomeInstructor';
 
 const BecomeInstructor: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();

@@ -14,9 +14,7 @@ import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 
 import { useStyles } from 'src/modules/Student/pages/Course/styled.course';
 
-import { Layout } from 'src/Layout';
-
-import { Card, TabNav } from 'src/components';
+import { TabNav } from 'src/components';
 
 import { MODULES, STEPS } from 'src/constant/module';
 
@@ -31,119 +29,103 @@ const CoursePreview: FunctionComponent<Record<string, never>> = () => {
     setIsToggled(id);
   };
   return (
-    <Layout>
-      <Box component="section">
-        <Grid container spacing={2}>
-          <Grid item md={8}>
-            <Card width="100%" borderRadius="10px" height="100vh">
-              <Box style={{ padding: '20px' }}>
-                <Player src="https://res.cloudinary.com/dbx3dhfkt/video/upload/v1670759001/LearnIT/video-1616afcf-61fb-4c08-b57b-46d1eb715ff5.mp4">
-                  <BigPlayButton position="center" />
-                </Player>
-                <Box style={{ margin: '1em 0px' }}>
-                  <Typography variant="subtitle1">
-                    {title?.split('-').join(' ')}
-                  </Typography>
-                  <Typography variant="subtitle2">
-                    William Joe | Course Title
-                  </Typography>
-                </Box>
+    <Box component="section">
+      <Grid container spacing={2}>
+        <Grid item md={8}>
+          <Box style={{ padding: '20px' }}>
+            <Player src="https://res.cloudinary.com/dbx3dhfkt/video/upload/v1670759001/LearnIT/video-1616afcf-61fb-4c08-b57b-46d1eb715ff5.mp4">
+              <BigPlayButton position="center" />
+            </Player>
+            <Box style={{ margin: '1em 0px' }}>
+              <Typography variant="subtitle1">
+                {title?.split('-').join(' ')}
+              </Typography>
+              <Typography variant="subtitle2">
+                William Joe | Course Title
+              </Typography>
+            </Box>
+            <Grid
+              container
+              alignItems="baseline"
+              justifyContent="flex-start"
+              className={classes.btnMentor}
+            >
+              <Grid item md={12}>
+                <TabNav nav={LINKS} />
+              </Grid>
+            </Grid>
+          </Box>
+        </Grid>
+        <Grid item md={4}>
+          <Box style={{ padding: '20px' }}>
+            <Box style={{ margin: '0px 0px 1em' }}>
+              <Typography variant="subtitle1">Course Content</Typography>
+              <Typography variant="subtitle2">
+                Lecture (15) Total (5.5 hrs)
+              </Typography>
+            </Box>
+            {MODULES.map((module: string, index: number) => (
+              <Box style={{ margin: '1.5em 0px' }} key={module}>
                 <Grid
                   container
-                  alignItems="baseline"
-                  justifyContent="flex-start"
-                  className={classes.btnMentor}
+                  alignItems="center"
+                  justifyContent="space-between"
                 >
-                  <Grid item md={12}>
-                    <TabNav nav={LINKS} />
+                  <Grid item>
+                    <Typography variant="subtitle1">{module}</Typography>
+                    <Typography variant="subtitle2">Introduction</Typography>
                   </Grid>
-                </Grid>
-              </Box>
-            </Card>
-          </Grid>
-          <Grid item md={4}>
-            <Card
-              width="100%"
-              borderRadius="10px"
-              height="100vh"
-              overflow="scroll"
-            >
-              <Box style={{ padding: '20px' }}>
-                <Box style={{ margin: '0px 0px 1em' }}>
-                  <Typography variant="subtitle1">Course Content</Typography>
-                  <Typography variant="subtitle2">
-                    Lecture (15) Total (5.5 hrs)
-                  </Typography>
-                </Box>
-                {MODULES.map((module: string, index: number) => (
-                  <Box style={{ margin: '1.5em 0px' }} key={module}>
-                    <Grid
-                      container
-                      alignItems="center"
-                      justifyContent="space-between"
-                    >
+                  <Grid item>
+                    <Grid container alignItems="center" spacing={1}>
                       <Grid item>
-                        <Typography variant="subtitle1">{module}</Typography>
                         <Typography variant="subtitle2">
-                          Introduction
+                          21 Lecture 54 Min
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <Grid container alignItems="center" spacing={1}>
-                          <Grid item>
-                            <Typography variant="subtitle2">
-                              21 Lecture 54 Min
-                            </Typography>
-                          </Grid>
-                          <Grid item>
-                            <IconButton
-                              size="small"
-                              onClick={() => handleToggle(index)}
-                            >
-                              <ArrowDropDownCircleIcon
-                                fontSize="small"
-                                color="primary"
-                              />
-                            </IconButton>
-                          </Grid>
-                        </Grid>
+                        <IconButton
+                          size="small"
+                          onClick={() => handleToggle(index)}
+                        >
+                          <ArrowDropDownCircleIcon
+                            fontSize="small"
+                            color="primary"
+                          />
+                        </IconButton>
                       </Grid>
                     </Grid>
-                    <Collapse in={isToggled === index ? true : false}>
-                      <Grid container>
-                        <Grid item className={classes.stepper}>
-                          <Stepper activeStep={1} orientation="vertical">
-                            {STEPS.map(
-                              (step: {
-                                label: string;
-                                description: string;
-                              }) => (
-                                <Step key={step.label}>
-                                  <StepLabel>
-                                    <Typography variant="subtitle1">
-                                      {step.label}
-                                    </Typography>
-                                  </StepLabel>
-                                  <StepContent>
-                                    <Typography variant="subtitle2">
-                                      {step.description}
-                                    </Typography>
-                                  </StepContent>
-                                </Step>
-                              )
-                            )}
-                          </Stepper>
-                        </Grid>
-                      </Grid>
-                    </Collapse>
-                  </Box>
-                ))}
+                  </Grid>
+                </Grid>
+                <Collapse in={isToggled === index ? true : false}>
+                  <Grid container>
+                    <Grid item className={classes.stepper}>
+                      <Stepper activeStep={1} orientation="vertical">
+                        {STEPS.map(
+                          (step: { label: string; description: string }) => (
+                            <Step key={step.label}>
+                              <StepLabel>
+                                <Typography variant="subtitle1">
+                                  {step.label}
+                                </Typography>
+                              </StepLabel>
+                              <StepContent>
+                                <Typography variant="subtitle2">
+                                  {step.description}
+                                </Typography>
+                              </StepContent>
+                            </Step>
+                          )
+                        )}
+                      </Stepper>
+                    </Grid>
+                  </Grid>
+                </Collapse>
               </Box>
-            </Card>
-          </Grid>
+            ))}
+          </Box>
         </Grid>
-      </Box>
-    </Layout>
+      </Grid>
+    </Box>
   );
 };
 

@@ -9,7 +9,7 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 
-import { Card, Button } from 'src/components';
+import { Button } from 'src/components';
 
 import { useGetCoursesQuery } from 'src/modules/Teacher/services/teacherSlice';
 
@@ -34,7 +34,7 @@ const CourseTable: FunctionComponent<Record<string, never>> = () => {
   };
 
   return (
-    <Card borderRadius="10px" width="100%" height="92vh" overflow="scroll">
+    <>
       <Box style={{ padding: '2em' }}>
         {data && data.payload.length === 0 ? (
           <Box className={classes.emptyState}>
@@ -106,7 +106,7 @@ const CourseTable: FunctionComponent<Record<string, never>> = () => {
           </TableContainer>
         )}
       </Box>
-    </Card>
+    </>
   );
 };
 

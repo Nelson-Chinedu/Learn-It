@@ -8,6 +8,7 @@ import Container from '@mui/material/Container';
 import { Button } from 'src/components/Button';
 
 import { NAVBAR } from 'src/constant/navbar';
+import { AUTH_PATHS, BASE_PATHS } from 'src/constant/path';
 
 const Topnav: FunctionComponent<Record<string, never>> = () => {
   return (
@@ -31,7 +32,7 @@ const Topnav: FunctionComponent<Record<string, never>> = () => {
             ))}
             <Grid item>
               <Button
-                href="/signin"
+                href={`${BASE_PATHS.AUTH}/${AUTH_PATHS.SIGNIN}`}
                 color="primary"
                 disableElevation={true}
                 fullWidth={true}
@@ -42,7 +43,7 @@ const Topnav: FunctionComponent<Record<string, never>> = () => {
             </Grid>
             <Grid item>
               <Button
-                href="/signup"
+                href={`${BASE_PATHS.AUTH}/${AUTH_PATHS.SIGNUP}`}
                 variant="contained"
                 color="primary"
                 size="small"

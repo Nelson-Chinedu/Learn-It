@@ -1,5 +1,4 @@
 import { FunctionComponent } from 'react';
-import { useLocation } from 'react-router-dom';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -12,15 +11,27 @@ import { Menu } from 'src/components';
 
 import DefaultUser from 'src/assets/images/default_user.png';
 
-import useMenu from 'src/hooks/useMenu';
-import { IUser } from 'src/hooks/useUserProfile';
+import { IUserData } from 'src/hooks/useUserProfile';
 
-const TopNavigation: FunctionComponent<IUser> = ({ isSuccess, data }) => {
-  const { pathname } = useLocation();
-  const { open, anchorEl, handleClick, handleClose } = useMenu();
+interface ITopNavigation {
+  path: string;
+  isSuccess: boolean;
+  data: IUserData;
+  handleClick: (event: React.MouseEvent<HTMLElement>) => void;
+  open: boolean;
+  anchorEl: Element | ((element: Element) => Element);
+  handleClose: () => void;
+}
 
-  const path = pathname.includes('app') ? '/app' : '';
-
+const TopNavigation: FunctionComponent<ITopNavigation> = ({
+  isSuccess,
+  data,
+  path,
+  open,
+  anchorEl,
+  handleClick,
+  handleClose,
+}) => {
   return (
     <Container
       maxWidth="xl"
@@ -85,10 +96,11 @@ const TopNavigation: FunctionComponent<IUser> = ({ isSuccess, data }) => {
           </Grid>
         </Grid>
       </Toolbar>
+
       <Menu
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
+        handleClose={handleClose}
         menus={[
           { name: 'My Profile', path: `${path}/profile` },
           { name: 'Settings', path: `${path}/settings` },
