@@ -2,10 +2,16 @@ import { FunctionComponent } from 'react';
 import { Player, BigPlayButton } from 'video-react';
 import sanitizeHtml from 'sanitize-html';
 import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import { makeStyles } from '@mui/styles';
 
 import { Modal, Button } from 'src/components';
 import useModal from 'src/hooks/useModal';
+import { useEnrollCourseMutation } from '../../services/studentSlice';
+import {
+  errorNotification,
+  successNotification,
+} from 'src/helpers/notification';
 
 const useStyles = makeStyles({
   root: {
@@ -29,7 +35,22 @@ const useStyles = makeStyles({
 
 const ViewCourseModal: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();
-  const [state] = useModal();
+  const [state, setState] = useModal();
+
+  const [enrollCourse, { isLoading }] = useEnrollCourseMutation();
+
+  const _handleEnrollCourse = async () => {
+    try {
+      const payload = {
+        courseId: state?.data?.id,
+      };
+      const res = await enrollCourse(payload).unwrap();
+      successNotification(res.message);
+      setState({ ...state, modalName: '' });
+    } catch (error) {
+      return errorNotification('An error occurred, Please try again');
+    }
+  };
 
   return (
     <Modal modalName="ViewCourse" title={state?.data?.name}>
@@ -55,8 +76,10 @@ const ViewCourseModal: FunctionComponent<Record<string, never>> = () => {
           fullWidth={true}
           variant="contained"
           disableElevation={true}
+          disabled={isLoading}
+          handleClick={_handleEnrollCourse}
         >
-          Enroll
+          {isLoading ? <CircularProgress size={20} /> : 'Enroll'}
         </Button>
       </Box>
     </Modal>

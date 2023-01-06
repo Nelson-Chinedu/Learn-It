@@ -31,7 +31,7 @@ export const MENTOR_PATHS = {
 
 export const STUDENT_PATHS = {
   DASHBOARD: 'dashboard',
-  COURSE: 'course',
+  COURSE: 'courses',
   RESOURCE: 'resources',
   TASK: 'task',
   CHAT: 'chat',

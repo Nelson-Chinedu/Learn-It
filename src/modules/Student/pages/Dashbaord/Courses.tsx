@@ -1,4 +1,5 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -14,12 +15,24 @@ import ViewCourseModal from 'src/modules/Student/components/Modals/ViewCourseMod
 
 import { useGetAllCoursesQuery } from 'src/services/userSlice';
 
+import { getUnEnrolledCourses } from 'src/features/courseSlice';
+
 import useModal from 'src/hooks/useModal';
+
+import { RootState } from 'src/store';
 
 const MyCourses: FunctionComponent<Record<string, never>> = () => {
   const { data, isLoading } = useGetAllCoursesQuery();
   const [state, setState] = useModal();
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const { courses: coursesData, isLoading: isLoadingCourses } = useSelector(
+    (state: RootState) => state.course
+  );
+
+  useEffect(() => {
+    dispatch(getUnEnrolledCourses({ data: data?.payload, loading: isLoading }));
+  }, [data]);
 
   const handleViewCourse = (data: {
     id: string;
@@ -45,7 +58,7 @@ const MyCourses: FunctionComponent<Record<string, never>> = () => {
         </Grid>
       </Grid>
       <Box>
-        {isLoading && !data ? (
+        {isLoadingCourses && !coursesData.length ? (
           [0, 1, 2, 3, 4].map((placeholder) => (
             <Box
               key={placeholder}
@@ -54,12 +67,12 @@ const MyCourses: FunctionComponent<Record<string, never>> = () => {
               <Skeleton height={100} sx={{ mt: -4 }} />
             </Box>
           ))
-        ) : !isLoading && data && data?.payload?.length === 0 ? (
+        ) : !isLoadingCourses && coursesData && coursesData?.length === 0 ? (
           <Typography sx={{ textAlign: 'center' }}>
             No course added yet
           </Typography>
         ) : (
-          data?.payload?.map((data: any) => (
+          coursesData?.map((data: any) => (
             <LineItem key={data.id}>
               <Grid
                 container
