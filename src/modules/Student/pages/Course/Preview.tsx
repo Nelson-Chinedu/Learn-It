@@ -37,7 +37,10 @@ const CoursePreview: FunctionComponent<Record<string, never>> = () => {
               <BigPlayButton position="center" />
             </Player>
             <Box style={{ margin: '1em 0px' }}>
-              <Typography variant="subtitle1">
+              <Typography
+                variant="subtitle1"
+                sx={{ textTransform: 'capitalize' }}
+              >
                 {title?.split('-').join(' ')}
               </Typography>
               <Typography variant="subtitle2">

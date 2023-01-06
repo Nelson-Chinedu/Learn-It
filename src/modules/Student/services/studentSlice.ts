@@ -1,21 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-interface ICategoryPayload {
-  id: string;
-  name: string;
-}
-
-interface ICategory {
-  payload: ICategoryPayload[];
-}
-
-interface IResource {
-  payload: {
-    id: string;
-    name: string;
-    url: string;
-  }[];
-}
+import { IEnrollCourse } from 'src/interface/enroll';
+import { IResource } from 'src/interface/resource';
+import { ICategory } from 'src/interface/category';
 
 export const studentSlice = createApi({
   reducerPath: 'student',
@@ -62,6 +49,12 @@ export const studentSlice = createApi({
       }),
       invalidatesTags: ['EnrollCourse'],
     }),
+    getEnrollCourse: builder.query<IEnrollCourse, void>({
+      query: () => ({
+        url: '/course/enroll',
+      }),
+      providesTags: ['EnrollCourse'],
+    }),
   }),
 });
 
@@ -71,4 +64,5 @@ export const {
   useAddResourceMutation,
   useGetResourceQuery,
   useEnrollCourseMutation,
+  useGetEnrollCourseQuery,
 } = studentSlice;
