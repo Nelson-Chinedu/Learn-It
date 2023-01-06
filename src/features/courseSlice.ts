@@ -1,13 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface ICourses {
-  courses: [];
-  isLoading: boolean;
+  unEnrolledCourses: [];
+  enrolledCourses: [];
+  isLoadingUnEnrolledCourses: boolean;
+  isLoadingEnrolledCourses: boolean;
 }
 
 const initialState: ICourses = {
-  courses: [],
-  isLoading: true,
+  unEnrolledCourses: [],
+  enrolledCourses: [],
+  isLoadingUnEnrolledCourses: true,
+  isLoadingEnrolledCourses: true,
 };
 
 export const courseSlice = createSlice({
@@ -17,15 +21,20 @@ export const courseSlice = createSlice({
     getUnEnrolledCourses: (state, action) => {
       const { data, loading } = action.payload;
       if (loading && data === undefined) {
-        state.isLoading = true;
+        state.isLoadingUnEnrolledCourses = true;
       } else {
-        state.courses = data;
-        state.isLoading = false;
+        state.unEnrolledCourses = data;
+        state.isLoadingUnEnrolledCourses = false;
       }
     },
     getEnrolledCourses: (state, action) => {
-      // eslint-disable-next-line no-console
-      console.log(state, '<>', action);
+      const { data, loading } = action.payload;
+      if (loading && data === undefined) {
+        state.isLoadingEnrolledCourses = true;
+      } else {
+        state.enrolledCourses = data;
+        state.isLoadingEnrolledCourses = false;
+      }
     },
   },
 });

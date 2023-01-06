@@ -21,14 +21,28 @@ import useModal from 'src/hooks/useModal';
 
 import { RootState } from 'src/store';
 
+interface ICourseData {
+  id: string;
+  name: string;
+  price: string | number;
+  video: string[];
+  objectives: string;
+  profile: {
+    firstname: string;
+    lastname: string;
+    picture: string;
+  };
+}
+
 const MyCourses: FunctionComponent<Record<string, never>> = () => {
   const { data, isLoading } = useGetAllCoursesQuery();
   const [state, setState] = useModal();
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { courses: coursesData, isLoading: isLoadingCourses } = useSelector(
-    (state: RootState) => state.course
-  );
+  const {
+    unEnrolledCourses: coursesData,
+    isLoadingUnEnrolledCourses: isLoadingCourses,
+  } = useSelector((state: RootState) => state.course);
 
   useEffect(() => {
     dispatch(getUnEnrolledCourses({ data: data?.payload, loading: isLoading }));
@@ -72,7 +86,7 @@ const MyCourses: FunctionComponent<Record<string, never>> = () => {
             No course added yet
           </Typography>
         ) : (
-          coursesData?.map((data: any) => (
+          coursesData?.map((data: ICourseData) => (
             <LineItem key={data.id}>
               <Grid
                 container
