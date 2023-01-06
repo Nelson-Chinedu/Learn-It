@@ -4,7 +4,7 @@ import { Calendar } from '@natscale/react-calendar';
 
 import { UpcomingTask } from 'src/modules/Student/pages/Dashbaord/UpcomingTask';
 import { PaymentHistory } from 'src/modules/Student/pages/Dashbaord/PaymentHistory';
-import { MyCourses } from 'src/modules/Student/pages/Dashbaord/MyCourses';
+import { MyCourses } from 'src/modules/Student/pages/Dashbaord/Courses';
 
 import { useStyles } from 'src/modules/Student/pages/Dashbaord/styled.dashboard';
 

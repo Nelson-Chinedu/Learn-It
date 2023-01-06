@@ -23,7 +23,7 @@ export const studentSlice = createApi({
     baseUrl: process.env.REACT_APP_BASE_URL,
     credentials: 'include',
   }),
-  tagTypes: ['Category', 'Resource', 'Course'],
+  tagTypes: ['Category', 'Resource', 'Course', 'EnrollCourse'],
   endpoints: (builder) => ({
     getCategory: builder.query<ICategory, void>({
       query: () => ({ url: '/category/all' }),
@@ -54,6 +54,14 @@ export const studentSlice = createApi({
       }),
       providesTags: ['Resource'],
     }),
+    enrollCourse: builder.mutation({
+      query: (data) => ({
+        url: '/course/enroll',
+        method: 'POST',
+        body: { ...data },
+      }),
+      invalidatesTags: ['EnrollCourse'],
+    }),
   }),
 });
 
@@ -62,4 +70,5 @@ export const {
   useAddCategoryMutation,
   useAddResourceMutation,
   useGetResourceQuery,
+  useEnrollCourseMutation,
 } = studentSlice;

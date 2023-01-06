@@ -4,8 +4,8 @@ export const STUDENT_SIDENAV_MENU = [
     path: '/s/dashboard',
   },
   {
-    menu: 'Course',
-    path: '/s/course',
+    menu: 'Courses',
+    path: '/s/courses',
   },
   {
     menu: 'Resources',
