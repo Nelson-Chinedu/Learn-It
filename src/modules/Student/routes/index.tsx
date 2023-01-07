@@ -3,6 +3,8 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { STUDENT_PATHS } from 'src/constant/path';
 
+import DialogContextProvider from 'src/contexts/dialog-ctx';
+
 // Student pages
 const Dashboard = lazy(() => import('src/modules/Student/pages/Dashbaord'));
 const Course = lazy(() => import('src/modules/Student/pages/Course'));
@@ -22,7 +24,14 @@ const StudentRoute: FunctionComponent<Record<string, never>> = () => {
         <Route path="" element={<Navigate to="dashboard" replace />} />
         <Route path={STUDENT_PATHS.DASHBOARD} element={<Dashboard />} />
         <Route path={STUDENT_PATHS.COURSE}>
-          <Route path="" element={<Course />} />
+          <Route
+            path=""
+            element={
+              <DialogContextProvider>
+                <Course />
+              </DialogContextProvider>
+            }
+          />
           <Route path=":title/:id" element={<CoursePreview />} />
         </Route>
         <Route path={STUDENT_PATHS.RESOURCE} element={<Resources />} />

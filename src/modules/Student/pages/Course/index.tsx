@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
@@ -7,6 +7,11 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
+import IconButton from '@mui/material/IconButton';
+
+import { Menu } from 'src/components';
+
+import UnenrollDialog from 'src/modules/Student/components/Dialog/UnenrollDialog';
 
 import { useStyles } from 'src/modules/Student/pages/Course/styled.course';
 
@@ -15,6 +20,9 @@ import { useGetEnrollCourseQuery } from 'src/modules/Student/services/studentSli
 import { RootState } from 'src/store';
 
 import { getEnrolledCourses } from 'src/features/courseSlice';
+
+import useMenu from 'src/hooks/useMenu';
+import useDialog from 'src/hooks/useDialog';
 
 interface ICourses {
   courseId: string;
@@ -32,7 +40,12 @@ interface ICourses {
 
 const Course: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();
+  const [selected, setSelected] = useState<string | number>('');
+  const { open, anchorEl, handleClick, handleClose } = useMenu();
+  const [dialog, setDialog] = useDialog();
+
   const { data, isLoading } = useGetEnrollCourseQuery();
+
   const dispatch = useDispatch();
   const { enrolledCourses, isLoadingEnrolledCourses } = useSelector(
     (state: RootState) => state.course
@@ -41,6 +54,10 @@ const Course: FunctionComponent<Record<string, never>> = () => {
   useEffect(() => {
     dispatch(getEnrolledCourses({ data: data?.payload, loading: isLoading }));
   }, [data]);
+
+  const _handleUnenrollModal = () => {
+    setDialog({ ...dialog, dialogName: 'Unenroll', id: selected });
+  };
 
   return (
     <Box component="section" className={classes.course_container}>
@@ -68,10 +85,17 @@ const Course: FunctionComponent<Record<string, never>> = () => {
                     alignItems="center"
                     justifyContent="space-between"
                   >
-                    <Avatar src={course.thumbnail} alt="course instructor" />
-                    <MoreHorizOutlinedIcon />
+                    <Avatar src={course?.thumbnail} alt="course instructor" />
+                    <IconButton
+                      onClick={(e) => {
+                        setSelected(courseId);
+                        handleClick(e);
+                      }}
+                    >
+                      <MoreHorizOutlinedIcon />
+                    </IconButton>
                   </Stack>
-                  <Typography variant="subtitle2">{course?.name}</Typography>
+                  <Typography variant="subtitle2">{course.name}</Typography>
                   <Stack direction="row" alignItems="center" spacing={1}>
                     <Avatar
                       sx={{
@@ -84,7 +108,7 @@ const Course: FunctionComponent<Record<string, never>> = () => {
                       src={course?.profile?.picture || ''}
                       alt="course instructor"
                     >
-                      {course.profile.firstname.charAt(0)}
+                      {course?.profile?.firstname?.charAt(0)}
                     </Avatar>
                     <Typography
                       variant="subtitle2"
@@ -109,6 +133,19 @@ const Course: FunctionComponent<Record<string, never>> = () => {
           ))
         )}
       </Grid>
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        handleClose={handleClose}
+        menus={[
+          {
+            name: 'Unenroll course',
+            path: ``,
+            action: _handleUnenrollModal,
+          },
+        ]}
+      />
+      <UnenrollDialog />
     </Box>
   );
 };

@@ -5,7 +5,8 @@ import { makeStyles } from '@mui/styles';
 
 type MenuProps = {
   name: string;
-  path: string;
+  path?: string;
+  action?: () => void;
 };
 
 type IProps = {
@@ -73,10 +74,12 @@ const Menu: FunctionComponent<IProps> = ({
         horizontal: 'right',
       }}
     >
-      {menus.map(({ name, path }) => (
+      {menus.map(({ name, path, action }) => (
         <ListItem key={name} className={name}>
           <Link to={path} onClick={handleClose}>
-            <Typography variant="subtitle2">{name}</Typography>
+            <Typography variant="subtitle2" onClick={action}>
+              {name}
+            </Typography>
           </Link>
         </ListItem>
       ))}

@@ -6,8 +6,11 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { makeStyles } from '@mui/styles';
 
 import { Modal, Button } from 'src/components';
+
 import useModal from 'src/hooks/useModal';
+
 import { useEnrollCourseMutation } from '../../services/studentSlice';
+
 import {
   errorNotification,
   successNotification,
@@ -48,7 +51,7 @@ const ViewCourseModal: FunctionComponent<Record<string, never>> = () => {
       successNotification(res.message);
       setState({ ...state, modalName: '' });
     } catch (error) {
-      return errorNotification('An error occurred, Please try again');
+      errorNotification('An error occurred, Please try again');
     }
   };
 
