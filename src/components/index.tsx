@@ -10,6 +10,7 @@ import { Footer } from 'src/components/Footer';
 import { UploadAvatar } from 'src/components/UploadAvatar';
 import { Modal } from 'src/components/Modal';
 import { Menu } from 'src/components/Menu';
+import { Dialog } from 'src/components/Dialog';
 
 export {
   Button,
@@ -24,4 +25,5 @@ export {
   UploadAvatar,
   Modal,
   Menu,
+  Dialog,
 };

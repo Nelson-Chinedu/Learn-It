@@ -55,6 +55,14 @@ export const studentSlice = createApi({
       }),
       providesTags: ['EnrollCourse'],
     }),
+    unEnrollCourse: builder.mutation({
+      query: (data) => ({
+        url: '/course/unenroll',
+        method: 'DELETE',
+        body: { ...data },
+      }),
+      invalidatesTags: ['EnrollCourse'],
+    }),
   }),
 });
 
@@ -65,4 +73,5 @@ export const {
   useGetResourceQuery,
   useEnrollCourseMutation,
   useGetEnrollCourseQuery,
+  useUnEnrollCourseMutation,
 } = studentSlice;

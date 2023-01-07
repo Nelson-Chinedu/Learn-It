@@ -21,6 +21,8 @@ import useModal from 'src/hooks/useModal';
 
 import { RootState } from 'src/store';
 
+import { useGetEnrollCourseQuery } from 'src/modules/Student/services/studentSlice';
+
 interface ICourseData {
   id: string;
   name: string;
@@ -35,18 +37,30 @@ interface ICourseData {
 }
 
 const MyCourses: FunctionComponent<Record<string, never>> = () => {
-  const { data, isLoading } = useGetAllCoursesQuery();
   const [state, setState] = useModal();
   const classes = useStyles();
   const dispatch = useDispatch();
+  const { data: unerolledCourses } = useGetAllCoursesQuery();
+  const { data: enrolledCourses } = useGetEnrollCourseQuery();
+
   const {
     unEnrolledCourses: coursesData,
     isLoadingUnEnrolledCourses: isLoadingCourses,
   } = useSelector((state: RootState) => state.course);
 
   useEffect(() => {
-    dispatch(getUnEnrolledCourses({ data: data?.payload, loading: isLoading }));
-  }, [data]);
+    const getCourses = () => {
+      if (unerolledCourses && enrolledCourses) {
+        const courses = unerolledCourses?.payload.filter((el: any) => {
+          return !enrolledCourses?.payload.some((element: any) => {
+            return el.id === element.courseId;
+          });
+        });
+        dispatch(getUnEnrolledCourses({ data: courses, isLoading: false }));
+      }
+    };
+    getCourses();
+  }, [unerolledCourses, enrolledCourses]);
 
   const handleViewCourse = (data: {
     id: string;
@@ -72,7 +86,7 @@ const MyCourses: FunctionComponent<Record<string, never>> = () => {
         </Grid>
       </Grid>
       <Box>
-        {isLoadingCourses && !coursesData.length ? (
+        {isLoadingCourses && !coursesData?.length ? (
           [0, 1, 2, 3, 4].map((placeholder) => (
             <Box
               key={placeholder}
@@ -83,7 +97,7 @@ const MyCourses: FunctionComponent<Record<string, never>> = () => {
           ))
         ) : !isLoadingCourses && coursesData && coursesData?.length === 0 ? (
           <Typography sx={{ textAlign: 'center' }}>
-            No course added yet
+            Courses unenrolled will show up here
           </Typography>
         ) : (
           coursesData?.map((data: ICourseData) => (

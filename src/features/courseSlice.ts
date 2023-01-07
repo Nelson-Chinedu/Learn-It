@@ -19,8 +19,8 @@ export const courseSlice = createSlice({
   initialState,
   reducers: {
     getUnEnrolledCourses: (state, action) => {
-      const { data, loading } = action.payload;
-      if (loading && data === undefined) {
+      const { data, isLoading } = action.payload;
+      if (isLoading && data === undefined) {
         state.isLoadingUnEnrolledCourses = true;
       } else {
         state.unEnrolledCourses = data;
@@ -29,6 +29,7 @@ export const courseSlice = createSlice({
     },
     getEnrolledCourses: (state, action) => {
       const { data, loading } = action.payload;
+
       if (loading && data === undefined) {
         state.isLoadingEnrolledCourses = true;
       } else {
