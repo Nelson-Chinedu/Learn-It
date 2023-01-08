@@ -29,11 +29,9 @@ const UnenrollDialog: FunctionComponent<Record<string, never>> = () => {
 
   const _handleAction = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    const payload = {
-      courseId: state?.id,
-    };
+
     try {
-      const res = await unEnrollCourse(payload).unwrap();
+      const res = await unEnrollCourse(state?.id).unwrap();
       if (res) {
         const enrolledCoursesArr = enrolledCourses
           .filter(

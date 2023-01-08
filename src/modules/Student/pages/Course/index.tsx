@@ -25,8 +25,8 @@ import useMenu from 'src/hooks/useMenu';
 import useDialog from 'src/hooks/useDialog';
 
 interface ICourses {
-  courseId: string;
   course: {
+    id: string;
     name: string;
     thumbnail: string;
     video: string[];
@@ -71,13 +71,13 @@ const Course: FunctionComponent<Record<string, never>> = () => {
           enrolledCourses?.length === 0 ? (
           <Typography>Enrolled courses will show up here</Typography>
         ) : (
-          enrolledCourses.map(({ courseId, course }: ICourses) => (
-            <Grid item md={3} key={courseId}>
+          enrolledCourses.map(({ course }: ICourses) => (
+            <Grid item md={3} key={course.id}>
               <Link
                 to={`/s/courses/${course.name
                   .split(' ')
                   .join('-')
-                  ?.toLowerCase()}/${courseId}`}
+                  ?.toLowerCase()}/${course.id}`}
               >
                 <Box className="course_content">
                   <Stack
@@ -88,7 +88,7 @@ const Course: FunctionComponent<Record<string, never>> = () => {
                     <Avatar src={course?.thumbnail} alt="course instructor" />
                     <IconButton
                       onClick={(e) => {
-                        setSelected(courseId);
+                        setSelected(course.id);
                         handleClick(e);
                       }}
                     >
