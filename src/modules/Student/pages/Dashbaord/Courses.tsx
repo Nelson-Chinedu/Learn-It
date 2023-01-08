@@ -53,7 +53,7 @@ const MyCourses: FunctionComponent<Record<string, never>> = () => {
       if (unerolledCourses && enrolledCourses) {
         const courses = unerolledCourses?.payload.filter((el: any) => {
           return !enrolledCourses?.payload.some((element: any) => {
-            return el.id === element.courseId;
+            return el.id === element?.course?.id;
           });
         });
         dispatch(getUnEnrolledCourses({ data: courses, isLoading: false }));

@@ -56,10 +56,9 @@ export const studentSlice = createApi({
       providesTags: ['EnrollCourse'],
     }),
     unEnrollCourse: builder.mutation({
-      query: (data) => ({
-        url: '/course/unenroll',
+      query: (id) => ({
+        url: `/course/unenroll/${id}`,
         method: 'DELETE',
-        body: { ...data },
       }),
       invalidatesTags: ['EnrollCourse'],
     }),
