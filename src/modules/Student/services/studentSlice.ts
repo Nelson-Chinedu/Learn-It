@@ -62,6 +62,11 @@ export const studentSlice = createApi({
       }),
       invalidatesTags: ['EnrollCourse'],
     }),
+    getEnrollCourseDetail: builder.query<any, string | number>({
+      query: (id) => ({
+        url: `/course/enroll/${id}`,
+      }),
+    }),
   }),
 });
 
@@ -73,4 +78,5 @@ export const {
   useEnrollCourseMutation,
   useGetEnrollCourseQuery,
   useUnEnrollCourseMutation,
+  useGetEnrollCourseDetailQuery,
 } = studentSlice;
