@@ -34,6 +34,9 @@ export const useStyles = makeStyles({
     '& .MuiGrid-container': {
       margin: '1em 0px',
       width: '100%',
+      '& .MuiGrid-item': {
+        paddingTop: '0px !important',
+      },
       '& .MuiGrid-item:nth-child(1)': {
         paddingLeft: '0px',
       },
@@ -43,6 +46,7 @@ export const useStyles = makeStyles({
     textAlign: 'left',
     paddingLeft: '0px !important',
     width: '100%',
+    marginTop: '.5em !important',
     '& a': {
       color: 'inherit',
       '&:hover': {

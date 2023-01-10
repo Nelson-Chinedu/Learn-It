@@ -38,24 +38,18 @@ const LiveCourse: FunctionComponent<Record<string, never>> = () => {
           >
             <Grid item md={6}>
               <Input
-                variant="outlined"
-                size="small"
                 label="Course Title"
                 fullWidth={true}
                 name="courseTitle"
-                color="primary"
                 handleChange={handleChange}
                 onBlur={handleChange}
               />
             </Grid>
             <Grid item md={6}>
               <Input
-                variant="outlined"
-                size="small"
                 label="Lecture"
                 fullWidth={true}
                 name="lecture"
-                color="primary"
                 handleChange={handleChange}
                 onBlur={handleChange}
               />
@@ -67,11 +61,9 @@ const LiveCourse: FunctionComponent<Record<string, never>> = () => {
                 multiline={true}
                 rows={6}
                 variant="outlined"
-                size="small"
                 label="Description"
                 fullWidth={true}
                 name="description"
-                color="primary"
                 handleChange={handleChange}
                 onBlur={handleChange}
               />
@@ -86,24 +78,15 @@ const LiveCourse: FunctionComponent<Record<string, never>> = () => {
         <Grid item md={2}>
           <Button
             variant="outlined"
-            color="primary"
             size="small"
             fullWidth={true}
-            disableElevation={true}
             handleClick={handleBack}
           >
             Back
           </Button>
         </Grid>
         <Grid item md={2}>
-          <Button
-            variant="contained"
-            color="primary"
-            size="small"
-            fullWidth={true}
-            disableElevation={true}
-            handleClick={handleNext}
-          >
+          <Button size="small" fullWidth={true} handleClick={handleNext}>
             Next
           </Button>
         </Grid>

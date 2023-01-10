@@ -3,6 +3,7 @@ import { makeStyles } from '@mui/styles';
 export const useStyles = makeStyles({
   root: {},
   course_container: {
+    padding: '20px',
     '& a': {
       textDecoration: 'none',
       color: 'inherit !important',
@@ -20,11 +21,6 @@ export const useStyles = makeStyles({
         '-webkit-box-shadow': '6px 6px 5px 0px rgba(237,237,237,0.75)',
         '-moz-box-shadow': '6px 6px 5px 0px rgba(237,237,237,0.75)',
       },
-    },
-  },
-  btnMentor: {
-    '& .MuiButton-outlined': {
-      textTransform: 'inherit',
     },
   },
   stepper: {

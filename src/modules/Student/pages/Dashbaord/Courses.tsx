@@ -9,6 +9,8 @@ import Skeleton from '@mui/material/Skeleton';
 
 import { Button } from 'src/components';
 
+import EmptyState from 'src/assets/images/search.gif';
+
 import { LineItem } from 'src/modules/Student/pages/Dashbaord/LineItem';
 import { useStyles } from 'src/modules/Student/pages/Dashbaord/styled.dashboard';
 import ViewCourseModal from 'src/modules/Student/components/Modals/ViewCourseModal';
@@ -73,18 +75,20 @@ const MyCourses: FunctionComponent<Record<string, never>> = () => {
 
   return (
     <>
-      <Grid
-        container
-        justifyContent="space-between"
-        style={{ padding: '20px 15px' }}
-      >
-        <Grid item>
-          <Typography variant="subtitle1">All Courses</Typography>
+      {!isLoadingCourses && coursesData && coursesData?.length !== 0 && (
+        <Grid
+          container
+          justifyContent="space-between"
+          style={{ padding: '20px 15px' }}
+        >
+          <Grid item>
+            <Typography variant="h2">All Courses</Typography>
+          </Grid>
+          <Grid item>
+            <Typography>Add filter by free or paid here</Typography>
+          </Grid>
         </Grid>
-        <Grid item>
-          <Typography>Add filter by free or paid here</Typography>
-        </Grid>
-      </Grid>
+      )}
       <Box>
         {isLoadingCourses && !coursesData?.length ? (
           [0, 1, 2, 3, 4].map((placeholder) => (
@@ -96,9 +100,16 @@ const MyCourses: FunctionComponent<Record<string, never>> = () => {
             </Box>
           ))
         ) : !isLoadingCourses && coursesData && coursesData?.length === 0 ? (
-          <Typography sx={{ textAlign: 'center' }}>
-            Courses unenrolled will show up here
-          </Typography>
+          <Box sx={{ width: '50%', margin: '5em auto', textAlign: 'center' }}>
+            <img
+              src={EmptyState}
+              alt=""
+              style={{ width: '300px', height: '300px' }}
+            />
+            <Typography variant="h2">
+              Courses un-enrolled will show up here
+            </Typography>
+          </Box>
         ) : (
           coursesData?.map((data: ICourseData) => (
             <LineItem key={data.id}>
@@ -108,7 +119,11 @@ const MyCourses: FunctionComponent<Record<string, never>> = () => {
                 alignItems="center"
               >
                 <Grid item md={5}>
-                  <Grid container spacing={1} className={classes.authorWrapper}>
+                  <Grid
+                    container
+                    spacing={1.5}
+                    className={classes.authorWrapper}
+                  >
                     <Grid item>
                       <Avatar
                         src={data?.profile?.picture}
@@ -117,13 +132,13 @@ const MyCourses: FunctionComponent<Record<string, never>> = () => {
                     </Grid>
                     <Grid item>
                       <Typography
-                        variant="subtitle2"
+                        variant="h5"
                         sx={{ textTransform: 'capitalize' }}
                       >
                         {data.name}
                       </Typography>
                       <Typography
-                        variant="subtitle2"
+                        variant="subtitle1"
                         sx={{ textTransform: 'capitalize' }}
                       >
                         By{' '}
@@ -157,10 +172,6 @@ const MyCourses: FunctionComponent<Record<string, never>> = () => {
                 <Grid item md={2}>
                   <Button
                     variant="outlined"
-                    color="primary"
-                    disableElevation
-                    fullWidth
-                    size="medium"
                     handleClick={() => handleViewCourse(data)}
                   >
                     View Course

@@ -17,6 +17,7 @@ type Props = {
   dialogName: string;
   title: string;
   handleAction: (e?: { preventDefault: () => void }) => void;
+  isLoading: boolean;
   children: ReactElement;
 };
 
@@ -24,6 +25,7 @@ const Dialog: FunctionComponent<Props> = ({
   dialogName,
   title,
   handleAction,
+  isLoading,
   children,
 }) => {
   const [state, setState] = useDialog();
@@ -36,7 +38,7 @@ const Dialog: FunctionComponent<Props> = ({
     <MuiDialog open={state.dialogName === dialogName}>
       <Box sx={{ padding: '1em 2em' }}>
         <DialogTitle>
-          <Typography variant="body2" sx={{ textAlign: 'center' }}>
+          <Typography variant="h2" sx={{ textAlign: 'center' }}>
             {title}
           </Typography>
         </DialogTitle>
@@ -46,22 +48,18 @@ const Dialog: FunctionComponent<Props> = ({
         <DialogActions>
           <Stack direction="row" alignItems="flex-end" spacing={2}>
             <Button
-              color="primary"
-              size="small"
+              size="medium"
               fullWidth={false}
-              disableElevation={true}
               variant="outlined"
               handleClick={_handleCancel}
             >
               Cancel
             </Button>
             <Button
-              color="primary"
-              size="small"
+              size="medium"
               fullWidth={false}
-              disableElevation={true}
-              variant="contained"
               handleClick={handleAction}
+              disabled={isLoading}
             >
               Un-enroll
             </Button>

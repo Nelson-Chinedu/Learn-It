@@ -2,7 +2,6 @@ import React, { FunctionComponent } from 'react';
 import { useFormik } from 'formik';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import CircularProgress from '@mui/material/CircularProgress';
 
 import { Input, Button, UploadAvatar } from 'src/components';
 
@@ -94,15 +93,13 @@ const Details: FunctionComponent<Record<string, never>> = () => {
       <UploadAvatar />
       <Grid
         container
-        spacing={2}
+        spacing={3}
         alignItems="flex-start"
         justifyContent="space-between"
       >
         <Grid item md={6}>
           <Input
             label="Firstname"
-            variant="outlined"
-            color="primary"
             size="small"
             type="text"
             name="firstname"
@@ -117,8 +114,6 @@ const Details: FunctionComponent<Record<string, never>> = () => {
         <Grid item md={6}>
           <Input
             label="Lastname"
-            variant="outlined"
-            color="primary"
             size="small"
             type="text"
             name="lastname"
@@ -133,15 +128,13 @@ const Details: FunctionComponent<Record<string, never>> = () => {
       </Grid>
       <Grid
         container
-        spacing={2}
+        spacing={3}
         alignItems="flex-start"
         justifyContent="space-between"
       >
         <Grid item md={6}>
           <Input
             label="Email address"
-            variant="outlined"
-            color="primary"
             size="small"
             type="text"
             name="email"
@@ -160,8 +153,6 @@ const Details: FunctionComponent<Record<string, never>> = () => {
         <Grid item md={6}>
           <Input
             label="Phone number"
-            variant="outlined"
-            color="primary"
             size="small"
             type="tel"
             name="phone"
@@ -176,15 +167,13 @@ const Details: FunctionComponent<Record<string, never>> = () => {
       </Grid>
       <Grid
         container
-        spacing={2}
+        spacing={3}
         alignItems="flex-start"
         justifyContent="space-between"
       >
         <Grid item md={6}>
           <Input
             label="City"
-            variant="outlined"
-            color="primary"
             size="small"
             type="text"
             name="city"
@@ -199,8 +188,6 @@ const Details: FunctionComponent<Record<string, never>> = () => {
         <Grid item md={6}>
           <Input
             label="State/Province"
-            variant="outlined"
-            color="primary"
             size="small"
             type="text"
             name="state"
@@ -215,15 +202,13 @@ const Details: FunctionComponent<Record<string, never>> = () => {
       </Grid>
       <Grid
         container
-        spacing={2}
+        spacing={3}
         alignItems="flex-start"
         justifyContent="space-between"
       >
         <Grid item md={6}>
           <Input
             label="Zip code"
-            variant="outlined"
-            color="primary"
             size="small"
             type="text"
             name="zipCode"
@@ -238,8 +223,6 @@ const Details: FunctionComponent<Record<string, never>> = () => {
         <Grid item md={6}>
           <Input
             label="Country"
-            variant="outlined"
-            color="primary"
             size="small"
             type="text"
             name="country"
@@ -254,15 +237,13 @@ const Details: FunctionComponent<Record<string, never>> = () => {
       </Grid>
       <Grid
         container
-        spacing={2}
+        spacing={3}
         alignItems="flex-start"
         justifyContent="space-between"
       >
         <Grid item md={12}>
           <Input
             label="Address"
-            variant="outlined"
-            color="primary"
             size="small"
             type="text"
             name="address"
@@ -281,11 +262,11 @@ const Details: FunctionComponent<Record<string, never>> = () => {
             variant="contained"
             color="primary"
             fullWidth
-            disableElevation
             size="medium"
             handleClick={handleSubmit}
+            disabled={isSubmitting}
           >
-            {isSubmitting ? <CircularProgress size={28} /> : 'Save profile'}
+            Save profile
           </Button>
         </Grid>
       </Grid>

@@ -2,7 +2,6 @@ import { FunctionComponent } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
 import { makeStyles } from '@mui/styles';
 
 import { Modal, Input, Button } from 'src/components';
@@ -26,7 +25,7 @@ const useStyles = makeStyles({
       paddingBottom: '1em',
     },
     '& .MuiButton-contained': {
-      marginTop: '1em',
+      margin: '2em 0px 1em',
     },
   },
 });
@@ -74,8 +73,6 @@ const CategoryModal: FunctionComponent<Record<string, never>> = () => {
     <Modal modalName="AddCategory" title="Add New Category">
       <Box className={classes.root}>
         <Input
-          variant="outlined"
-          color="primary"
           size="small"
           fullWidth={true}
           label="Category name"
@@ -86,19 +83,8 @@ const CategoryModal: FunctionComponent<Record<string, never>> = () => {
           helperText={touched.categoryName && errors.categoryName}
           error={touched.categoryName && Boolean(errors.categoryName)}
         />
-        <Button
-          color="primary"
-          size="large"
-          fullWidth={true}
-          variant="contained"
-          disableElevation={true}
-          handleClick={handleSubmit}
-        >
-          {isSubmitting ? (
-            <CircularProgress size={28} style={{ color: 'white' }} />
-          ) : (
-            'Add'
-          )}
+        <Button size="large" handleClick={handleSubmit} disabled={isSubmitting}>
+          Add
         </Button>
       </Box>
     </Modal>

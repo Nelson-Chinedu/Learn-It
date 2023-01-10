@@ -15,15 +15,15 @@ const ClassList: FunctionComponent<Record<string, never>> = () => {
   const [isSelected, setIsSelected] = useState<number>(0);
   const { open, anchorEl, handleClick, handleClose } = useMenu();
 
-  const handleSelected = (id: number) => {
+  const _handleSelected = (id: number) => {
     setIsSelected(id);
   };
 
-  const handleCreateClass = () => {
+  const _handleCreateClass = () => {
     navigate('/m/live-class/create');
   };
 
-  const handleStart = () => {
+  const _handleStart = () => {
     navigate('/m/live-class/start');
   };
 
@@ -45,10 +45,7 @@ const ClassList: FunctionComponent<Record<string, never>> = () => {
                   <Button
                     variant="outlined"
                     fullWidth={true}
-                    disableElevation={true}
-                    size="small"
-                    color="primary"
-                    handleClick={handleCreateClass}
+                    handleClick={_handleCreateClass}
                   >
                     Create Class
                   </Button>
@@ -61,7 +58,7 @@ const ClassList: FunctionComponent<Record<string, never>> = () => {
                       isSelected === list ? 'active' : 'inactive'
                     } classListContainer`}
                     key={list}
-                    onClick={() => handleSelected(list)}
+                    onClick={() => _handleSelected(list)}
                   >
                     <Grid
                       container
@@ -105,10 +102,7 @@ const ClassList: FunctionComponent<Record<string, never>> = () => {
                   <Button
                     variant="contained"
                     fullWidth={true}
-                    disableElevation={true}
-                    size="small"
-                    color="primary"
-                    handleClick={handleStart}
+                    handleClick={_handleStart}
                   >
                     Go Live
                   </Button>

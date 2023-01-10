@@ -43,14 +43,7 @@ const TeacherCourse: FunctionComponent<Record<string, never>> = () => {
           </Input>
         </Grid>
         <Grid item>
-          <Button
-            variant="contained"
-            color="primary"
-            disableElevation
-            fullWidth
-            size="medium"
-            handleClick={handleAddNewCourse}
-          >
+          <Button fullWidth size="medium" handleClick={handleAddNewCourse}>
             Add New Course
           </Button>
         </Grid>

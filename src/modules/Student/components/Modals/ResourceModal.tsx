@@ -5,7 +5,6 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
 import { makeStyles } from '@mui/styles';
 
 import { Modal, Input, Button } from 'src/components';
@@ -34,7 +33,7 @@ const useStyles = makeStyles({
       paddingBottom: '1em',
     },
     '& .MuiButton-contained': {
-      marginTop: '1em',
+      margin: '1em 0px',
     },
   },
 });
@@ -91,11 +90,9 @@ const ResourceModal: FunctionComponent<Record<string, never>> = () => {
     <Modal modalName="AddResource" title="Add New Resource">
       <Box className={classes.root}>
         <Grid container spacing={2}>
-          <Grid item sm={12}>
+          <Grid item sm={12} sx={{ margin: '.3em 0px' }}>
             <Input
               select
-              variant="outlined"
-              color="primary"
               size="small"
               fullWidth={true}
               label="Select Category"
@@ -118,10 +115,8 @@ const ResourceModal: FunctionComponent<Record<string, never>> = () => {
               )}
             </Input>
           </Grid>
-          <Grid item sm={12}>
+          <Grid item sm={12} sx={{ margin: '.3em 0px' }}>
             <Input
-              variant="outlined"
-              color="primary"
               size="small"
               fullWidth={true}
               label="Name"
@@ -133,10 +128,8 @@ const ResourceModal: FunctionComponent<Record<string, never>> = () => {
               error={touched.name && Boolean(errors.name)}
             />
           </Grid>
-          <Grid item sm={12}>
+          <Grid item sm={12} sx={{ margin: '.3em 0px' }}>
             <Input
-              variant="outlined"
-              color="primary"
               size="small"
               fullWidth={true}
               label="url"
@@ -149,19 +142,8 @@ const ResourceModal: FunctionComponent<Record<string, never>> = () => {
             />
           </Grid>
         </Grid>
-        <Button
-          color="primary"
-          size="large"
-          fullWidth={true}
-          variant="contained"
-          disableElevation={true}
-          handleClick={handleSubmit}
-        >
-          {isSubmitting ? (
-            <CircularProgress size={28} style={{ color: 'white' }} />
-          ) : (
-            'Add'
-          )}
+        <Button size="large" handleClick={handleSubmit} disabled={isSubmitting}>
+          Add
         </Button>
       </Box>
     </Modal>

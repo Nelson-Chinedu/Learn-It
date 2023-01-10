@@ -55,27 +55,14 @@ const CreateModule: FunctionComponent<Record<string, never>> = () => {
             onBlur={handleChange}
           />
         </Box>
-        <Grid container spacing={1}>
+        <Grid container spacing={2}>
           <Grid item md={3}>
-            <Button
-              color="primary"
-              disableElevation={true}
-              fullWidth={true}
-              size="small"
-              variant="outlined"
-              style={{ width: '30%' }}
-            >
+            <Button fullWidth={true} size="small" variant="outlined">
               Add
             </Button>
           </Grid>
           <Grid item md={3}>
-            <Button
-              color="primary"
-              disableElevation={true}
-              fullWidth={true}
-              size="small"
-              variant="contained"
-            >
+            <Button fullWidth={true} size="small" variant="contained">
               Complete
             </Button>
           </Grid>

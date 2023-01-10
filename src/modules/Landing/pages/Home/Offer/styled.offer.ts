@@ -1,4 +1,5 @@
 import { makeStyles } from '@mui/styles';
+import { pxToRem } from 'src/helpers/formatFont';
 
 export const useStyles = makeStyles({
   root: {
@@ -8,6 +9,10 @@ export const useStyles = makeStyles({
     '& .MuiTypography-subtitle2': {
       fontSize: '.9rem',
       lineHeight: '1.3em',
+    },
+    '& .MuiTypography-h3': {
+      fontWeight: 'bold',
+      fontSize: `${pxToRem(18)} !important`,
     },
   },
   title: {

@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CardMedia from '@mui/material/CardMedia';
@@ -12,10 +13,16 @@ import { Card, Button } from 'src/components';
 
 import { useStyles } from 'src/modules/Landing/pages/Home/PopularCourse/styled.popularcourse';
 import { useGetAllCoursesQuery } from 'src/services/userSlice';
+import { AUTH_PATHS, BASE_PATHS } from 'src/constant/path';
 
 const Course: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();
+  const navigate = useNavigate();
   const { data, isLoading } = useGetAllCoursesQuery();
+
+  const _handleEnroll = () => {
+    navigate(`${BASE_PATHS.AUTH}/${AUTH_PATHS.SIGNIN}`);
+  };
 
   return (
     <>
@@ -98,13 +105,7 @@ const Course: FunctionComponent<Record<string, never>> = () => {
                       className={classes.enrollButton}
                     >
                       <Grid item sm={8}>
-                        <Button
-                          variant="outlined"
-                          color="primary"
-                          fullWidth
-                          disableElevation
-                          size="medium"
-                        >
+                        <Button variant="outlined" handleClick={_handleEnroll}>
                           Enroll Now
                         </Button>
                       </Grid>

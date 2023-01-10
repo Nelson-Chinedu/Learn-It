@@ -2,10 +2,12 @@ import { FunctionComponent } from 'react';
 import { Player, BigPlayButton } from 'video-react';
 import sanitizeHtml from 'sanitize-html';
 import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
+import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
 
 import { Modal, Button } from 'src/components';
+
+import { pxToRem } from 'src/helpers/formatFont';
 
 import useModal from 'src/hooks/useModal';
 
@@ -21,8 +23,13 @@ const useStyles = makeStyles({
     '& .MuiTypography-subtitle2': {
       paddingBottom: '1em',
     },
+    '& .MuiTypography-h3': {
+      fontSize: pxToRem(20),
+      fontWeight: 600,
+      margin: '1em .6em',
+    },
     '& .MuiButton-contained': {
-      marginTop: '1em',
+      margin: '1em 0px',
     },
   },
   contentWrapper: {
@@ -30,6 +37,7 @@ const useStyles = makeStyles({
     fontFamily: "'Work Sans', sans-serif",
     fontWeight: 300,
     fontSize: '14px',
+    marginLeft: '1em',
     '& h1, h2, h3, h4, h5, h6': {
       margin: '.8em 0px',
     },
@@ -63,6 +71,7 @@ const ViewCourseModal: FunctionComponent<Record<string, never>> = () => {
         </Player>
 
         <Box sx={{ mt: 2 }}>
+          <Typography variant="h3">What you will learn</Typography>
           <Box
             component="div"
             className={classes.contentWrapper}
@@ -74,15 +83,11 @@ const ViewCourseModal: FunctionComponent<Record<string, never>> = () => {
           />
         </Box>
         <Button
-          color="primary"
           size="large"
-          fullWidth={true}
-          variant="contained"
-          disableElevation={true}
           disabled={isLoading}
           handleClick={_handleEnrollCourse}
         >
-          {isLoading ? <CircularProgress size={20} /> : 'Enroll'}
+          Enroll
         </Button>
       </Box>
     </Modal>

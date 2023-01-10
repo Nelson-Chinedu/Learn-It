@@ -21,7 +21,7 @@ import {
 
 const UnenrollDialog: FunctionComponent<Record<string, never>> = () => {
   const [state, setState] = useDialog();
-  const [unEnrollCourse] = useUnEnrollCourseMutation();
+  const [unEnrollCourse, { isLoading }] = useUnEnrollCourseMutation();
   const { enrolledCourses, unEnrolledCourses } = useSelector(
     (state: RootState) => state.course
   );
@@ -66,8 +66,9 @@ const UnenrollDialog: FunctionComponent<Record<string, never>> = () => {
       dialogName="Unenroll"
       title="Are you sure you want to un-enroll?"
       handleAction={_handleAction}
+      isLoading={isLoading}
     >
-      <Typography variant="subtitle2">
+      <Typography variant="subtitle2" sx={{ padding: '0px 0px 1em' }}>
         When you un-enroll, this course will no longer appear on your course
         page. you can re-enroll through the catalog on your dashboard if you
         change your mind.

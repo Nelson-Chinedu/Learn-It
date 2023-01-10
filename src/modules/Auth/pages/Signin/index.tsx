@@ -1,6 +1,7 @@
 import { FunctionComponent, ReactText, useState } from 'react';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -8,8 +9,6 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import IconButton from '@mui/material/IconButton';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import CircularProgress from '@mui/material/CircularProgress';
-import { Link, useNavigate } from 'react-router-dom';
 
 import { Input, Button } from 'src/components';
 
@@ -73,11 +72,13 @@ const Signin: FunctionComponent<Record<string, never>> = () => {
       }
     } catch (error: any) {
       if (error && error.status === 404) {
+        values.email = '';
         values.password = '';
         return errorNotification(error.data.message);
       }
 
       if (error && error.status === 400) {
+        values.email = '';
         values.password = '';
         return errorNotification(error.data.message);
       }
@@ -113,7 +114,7 @@ const Signin: FunctionComponent<Record<string, never>> = () => {
         </Grid>
         <Grid item md={4} className={classes.formWrapper}>
           <Grid container spacing={2}>
-            <Grid item>
+            <Grid item sm={12}>
               <Typography variant="h2">Welcome back</Typography>
             </Grid>
           </Grid>
@@ -123,10 +124,7 @@ const Signin: FunctionComponent<Record<string, never>> = () => {
                 <Input
                   label="Email address*"
                   type="email"
-                  size="small"
-                  variant="outlined"
                   fullWidth
-                  color="primary"
                   name="email"
                   value={values.email}
                   handleChange={handleChange}
@@ -141,10 +139,7 @@ const Signin: FunctionComponent<Record<string, never>> = () => {
                 <Input
                   label="Password*"
                   type={showPassword ? 'text' : 'password'}
-                  size="small"
-                  variant="outlined"
                   fullWidth
-                  color="primary"
                   name="password"
                   value={values.password}
                   handleChange={handleChange}
@@ -166,15 +161,12 @@ const Signin: FunctionComponent<Record<string, never>> = () => {
             <Grid container spacing={2}>
               <Grid item sm={12}>
                 <Button
-                  variant="contained"
-                  color="primary"
-                  disableElevation
                   fullWidth
                   size="large"
                   disabled={isSubmitting}
                   handleClick={handleSubmit}
                 >
-                  {isSubmitting ? <CircularProgress size={20} /> : 'Sign in'}
+                  Sign in
                 </Button>
               </Grid>
               <Grid item className={classes.signup}>
