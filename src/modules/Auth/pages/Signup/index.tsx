@@ -179,7 +179,7 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
                 <Button
                   fullWidth
                   size="large"
-                  disabled={!isSubmitting}
+                  disabled={isSubmitting}
                   handleClick={handleSubmit}
                 >
                   Sign up
