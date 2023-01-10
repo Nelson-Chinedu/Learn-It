@@ -11,11 +11,11 @@ const Profile: FunctionComponent = () => {
 
   return (
     <Box component="section" className={classes.root}>
-      <Grid container spacing={2}>
+      <Grid container spacing={4} justifyContent="space-between">
         <Grid item md={4}>
           <Info />
         </Grid>
-        <Grid item md={8}>
+        <Grid item md={7.9}>
           <Form />
         </Grid>
       </Grid>

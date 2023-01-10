@@ -19,7 +19,7 @@ const PopularCourse: FunctionComponent<Record<string, never>> = () => {
         <Grid
           container
           alignItems="center"
-          justifyContent="space-around"
+          justifyContent="center"
           spacing={2}
           className={classes.cardContainer}
         >

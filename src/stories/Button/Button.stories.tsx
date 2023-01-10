@@ -36,7 +36,6 @@ export const SecondaryOutlined = Template.bind({});
 Primary.args = {
   variant: 'contained',
   color: 'primary',
-  disableElevation: true,
   fullWidth: false,
   disabled: false,
   size: 'small',
@@ -46,7 +45,6 @@ Primary.args = {
 Secondary.args = {
   variant: 'contained',
   color: 'secondary',
-  disableElevation: true,
   fullWidth: false,
   disabled: false,
   size: 'small',
@@ -56,7 +54,6 @@ Secondary.args = {
 PrimaryOutlined.args = {
   variant: 'outlined',
   color: 'primary',
-  disableElevation: true,
   fullWidth: false,
   disabled: false,
   size: 'small',
@@ -66,7 +63,6 @@ PrimaryOutlined.args = {
 SecondaryOutlined.args = {
   variant: 'outlined',
   color: 'secondary',
-  disableElevation: true,
   fullWidth: false,
   disabled: false,
   size: 'small',

@@ -40,8 +40,6 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
               <Typography variant="subtitle2">Chat</Typography>
               <Box className={classes.search}>
                 <Input
-                  variant="outlined"
-                  color="primary"
                   size="small"
                   type="search"
                   name="search"
@@ -59,24 +57,12 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
                   spacing={2}
                 >
                   <Grid item md={6}>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      size="small"
-                      fullWidth
-                      disableElevation
-                    >
+                    <Button size="small" fullWidth>
                       Instructors
                     </Button>
                   </Grid>
                   <Grid item md={6}>
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      size="small"
-                      fullWidth
-                      disableElevation
-                    >
+                    <Button size="small" variant="outlined" fullWidth>
                       Peers
                     </Button>
                   </Grid>

@@ -8,29 +8,26 @@ export const useStyles = makeStyles({
     '& a': {
       textDecoration: 'none',
       '&:hover': {
-        color: '#4EC491',
-        '& .MuiTypography-subtitle2': {
-          backgroundColor: '#EBF9F2',
-          borderLeft: '4px solid #4EC491',
-        },
+        color: '#0056d2',
+        '& .MuiTypography-subtitle2': {},
       },
       '& .MuiTypography-subtitle2': {
         margin: '1em 0px',
-        padding: '.5em 1em',
+        padding: '1em 1em',
         borderLeft: '4px solid white',
       },
     },
   },
   active: {
-    color: '#4EC491',
+    color: '#00419e',
     '& .MuiTypography-subtitle2': {
-      backgroundColor: '#EBF9F2',
-      borderLeft: '4px solid #4EC491 !important',
+      borderRight: '3px solid #00419e !important',
     },
   },
   inactive: { color: '#848487' },
   logo: {
-    textAlign: 'center',
+    textAlign: 'left',
     fontWeight: 500,
+    padding: '1em 1em 0px !important',
   },
 });

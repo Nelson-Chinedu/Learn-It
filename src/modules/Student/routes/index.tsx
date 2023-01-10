@@ -1,5 +1,9 @@
 import { FunctionComponent, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
+import NotFound from 'src/assets/images/not-found.gif';
 
 import { STUDENT_PATHS } from 'src/constant/path';
 
@@ -39,7 +43,19 @@ const StudentRoute: FunctionComponent<Record<string, never>> = () => {
         <Route path={STUDENT_PATHS.SETTING} element={<Setting />} />
         <Route path={STUDENT_PATHS.CHAT} element={<Chat />} />
         <Route path={STUDENT_PATHS.TASK} element={<Task />} />
-        <Route path="*" element={<div>Page not found in student</div>} />
+        <Route
+          path="*"
+          element={
+            <Box sx={{ width: '50%', margin: '5em auto', textAlign: 'center' }}>
+              <img
+                src={NotFound}
+                style={{ width: '500px', height: '500px' }}
+                alt="a little boy with map and camera"
+              />
+              <Typography variant="h1">Oopppss, you seem to be lost</Typography>
+            </Box>
+          }
+        />
       </Route>
     </Routes>
   );

@@ -4,7 +4,6 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import MenuItem from '@mui/material/MenuItem';
-import CircularProgress from '@mui/material/CircularProgress';
 
 import { Card, UploadAvatar, Input, Button } from 'src/components';
 
@@ -100,10 +99,7 @@ const Form: FunctionComponent<Record<string, never>> = () => {
               <Input
                 label="Firstname"
                 name="firstname"
-                variant="outlined"
                 fullWidth={true}
-                color="primary"
-                size="small"
                 value={values.firstname}
                 handleChange={handleChange}
                 onBlur={handleBlur}
@@ -115,10 +111,7 @@ const Form: FunctionComponent<Record<string, never>> = () => {
               <Input
                 label="Lastname"
                 name="lastname"
-                variant="outlined"
                 fullWidth={true}
-                color="primary"
-                size="small"
                 value={values.lastname}
                 handleChange={handleChange}
                 onBlur={handleBlur}
@@ -137,10 +130,7 @@ const Form: FunctionComponent<Record<string, never>> = () => {
               <Input
                 label="Email address"
                 name="email"
-                variant="outlined"
                 fullWidth={true}
-                color="primary"
-                size="small"
                 value={values.email}
                 disabled={true}
                 InputProps={{
@@ -156,10 +146,7 @@ const Form: FunctionComponent<Record<string, never>> = () => {
               <Input
                 label="Phone number"
                 name="phone"
-                variant="outlined"
                 fullWidth={true}
-                color="primary"
-                size="small"
                 value={values.phone}
                 handleChange={handleChange}
                 onBlur={handleBlur}
@@ -178,10 +165,7 @@ const Form: FunctionComponent<Record<string, never>> = () => {
               <Input
                 label="City"
                 name="city"
-                variant="outlined"
                 fullWidth={true}
-                color="primary"
-                size="small"
                 value={values.city}
                 handleChange={handleChange}
                 onBlur={handleBlur}
@@ -193,10 +177,7 @@ const Form: FunctionComponent<Record<string, never>> = () => {
               <Input
                 label="State/Province"
                 name="state"
-                variant="outlined"
                 fullWidth={true}
-                color="primary"
-                size="small"
                 value={values.state}
                 handleChange={handleChange}
                 onBlur={handleBlur}
@@ -215,10 +196,7 @@ const Form: FunctionComponent<Record<string, never>> = () => {
               <Input
                 label="Zip code"
                 name="zipCode"
-                variant="outlined"
                 fullWidth={true}
-                color="primary"
-                size="small"
                 value={values.zipCode}
                 handleChange={handleChange}
                 onBlur={handleBlur}
@@ -231,10 +209,7 @@ const Form: FunctionComponent<Record<string, never>> = () => {
                 select={true}
                 label="Country"
                 name="country"
-                variant="outlined"
                 fullWidth={true}
-                color="primary"
-                size="small"
                 value={values.country}
                 handleChange={handleChange}
                 onBlur={handleBlur}
@@ -254,9 +229,7 @@ const Form: FunctionComponent<Record<string, never>> = () => {
             <Grid item md={12}>
               <Input
                 label="Address"
-                variant="outlined"
                 color="primary"
-                size="small"
                 type="text"
                 name="address"
                 value={values.address}
@@ -271,14 +244,12 @@ const Form: FunctionComponent<Record<string, never>> = () => {
           <Grid container spacing={2}>
             <Grid item md={3}>
               <Button
-                variant="contained"
-                color="primary"
                 fullWidth
-                disableElevation
                 size="medium"
                 handleClick={handleSubmit}
+                disabled={isSubmitting}
               >
-                {isSubmitting ? <CircularProgress size={28} /> : 'Save profile'}
+                Save profile
               </Button>
             </Grid>
           </Grid>

@@ -55,7 +55,7 @@ const UpcomingTask: FunctionComponent<Record<string, never>> = () => {
               <Grid item>
                 <Grid
                   container
-                  alignItems="flex-start"
+                  alignItems="center"
                   spacing={1}
                   className={classes.wrapper}
                 >
@@ -66,7 +66,10 @@ const UpcomingTask: FunctionComponent<Record<string, never>> = () => {
                     <Typography variant="subtitle2">
                       Discussion Algorithm
                     </Typography>
-                    <Typography variant="subtitle2">
+                    <Typography
+                      variant="subtitle2"
+                      sx={{ marginTop: '.6em !important' }}
+                    >
                       08:00 AM - 10:00 AM
                     </Typography>
                   </Grid>

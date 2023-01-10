@@ -2,6 +2,9 @@ import { FunctionComponent } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import MenuIcon from '@mui/icons-material/Menu';
+import Stack from '@mui/material/Stack';
+import IconButton from '@mui/material/IconButton';
 
 import { useStyles } from 'src/components/Navigation/styled.navigation';
 
@@ -13,10 +16,18 @@ const SideNavigation: FunctionComponent<ISidenav> = ({ SIDE_MENUS }) => {
 
   return (
     <Box className={classes.root}>
-      <Typography variant="subtitle2" className={classes.logo}>
-        LearnIT
-      </Typography>
-      <Box style={{ margin: '2em 0px 3em' }}>
+      <Stack
+        className={classes.logo}
+        direction="row"
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <Typography variant="h6">LearnIT</Typography>
+        <IconButton>
+          <MenuIcon />
+        </IconButton>
+      </Stack>
+      <Box style={{ margin: '3em 0px 3em' }}>
         {SIDE_MENUS.map(({ menu, path }: IRoute) => (
           <Link
             to={path}

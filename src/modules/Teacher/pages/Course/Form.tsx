@@ -8,7 +8,6 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import CircularProgress from '@mui/material/CircularProgress';
 import { makeStyles } from '@mui/styles';
 
 import { Upload } from 'src/modules/Teacher/components/Modals/Upload';
@@ -29,6 +28,8 @@ const validationSchema = Yup.object().shape({
 
 const useStyles = makeStyles({
   root: {
+    width: '80%',
+    margin: '7em auto',
     '& .sun-editor': {
       marginBottom: '2em',
     },
@@ -40,6 +41,9 @@ const useStyles = makeStyles({
     },
     '& .MuiTypography-body1': {
       paddingBottom: '.7em',
+    },
+    '& .MuiButton-contained': {
+      marginBottom: '5em',
     },
   },
   fileUpload: {
@@ -234,9 +238,6 @@ const AddCourse: FunctionComponent<Record<string, never>> = () => {
             placeholder="Course Title"
             fullWidth={true}
             name="courseName"
-            variant="outlined"
-            size="small"
-            color="primary"
             value={values.courseName}
             handleChange={handleChange}
             onBlur={handleBlur}
@@ -250,9 +251,7 @@ const AddCourse: FunctionComponent<Record<string, never>> = () => {
             placeholder="Price"
             fullWidth={true}
             name="price"
-            variant="outlined"
             size="small"
-            color="primary"
             value={values.price}
             handleChange={handleChange}
             onBlur={handleBlur}
@@ -315,7 +314,7 @@ const AddCourse: FunctionComponent<Record<string, never>> = () => {
         getSunEditorInstance={getSunEditorInstance_Objective}
         placeholder="Please enter objectives here..."
         setOptions={{
-          buttonList: [['formatBlock', 'align', 'list', 'bold', 'underline']],
+          buttonList: [['bold', 'align', 'list', 'underline']],
         }}
         onChange={_handleObjectives}
         setContents={objectives}
@@ -325,25 +324,18 @@ const AddCourse: FunctionComponent<Record<string, never>> = () => {
         getSunEditorInstance={getSunEditorInstance_Faq}
         placeholder="Please enter FAQ's here..."
         setOptions={{
-          buttonList: [['formatBlock', 'align', 'list', 'bold', 'underline']],
+          buttonList: [['bold', 'align', 'list', 'underline']],
         }}
         onChange={_handleFaq}
         setContents={faq}
       />
       <Button
-        variant="contained"
-        disableElevation={true}
-        color="primary"
         fullWidth={true}
         size="large"
         handleClick={handleSubmit}
         disabled={isSubmitting}
       >
-        {isSubmitting ? (
-          <CircularProgress size={28} style={{ color: 'white' }} />
-        ) : (
-          'Add Course'
-        )}
+        Add Course
       </Button>
     </Box>
   );

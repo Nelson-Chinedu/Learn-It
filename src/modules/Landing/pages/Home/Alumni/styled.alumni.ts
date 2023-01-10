@@ -11,6 +11,7 @@ export const useStyles = makeStyles({
     },
     '& .MuiTypography-subtitle1': {
       fontSize: '3rem',
+      margin: '.2em 0px .4em',
     },
   },
 });

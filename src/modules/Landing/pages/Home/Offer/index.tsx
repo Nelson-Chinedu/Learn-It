@@ -35,7 +35,7 @@ const Offer: FunctionComponent<Record<string, never>> = () => {
           <img src={Offer1} alt="offer step" />
           <Card width="250px" borderRadius="10px">
             <CardContent className={classes.cardContent}>
-              <Typography variant="subtitle1">Expert Mentor</Typography>
+              <Typography variant="h3">Expert Mentor</Typography>
               <img src={ExpertMentor} alt="Expert mentor illustration" />
               <Typography variant="subtitle2">
                 You will get world class top mentor
@@ -47,10 +47,10 @@ const Offer: FunctionComponent<Record<string, never>> = () => {
           <img src={Offer2} alt="offer step" />
           <Card width="250px" borderRadius="10px">
             <CardContent className={classes.cardContentMid}>
-              <Typography variant="subtitle1">Certifications</Typography>
+              <Typography variant="h3">Hands-on task</Typography>
               <img src={Certificate} alt="Expert mentor illustration" />
               <Typography variant="subtitle2">
-                After course completion, you will get a valuable certificate
+                You get to build/work on hands-on task/project(s)
               </Typography>
             </CardContent>
           </Card>
@@ -62,7 +62,7 @@ const Offer: FunctionComponent<Record<string, never>> = () => {
           <img src={Offer3} alt="offer step" />
           <Card width="250px" borderRadius="10px">
             <CardContent className={classes.cardContent}>
-              <Typography variant="subtitle1">Lifetime support</Typography>
+              <Typography variant="h3">Lifetime support</Typography>
               <img
                 src={Support}
                 alt="Expert mentor illustration"

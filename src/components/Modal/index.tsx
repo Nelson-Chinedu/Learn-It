@@ -31,7 +31,7 @@ const Modal: FunctionComponent<Props> = ({ children, modalName, title }) => {
           container
           justifyContent="space-between"
           alignItems="center"
-          sx={{ py: 2, px: 4 }}
+          sx={{ py: 4, px: 6 }}
         >
           <Grid item>
             <Typography variant="h2" sx={{ textTransform: 'capitalize' }}>
@@ -44,7 +44,7 @@ const Modal: FunctionComponent<Props> = ({ children, modalName, title }) => {
             </IconButton>
           </Grid>
         </Grid>
-        <Box sx={{ pb: 4, px: 4 }}>{children}</Box>
+        <Box sx={{ pb: 4, px: 6 }}>{children}</Box>
       </Box>
     </CModal>
   );

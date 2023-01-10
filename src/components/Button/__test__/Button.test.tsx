@@ -9,12 +9,7 @@ const mockedFn = jest.fn();
 describe('Button', () => {
   it('should render button to the DOM', () => {
     render(
-      <Button
-        color="primary"
-        size="small"
-        fullWidth={false}
-        disableElevation={false}
-      >
+      <Button color="primary" size="small" fullWidth={false}>
         Click me
       </Button>
     );
@@ -29,7 +24,6 @@ describe('Button', () => {
         color="primary"
         size="small"
         fullWidth={false}
-        disableElevation={false}
         handleClick={mockedFn}
       >
         Click me
@@ -45,7 +39,6 @@ describe('Button', () => {
         color="primary"
         size="small"
         fullWidth={false}
-        disableElevation={false}
         handleClick={mockedFn}
         disabled={true}
       >

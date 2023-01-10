@@ -1,6 +1,7 @@
+import { Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-export const useStyles = makeStyles({
+export const useStyles = makeStyles((theme: Theme) => ({
   root: {
     marginTop: '15em',
     padding: '10px 0px 5em',
@@ -51,9 +52,9 @@ export const useStyles = makeStyles({
   enrollButton: {
     '& .MuiButton-outlined': {
       '&:hover': {
-        background: '#12A788',
+        background: theme.palette.primary.main,
         color: 'white',
       },
     },
   },
-});
+}));

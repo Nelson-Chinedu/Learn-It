@@ -7,13 +7,13 @@ import React, {
 import TextField from '@mui/material/TextField';
 
 export interface ITextfield {
-  variant: 'outlined' | 'filled' | 'standard';
+  variant?: 'outlined' | 'filled' | 'standard';
   value?: string;
   type?: 'text' | 'password' | 'email' | 'search' | 'tel';
-  size: 'small' | 'medium';
+  size?: 'small' | 'medium';
   name?: string;
-  fullWidth: boolean;
-  color: 'primary' | 'secondary' | 'error' | 'success';
+  fullWidth?: boolean;
+  color?: 'primary' | 'secondary' | 'error' | 'success';
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
   children?: ReactNode;
   InputProps?: object;

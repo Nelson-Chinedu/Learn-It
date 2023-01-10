@@ -1,5 +1,5 @@
 import { FunctionComponent, SyntheticEvent, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { Player, BigPlayButton } from 'video-react';
 import sanitizeHtml from 'sanitize-html';
 import Box from '@mui/material/Box';
@@ -12,6 +12,8 @@ import StepLabel from '@mui/material/StepLabel';
 import StepContent from '@mui/material/StepContent';
 import IconButton from '@mui/material/IconButton';
 import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 import { useStyles } from 'src/modules/Student/pages/Course/styled.course';
 
@@ -43,15 +45,24 @@ const CoursePreview: FunctionComponent<Record<string, never>> = () => {
       ) : (
         <Grid container spacing={2}>
           <Grid item md={8}>
+            <Box sx={{ padding: '0px 20px' }}>
+              <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />}>
+                <Link to="/s/courses">Courses</Link>,
+                <Typography
+                  key="3"
+                  color="text.primary"
+                  sx={{ textTransform: 'capitalize' }}
+                >
+                  {title?.split('-').join(' ')}
+                </Typography>
+              </Breadcrumbs>
+            </Box>
             <Box style={{ padding: '20px' }}>
               <Player src={`${data.payload.preview}`}>
                 <BigPlayButton position="center" />
               </Player>
               <Box style={{ margin: '1em 0px' }}>
-                <Typography
-                  variant="subtitle1"
-                  sx={{ textTransform: 'capitalize' }}
-                >
+                <Typography variant="h6" sx={{ textTransform: 'capitalize' }}>
                   {title?.split('-').join(' ')}
                 </Typography>
                 <Typography
@@ -61,12 +72,7 @@ const CoursePreview: FunctionComponent<Record<string, never>> = () => {
                   {`${data.payload.firstname} ${data.payload.lastname}`}
                 </Typography>
               </Box>
-              <Grid
-                container
-                alignItems="baseline"
-                justifyContent="flex-start"
-                className={classes.btnMentor}
-              >
+              <Grid container alignItems="baseline" justifyContent="flex-start">
                 <Grid item md={12}>
                   <TabNav
                     nav={LINKS}

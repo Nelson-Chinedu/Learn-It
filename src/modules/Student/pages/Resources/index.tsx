@@ -8,6 +8,10 @@ import AddIcon from '@mui/icons-material/Add';
 import Stack from '@mui/material/Stack';
 import IconEdit from '@mui/icons-material/EditOutlined';
 import IconDelete from '@mui/icons-material/DeleteOutline';
+import { makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
+
+import EmptyState from 'src/assets/images/search.gif';
 
 import { Button } from 'src/components';
 
@@ -21,7 +25,16 @@ import CategoryModal from 'src/modules/Student/components/Modals/CategoryModal';
 
 import useModal from 'src/hooks/useModal';
 
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    '& .MuiButton-text': {
+      color: theme.palette.primary.main,
+    },
+  },
+}));
+
 const Resources: FunctionComponent<Record<string, never>> = () => {
+  const classes = useStyles();
   const [selectedTab, setSelectedTab] = useState<number | string>('');
   const { data, isLoading } = useGetCategoryQuery();
   const { data: resourceData, isLoading: resourceIsLoading } =
@@ -53,8 +66,8 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
 
   return (
     <>
-      <Box component="section">
-        <Box style={{ padding: '20px' }}>
+      <Box component="section" className={classes.root}>
+        <Box>
           <Grid
             container
             alignItems="center"
@@ -62,16 +75,7 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
             style={{ marginBottom: '1em' }}
           >
             <Grid item>
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth
-                disableElevation
-                size="medium"
-                handleClick={handleAddResource}
-              >
-                Add Resource url
-              </Button>
+              <Button handleClick={handleAddResource}>Add Resource url</Button>
             </Grid>
           </Grid>
           {isLoading && !data ? (
@@ -82,11 +86,8 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
                 (data: { name: string; id: string | number }) => (
                   <>
                     <Button
-                      disableElevation
                       fullWidth={false}
                       variant="text"
-                      color="primary"
-                      size="small"
                       handleClick={() => handleCategory(data.id)}
                       sx={{
                         textTransform: 'capitalize',
@@ -108,8 +109,21 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
               ) : (
                 <Box sx={{ mt: 3 }}>
                   {resourceData?.payload.length === 0 ? (
-                    <Box>
-                      <Typography>No resource added yet</Typography>
+                    <Box
+                      sx={{
+                        width: '50%',
+                        margin: '5em auto',
+                        textAlign: 'center',
+                      }}
+                    >
+                      <img
+                        src={EmptyState}
+                        alt=""
+                        style={{ width: '300px', height: '300px' }}
+                      />
+                      <Typography variant="h2">
+                        No Resource added Yet
+                      </Typography>
                     </Box>
                   ) : (
                     resourceData?.payload.map(

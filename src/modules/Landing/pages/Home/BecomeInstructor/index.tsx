@@ -30,20 +30,14 @@ const BecomeInstructor: FunctionComponent<Record<string, never>> = () => {
           />
         </Grid>
         <Grid item sm={6}>
-          <Typography variant="h3">Do you want to be an instructor?</Typography>
+          <Typography variant="h4">Do you want to be a MENTOR?</Typography>
           <Typography variant="subtitle2">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam
             error explicabo quasi exercitationem mollitia vero saepe distinctio,
             quod eaque doloremque placeat necessitatibus voluptatibus hic
             voluptatum incidunt corporis ut, expedita asperiores.
           </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            disableElevation
-            size="large"
-            fullWidth={false}
-          >
+          <Button size="large" fullWidth={false}>
             Join now
           </Button>
         </Grid>

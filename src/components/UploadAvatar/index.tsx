@@ -49,7 +49,7 @@ const UploadAvatar: FunctionComponent<Record<string, never>> = () => {
         <Avatar
           src={(isSuccess && data?.payload?.picture) || DefaultUser}
           alt="profile picture"
-          sx={{ width: 70, height: 70 }}
+          sx={{ width: 90, height: 90 }}
         />
         <Box className="upload">
           <input
@@ -75,7 +75,10 @@ const UploadAvatar: FunctionComponent<Record<string, never>> = () => {
           </Box>
         )}
       </Box>
-      <Typography variant="subtitle2">
+      <Typography
+        variant="subtitle2"
+        sx={{ paddingTop: '.4em', paddingLeft: '4em' }}
+      >
         Maximum size of 1MB. JPG, or PNG.
       </Typography>
     </Box>

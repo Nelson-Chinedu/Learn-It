@@ -6,7 +6,6 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import CircularProgress from '@mui/material/CircularProgress';
 
 import { useStyles } from 'src/modules/Teacher/components/Modals/styled.modals';
 import { Upload } from 'src/modules/Teacher/components/Modals/Upload';
@@ -204,19 +203,12 @@ const CourseModal: FunctionComponent<Record<string, never>> = () => {
           ))}
         </Box>
         <Button
-          variant="contained"
-          disableElevation={true}
-          color="primary"
           fullWidth={true}
           size="large"
           handleClick={handleSubmit}
-          disabled={isSubmitting}
+          disabled={!isSubmitting}
         >
-          {isSubmitting ? (
-            <CircularProgress size={28} style={{ color: 'white' }} />
-          ) : (
-            'Add Course'
-          )}
+          Add Course
         </Button>
       </form>
     </Modal>

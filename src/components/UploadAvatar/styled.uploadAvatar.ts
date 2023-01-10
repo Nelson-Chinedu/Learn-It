@@ -20,8 +20,8 @@ export const useStyles = makeStyles({
       },
       '& .upload': {
         position: 'absolute',
-        top: '40px',
-        left: '45px',
+        top: '60px',
+        left: '55px',
         '& .MuiSvgIcon-root': {
           background: '#128c7e',
           borderRadius: '50px',

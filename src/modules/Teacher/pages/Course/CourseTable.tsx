@@ -29,7 +29,7 @@ const CourseTable: FunctionComponent<Record<string, never>> = () => {
     return <Skeleton variant="rectangular" style={{ height: '92vh' }} />;
   }
 
-  const handleAddNewCourse = () => {
+  const _handleAddNewCourse = () => {
     setState({ ...state, modalName: 'AddCourse' });
   };
 
@@ -39,14 +39,7 @@ const CourseTable: FunctionComponent<Record<string, never>> = () => {
         {data && data.payload.length === 0 ? (
           <Box className={classes.emptyState}>
             <Typography variant="body1">No Course Added Yet</Typography>
-            <Button
-              variant="contained"
-              color="primary"
-              disableElevation
-              fullWidth
-              size="medium"
-              handleClick={handleAddNewCourse}
-            >
+            <Button fullWidth size="medium" handleClick={_handleAddNewCourse}>
               Add New Course
             </Button>
           </Box>

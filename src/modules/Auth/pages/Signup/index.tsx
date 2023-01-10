@@ -3,7 +3,6 @@ import { useFormik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import CircularProgress from '@mui/material/CircularProgress';
 import Grid from '@mui/material/Grid';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
@@ -113,10 +112,7 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
                 <Input
                   label="Firstname*"
                   type="text"
-                  size="small"
-                  variant="outlined"
                   fullWidth
-                  color="primary"
                   name="firstname"
                   value={values.firstname}
                   handleChange={handleChange}
@@ -129,10 +125,7 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
                 <Input
                   label="Lastname*"
                   type="text"
-                  size="small"
-                  variant="outlined"
                   fullWidth
-                  color="primary"
                   name="lastname"
                   value={values.lastname}
                   handleChange={handleChange}
@@ -147,10 +140,7 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
                 <Input
                   label="Email address*"
                   type="email"
-                  size="small"
-                  variant="outlined"
                   fullWidth
-                  color="primary"
                   name="email"
                   value={values.email}
                   handleChange={handleChange}
@@ -165,10 +155,7 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
                 <Input
                   label="Password*"
                   type={showPassword ? 'text' : 'password'}
-                  size="small"
-                  variant="outlined"
                   fullWidth
-                  color="primary"
                   name="password"
                   value={values.password}
                   handleChange={handleChange}
@@ -190,15 +177,12 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
             <Grid container spacing={2}>
               <Grid item sm={12}>
                 <Button
-                  variant="contained"
-                  color="primary"
-                  disableElevation
                   fullWidth
                   size="large"
-                  disabled={isSubmitting}
+                  disabled={!isSubmitting}
                   handleClick={handleSubmit}
                 >
-                  {isSubmitting ? <CircularProgress size={28} /> : 'Sign up'}
+                  Sign up
                 </Button>
               </Grid>
               <Grid item className={classes.signin}>

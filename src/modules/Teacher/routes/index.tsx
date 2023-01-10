@@ -1,5 +1,6 @@
 import { FunctionComponent, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import Typography from '@mui/material/Typography';
 
 import { MENTOR_PATHS } from 'src/constant/path';
 
@@ -27,10 +28,23 @@ const MentorRoute: FunctionComponent<Record<string, never>> = () => {
           <Route path="" element={<LiveClass />} />
           <Route path="create" element={<LiveClass />} />
           <Route path="add" element={<LiveClass />} />
+          <Route path="start" element={<Typography>Coming soon</Typography>} />
         </Route>
+        <Route
+          path={MENTOR_PATHS.TRANSACTION}
+          element={<Typography>Coming soon</Typography>}
+        />
+        <Route
+          path={MENTOR_PATHS.CHAT}
+          element={<Typography>Coming soon</Typography>}
+        />
+        <Route
+          path={MENTOR_PATHS.SCHEDULE}
+          element={<Typography>Coming soon</Typography>}
+        />
         <Route path={MENTOR_PATHS.PROFILE} element={<Profile />} />
         <Route path={MENTOR_PATHS.SETTINGS} element={<Setting />} />
-        <Route path="*" element={<div>Page not found in mentor</div>} />
+        <Route path="*" element={<Navigate to="dashboard" replace />} />
       </Route>
     </Routes>
   );

@@ -3,7 +3,6 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
-import CircularProgress from '@mui/material/CircularProgress';
 
 import { Button } from 'src/components';
 
@@ -70,14 +69,11 @@ const Bio: FunctionComponent<Record<string, never>> = () => {
       {isEditable && (
         <Grid container sx={{ mt: 2 }}>
           <Grid item md={8}>
-            <Grid container spacing={1}>
+            <Grid container spacing={2}>
               <Grid item md={5}>
                 <Button
                   handleClick={_handleEditBio}
-                  color="primary"
                   variant="outlined"
-                  disableElevation={true}
-                  size="small"
                   fullWidth={true}
                 >
                   Cancel
@@ -86,13 +82,10 @@ const Bio: FunctionComponent<Record<string, never>> = () => {
               <Grid item md={5}>
                 <Button
                   handleClick={_handleSaveBio}
-                  color="primary"
-                  variant="contained"
-                  disableElevation={true}
-                  size="small"
                   fullWidth={true}
+                  disabled={isSubmitting}
                 >
-                  {isSubmitting ? <CircularProgress size={28} /> : 'Save'}
+                  Save
                 </Button>
               </Grid>
             </Grid>

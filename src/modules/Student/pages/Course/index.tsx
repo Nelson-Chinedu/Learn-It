@@ -9,6 +9,8 @@ import Avatar from '@mui/material/Avatar';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import IconButton from '@mui/material/IconButton';
 
+import EmptyState from 'src/assets/images/empty-state.gif';
+
 import { Menu } from 'src/components';
 
 import UnenrollDialog from 'src/modules/Student/components/Dialog/UnenrollDialog';
@@ -61,7 +63,7 @@ const Course: FunctionComponent<Record<string, never>> = () => {
 
   return (
     <Box component="section" className={classes.course_container}>
-      <Grid container spacing={2}>
+      <Grid container spacing={4}>
         {isLoadingEnrolledCourses && !enrolledCourses.length ? (
           <>
             <Typography>Please wait...</Typography>
@@ -69,7 +71,16 @@ const Course: FunctionComponent<Record<string, never>> = () => {
         ) : !isLoadingEnrolledCourses &&
           enrolledCourses &&
           enrolledCourses?.length === 0 ? (
-          <Typography>Enrolled courses will show up here</Typography>
+          <Box sx={{ width: '50%', margin: '5em auto', textAlign: 'center' }}>
+            <img
+              src={EmptyState}
+              alt=""
+              style={{ width: '300px', height: '300px' }}
+            />
+            <Typography variant="h2">
+              Enrolled courses will show up here
+            </Typography>
+          </Box>
         ) : (
           enrolledCourses.map(({ course }: ICourses) => (
             <Grid item md={3} key={course.id}>
@@ -95,7 +106,9 @@ const Course: FunctionComponent<Record<string, never>> = () => {
                       <MoreHorizOutlinedIcon />
                     </IconButton>
                   </Stack>
-                  <Typography variant="subtitle2">{course.name}</Typography>
+                  <Typography variant="h3" sx={{ margin: '.4em 0px' }}>
+                    {course.name}
+                  </Typography>
                   <Stack direction="row" alignItems="center" spacing={1}>
                     <Avatar
                       sx={{
