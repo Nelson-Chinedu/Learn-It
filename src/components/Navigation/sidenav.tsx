@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -10,9 +11,17 @@ import { useStyles } from 'src/components/Navigation/styled.navigation';
 
 import { ISidenav, IRoute } from 'src/interface/sidenav';
 
-const SideNavigation: FunctionComponent<ISidenav> = ({ SIDE_MENUS }) => {
+import { RootState } from 'src/store';
+
+const SideNavigation: FunctionComponent<ISidenav> = ({
+  SIDE_MENUS,
+  sidenav,
+}) => {
   const classes = useStyles();
   const { pathname } = useLocation();
+  const { isCollapsedSidenav } = useSelector(
+    (state: RootState) => state.sidenav
+  );
 
   return (
     <Box className={classes.root}>
@@ -22,23 +31,37 @@ const SideNavigation: FunctionComponent<ISidenav> = ({ SIDE_MENUS }) => {
         alignItems="center"
         justifyContent="space-between"
       >
-        <Typography variant="h6">LearnIT</Typography>
-        <IconButton>
+        <Typography
+          variant="h6"
+          sx={{ display: isCollapsedSidenav ? 'none' : 'block' }}
+        >
+          LearnIT
+        </Typography>
+        <IconButton onClick={sidenav}>
           <MenuIcon />
         </IconButton>
       </Stack>
       <Box style={{ margin: '3em 0px 3em' }}>
-        {SIDE_MENUS.map(({ menu, path }: IRoute) => (
+        {SIDE_MENUS.map(({ menu, path, Icon }: IRoute) => (
           <Link
             to={path}
             key={menu}
             className={
               pathname.includes(path) ? classes.active : classes.inactive
             }
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              margin: isCollapsedSidenav ? '1em 0px 1em .6em' : '1em 0px',
+              padding: '1em 0px 1em 1em',
+            }}
           >
-            <Typography variant="subtitle2" className="menu">
-              {menu}
-            </Typography>
+            <Icon />
+            {!isCollapsedSidenav && (
+              <Typography variant="subtitle2" className="menu">
+                {menu}
+              </Typography>
+            )}
           </Link>
         ))}
       </Box>

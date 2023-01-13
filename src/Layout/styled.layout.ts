@@ -6,9 +6,11 @@ export const useStyles = makeStyles({
     background: 'white',
     height: '100vh',
     '& .sidenav-wrapper': {
-      width: '18%',
+      width: (isCollapsedSidenav) => (isCollapsedSidenav ? '5%' : '18%'),
       position: 'fixed',
       height: '100vh',
+      transition: 'width .2s',
+      transitionTimingFunction: 'ease-in-out',
     },
   },
 });

@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'react';
+import { useSelector } from 'react-redux';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -12,6 +13,8 @@ import { Menu } from 'src/components';
 import DefaultUser from 'src/assets/images/default_user.png';
 
 import { IUserData } from 'src/hooks/useUserProfile';
+
+import { RootState } from 'src/store';
 
 interface ITopNavigation {
   path: string;
@@ -32,6 +35,10 @@ const TopNavigation: FunctionComponent<ITopNavigation> = ({
   handleClick,
   handleClose,
 }) => {
+  const { isCollapsedSidenav } = useSelector(
+    (state: RootState) => state.sidenav
+  );
+
   return (
     <Container
       maxWidth="xl"
@@ -40,7 +47,7 @@ const TopNavigation: FunctionComponent<ITopNavigation> = ({
         position: 'fixed',
         zIndex: 2,
         background: 'white',
-        width: '82%',
+        width: isCollapsedSidenav ? '95%' : '82%',
       }}
     >
       <Toolbar disableGutters>
