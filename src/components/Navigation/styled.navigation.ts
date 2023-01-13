@@ -12,17 +12,16 @@ export const useStyles = makeStyles({
         '& .MuiTypography-subtitle2': {},
       },
       '& .MuiTypography-subtitle2': {
-        margin: '1em 0px',
-        padding: '1em 1em',
-        borderLeft: '4px solid white',
+        paddingLeft: '1.5em',
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
       },
     },
   },
   active: {
     color: '#00419e',
-    '& .MuiTypography-subtitle2': {
-      borderRight: '3px solid #00419e !important',
-    },
+    borderRight: '3px solid #00419e !important',
   },
   inactive: { color: '#848487' },
   logo: {

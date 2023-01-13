@@ -1,4 +1,5 @@
 import { FunctionComponent, useCallback, useState } from 'react';
+import { useSelector } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import { Calendar } from '@natscale/react-calendar';
 
@@ -6,9 +7,14 @@ import { UpcomingTask } from 'src/modules/Student/pages/Dashbaord/UpcomingTask';
 import { PaymentHistory } from 'src/modules/Student/pages/Dashbaord/PaymentHistory';
 import { MyCourses } from 'src/modules/Student/pages/Dashbaord/Courses';
 
+import { RootState } from 'src/store';
+
 import { useStyles } from 'src/modules/Student/pages/Dashbaord/styled.dashboard';
 
 const Dashboard: FunctionComponent<Record<string, never>> = () => {
+  const { isCollapsedSidenav } = useSelector(
+    (state: RootState) => state.sidenav
+  );
   const classes = useStyles();
   const [value, setValue] = useState(new Date());
   const onChange = useCallback(
@@ -25,7 +31,7 @@ const Dashboard: FunctionComponent<Record<string, never>> = () => {
       className={classes.root}
       sx={{ width: '100%' }}
     >
-      <Grid item md={9} component="section">
+      <Grid item md={isCollapsedSidenav ? 9.4 : 9} component="section">
         <MyCourses />
       </Grid>
       <Grid item md={3} className={classes.aside} component="aside">
