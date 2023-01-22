@@ -12,7 +12,7 @@ import { Menu } from 'src/components';
 
 import DefaultUser from 'src/assets/images/default_user.png';
 
-import { IUserData } from 'src/hooks/useUserProfile';
+import { IUserData } from 'src/interface/user';
 
 import { RootState } from 'src/store';
 
@@ -35,9 +35,15 @@ const TopNavigation: FunctionComponent<ITopNavigation> = ({
   handleClick,
   handleClose,
 }) => {
+  // const navigate = useNavigate();
   const { isCollapsedSidenav } = useSelector(
     (state: RootState) => state.sidenav
   );
+
+  const _handleLogout = () => {
+    localStorage.removeItem('clu');
+    window.location.reload();
+  };
 
   return (
     <Container
@@ -45,7 +51,7 @@ const TopNavigation: FunctionComponent<ITopNavigation> = ({
       sx={{
         borderBottom: '1px solid #e3e0e0',
         position: 'fixed',
-        zIndex: 2,
+        zIndex: 9,
         background: 'white',
         width: isCollapsedSidenav ? '95%' : '82%',
       }}
@@ -56,7 +62,7 @@ const TopNavigation: FunctionComponent<ITopNavigation> = ({
             <Grid
               container
               spacing={2}
-              alignItems="flex-end"
+              alignItems="center"
               justifyContent="center"
             >
               <Grid item>
@@ -66,8 +72,17 @@ const TopNavigation: FunctionComponent<ITopNavigation> = ({
                 <Avatar
                   alt="Profile picture"
                   src={data?.payload?.picture || DefaultUser}
-                  sx={{ width: 30, height: 30 }}
-                />
+                  sx={{
+                    width: 30,
+                    height: 30,
+                    textTransform: 'capitalize',
+                    fontSize: '12px',
+                  }}
+                >
+                  {`${data?.payload?.firstname?.charAt(
+                    0
+                  )} ${data?.payload?.lastname?.charAt(0)}`}
+                </Avatar>
               </Grid>
               <Grid
                 item
@@ -111,7 +126,7 @@ const TopNavigation: FunctionComponent<ITopNavigation> = ({
         menus={[
           { name: 'My Profile', path: `${path}/profile` },
           { name: 'Settings', path: `${path}/settings` },
-          { name: 'Logout', path: '#' },
+          { name: 'Logout', path: '#', action: _handleLogout },
         ]}
       />
     </Container>

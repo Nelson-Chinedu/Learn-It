@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import MenuIcon from '@mui/icons-material/Menu';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
+import Chip from '@mui/material/Chip';
 
 import { useStyles } from 'src/components/Navigation/styled.navigation';
 
@@ -42,9 +43,9 @@ const SideNavigation: FunctionComponent<ISidenav> = ({
         </IconButton>
       </Stack>
       <Box style={{ margin: '3em 0px 3em' }}>
-        {SIDE_MENUS.map(({ menu, path, Icon }: IRoute) => (
+        {SIDE_MENUS.map(({ menu, path, Icon, isComingSoon }: IRoute) => (
           <Link
-            to={path}
+            to={!isComingSoon && path}
             key={menu}
             className={
               pathname.includes(path) ? classes.active : classes.inactive
@@ -58,8 +59,23 @@ const SideNavigation: FunctionComponent<ISidenav> = ({
           >
             <Icon />
             {!isCollapsedSidenav && (
-              <Typography variant="subtitle2" className="menu">
+              <Typography
+                variant="subtitle2"
+                className="menu"
+                sx={{ marginRight: '1em' }}
+              >
                 {menu}
+                {isComingSoon && (
+                  <Chip
+                    label="Coming Soon"
+                    size="small"
+                    sx={{
+                      height: '16px',
+                      fontSize: '9px',
+                      marginLeft: '1em',
+                    }}
+                  />
+                )}
               </Typography>
             )}
           </Link>

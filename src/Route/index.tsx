@@ -14,7 +14,6 @@ import NotFound from 'src/assets/images/not-found.gif';
 import { BASE_ROUTES } from 'src/constant/baseRoute';
 
 import ModalContextProvider from 'src/contexts/modal-ctx';
-import UserProfileContextProvider from 'src/contexts/user-profile-ctx';
 
 import ErrorBoundary from 'src/ErrorBoundary';
 
@@ -37,13 +36,11 @@ const Routes: FunctionComponent<Record<string, never>> = () => {
                       key={path}
                       element={
                         <PrivateRoute>
-                          <UserProfileContextProvider>
-                            <ModalContextProvider>
-                              <Layout sidenav={sidenav}>
-                                <Component />
-                              </Layout>
-                            </ModalContextProvider>
-                          </UserProfileContextProvider>
+                          <ModalContextProvider>
+                            <Layout sidenav={sidenav}>
+                              <Component />
+                            </Layout>
+                          </ModalContextProvider>
                         </PrivateRoute>
                       }
                     />

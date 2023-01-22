@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import Skeleton from '@mui/material/Skeleton';
 import Box from '@mui/material/Box';
@@ -8,98 +8,118 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-
-import { Button } from 'src/components';
-
-import { useGetCoursesQuery } from 'src/modules/Teacher/services/teacherSlice';
+import TablePagination from '@mui/material/TablePagination';
 
 import { truncate } from 'src/helpers/truncate';
 
-import { useStyles } from 'src/modules/Teacher/pages/Course/styled.course';
-import useModal from 'src/hooks/useModal';
-
 const HEAD = ['Course Name', 'Videos', 'Price', 'Sales'];
 
-const CourseTable: FunctionComponent<Record<string, never>> = () => {
-  const classes = useStyles();
-  const [state, setState] = useModal();
-  const { data, isSuccess, isLoading } = useGetCoursesQuery();
+interface IData {
+  name: string;
+  video: string[];
+  count: string;
+  price: string;
+  sales?: string;
+  earning?: string;
+}
+
+interface IPayload {
+  payload: IData[];
+}
+interface IProps {
+  isLoading: boolean;
+  isSuccess: boolean;
+  data: IPayload;
+}
+
+const CourseTable: FunctionComponent<IProps> = ({
+  isLoading,
+  data,
+  isSuccess,
+}) => {
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   if (isLoading) {
     return <Skeleton variant="rectangular" style={{ height: '92vh' }} />;
   }
 
-  const _handleAddNewCourse = () => {
-    setState({ ...state, modalName: 'AddCourse' });
+  const _handleChangePage = (_event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const _handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
   };
 
   return (
-    <>
-      <Box style={{ padding: '2em' }}>
-        {data && data.payload.length === 0 ? (
-          <Box className={classes.emptyState}>
-            <Typography variant="body1">No Course Added Yet</Typography>
-            <Button fullWidth size="medium" handleClick={_handleAddNewCourse}>
-              Add New Course
-            </Button>
-          </Box>
-        ) : (
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  {HEAD.map((title: string) => (
-                    <TableCell key={title}>
-                      <Typography variant="subtitle1">{title}</Typography>
+    <Box style={{ padding: '2em' }}>
+      <TableContainer>
+        <Table>
+          <TableHead sx={{ backgroundColor: '#f6f6f6' }}>
+            <TableRow>
+              {HEAD.map((title: string) => (
+                <TableCell key={title}>
+                  <Typography variant="h5">{title}</Typography>
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          {data &&
+            isSuccess &&
+            data?.payload.map(
+              (
+                course: {
+                  name: string;
+                  video: string[];
+                  count: string;
+                  price: string;
+                  sales?: string;
+                  earning?: string;
+                },
+                index: number
+              ) => (
+                <TableBody key={index}>
+                  <TableRow>
+                    <TableCell>
+                      <Typography variant="subtitle2">
+                        {truncate(course?.name)}
+                      </Typography>
                     </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              {data &&
-                isSuccess &&
-                data?.payload.map(
-                  (
-                    course: {
-                      name: string;
-                      video: string[];
-                      count: string;
-                      price: string;
-                      sales?: string;
-                      earning?: string;
-                    },
-                    index: number
-                  ) => (
-                    <TableBody key={index}>
-                      <TableRow>
-                        <TableCell>
-                          <Typography variant="subtitle2">
-                            {truncate(course?.name)}
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography variant="subtitle2">
-                            {course?.video?.length || 'Nil'}
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography variant="subtitle2">
-                            {course?.price}
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography variant="subtitle2">
-                            {course?.sales ?? '---'}
-                          </Typography>
-                        </TableCell>
-                      </TableRow>
-                    </TableBody>
-                  )
-                )}
-            </Table>
-          </TableContainer>
-        )}
-      </Box>
-    </>
+                    <TableCell>
+                      <Typography variant="subtitle2">
+                        {course?.video?.length || 'Nil'}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="subtitle2">
+                        {course?.price}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="subtitle2">
+                        {course?.sales ?? '---'}
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              )
+            )}
+        </Table>
+      </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[10, 25, 100]}
+        component="div"
+        count={data && data.payload.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={_handleChangePage}
+        onRowsPerPageChange={_handleChangeRowsPerPage}
+      />
+    </Box>
   );
 };
 

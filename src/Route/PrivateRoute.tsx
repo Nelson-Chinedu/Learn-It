@@ -1,8 +1,12 @@
 import { ReactElement } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 
 import { AUTH_PATHS, BASE_PATHS } from 'src/constant/path';
+
+import { getUserID } from 'src/features/accountSlice';
+
+import { useGetUserProfileQuery } from 'src/services/userSlice';
 
 import { RootState } from 'src/store';
 
@@ -12,8 +16,9 @@ type Props = {
 
 const PrivateRoute = ({ children }: Props) => {
   const location = useLocation();
-
+  const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state: RootState) => state.account);
+  const { isSuccess, data } = useGetUserProfileQuery();
 
   if (!isLoggedIn) {
     return (
@@ -24,8 +29,11 @@ const PrivateRoute = ({ children }: Props) => {
       />
     );
   }
-
-  return children;
+  if (isSuccess) {
+    dispatch(getUserID(data?.payload?.id));
+    return children;
+  }
+  return null;
 };
 
 export default PrivateRoute;

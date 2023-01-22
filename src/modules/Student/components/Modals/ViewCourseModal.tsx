@@ -1,6 +1,7 @@
 import { FunctionComponent } from 'react';
 import { Player, BigPlayButton } from 'video-react';
 import sanitizeHtml from 'sanitize-html';
+import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
@@ -11,12 +12,14 @@ import { pxToRem } from 'src/helpers/formatFont';
 
 import useModal from 'src/hooks/useModal';
 
-import { useEnrollCourseMutation } from '../../services/studentSlice';
+import { useEnrollCourseMutation } from 'src/modules/Student/services/studentSlice';
 
 import {
   errorNotification,
   successNotification,
 } from 'src/helpers/notification';
+
+import { RootState } from 'src/store';
 
 const useStyles = makeStyles({
   root: {
@@ -47,15 +50,16 @@ const useStyles = makeStyles({
 const ViewCourseModal: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();
   const [state, setState] = useModal();
+  const { userId } = useSelector((state: RootState) => state.account);
 
   const [enrollCourse, { isLoading }] = useEnrollCourseMutation();
 
   const _handleEnrollCourse = async () => {
     try {
-      const payload = {
+      const res = await enrollCourse({
+        userId,
         courseId: state?.data?.id,
-      };
-      const res = await enrollCourse(payload).unwrap();
+      }).unwrap();
       successNotification(res.message);
       setState({ ...state, modalName: '' });
     } catch (error) {

@@ -9,10 +9,11 @@ import Skeleton from '@mui/material/Skeleton';
 
 import { Button } from 'src/components';
 
-import EmptyState from 'src/assets/images/search.gif';
+import EmptyState from 'src/assets/images/empty-cart-search.gif';
 
 import { LineItem } from 'src/modules/Student/pages/Dashbaord/LineItem';
 import { useStyles } from 'src/modules/Student/pages/Dashbaord/styled.dashboard';
+
 import ViewCourseModal from 'src/modules/Student/components/Modals/ViewCourseModal';
 
 import { useGetAllCoursesQuery } from 'src/services/userSlice';
@@ -39,12 +40,12 @@ interface ICourseData {
 }
 
 const MyCourses: FunctionComponent<Record<string, never>> = () => {
+  const { userId } = useSelector((state: RootState) => state.account);
   const [state, setState] = useModal();
   const classes = useStyles();
   const dispatch = useDispatch();
   const { data: unerolledCourses } = useGetAllCoursesQuery();
-  const { data: enrolledCourses } = useGetEnrollCourseQuery();
-
+  const { data: enrolledCourses } = useGetEnrollCourseQuery(userId);
   const {
     unEnrolledCourses: coursesData,
     isLoadingUnEnrolledCourses: isLoadingCourses,

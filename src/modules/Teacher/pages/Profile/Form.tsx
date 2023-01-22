@@ -1,5 +1,6 @@
 import { FunctionComponent } from 'react';
 import { useFormik } from 'formik';
+import { useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -7,15 +8,19 @@ import MenuItem from '@mui/material/MenuItem';
 
 import { Card, UploadAvatar, Input, Button } from 'src/components';
 
-import { useUpdateUserProfileMutation } from 'src/services/userSlice';
+import {
+  useGetUserProfileQuery,
+  useUpdateUserProfileMutation,
+} from 'src/services/userSlice';
+
+import { RootState } from 'src/store';
 
 import { validationSchema } from 'src/validations/profile';
+
 import {
   errorNotification,
   successNotification,
 } from 'src/helpers/notification';
-
-import useUserProfile from 'src/hooks/useUserProfile';
 
 type Values = {
   firstname: string;
@@ -29,7 +34,8 @@ type Values = {
 };
 
 const Form: FunctionComponent<Record<string, never>> = () => {
-  const { data, isSuccess } = useUserProfile();
+  const { userId } = useSelector((state: RootState) => state.account);
+  const { data, isSuccess } = useGetUserProfileQuery();
   const [updateUserProfile] = useUpdateUserProfileMutation();
 
   const _handleUpdateProfile = async (values: Values) => {
@@ -44,7 +50,7 @@ const Form: FunctionComponent<Record<string, never>> = () => {
       address: values.address,
     };
     try {
-      await updateUserProfile(payload).unwrap();
+      await updateUserProfile({ userId, payload }).unwrap();
       successNotification('Profile updated successfully');
     } catch (error: any) {
       if (error && error.status === 401) {
@@ -83,6 +89,7 @@ const Form: FunctionComponent<Record<string, never>> = () => {
     touched,
     isSubmitting,
   } = formik;
+
   return (
     <Card borderRadius="10px" width="" height="100vh">
       <Box className="formContainer">
@@ -126,23 +133,7 @@ const Form: FunctionComponent<Record<string, never>> = () => {
             alignItems="flex-start"
             justifyContent="space-between"
           >
-            <Grid item md={6}>
-              <Input
-                label="Email address"
-                name="email"
-                fullWidth={true}
-                value={values.email}
-                disabled={true}
-                InputProps={{
-                  readOnly: true,
-                }}
-                handleChange={handleChange}
-                onBlur={handleBlur}
-                helperText={touched.email && errors.email}
-                error={touched.email && Boolean(errors.email)}
-              />
-            </Grid>
-            <Grid item md={6}>
+            <Grid item md={12}>
               <Input
                 label="Phone number"
                 name="phone"

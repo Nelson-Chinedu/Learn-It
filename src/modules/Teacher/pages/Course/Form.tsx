@@ -39,8 +39,8 @@ const useStyles = makeStyles({
     '& .se-resizing-bar': {
       display: 'none !important',
     },
-    '& .MuiTypography-body1': {
-      paddingBottom: '.7em',
+    '& .MuiTypography-h5': {
+      paddingBottom: '.2em',
     },
     '& .MuiButton-contained': {
       marginBottom: '5em',
@@ -160,7 +160,7 @@ const AddCourse: FunctionComponent<Record<string, never>> = () => {
     try {
       setIsUploading(true);
       const res = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/upload/${endpoint}`,
+        `${process.env.REACT_APP_BASE_URL}/courses/${endpoint}`,
         form,
         {
           withCredentials: true,
@@ -230,10 +230,10 @@ const AddCourse: FunctionComponent<Record<string, never>> = () => {
         spacing={2}
         alignItems="flex-start"
         justifyContent="space-between"
-        sx={{ mb: 2 }}
+        sx={{ marginBottom: '2em' }}
       >
         <Grid item sm={6}>
-          <Typography variant="body1">Course Title</Typography>
+          <Typography variant="h5">Course Title</Typography>
           <Input
             placeholder="Course Title"
             fullWidth={true}
@@ -246,7 +246,7 @@ const AddCourse: FunctionComponent<Record<string, never>> = () => {
           />
         </Grid>
         <Grid item sm={6}>
-          <Typography variant="body1">Price</Typography>
+          <Typography variant="h5">Price</Typography>
           <Input
             placeholder="Price"
             fullWidth={true}
@@ -260,7 +260,7 @@ const AddCourse: FunctionComponent<Record<string, never>> = () => {
           />
         </Grid>
       </Grid>
-      <Typography variant="body1">Upload course thumbnail</Typography>
+      <Typography variant="h5">Upload course thumbnail</Typography>
       <label className={classes.fileUpload}>
         <CloudUploadIcon fontSize="large" />
         <Typography variant="subtitle2">Upload thumbnail</Typography>
@@ -273,7 +273,7 @@ const AddCourse: FunctionComponent<Record<string, never>> = () => {
         />
       </label>
 
-      <Typography variant="body1">Upload course preview</Typography>
+      <Typography variant="h5">Upload course preview</Typography>
       <label className={classes.fileUpload}>
         <CloudUploadIcon fontSize="large" />
         <Typography variant="subtitle2">Upload course preview</Typography>
@@ -286,7 +286,7 @@ const AddCourse: FunctionComponent<Record<string, never>> = () => {
         />
       </label>
 
-      <Typography variant="body1">Upload video(s) by modules</Typography>
+      <Typography variant="h5">Upload video(s) by modules</Typography>
       <label className={classes.fileUpload}>
         <CloudUploadIcon fontSize="large" />
         <Typography variant="subtitle2">Upload Video</Typography>
@@ -309,7 +309,7 @@ const AddCourse: FunctionComponent<Record<string, never>> = () => {
           <Upload assetName={file.name} key={index} />
         ))}
       </Box>
-      <Typography variant="body1">Objectives</Typography>
+      <Typography variant="h5">Objectives</Typography>
       <SunEditor
         getSunEditorInstance={getSunEditorInstance_Objective}
         placeholder="Please enter objectives here..."
@@ -319,7 +319,7 @@ const AddCourse: FunctionComponent<Record<string, never>> = () => {
         onChange={_handleObjectives}
         setContents={objectives}
       />
-      <Typography variant="body1">FAQ</Typography>
+      <Typography variant="h5">FAQ</Typography>
       <SunEditor
         getSunEditorInstance={getSunEditorInstance_Faq}
         placeholder="Please enter FAQ's here..."
@@ -330,7 +330,7 @@ const AddCourse: FunctionComponent<Record<string, never>> = () => {
         setContents={faq}
       />
       <Button
-        fullWidth={true}
+        fullWidth={false}
         size="large"
         handleClick={handleSubmit}
         disabled={isSubmitting}
