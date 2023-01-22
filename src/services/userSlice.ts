@@ -1,20 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-interface IUser {
-  payload: {
-    firstname: string;
-    lastname: string;
-    phone: string;
-    city: string;
-    state: string;
-    zipCode: string;
-    address: string;
-    country: string;
-    email: string;
-    role: string;
-    mentorBio?: string;
-  };
-}
+import { IUserData } from 'src/interface/user';
 
 export interface ICourse {
   name: string;
@@ -33,6 +19,33 @@ interface ICourses {
   payload: ICourse[];
 }
 
+interface IUpdateUserProfileProp {
+  userId: string;
+  payload: {
+    firstname: string;
+    lastname: string;
+    phone: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    country: string;
+    address: string;
+  };
+}
+
+interface IUpdateProfilePictureResponse {
+  status: number;
+  message: string;
+  payload: {
+    url: string;
+  };
+}
+
+interface IUpdateProfilePictureProp {
+  userId: string;
+  data: FormData;
+}
+
 export const userSlice = createApi({
   reducerPath: 'user',
   baseQuery: fetchBaseQuery({
@@ -41,28 +54,31 @@ export const userSlice = createApi({
   }),
   tagTypes: ['Profile', 'Course'],
   endpoints: (builder) => ({
-    getUserProfile: builder.query<IUser, void>({
-      query: () => ({ url: '/user/me' }),
+    getUserProfile: builder.query<IUserData, void>({
+      query: () => ({ url: '/auth/user/' }),
       providesTags: ['Profile'],
     }),
-    updateUserProfile: builder.mutation({
-      query: (data) => ({
-        url: '/user/me',
+    updateUserProfile: builder.mutation<void, IUpdateUserProfileProp>({
+      query: ({ userId, payload }) => ({
+        url: `/users/${userId}/`,
         method: 'PUT',
-        body: { ...data },
+        body: { ...payload },
       }),
       invalidatesTags: ['Profile'],
     }),
-    updateProfilePicture: builder.mutation({
-      query: (data) => ({
-        url: '/user/profile',
+    updateProfilePicture: builder.mutation<
+      IUpdateProfilePictureResponse,
+      IUpdateProfilePictureProp
+    >({
+      query: ({ userId, data }) => ({
+        url: `/users/${userId}/profile/`,
         method: 'PATCH',
         body: data,
       }),
       invalidatesTags: ['Profile'],
     }),
     getAllCourses: builder.query<ICourses, void>({
-      query: () => ({ url: '/courses/all' }),
+      query: () => ({ url: '/courses/all/' }),
       providesTags: ['Course'],
     }),
   }),

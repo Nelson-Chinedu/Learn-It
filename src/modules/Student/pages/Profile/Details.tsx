@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { useFormik } from 'formik';
+import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
@@ -19,6 +20,8 @@ import {
   successNotification,
 } from 'src/helpers/notification';
 
+import { RootState } from 'src/store';
+
 interface IValues {
   firstname: string;
   lastname: string;
@@ -33,6 +36,7 @@ interface IValues {
 
 const Details: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();
+  const { userId } = useSelector((state: RootState) => state.account);
   const { data, isSuccess } = useGetUserProfileQuery();
   const [updateUserProfile] = useUpdateUserProfileMutation();
 
@@ -48,7 +52,7 @@ const Details: FunctionComponent<Record<string, never>> = () => {
       address: values.address,
     };
     try {
-      await updateUserProfile(payload).unwrap();
+      await updateUserProfile({ userId, payload }).unwrap();
       successNotification('Profile updated successfully');
     } catch (error: any) {
       if (error && error.status === 401) {
@@ -132,25 +136,7 @@ const Details: FunctionComponent<Record<string, never>> = () => {
         alignItems="flex-start"
         justifyContent="space-between"
       >
-        <Grid item md={6}>
-          <Input
-            label="Email address"
-            size="small"
-            type="text"
-            name="email"
-            value={values.email}
-            handleChange={handleChange}
-            onBlur={handleBlur}
-            fullWidth
-            disabled={true}
-            InputProps={{
-              readOnly: true,
-            }}
-            helperText={touched.email && errors.email}
-            error={touched.email && Boolean(errors.email)}
-          />
-        </Grid>
-        <Grid item md={6}>
+        <Grid item md={12}>
           <Input
             label="Phone number"
             size="small"

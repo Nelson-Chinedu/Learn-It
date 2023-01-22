@@ -1,5 +1,6 @@
 import { FunctionComponent, SyntheticEvent, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { Player, BigPlayButton } from 'video-react';
 import sanitizeHtml from 'sanitize-html';
 import Box from '@mui/material/Box';
@@ -23,13 +24,19 @@ import { MODULES, STEPS } from 'src/constant/module';
 
 import { useGetEnrollCourseDetailQuery } from 'src/modules/Student/services/studentSlice';
 
+import { RootState } from 'src/store';
+
 const LINKS = ['Overview', 'FAQ'];
 
 const CoursePreview: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();
   const { title, id } = useParams();
+  const { userId } = useSelector((state: RootState) => state.account);
   const [value, setValue] = useState(0);
-  const { data, isLoading } = useGetEnrollCourseDetailQuery(id, { skip: !id });
+  const { data, isLoading } = useGetEnrollCourseDetailQuery(
+    { userId, courseId: id },
+    { skip: !id }
+  );
   const [isToggled, setIsToggled] = useState<number>();
 
   const handleToggle = (id: number) => {

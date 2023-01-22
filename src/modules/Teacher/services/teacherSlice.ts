@@ -1,23 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export interface ICourse {
-  name: string;
-  price: string;
-  count: string;
-  video: string[];
-}
-
-interface ICourses {
-  payload: ICourse[];
-}
-
-interface IBio {
-  payload: {
-    bio: {
-      mentorBio: string;
-    };
-  };
-}
+import {
+  ICourses,
+  // IAddCourseProp,
+  IAddCourseResponse,
+} from 'src/interface/course';
+import { IBio, IUpdateResponseProp } from 'src/interface/bio';
 
 export const teacherSlice = createApi({
   reducerPath: 'teacher',
@@ -27,31 +15,33 @@ export const teacherSlice = createApi({
   }),
   tagTypes: ['Bio', 'Course'],
   endpoints: (builder) => ({
-    updateBio: builder.mutation({
-      query: (data) => ({
-        url: '/user/me/bio',
+    updateBio: builder.mutation<void, IUpdateResponseProp>({
+      query: ({ userId, payload }) => ({
+        url: `/users/${userId}/bio/`,
         method: 'PUT',
-        body: { ...data },
+        body: { ...payload },
       }),
       invalidatesTags: ['Bio'],
     }),
 
-    getUserBio: builder.query<IBio, void>({
-      query: () => ({ url: '/user/me/bio' }),
+    getUserBio: builder.query<IBio, string>({
+      query: (userId) => ({
+        url: `/users/${userId}/bio/`,
+      }),
       providesTags: ['Bio'],
     }),
 
-    addCourse: builder.mutation({
+    addCourse: builder.mutation<IAddCourseResponse, any>({
       query: (data) => ({
-        url: '/add/course',
+        url: '/courses/',
         method: 'POST',
         body: { ...data },
       }),
       invalidatesTags: ['Course'],
     }),
 
-    getCourses: builder.query<ICourses, void>({
-      query: () => ({ url: '/courses' }),
+    getCourses: builder.query<ICourses, string>({
+      query: (userId) => ({ url: `/courses/${userId}/` }),
       providesTags: ['Course'],
     }),
   }),

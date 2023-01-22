@@ -42,11 +42,12 @@ interface ICourses {
 
 const Course: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();
+  const { userId } = useSelector((state: RootState) => state.account);
   const [selected, setSelected] = useState<string | number>('');
   const { open, anchorEl, handleClick, handleClose } = useMenu();
   const [dialog, setDialog] = useDialog();
 
-  const { data, isLoading } = useGetEnrollCourseQuery();
+  const { data, isLoading } = useGetEnrollCourseQuery(userId);
 
   const dispatch = useDispatch();
   const { enrolledCourses, isLoadingEnrolledCourses } = useSelector(

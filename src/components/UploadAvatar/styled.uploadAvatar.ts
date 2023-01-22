@@ -1,6 +1,7 @@
+import { Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-export const useStyles = makeStyles({
+export const useStyles = makeStyles((theme: Theme) => ({
   root: {
     position: 'relative',
     width: '50%',
@@ -35,11 +36,11 @@ export const useStyles = makeStyles({
       },
       '& .loader': {
         position: 'absolute',
-        top: 25,
-        left: 30,
+        top: 30,
+        left: 35,
         '& .MuiCircularProgress-svg': {
           '& > *': {
-            color: '#128c7e',
+            color: theme.palette.primary.main,
           },
         },
       },
@@ -51,4 +52,4 @@ export const useStyles = makeStyles({
   input: {
     display: 'none',
   },
-});
+}));

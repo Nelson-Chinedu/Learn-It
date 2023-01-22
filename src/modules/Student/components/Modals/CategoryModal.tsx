@@ -1,6 +1,7 @@
 import { FunctionComponent } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 
@@ -14,6 +15,8 @@ import {
 } from 'src/helpers/notification';
 
 import useModal from 'src/hooks/useModal';
+
+import { RootState } from 'src/store';
 
 const validationSchema = Yup.object().shape({
   categoryName: Yup.string().required('Required'),
@@ -34,13 +37,17 @@ const CategoryModal: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();
   const [state, setState] = useModal();
   const [addCategory] = useAddCategoryMutation();
+  const { userId } = useSelector((state: RootState) => state.account);
 
   const _handleAddCategory = async (values: { categoryName: string }) => {
     const payload = {
       name: values.categoryName,
     };
     try {
-      const data = await addCategory(payload).unwrap();
+      const data = await addCategory({
+        userId,
+        payload,
+      }).unwrap();
       if (data.status === 201) {
         successNotification(data.message);
         values.categoryName = '';

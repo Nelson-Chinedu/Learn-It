@@ -1,6 +1,7 @@
 import { FunctionComponent } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import MenuItem from '@mui/material/MenuItem';
@@ -20,6 +21,7 @@ import {
 } from 'src/helpers/notification';
 
 import useModal from 'src/hooks/useModal';
+import { RootState } from 'src/store';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required('Required'),
@@ -41,7 +43,8 @@ const useStyles = makeStyles({
 const ResourceModal: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();
   const [state, setState] = useModal();
-  const { data, isLoading } = useGetCategoryQuery();
+  const { userId } = useSelector((state: RootState) => state.account);
+  const { data, isLoading } = useGetCategoryQuery(userId);
   const [addResource] = useAddResourceMutation();
 
   const _handleAdd = async (values: {
@@ -50,13 +53,13 @@ const ResourceModal: FunctionComponent<Record<string, never>> = () => {
     url: string;
   }) => {
     const payload = {
-      category: values.categoryId,
+      categoryId: values.categoryId,
       name: values.name,
       url: values.url,
     };
 
     try {
-      const data = await addResource(payload).unwrap();
+      const data = await addResource({ userId, payload }).unwrap();
       if (data.status === 201) {
         successNotification(data.message);
         setState({ ...state, modalName: '' });
@@ -105,7 +108,7 @@ const ResourceModal: FunctionComponent<Record<string, never>> = () => {
               {isLoading ? (
                 <Typography>Loading...</Typography>
               ) : data.payload.length > 0 ? (
-                data.payload.map((category) => (
+                data.payload.map((category: any) => (
                   <MenuItem value={category.id} key={category.id}>
                     {category.name}
                   </MenuItem>

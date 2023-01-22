@@ -21,6 +21,7 @@ import {
 
 const UnenrollDialog: FunctionComponent<Record<string, never>> = () => {
   const [state, setState] = useDialog();
+  const { userId } = useSelector((state: RootState) => state.account);
   const [unEnrollCourse, { isLoading }] = useUnEnrollCourseMutation();
   const { enrolledCourses, unEnrolledCourses } = useSelector(
     (state: RootState) => state.course
@@ -31,31 +32,30 @@ const UnenrollDialog: FunctionComponent<Record<string, never>> = () => {
     e.preventDefault();
 
     try {
-      const res = await unEnrollCourse(state?.id).unwrap();
-      if (res) {
-        const enrolledCoursesArr = enrolledCourses
-          .filter(
-            (course: { courseId: string | number }) =>
-              course.courseId !== state?.id
-          )
-          .map((el) => el);
+      await unEnrollCourse({ userId, id: state?.id }).unwrap();
 
-        const unenrolledCoursesArr = enrolledCourses
-          .filter(
-            (course: { courseId: string | number }) =>
-              course.courseId === state?.id
-          )
-          .map((el: any) => el.course);
+      const enrolledCoursesArr = enrolledCourses
+        .filter(
+          (course: { courseId: string | number }) =>
+            course.courseId !== state?.id
+        )
+        .map((el) => el);
 
-        dispatch(getEnrolledCourses({ data: enrolledCoursesArr }));
-        dispatch(
-          getUnEnrolledCourses({
-            data: [...unEnrolledCourses, unenrolledCoursesArr],
-          })
-        );
-        successNotification(res.message);
-        setState({ ...state, dialogName: '', id: '' });
-      }
+      const unenrolledCoursesArr = enrolledCourses
+        .filter(
+          (course: { courseId: string | number }) =>
+            course.courseId === state?.id
+        )
+        .map((el: any) => el.course);
+
+      dispatch(getEnrolledCourses({ data: enrolledCoursesArr }));
+      dispatch(
+        getUnEnrolledCourses({
+          data: [...unEnrolledCourses, unenrolledCoursesArr],
+        })
+      );
+      successNotification('Course unerolled successfully');
+      setState({ ...state, dialogName: '', id: '' });
     } catch (error) {
       errorNotification('An error occurred, Please try again');
     }

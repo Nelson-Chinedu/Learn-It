@@ -31,7 +31,12 @@ import { loggedState } from 'src/features/accountSlice';
 
 import useLocalStorage from 'src/hooks/useLocalStorage';
 
-import { AUTH_PATHS, BASE_PATHS } from 'src/constant/path';
+import {
+  AUTH_PATHS,
+  BASE_PATHS,
+  STUDENT_PATHS,
+  MENTOR_PATHS,
+} from 'src/constant/path';
 
 import { useStyles } from 'src/modules/Auth/pages/Signin/styled.signin';
 
@@ -65,21 +70,17 @@ const Signin: FunctionComponent<Record<string, never>> = () => {
         dispatch(loggedState(!isLoggedIn));
         setStoredValue(true); // set loggedin user to true which stores to localstorage
         if (role === 'mentee') {
-          navigate('/s/dashboard');
+          navigate(`/${BASE_PATHS.STUDENT}/${STUDENT_PATHS.DASHBOARD}`);
         } else {
-          navigate('/m/dashboard');
+          navigate(`/${BASE_PATHS.MENTOR}/${MENTOR_PATHS.DASHBOARD}`);
         }
       }
     } catch (error: any) {
       if (error && error.status === 404) {
-        values.email = '';
-        values.password = '';
         return errorNotification(error.data.message);
       }
 
       if (error && error.status === 400) {
-        values.email = '';
-        values.password = '';
         return errorNotification(error.data.message);
       }
       return errorNotification('An error occurred, Please try again');

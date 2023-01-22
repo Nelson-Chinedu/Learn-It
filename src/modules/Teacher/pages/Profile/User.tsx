@@ -5,10 +5,10 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
 import DefaultUser from 'src/assets/images/default_user.png';
-import useUserProfile from 'src/hooks/useUserProfile';
+import { useGetUserProfileQuery } from 'src/services/userSlice';
 
 const User: FunctionComponent<Record<string, never>> = () => {
-  const { data, isSuccess } = useUserProfile();
+  const { data, isSuccess } = useGetUserProfileQuery();
 
   return (
     <>

@@ -1,10 +1,14 @@
 import { FunctionComponent, useState, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 
 import { Button } from 'src/components';
+
+import { RootState } from 'src/store';
 
 import {
   errorNotification,
@@ -16,8 +20,11 @@ import {
   useUpdateBioMutation,
 } from 'src/modules/Teacher/services/teacherSlice';
 
+import { pxToRem } from 'src/helpers/formatFont';
+
 const Bio: FunctionComponent<Record<string, never>> = () => {
-  const { data, isSuccess } = useGetUserBioQuery();
+  const { userId } = useSelector((state: RootState) => state.account);
+  const { data, isSuccess } = useGetUserBioQuery(userId);
   const [isEditable, setIsEditable] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -32,7 +39,7 @@ const Bio: FunctionComponent<Record<string, never>> = () => {
       mentorBio: editEl.current.textContent,
     };
     try {
-      await updateBio(payload).unwrap();
+      await updateBio({ userId, payload }).unwrap();
       successNotification('Bio updated successfully');
       setIsSubmitting(false);
       setIsEditable(!isEditable);
@@ -54,17 +61,20 @@ const Bio: FunctionComponent<Record<string, never>> = () => {
           </IconButton>
         </Grid>
       </Grid>
-      <div
+      <Box
+        component="div"
         contentEditable={isEditable}
         suppressContentEditableWarning={true}
         ref={editEl}
         style={{
           border: isEditable && '1px solid green',
           padding: isEditable && '10px',
+          fontFamily: "'Source Sans Pro', sans-serif",
+          fontSize: pxToRem(14),
         }}
       >
         {isSuccess && data && data?.payload?.bio?.mentorBio}
-      </div>
+      </Box>
 
       {isEditable && (
         <Grid container sx={{ mt: 2 }}>

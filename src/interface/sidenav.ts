@@ -2,6 +2,7 @@ export interface IRoute {
   menu: string;
   path: string;
   Icon: any;
+  isComingSoon: boolean;
 }
 
 export interface ISidenav {

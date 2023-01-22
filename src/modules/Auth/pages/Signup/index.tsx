@@ -1,6 +1,7 @@
 import { FunctionComponent, ReactText, useState } from 'react';
 import { useFormik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -11,7 +12,12 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import { Input, Button } from 'src/components';
 
-import { AUTH_PATHS, BASE_PATHS } from 'src/constant/path';
+import {
+  AUTH_PATHS,
+  BASE_PATHS,
+  STUDENT_PATHS,
+  MENTOR_PATHS,
+} from 'src/constant/path';
 
 import GetStarted from 'src/assets/images/getStartedImage.webp';
 
@@ -26,6 +32,12 @@ import { ISignup } from 'src/interface/auth';
 
 import { validationSchema } from 'src/validations/signup';
 
+import { loggedState } from 'src/features/accountSlice';
+
+import { RootState } from 'src/store';
+
+import useLocalStorage from 'src/hooks/useLocalStorage';
+
 import { useStyles } from 'src/modules/Auth/pages/Signup/styled.signup';
 
 const Signup: FunctionComponent<Record<string, never>> = () => {
@@ -33,6 +45,9 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [createNewUser] = useCreateNewUserMutation();
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state: RootState) => state.account);
+  const [, setStoredValue] = useLocalStorage('clu', false);
 
   const _handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -55,10 +70,12 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
       if (status === 201) {
         resetForm();
         successNotification(data.message);
+        dispatch(loggedState(!isLoggedIn));
+        setStoredValue(true); // set loggedin user to true which stores to localstorage
         if (role === 'mentee') {
-          navigate('/s/dashboard');
+          navigate(`/${BASE_PATHS.STUDENT}/${STUDENT_PATHS.DASHBOARD}`);
         } else {
-          navigate('/m/dashboard');
+          navigate(`/${BASE_PATHS.MENTOR}/${MENTOR_PATHS.DASHBOARD}`);
         }
       }
     } catch (error: any) {

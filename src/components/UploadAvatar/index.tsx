@@ -8,19 +8,23 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import DefaultUser from 'src/assets/images/default_user.png';
 
-import { useUpdateProfilePictureMutation } from 'src/services/userSlice';
+import {
+  useGetUserProfileQuery,
+  useUpdateProfilePictureMutation,
+} from 'src/services/userSlice';
 
 import {
   errorNotification,
   successNotification,
 } from 'src/helpers/notification';
 
-import useUserProfile from 'src/hooks/useUserProfile';
-
 import { useStyles } from 'src/components/UploadAvatar/styled.uploadAvatar';
+import { RootState } from 'src/store';
+import { useSelector } from 'react-redux';
 
 const UploadAvatar: FunctionComponent<Record<string, never>> = () => {
-  const { data, isSuccess } = useUserProfile();
+  const { data, isSuccess } = useGetUserProfileQuery();
+  const { userId } = useSelector((state: RootState) => state.account);
 
   const [updateProfilePicture, { isLoading }] =
     useUpdateProfilePictureMutation();
@@ -30,7 +34,10 @@ const UploadAvatar: FunctionComponent<Record<string, never>> = () => {
     const formData = new FormData();
     formData.append('image', e.target.files[0]);
     try {
-      const res = await updateProfilePicture(formData).unwrap();
+      const res = await updateProfilePicture({
+        userId,
+        data: formData,
+      }).unwrap();
 
       if (res) {
         return successNotification(res.message as string);
