@@ -13,11 +13,13 @@ export interface ICourse {
   profile: IProfile;
 }
 
-interface ICourseData {
+export interface ICourseData {
+  id?: string;
   name: string;
   price: string;
   count: string;
   video: string[];
+  thumbnail?: string;
 }
 
 export interface ICourses {

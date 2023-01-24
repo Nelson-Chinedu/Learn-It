@@ -4,7 +4,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 
 import { AUTH_PATHS, BASE_PATHS } from 'src/constant/path';
 
-import { getUserID } from 'src/features/accountSlice';
+import { getUserDetail, getUserID } from 'src/features/accountSlice';
 
 import { useGetUserProfileQuery } from 'src/services/userSlice';
 
@@ -31,6 +31,7 @@ const PrivateRoute = ({ children }: Props) => {
   }
   if (isSuccess) {
     dispatch(getUserID(data?.payload?.id));
+    dispatch(getUserDetail({ picture: data?.payload?.picture }));
     return children;
   }
   return null;

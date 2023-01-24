@@ -39,7 +39,7 @@ export const STUDENT_SIDENAV_MENU = [
     menu: 'Chat',
     path: '/s/chat',
     Icon: SmartphoneIcon,
-    isComingSoon: true,
+    isComingSoon: false,
   },
   // {
   //   menu: 'Schedule',
@@ -88,7 +88,7 @@ export const TEACHER_SIDENAV_MENU = [
     menu: 'Chat',
     path: '/m/chat',
     Icon: SmartphoneIcon,
-    isComingSoon: true,
+    isComingSoon: false,
   },
   {
     menu: 'Schedule',

@@ -1,6 +1,6 @@
 import { ICourse } from 'src/interface/course';
 
-interface IPayload {
+export interface IPayload {
   id: string;
   courseId: string;
   course: ICourse;
