@@ -14,9 +14,9 @@ import { Card, Input, Button, ChatReceiver, ChatSender } from 'src/components';
 
 import { RootState } from 'src/store';
 
-import { useGetEnrollCourseQuery } from 'src/modules/Student/services/studentSlice';
+import { useGetCoursesQuery } from 'src/modules/Teacher/services/teacherSlice';
 
-import { IPayload } from 'src/interface/enroll';
+import { ICourseData } from 'src/interface/course';
 
 import { useStyles } from 'src/modules/Student/pages/Chat/styled.chat';
 
@@ -31,7 +31,7 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
   const [roomNumber, setRoomNumber] = useState<string>('');
   const { userId, picture } = useSelector((state: RootState) => state.account);
 
-  const { data, isLoading } = useGetEnrollCourseQuery(userId);
+  const { data, isLoading } = useGetCoursesQuery(userId);
 
   useEffect(() => {
     socket.on('receive_message', (data) => {
@@ -86,7 +86,7 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
             <Box style={{ padding: '20px' }}>
               {data && data.payload.length !== 0 && (
                 <>
-                  <Typography variant="h5">Discussion Channel</Typography>
+                  <Typography variant="h5">Your Channel</Typography>
                   <Box className={classes.search}>
                     <Input
                       size="small"
@@ -108,21 +108,21 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
                   <Box>
                     <img
                       src={ChatNotFound}
-                      alt=""
+                      alt="Empty chat"
                       style={{ width: '300px', height: '300px' }}
                     />
                     <Typography variant="h6" sx={{ textAlign: 'center' }}>
-                      Ooppss...Your channel list is empty at the moment.
+                      Ooppss...Channel list is empty at the moment.
                     </Typography>
                   </Box>
                 ) : (
-                  data.payload.map((user: IPayload) => (
+                  data.payload.map((user: ICourseData) => (
                     <Grid
                       container
                       justifyContent="space-between"
                       alignItems="flex-start"
                       style={{ margin: '1em 0px 1.5em', cursor: 'pointer' }}
-                      onClick={() => handleJoinRoom(user.course.id)}
+                      onClick={() => handleJoinRoom(user.id)}
                       key={user.id}
                     >
                       <Grid item>
@@ -130,7 +130,7 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
                           <Grid item>
                             <Avatar
                               sx={{ width: 40, height: 40 }}
-                              src={user.course.thumbnail}
+                              src={user.thumbnail}
                             />
                           </Grid>
                           <Grid item>
@@ -138,7 +138,7 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
                               variant="subtitle1"
                               className="username"
                             >
-                              {`${user.course.name} Channel`}
+                              {`${user.name} Channel`}
                             </Typography>
                           </Grid>
                         </Grid>

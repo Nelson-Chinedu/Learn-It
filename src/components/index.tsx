@@ -11,6 +11,7 @@ import { UploadAvatar } from 'src/components/UploadAvatar';
 import { Modal } from 'src/components/Modal';
 import { Menu } from 'src/components/Menu';
 import { Dialog } from 'src/components/Dialog';
+import { ChatReceiver, ChatSender } from 'src/components/Chat';
 
 export {
   Button,
@@ -26,4 +27,6 @@ export {
   Modal,
   Menu,
   Dialog,
+  ChatReceiver,
+  ChatSender,
 };
