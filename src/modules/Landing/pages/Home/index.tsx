@@ -1,22 +1,41 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useState } from 'react';
+import Box from '@mui/material/Box';
+import { makeStyles } from '@mui/styles';
 
 import Herosection from 'src/modules/Landing/pages/Home/Herosection';
+import Collaboration from 'src//modules/Landing/pages/Home/Collaboration';
 import Offer from 'src/modules/Landing/pages/Home/Offer';
-import PopularCourse from 'src/modules/Landing/pages/Home/PopularCourse';
-import BecomeInstructor from 'src/modules/Landing/pages/Home/BecomeInstructor';
-import Alumni from 'src/modules/Landing/pages/Home/Alumni';
+import StepByStepGuide from 'src/modules/Landing/pages/Home/StepByStepGuide';
+import Testimonial from 'src/modules/Landing/pages/Home/Testimonial';
+
 import { Footer } from 'src/components';
 
+const useStyles = makeStyles({
+  root: {
+    background: '#f8f9fc',
+    height: (props: { isToggle: boolean }) => props.isToggle && '100vh',
+    position: (props: { isToggle: boolean }) =>
+      props.isToggle ? 'fixed' : 'unset',
+  },
+});
+
 const Home: FunctionComponent<Record<string, never>> = () => {
+  const [isToggle, setIsToggle] = useState(false);
+  const classes = useStyles({ isToggle });
+
+  const handleToggleMenu = () => {
+    setIsToggle(!isToggle);
+  };
+
   return (
-    <>
-      <Herosection />
+    <Box className={classes.root}>
+      <Herosection handleToggleMenu={handleToggleMenu} isToggle={isToggle} />
+      <Collaboration />
       <Offer />
-      <PopularCourse />
-      <BecomeInstructor />
-      <Alumni />
+      <Testimonial />
+      <StepByStepGuide />
       <Footer />
-    </>
+    </Box>
   );
 };
 

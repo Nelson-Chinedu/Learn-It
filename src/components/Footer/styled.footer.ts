@@ -1,11 +1,18 @@
-import { Theme } from '@mui/system';
 import { makeStyles } from '@mui/styles';
 
-export const useStyles = makeStyles((theme: Theme) => ({
+export const useStyles = makeStyles({
   root: {
-    background: theme.palette.primary.main,
+    background: '#fafafa',
     padding: '2em',
     textAlign: 'center',
-    color: '#fff',
+    color: '#000',
+    '& .MuiTypography-subtitle2': {
+      padding: '.4em 0px',
+      lineHeight: '1.6em',
+    },
+    '& .footer': {
+      textAlign: 'left',
+      marginBottom: (props: { isMobile: boolean }) => props.isMobile && '1em',
+    },
   },
-}));
+});

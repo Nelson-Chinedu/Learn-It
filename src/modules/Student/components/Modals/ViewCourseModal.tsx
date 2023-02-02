@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react';
-import { Player, BigPlayButton } from 'video-react';
+import ReactPlayer from 'react-player';
 import sanitizeHtml from 'sanitize-html';
 import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
@@ -70,9 +70,7 @@ const ViewCourseModal: FunctionComponent<Record<string, never>> = () => {
   return (
     <Modal modalName="ViewCourse" title={state?.data?.name}>
       <Box className={classes.root}>
-        <Player src={state?.data?.video[0]}>
-          <BigPlayButton position="center" />
-        </Player>
+        <ReactPlayer url={state?.data?.video[0]} controls />
 
         <Box sx={{ mt: 2 }}>
           <Typography variant="h3">What you will learn</Typography>

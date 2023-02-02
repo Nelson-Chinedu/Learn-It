@@ -1,7 +1,7 @@
 import { FunctionComponent, SyntheticEvent, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Player, BigPlayButton } from 'video-react';
+import ReactPlayer from 'react-player';
 import sanitizeHtml from 'sanitize-html';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -65,9 +65,7 @@ const CoursePreview: FunctionComponent<Record<string, never>> = () => {
               </Breadcrumbs>
             </Box>
             <Box style={{ padding: '20px' }}>
-              <Player src={`${data.payload.preview}`}>
-                <BigPlayButton position="center" />
-              </Player>
+              <ReactPlayer url={data.payload.preview} controls />
               <Box style={{ margin: '1em 0px' }}>
                 <Typography variant="h6" sx={{ textTransform: 'capitalize' }}>
                   {title?.split('-').join(' ')}
