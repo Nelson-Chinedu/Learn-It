@@ -3,7 +3,6 @@ import { makeStyles } from '@mui/styles';
 
 export const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    marginTop: '15em',
     padding: '10px 0px 5em',
   },
   wrapper: {

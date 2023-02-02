@@ -9,6 +9,8 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import IconButton from '@mui/material/IconButton';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import useTheme from '@mui/material/styles/useTheme';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { Input, Button } from 'src/components';
 
@@ -42,6 +44,8 @@ import { useStyles } from 'src/modules/Auth/pages/Signin/styled.signin';
 
 const Signin: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state: RootState) => state.account);
@@ -110,10 +114,19 @@ const Signin: FunctionComponent<Record<string, never>> = () => {
   return (
     <Box className={classes.root}>
       <Grid container alignItems="center">
-        <Grid item md={6} className={classes.imageWrapper}>
-          <img src={TeamWork} alt="team work illustration" />
-        </Grid>
-        <Grid item md={4} className={classes.formWrapper}>
+        {!isMobile && (
+          <Grid item md={6} className={classes.imageWrapper}>
+            <img src={TeamWork} alt="Team work illustration" />
+          </Grid>
+        )}
+        <Grid
+          item
+          xs={10}
+          sm={10}
+          md={4}
+          sx={{ margin: '10em auto' }}
+          className={classes.formWrapper}
+        >
           <Grid container spacing={2}>
             <Grid item sm={12}>
               <Typography variant="h2">Welcome back</Typography>
@@ -121,7 +134,7 @@ const Signin: FunctionComponent<Record<string, never>> = () => {
           </Grid>
           <form onSubmit={handleSubmit}>
             <Grid container spacing={2}>
-              <Grid item sm={12}>
+              <Grid item xs={12} sm={12}>
                 <Input
                   label="Email address*"
                   type="email"
@@ -136,7 +149,7 @@ const Signin: FunctionComponent<Record<string, never>> = () => {
               </Grid>
             </Grid>
             <Grid container spacing={2}>
-              <Grid item sm={12}>
+              <Grid item xs={12} sm={12}>
                 <Input
                   label="Password*"
                   type={showPassword ? 'text' : 'password'}
@@ -160,7 +173,7 @@ const Signin: FunctionComponent<Record<string, never>> = () => {
               </Grid>
             </Grid>
             <Grid container spacing={2}>
-              <Grid item sm={12}>
+              <Grid item xs={12} sm={12}>
                 <Button
                   fullWidth
                   size="large"

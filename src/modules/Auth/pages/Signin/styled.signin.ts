@@ -30,7 +30,6 @@ export const useStyles = makeStyles({
     },
   },
   formWrapper: {
-    margin: 'auto !important',
     '& .MuiGrid-container': {
       margin: '1em 0px',
       width: '100%',

@@ -11,9 +11,11 @@ import Skeleton from '@mui/material/Skeleton';
 
 import { Card, Button } from 'src/components';
 
-import { useStyles } from 'src/modules/Landing/pages/Home/PopularCourse/styled.popularcourse';
 import { useGetAllCoursesQuery } from 'src/services/userSlice';
+
 import { AUTH_PATHS, BASE_PATHS } from 'src/constant/path';
+
+import { useStyles } from 'src/modules/Landing/pages/Home/PopularCourse/styled.popularcourse';
 
 const Course: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();

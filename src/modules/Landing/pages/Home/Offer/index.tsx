@@ -1,80 +1,73 @@
 import { FunctionComponent } from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import CardContent from '@mui/material/CardContent';
 
 import { Card } from 'src/components';
 
-import { useStyles } from 'src/modules/Landing/pages/Home/Offer/styled.offer';
+import Team from 'src/assets/images/team.jpg';
 
-import ExpertMentor from 'src/assets/images/online_learning.svg';
-import Certificate from 'src/assets/images/certificate.svg';
-import Support from 'src/assets/images/connecting_teams.svg';
-import Offer1 from 'src/assets/images/offer-1.svg';
-import Offer2 from 'src/assets/images/offer-2.svg';
-import Offer3 from 'src/assets/images/offer-3.svg';
-import ArrowUp from 'src/assets/images/arrowUp.svg';
-import ArrowDown from 'src/assets/images/arrowDown.svg';
+import { Offers } from 'src/constant/whatWeOffer';
+
+import { useStyles } from 'src/modules/Landing/pages/Home/Offer/styled.offer';
 
 const Offer: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();
 
   return (
-    <Container maxWidth="xl" className={classes.root}>
-      <Box className={classes.title}>
-        <Typography variant="h2">
-          What you will get from our platform
-        </Typography>
-      </Box>
-      <Box className={classes.cardContainer}>
-        <Box className={classes.arrowDown}>
-          <img src={ArrowDown} />
-        </Box>
-        <Box className={classes.expertWrapper}>
-          <img src={Offer1} alt="offer step" />
-          <Card width="250px" borderRadius="10px">
-            <CardContent className={classes.cardContent}>
-              <Typography variant="h3">Expert Mentor</Typography>
-              <img src={ExpertMentor} alt="Expert mentor illustration" />
-              <Typography variant="subtitle2">
-                You will get world class top mentor
-              </Typography>
-            </CardContent>
-          </Card>
-        </Box>
-        <Box className={classes.certificationWrapper}>
-          <img src={Offer2} alt="offer step" />
-          <Card width="250px" borderRadius="10px">
-            <CardContent className={classes.cardContentMid}>
-              <Typography variant="h3">Hands-on task</Typography>
-              <img src={Certificate} alt="Expert mentor illustration" />
-              <Typography variant="subtitle2">
-                You get to build/work on hands-on task/project(s)
-              </Typography>
-            </CardContent>
-          </Card>
-        </Box>
-        <Box className={classes.arrowUp}>
-          <img src={ArrowUp} />
-        </Box>
-        <Box className={classes.supportWrapper}>
-          <img src={Offer3} alt="offer step" />
-          <Card width="250px" borderRadius="10px">
-            <CardContent className={classes.cardContent}>
-              <Typography variant="h3">Lifetime support</Typography>
-              <img
-                src={Support}
-                alt="Expert mentor illustration"
-                style={{ width: '150px', margin: '1em 0px' }}
-              />
-              <Typography variant="subtitle2">
-                You will get 24/7 full time support
-              </Typography>
-            </CardContent>
-          </Card>
-        </Box>
-      </Box>
+    <Container maxWidth="lg" className={classes.root}>
+      <Grid
+        container
+        alignItems="flex-start"
+        justifyContent="space-evenly"
+        spacing={4}
+      >
+        <Grid item md={5} className="why-we-different-text">
+          <Typography variant="h2">
+            This is why we are best from others
+          </Typography>
+          <Typography variant="body2">
+            Our mentorship program stands out from the others as we offer a
+            personlized approach to learning, unmatched dedication and support
+            from our mentors, and a proven track record of success in helping
+            mentess having their goals.
+          </Typography>
+          <img src={Team} alt="Why we different from others as a team" />
+        </Grid>
+        <Grid item md={5}>
+          <Grid container spacing={6}>
+            {Offers.map(
+              (offer: { title: string; text: string; icon: string }) => (
+                <Grid item xs={12} sm={12} md={6}>
+                  <Card
+                    key={offer.title}
+                    width="100%"
+                    height="285px"
+                    borderRadius="10px"
+                  >
+                    <Box sx={{ padding: '1em' }}>
+                      <img
+                        src={offer.icon}
+                        alt="icon"
+                        style={{
+                          width: '40px',
+                          height: '40px',
+                          objectFit: 'contain',
+                        }}
+                      />
+                      <Typography variant="h2" sx={{ margin: '.8em 0px' }}>
+                        {offer.title}
+                      </Typography>
+                      <Typography variant="body2">{offer.text}</Typography>
+                    </Box>
+                  </Card>
+                </Grid>
+              )
+            )}
+          </Grid>
+        </Grid>
+      </Grid>
     </Container>
   );
 };

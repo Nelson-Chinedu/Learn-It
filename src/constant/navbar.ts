@@ -1,1 +1,7 @@
-export const NAVBAR = ['Home', 'About', 'Categories', 'Courses'] as const;
+export const NAVBAR = [
+  { name: 'Home', path: '/' },
+  { name: 'About Us', path: '#' },
+  { name: 'Courses', path: '#' },
+  { name: 'Testimonial', path: '#' },
+  { name: 'Contact', path: '#' },
+] as const;
