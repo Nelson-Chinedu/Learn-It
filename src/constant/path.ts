@@ -9,6 +9,7 @@ export const AUTH_PATHS = {
   SIGNUP: 'signup',
   FORGOT_PASSWORD: 'forgot-password',
   RESET_PASSWORD: 'reset-password',
+  VERIFY: 'verify',
 };
 
 export const Landing_PATHS = {
