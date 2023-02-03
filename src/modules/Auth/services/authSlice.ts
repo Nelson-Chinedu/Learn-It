@@ -23,7 +23,18 @@ export const authSlice = createApi({
       }),
       invalidatesTags: ['Bio', 'Profile'],
     }),
+    verifyEmail: builder.mutation({
+      query: (data) => ({
+        url: '/auth/verify/',
+        method: 'POST',
+        body: { ...data },
+      }),
+    }),
   }),
 });
 
-export const { useCreateNewUserMutation, useLoginMutation } = authSlice;
+export const {
+  useCreateNewUserMutation,
+  useLoginMutation,
+  useVerifyEmailMutation,
+} = authSlice;
