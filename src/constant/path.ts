@@ -9,7 +9,8 @@ export const AUTH_PATHS = {
   SIGNUP: 'signup',
   FORGOT_PASSWORD: 'forgot-password',
   RESET_PASSWORD: 'reset-password',
-  VERIFY: 'verify',
+  VERIFY_EMAIL: 'verify',
+  CONFIRM_EMAIL: 'confirm',
 };
 
 export const Landing_PATHS = {

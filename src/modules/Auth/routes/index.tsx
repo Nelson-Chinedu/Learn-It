@@ -11,6 +11,7 @@ import { AUTH_PATHS } from 'src/constant/path';
 const SigninPage = lazy(() => import('src/modules/Auth/pages/Signin'));
 const SignupPage = lazy(() => import('src/modules/Auth/pages/Signup'));
 const VerifyPage = lazy(() => import('src/modules/Auth/pages/VerifyEmail'));
+const ConfirmPage = lazy(() => import('src/modules/Auth/pages/ConfirmEmail'));
 
 const AuthRouter = () => {
   return (
@@ -19,7 +20,8 @@ const AuthRouter = () => {
         <Route path="" element={<Navigate to={AUTH_PATHS.SIGNIN} replace />} />
         <Route path={AUTH_PATHS.SIGNIN} element={<SigninPage />} />
         <Route path={AUTH_PATHS.SIGNUP} element={<SignupPage />} />
-        <Route path={AUTH_PATHS.VERIFY} element={<VerifyPage />} />
+        <Route path={AUTH_PATHS.VERIFY_EMAIL} element={<VerifyPage />} />
+        <Route path={AUTH_PATHS.CONFIRM_EMAIL} element={<ConfirmPage />} />
         <Route
           path="*"
           element={

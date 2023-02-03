@@ -1,7 +1,6 @@
 import { FunctionComponent, ReactText, useState } from 'react';
 import { useFormik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -14,31 +13,17 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { Input, Button } from 'src/components';
 
-import {
-  AUTH_PATHS,
-  BASE_PATHS,
-  STUDENT_PATHS,
-  MENTOR_PATHS,
-} from 'src/constant/path';
+import { AUTH_PATHS, BASE_PATHS } from 'src/constant/path';
 
 import GetStarted from 'src/assets/images/getStartedImage.webp';
 
 import { useCreateNewUserMutation } from 'src/modules/Auth/services/authSlice';
 
-import {
-  successNotification,
-  errorNotification,
-} from 'src/helpers/notification';
+import { errorNotification } from 'src/helpers/notification';
 
 import { ISignup } from 'src/interface/auth';
 
 import { validationSchema } from 'src/validations/signup';
-
-import { loggedState } from 'src/features/accountSlice';
-
-import { RootState } from 'src/store';
-
-import useLocalStorage from 'src/hooks/useLocalStorage';
 
 import { useStyles } from 'src/modules/Auth/pages/Signup/styled.signup';
 
@@ -49,9 +34,6 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [createNewUser] = useCreateNewUserMutation();
-  const dispatch = useDispatch();
-  const { isLoggedIn } = useSelector((state: RootState) => state.account);
-  const [, setStoredValue] = useLocalStorage('clu', false);
 
   const _handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -67,20 +49,12 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
     };
     try {
       const data = await createNewUser(payload).unwrap();
-      const {
-        status,
-        payload: { role },
-      } = data;
+      const { status, message } = data;
       if (status === 201) {
         resetForm();
-        successNotification(data.message);
-        dispatch(loggedState(!isLoggedIn));
-        setStoredValue(true); // set loggedin user to true which stores to localstorage
-        if (role === 'mentee') {
-          navigate(`/${BASE_PATHS.STUDENT}/${STUDENT_PATHS.DASHBOARD}`);
-        } else {
-          navigate(`/${BASE_PATHS.MENTOR}/${MENTOR_PATHS.DASHBOARD}`);
-        }
+        navigate(`/${BASE_PATHS.AUTH}/${AUTH_PATHS.CONFIRM_EMAIL}`, {
+          state: { data: message },
+        });
       }
     } catch (error: any) {
       if (error && error.status === 409)
