@@ -3,6 +3,8 @@ import { useLocation } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
+import EmailIConfirmedmage from 'src/assets/images/email-confirmed.gif';
+
 import { Button } from 'src/components';
 
 import { useVerifyEmailMutation } from 'src/modules/Auth/services/authSlice';
@@ -56,9 +58,14 @@ const VerifyEmail: FunctionComponent<Record<string, never>> = () => {
         !isError &&
         !isLoading && (
           <>
+            <img
+              src={EmailIConfirmedmage}
+              alt="Email animation"
+              style={{ width: '150px', height: '150px', objectFit: 'contain' }}
+            />
             <Typography
               variant="subtitle2"
-              sx={{ mb: 4, fontSize: '1rem !important' }}
+              sx={{ mb: 4, fontSize: '1rem !important', lineHeight: '1.3em' }}
             >
               {message}
             </Typography>
