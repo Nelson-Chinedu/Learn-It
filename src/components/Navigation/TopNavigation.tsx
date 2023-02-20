@@ -35,13 +35,13 @@ const TopNavigation: FunctionComponent<ITopNavigation> = ({
   handleClick,
   handleClose,
 }) => {
-  // const navigate = useNavigate();
   const { isCollapsedSidenav } = useSelector(
     (state: RootState) => state.sidenav
   );
 
   const _handleLogout = () => {
     localStorage.removeItem('clu');
+    localStorage.removeItem('csu');
     window.location.reload();
   };
 

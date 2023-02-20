@@ -36,4 +36,9 @@ export const BASE_ROUTES = [
     sidenav: STUDENT_SIDENAV_MENU,
     useAuth: true,
   },
+  {
+    path: `${BASE_PATHS.APP}/*`,
+    Component: StudentRoute,
+    useAuth: true,
+  },
 ];

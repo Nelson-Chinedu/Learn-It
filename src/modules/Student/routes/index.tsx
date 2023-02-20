@@ -20,12 +20,14 @@ const Profile = lazy(() => import('src/modules/Student/pages/Profile'));
 const Setting = lazy(() => import('src/modules/Student/pages/Setting'));
 const Chat = lazy(() => import('src/modules/Student/pages/Chat'));
 const Task = lazy(() => import('src/modules/Student/pages/Task'));
+const Onboarding = lazy(() => import('src/modules/Student/pages/Onboarding'));
 
 const StudentRoute: FunctionComponent<Record<string, never>> = () => {
   return (
     <Routes>
       <Route path="/">
         <Route path="" element={<Navigate to="dashboard" replace />} />
+        <Route path={STUDENT_PATHS.ONBOARDING} element={<Onboarding />} />
         <Route path={STUDENT_PATHS.DASHBOARD} element={<Dashboard />} />
         <Route path={STUDENT_PATHS.COURSE}>
           <Route

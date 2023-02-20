@@ -51,7 +51,8 @@ const Signin: FunctionComponent<Record<string, never>> = () => {
   const { isLoggedIn } = useSelector((state: RootState) => state.account);
   const [showPassword, setShowPassword] = useState(false);
   const [login] = useLoginMutation();
-  const [, setStoredValue] = useLocalStorage('clu', false);
+  const [, setStoredIsLoggedIn] = useLocalStorage('clu', false);
+  const [, setStoredIsSubscribed] = useLocalStorage('csu', false);
 
   const _handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -66,15 +67,19 @@ const Signin: FunctionComponent<Record<string, never>> = () => {
       const data = await login(payload).unwrap();
       const {
         status,
-        payload: { role },
+        payload: { role, isSubscribed },
       } = data;
       if (status === 200) {
         resetForm();
         successNotification(data.message);
-        dispatch(loggedState(!isLoggedIn));
-        setStoredValue(true); // set loggedin user to true which stores to localstorage
-        if (role === 'mentee') {
+        dispatch(loggedState({ login: !isLoggedIn, subscribed: isSubscribed }));
+        setStoredIsLoggedIn(true); // set loggedin user to true which stores to localstorage
+        setStoredIsSubscribed(isSubscribed); // set subscribe user to true/false which stores to localstorage
+
+        if (role === 'mentee' && isSubscribed) {
           navigate(`/${BASE_PATHS.STUDENT}/${STUDENT_PATHS.DASHBOARD}`);
+        } else if (role === 'mentee' && !isSubscribed) {
+          navigate(`/${BASE_PATHS.APP}/${STUDENT_PATHS.ONBOARDING}`);
         } else {
           navigate(`/${BASE_PATHS.MENTOR}/${MENTOR_PATHS.DASHBOARD}`);
         }

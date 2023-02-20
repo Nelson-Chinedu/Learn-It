@@ -85,6 +85,18 @@ export const studentSlice = createApi({
         url: `/courses/${userId}/enroll/${courseId}/`,
       }),
     }),
+    subscribe: builder.mutation({
+      query: ({ userId }) => ({
+        url: `/users/${userId}/subscribe/`,
+        method: 'PATCH',
+      }),
+    }),
+    verifyPayment: builder.query<any, any>({
+      query: ({ reference }) => ({
+        url: `/users/payment/${reference}/verify/`,
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
@@ -97,4 +109,6 @@ export const {
   useGetEnrollCourseQuery,
   useUnEnrollCourseMutation,
   useGetEnrollCourseDetailQuery,
+  useSubscribeMutation,
+  useVerifyPaymentQuery,
 } = studentSlice;
