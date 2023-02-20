@@ -44,6 +44,18 @@ const Routes: FunctionComponent<Record<string, never>> = () => {
                         </PrivateRoute>
                       }
                     />
+                  ) : useAuth && !Layout ? (
+                    <Route
+                      path={path}
+                      key={path}
+                      element={
+                        <PrivateRoute>
+                          <ModalContextProvider>
+                            <Component />
+                          </ModalContextProvider>
+                        </PrivateRoute>
+                      }
+                    />
                   ) : (
                     <Route path={path} key={path} element={<Component />} />
                   )

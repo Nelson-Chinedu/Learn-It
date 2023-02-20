@@ -8,6 +8,8 @@ export interface ICard {
   height?: string;
   overflow?: string;
   borderRadius: string;
+  background?: string;
+  border?: string;
 }
 
 const useStyles = makeStyles({
@@ -23,13 +25,14 @@ const Card: FunctionComponent<ICard> = ({
   height,
   overflow,
   borderRadius,
+  ...rest
 }) => {
   const classes = useStyles();
   return (
     <MCard
       elevation={3}
       className={classes.root}
-      style={{ width, height, borderRadius, overflow }}
+      style={{ width, height, borderRadius, overflow, ...rest }}
     >
       {children}
     </MCard>

@@ -2,6 +2,7 @@ export const BASE_PATHS = {
   STUDENT: 's',
   MENTOR: 'm',
   AUTH: 'auth',
+  APP: 'app',
 };
 
 export const AUTH_PATHS = {
@@ -32,6 +33,7 @@ export const MENTOR_PATHS = {
 };
 
 export const STUDENT_PATHS = {
+  ONBOARDING: 'onboarding',
   DASHBOARD: 'dashboard',
   COURSE: 'courses',
   RESOURCE: 'resources',

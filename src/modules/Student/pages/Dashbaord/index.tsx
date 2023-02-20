@@ -5,7 +5,7 @@ import { Calendar } from '@natscale/react-calendar';
 
 import { UpcomingTask } from 'src/modules/Student/pages/Dashbaord/UpcomingTask';
 import { PaymentHistory } from 'src/modules/Student/pages/Dashbaord/PaymentHistory';
-import { MyCourses } from 'src/modules/Student/pages/Dashbaord/Courses';
+import { SubscribedMentors } from 'src/modules/Student/pages/Dashbaord/SubscribedMentors';
 
 import { RootState } from 'src/store';
 
@@ -32,7 +32,7 @@ const Dashboard: FunctionComponent<Record<string, never>> = () => {
       sx={{ width: '100%' }}
     >
       <Grid item md={isCollapsedSidenav ? 9.4 : 9} component="section">
-        <MyCourses />
+        <SubscribedMentors />
       </Grid>
       <Grid item md={3} className={classes.aside} component="aside">
         <Calendar value={value} onChange={onChange} />

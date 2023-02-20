@@ -13,5 +13,7 @@ export interface IUserData {
     role?: string;
     mentorBio?: string;
     picture?: string;
+    isSubscribed?: boolean;
+    subscription?: Array<unknown>;
   };
 }
