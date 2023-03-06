@@ -70,8 +70,7 @@ const ViewCourseModal: FunctionComponent<Record<string, never>> = () => {
   return (
     <Modal modalName="ViewCourse" title={state?.data?.name}>
       <Box className={classes.root}>
-        <ReactPlayer url={state?.data?.video[0]} controls />
-
+        <ReactPlayer url={state?.data?.video || ''} controls />
         <Box sx={{ mt: 2 }}>
           <Typography variant="h3">What you will learn</Typography>
           <Box

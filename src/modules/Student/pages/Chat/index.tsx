@@ -116,7 +116,7 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
                     </Typography>
                   </Box>
                 ) : (
-                  data.payload.map((user: IPayload) => (
+                  data?.payload?.map((user: IPayload) => (
                     <Grid
                       container
                       justifyContent="space-between"

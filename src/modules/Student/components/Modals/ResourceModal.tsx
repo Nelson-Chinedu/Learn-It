@@ -108,7 +108,7 @@ const ResourceModal: FunctionComponent<Record<string, never>> = () => {
               {isLoading ? (
                 <Typography>Loading...</Typography>
               ) : data.payload.length > 0 ? (
-                data.payload.map((category: any) => (
+                data?.payload?.map((category: any) => (
                   <MenuItem value={category.id} key={category.id}>
                     {category.name}
                   </MenuItem>

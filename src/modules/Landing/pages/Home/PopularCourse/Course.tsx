@@ -41,7 +41,7 @@ const Course: FunctionComponent<Record<string, never>> = () => {
             </Grid>
           ))
         : data &&
-          data?.payload.map((course, index: number) => (
+          data?.payload?.map((course, index: number) => (
             <Grid item sm={3} className={classes.container} key={index}>
               <Card width="250px" borderRadius="10px">
                 <CardMedia

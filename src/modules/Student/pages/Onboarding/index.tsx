@@ -1,8 +1,11 @@
 import { FunctionComponent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+
+import { RootState } from 'src/store';
 
 import Loader from 'src/assets/images/shape-loader.gif';
 
@@ -16,9 +19,10 @@ const Onboarding: FunctionComponent<Record<never, string>> = () => {
   const navigate = useNavigate();
   const [isSettingUp, setIsSettingUp] = useState(false);
   const [referenceId, setReferenceId] = useState('');
+  const { userId } = useSelector((state: RootState) => state.account);
   const [, setStoredIsSubscribed] = useLocalStorage('csu', false);
   const { data, isSuccess } = useVerifyPaymentQuery(
-    { reference: referenceId },
+    { reference: referenceId, userId },
     {
       skip: !referenceId,
     }

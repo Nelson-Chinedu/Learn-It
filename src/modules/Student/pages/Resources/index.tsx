@@ -140,7 +140,7 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
                     </Typography>
                   </Box>
                 ) : (
-                  resourceData?.payload.map(
+                  resourceData?.payload?.map(
                     (
                       data: { name: string; url: string; id: string } | null
                     ) => (

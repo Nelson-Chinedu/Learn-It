@@ -26,7 +26,7 @@ export const studentSlice = createApi({
     baseUrl: process.env.REACT_APP_BASE_URL,
     credentials: 'include',
   }),
-  tagTypes: ['Category', 'Resource', 'Course', 'EnrollCourse'],
+  tagTypes: ['Category', 'Resource', 'Course', 'EnrollCourse', 'Subscription'],
   endpoints: (builder) => ({
     getCategory: builder.query<ICategory, string>({
       query: (userId) => ({ url: `/category/${userId}/` }),
@@ -85,17 +85,38 @@ export const studentSlice = createApi({
         url: `/courses/${userId}/enroll/${courseId}/`,
       }),
     }),
-    subscribe: builder.mutation({
-      query: ({ userId }) => ({
-        url: `/users/${userId}/subscribe/`,
-        method: 'PATCH',
-      }),
-    }),
+    // subscribe: builder.mutation({
+    //   query: ({ userId }) => ({
+    //     url: `/users/${userId}/subscribe/`,
+    //     method: 'PATCH',
+    //   }),
+    // }),
     verifyPayment: builder.query<any, any>({
       query: ({ reference }) => ({
-        url: `/users/payment/${reference}/verify/`,
+        url: `/subscription/${reference}/verify-payment/`,
         method: 'GET',
       }),
+    }),
+    subscribe: builder.mutation({
+      query: ({ userId, data }) => ({
+        url: `/subscription/${userId}/`,
+        method: 'POST',
+        body: { ...data },
+      }),
+      invalidatesTags: ['Subscription'],
+    }),
+    getAllMentors: builder.query<any, void>({
+      query: () => ({
+        url: '/mentors/',
+        method: 'GET',
+      }),
+    }),
+    getMentors: builder.query<any, any>({
+      query: ({ id }) => ({
+        url: `/mentors/${id}/`,
+        method: 'GET',
+      }),
+      providesTags: ['Subscription'],
     }),
   }),
 });
@@ -111,4 +132,6 @@ export const {
   useGetEnrollCourseDetailQuery,
   useSubscribeMutation,
   useVerifyPaymentQuery,
+  useGetAllMentorsQuery,
+  useGetMentorsQuery,
 } = studentSlice;

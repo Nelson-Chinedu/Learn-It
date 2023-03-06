@@ -9,6 +9,8 @@ import { SubscribedMentors } from 'src/modules/Student/pages/Dashbaord/Subscribe
 
 import { RootState } from 'src/store';
 
+import NewMentorDrawer from 'src/modules/Student/components/Drawer/NewMentorDrawer';
+
 import { useStyles } from 'src/modules/Student/pages/Dashbaord/styled.dashboard';
 
 const Dashboard: FunctionComponent<Record<string, never>> = () => {
@@ -25,21 +27,24 @@ const Dashboard: FunctionComponent<Record<string, never>> = () => {
   );
 
   return (
-    <Grid
-      container
-      justifyContent="space-between"
-      className={classes.root}
-      sx={{ width: '100%' }}
-    >
-      <Grid item md={isCollapsedSidenav ? 9.4 : 9} component="section">
-        <SubscribedMentors />
+    <>
+      <Grid
+        container
+        justifyContent="space-between"
+        className={classes.root}
+        sx={{ width: '100%' }}
+      >
+        <Grid item md={isCollapsedSidenav ? 9.4 : 9} component="section">
+          <SubscribedMentors />
+        </Grid>
+        <Grid item md={3} className={classes.aside} component="aside">
+          <Calendar value={value} onChange={onChange} />
+          <UpcomingTask />
+          <PaymentHistory />
+        </Grid>
       </Grid>
-      <Grid item md={3} className={classes.aside} component="aside">
-        <Calendar value={value} onChange={onChange} />
-        <UpcomingTask />
-        <PaymentHistory />
-      </Grid>
-    </Grid>
+      <NewMentorDrawer />
+    </>
   );
 };
 

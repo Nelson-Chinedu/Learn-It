@@ -52,10 +52,10 @@ export const STUDENT_SIDENAV_MENU = [
     isComingSoon: false,
   },
   {
-    menu: 'Setting',
+    menu: 'Settings',
     path: '/s/settings',
     Icon: SettingsIcon,
-    isComingSoon: true,
+    isComingSoon: false,
   },
 ];
 
