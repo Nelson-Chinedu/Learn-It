@@ -14,6 +14,7 @@ import NotFound from 'src/assets/images/not-found.gif';
 import { BASE_ROUTES } from 'src/constant/baseRoute';
 
 import ModalContextProvider from 'src/contexts/modal-ctx';
+import DrawerContextProvider from 'src/contexts/drawer.ctx';
 
 import ErrorBoundary from 'src/ErrorBoundary';
 
@@ -37,9 +38,11 @@ const Routes: FunctionComponent<Record<string, never>> = () => {
                       element={
                         <PrivateRoute>
                           <ModalContextProvider>
-                            <Layout sidenav={sidenav}>
-                              <Component />
-                            </Layout>
+                            <DrawerContextProvider>
+                              <Layout sidenav={sidenav}>
+                                <Component />
+                              </Layout>
+                            </DrawerContextProvider>
                           </ModalContextProvider>
                         </PrivateRoute>
                       }

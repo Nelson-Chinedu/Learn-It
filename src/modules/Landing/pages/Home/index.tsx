@@ -1,4 +1,5 @@
 import { FunctionComponent, useState } from 'react';
+import GoogleOneTapLogin from 'react-google-one-tap-login';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 
@@ -29,6 +30,15 @@ const Home: FunctionComponent<Record<string, never>> = () => {
 
   return (
     <Box className={classes.root}>
+      <GoogleOneTapLogin
+        // eslint-disable-next-line no-console
+        onError={(error) => console.log(error)}
+        // eslint-disable-next-line no-console
+        onSuccess={(response) => console.log(response)}
+        googleAccountConfigs={{
+          client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+        }}
+      />
       <Herosection handleToggleMenu={handleToggleMenu} isToggle={isToggle} />
       <Collaboration />
       <Offer />

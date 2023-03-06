@@ -1,42 +1,21 @@
-export const SETTING_LINK = [
-  {
-    title: 'General',
-    state: 'inactive',
-  },
-  {
-    title: 'Email Notification',
-    state: 'active',
-  },
-  {
-    title: 'Subscription',
-    state: 'inactive',
-  },
-  {
-    title: 'Payment',
-    state: 'inactive',
-  },
-  {
-    title: 'Learning Reminder',
-    state: 'inactive',
-  },
-];
+export const SETTING_LINK: string[] = ['Email Notification', 'Subscription'];
 
 export const EMAIL_NOTIFICATION = [
   {
-    title: 'Promotion, course recommendation',
-    checked: true,
+    title: 'Course recommendation',
+    value: 'recommendation',
   },
   {
-    title: 'Annoucement from instructors',
-    checked: false,
+    title: 'Task from Mentors',
+    value: 'task',
   },
   {
-    title: 'Examination notice',
-    checked: true,
+    title: 'Notifications',
+    value: 'notifications',
   },
 ];
 
-export const TEACHER_SETTING_LINK = [
+export const TEACHER_SETTING_LINK: string[] = [
   'General',
   'Email Notification',
   'Earning',

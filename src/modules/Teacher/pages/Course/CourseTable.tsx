@@ -70,7 +70,7 @@ const CourseTable: FunctionComponent<IProps> = ({
           </TableHead>
           {data &&
             isSuccess &&
-            data?.payload.map(
+            data?.payload?.map(
               (
                 course: {
                   name: string;

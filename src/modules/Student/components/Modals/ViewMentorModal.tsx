@@ -49,7 +49,8 @@ const ViewMentorModal: FunctionComponent<Props> = ({ onSuccess, onClose }) => {
   const config: PaystackProps = {
     reference: new Date().getTime().toString(),
     email: 'LearnIT@email.com',
-    amount: Number(state?.data?.price) * 100,
+    // amount: Number(state?.data?.price) * 100,
+    amount: Number(2000) * 100,
     publicKey: process.env.REACT_APP_PAYSTACK_PUB_KEY as string,
     channels: ['card'],
   };
@@ -57,45 +58,64 @@ const ViewMentorModal: FunctionComponent<Props> = ({ onSuccess, onClose }) => {
   const initializePayment = usePaystackPayment(config);
 
   return (
-    <Modal modalName="ViewMentors" title={state?.data?.name}>
+    <Modal
+      modalName="ViewMentors"
+      title={`${state?.data?.firstname} ${state?.data?.lastname}`}
+    >
       <Box className={classes.root}>
         <Box>
           <Typography variant="body2">Title:</Typography>
-          <Typography variant="subtitle2">{state?.data?.title}</Typography>
+          <Typography variant="subtitle2">
+            {state?.data?.title || 'Software Engineer'}
+          </Typography>
         </Box>
         <Box>
           <Typography variant="body2">Bio:</Typography>
-          <Typography variant="subtitle2">{state?.data?.bio}</Typography>
+          <Typography variant="subtitle2">
+            {state?.data?.bio?.mentorBio}
+          </Typography>
         </Box>
         <Box>
           <Typography variant="body2">Timezone:</Typography>
-          <Typography variant="subtitle2">{state?.data?.timezone}</Typography>
+          <Typography variant="subtitle2">
+            {state?.data?.timezone || 'GMT+1'}
+          </Typography>
         </Box>
         <Box>
           <Typography variant="body2">Time:</Typography>
-          <Typography variant="subtitle2">{state?.data?.time}</Typography>
+          <Typography variant="subtitle2">
+            {state?.data?.time || '2:00pm - 4:00pm'}
+          </Typography>
         </Box>
         <Box>
           <Typography variant="body2">Availability:</Typography>
           <Typography variant="subtitle2">
-            {state?.data?.availabilty}
+            {state?.data?.availabilty || 'Yes'}
           </Typography>
         </Box>
         <Box>
           <Typography variant="body2">Currently Accepting Mentee:</Typography>
-          <Typography variant="subtitle2">{state?.data?.accepting}</Typography>
+          <Typography variant="subtitle2">
+            {state?.data?.accepting || 'Yes'}
+          </Typography>
         </Box>
         <Box>
           <Typography variant="body2">Company:</Typography>
-          <Typography variant="subtitle2">{state?.data?.company}</Typography>
+          <Typography variant="subtitle2">
+            {state?.data?.company || 'State of mind'}
+          </Typography>
         </Box>
         <Box>
           <Typography variant="body2">Years:</Typography>
-          <Typography variant="subtitle2">{state?.data?.experience}</Typography>
+          <Typography variant="subtitle2">
+            {state?.data?.experience || '4+'}
+          </Typography>
         </Box>
         <Box>
           <Typography variant="body2">Fee:</Typography>
-          <Typography variant="subtitle2">{`₦${state?.data?.price}`}</Typography>
+          <Typography variant="subtitle2">
+            {`₦${state?.data?.price || '3000'}`}
+          </Typography>
         </Box>
         <Button
           size="large"
