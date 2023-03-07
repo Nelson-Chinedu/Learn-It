@@ -1,10 +1,13 @@
 import { FunctionComponent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
+
+import { RootState } from 'src/store';
 
 import { Card, Button } from 'src/components';
 
@@ -16,8 +19,6 @@ import ViewCourseModal from 'src/modules/Student/components/Modals/ViewCourseMod
 import useDrawer from 'src/hooks/useDrawer';
 
 import { useGetMentorsQuery } from 'src/modules/Student/services/studentSlice';
-import { RootState } from 'src/store';
-import { useSelector } from 'react-redux';
 
 const SubscribedMentors: FunctionComponent<Record<string, never>> = () => {
   const [state, setState] = useDrawer();
