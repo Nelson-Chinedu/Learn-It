@@ -6,7 +6,12 @@ import { studentSlice } from 'src/modules/Student/services/studentSlice';
 
 import { userSlice } from 'src/services/userSlice';
 
-import { accountReducer, courseReducer, sidenavReducer } from 'src/features';
+import {
+  accountReducer,
+  courseReducer,
+  sidenavReducer,
+  mentorReducer,
+} from 'src/features';
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +22,7 @@ export const store = configureStore({
     account: accountReducer,
     course: courseReducer,
     sidenav: sidenavReducer,
+    mentor: mentorReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false })
