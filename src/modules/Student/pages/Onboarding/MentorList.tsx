@@ -1,4 +1,5 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -12,13 +13,41 @@ import useModal from 'src/hooks/useModal';
 
 import ViewMentorModal from 'src/modules/Student/components/Modals/ViewMentorModal';
 
-import { useGetAllMentorsQuery } from 'src/modules/Student/services/studentSlice';
+import {
+  useGetAllMentorsQuery,
+  useGetMentorsQuery,
+} from 'src/modules/Student/services/studentSlice';
 
 import { Props } from 'src/types/paystack';
+import { RootState } from 'src/store';
+import { useSelector } from 'react-redux';
+import { getUnSubscribedMentors } from 'src/features/mentorSlice';
 
 const MentorsList: FunctionComponent<Props> = ({ onSuccess, onClose }) => {
+  const dispatch = useDispatch();
   const [state, setState] = useModal();
-  const { data, isLoading } = useGetAllMentorsQuery();
+  const { userId } = useSelector((state: RootState) => state.account);
+  const { data: unSubscribedMentors } = useGetAllMentorsQuery();
+  const { data: subscribedMentors } = useGetMentorsQuery({ id: userId });
+
+  useEffect(() => {
+    const getMentors = () => {
+      if (unSubscribedMentors && subscribedMentors) {
+        const mentors = unSubscribedMentors?.payload.filter((el: any) => {
+          return !subscribedMentors?.payload.some((element: any) => {
+            return el?.profile?.id === element?.profile?.id;
+          });
+        });
+        dispatch(getUnSubscribedMentors({ data: mentors, isLoading: false }));
+      }
+    };
+    getMentors();
+  }, [unSubscribedMentors, subscribedMentors]);
+
+  const {
+    unSubscribedMentors: mentorsData,
+    isLoadingUnSubscribedMentors: isLoadingMentors,
+  } = useSelector((state: RootState) => state.mentor);
 
   const handleView = (data: {
     title: string;
@@ -41,14 +70,18 @@ const MentorsList: FunctionComponent<Props> = ({ onSuccess, onClose }) => {
   return (
     <>
       <Grid container direction="row" alignItems="center" spacing={5}>
-        {isLoading ? (
+        {isLoadingMentors ? (
           <Box sx={{ width: '40%', margin: '2em auto', textAlign: 'center' }}>
             <CircularProgress size={20} />
             <Typography>Fetching mentors...</Typography>
           </Box>
+        ) : mentorsData && mentorsData.length === 0 ? (
+          <Box sx={{ textAlign: 'center', width: '50%', margin: '1em auto' }}>
+            <Typography variant="subtitle2">No mentors available</Typography>
+          </Box>
         ) : (
-          data &&
-          data?.payload?.map((mentor: any) => (
+          mentorsData &&
+          mentorsData?.map((mentor: any) => (
             <Grid item md={3} sx={{ mb: 1 }} key={mentor.id}>
               <Card borderRadius="0px" width="220px" border="1px solid #e3e0e0">
                 <Box sx={{ textAlign: 'center', padding: '1em' }}>

@@ -59,6 +59,7 @@ const NewMentorDrawer: FunctionComponent<Record<never, string>> = () => {
         if (res) {
           setReferenceId('');
           setState({ ...state, drawerName: '' });
+          localStorage.removeItem('cmid');
           successNotification(res?.message);
         }
       } catch (error) {
