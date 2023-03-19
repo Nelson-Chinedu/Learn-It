@@ -5,18 +5,17 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
-import Badge from '@mui/material/Badge';
+import SendIcon from '@mui/icons-material/Send';
+import IconButton from '@mui/material/IconButton';
 
 import ChatConversation from 'src/assets/images/empty-chat-screen.gif';
 import ChatNotFound from 'src/assets/images/chat-not-found.gif';
 
-import { Card, Input, Button, ChatReceiver, ChatSender } from 'src/components';
+import { Card, Input, ChatReceiver, ChatSender } from 'src/components';
 
 import { RootState } from 'src/store';
 
-import { useGetCoursesQuery } from 'src/modules/Teacher/services/teacherSlice';
-
-import { ICourseData } from 'src/interface/course';
+import { useGetMenteesQuery } from 'src/modules/Teacher/services/teacherSlice';
 
 import { useStyles } from 'src/modules/Student/pages/Chat/styled.chat';
 
@@ -28,10 +27,10 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
   const [chats, setChats] = useState<
     Array<{ userId: string; picture: string; message: string }>
   >([]);
-  const [roomNumber, setRoomNumber] = useState<string>('');
+  const [roomNumber, setRoomNumber] = useState<string | number>('');
   const { userId, picture } = useSelector((state: RootState) => state.account);
-
-  const { data, isLoading } = useGetCoursesQuery(userId);
+  const [name, setName] = useState('');
+  const { data, isLoading } = useGetMenteesQuery({ id: userId });
 
   useEffect(() => {
     socket.on('receive_message', (data) => {
@@ -47,24 +46,41 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const handleChange = () => {};
 
-  const handleJoinRoom = (room: string) => {
-    setRoomNumber(room);
-    socket.emit('join_room', room);
+  const handleJoinRoom = ({
+    roomId,
+    name,
+  }: {
+    roomId: string | number;
+    name: string;
+  }) => {
+    setRoomNumber(roomId);
+    setName(name);
+    if (roomNumber !== roomId) {
+      socket.emit('join_room', roomId);
+    }
   };
 
   const handleMessage = (e: { target: { value: SetStateAction<string> } }) => {
     setMessage(e.target.value);
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessage = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
     setMessage('');
     socket.emit('chat', { roomNumber, message, userId, picture });
   };
 
   const ChatList = () => {
+    if (chats.length === 0)
+      return (
+        <Typography variant="body2" sx={{ textAlign: 'center' }}>
+          No chat history available
+        </Typography>
+      );
+
     return chats.map((chat) => {
       if (chat.userId === userId.toString()) return <ChatSender chat={chat} />;
-      return <ChatReceiver chat={chat} />;
+      return <ChatReceiver chat={chat} name={name} />;
     });
   };
 
@@ -112,44 +128,40 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
                       style={{ width: '300px', height: '300px' }}
                     />
                     <Typography variant="h6" sx={{ textAlign: 'center' }}>
-                      Ooppss...Channel list is empty at the moment.
+                      Ooppss...Chat list is empty at the moment.
                     </Typography>
                   </Box>
                 ) : (
-                  data?.payload?.map((user: ICourseData) => (
+                  data?.payload?.map((user: any) => (
                     <Grid
                       container
                       justifyContent="space-between"
                       alignItems="flex-start"
                       style={{ margin: '1em 0px 1.5em', cursor: 'pointer' }}
-                      onClick={() => handleJoinRoom(user.id)}
+                      onClick={() =>
+                        handleJoinRoom({
+                          roomId: user.id,
+                          name: `${user.mentee.firstname} ${user.mentee.lastname}`,
+                        })
+                      }
                       key={user.id}
                     >
                       <Grid item>
                         <Grid container alignItems="center" spacing={1}>
                           <Grid item>
                             <Avatar
-                              sx={{ width: 40, height: 40 }}
-                              src={user.thumbnail}
+                              sx={{ width: 30, height: 30 }}
+                              src={user.mentee.picture}
                             />
                           </Grid>
                           <Grid item>
                             <Typography
                               variant="subtitle1"
                               className="username"
+                              sx={{ textTransform: 'capitalize' }}
                             >
-                              {`${user.name} Channel`}
+                              {`${user.mentee.firstname} ${user.mentee.lastname}`}
                             </Typography>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                      <Grid item>
-                        <Grid container alignItems="center">
-                          <Grid item>
-                            <Typography variant="subtitle2" className="time">
-                              10:00
-                            </Typography>
-                            <Badge badgeContent={3} color="secondary" />
                           </Grid>
                         </Grid>
                       </Grid>
@@ -185,7 +197,7 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
                     }}
                   >
                     <Typography variant="body2">
-                      Tap a channel to join conversation
+                      Tap on a mentee to start conversation
                     </Typography>
                   </Box>
                   <Box sx={{ textAlign: 'center' }}>
@@ -200,8 +212,8 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
                 ChatList()
               )}
             </Box>
-            <Grid container alignItems="center">
-              <Grid item md={11}>
+            <Grid container alignItems="center" className={classes.input}>
+              <Grid item md={12} component="form" onSubmit={handleSendMessage}>
                 <Input
                   size="small"
                   type="text"
@@ -211,15 +223,9 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
                   handleChange={handleMessage}
                   value={message}
                 />
-              </Grid>
-              <Grid item md={1}>
-                <Button
-                  fullWidth={true}
-                  onClick={handleSendMessage}
-                  size="large"
-                >
-                  Send
-                </Button>
+                <IconButton onClick={handleSendMessage} className="btnSend">
+                  <SendIcon />
+                </IconButton>
               </Grid>
             </Grid>
           </Grid>

@@ -53,8 +53,8 @@ const SubscribedMentors: FunctionComponent<Record<string, never>> = () => {
             <p>loading....</p>
           ) : (
             data &&
-            data?.payload?.map((mentor: any) => (
-              <Grid item md={4} key={mentor}>
+            data?.payload?.map((user: any) => (
+              <Grid item md={4} key={user.id}>
                 <Card
                   borderRadius="10px"
                   width="250px"
@@ -77,7 +77,7 @@ const SubscribedMentors: FunctionComponent<Record<string, never>> = () => {
                     >
                       <Box>
                         <Avatar
-                          src={mentor.profile.picture || DefaultUser}
+                          src={user.mentor.picture || DefaultUser}
                           alt="profile picture"
                           sx={{
                             width: 90,
@@ -92,7 +92,7 @@ const SubscribedMentors: FunctionComponent<Record<string, never>> = () => {
                             textTransform: 'capitalize',
                           }}
                         >
-                          {`${mentor.profile.firstname} ${mentor.profile.lastname}`}
+                          {`${user.mentor.firstname} ${user.mentor.lastname}`}
                         </Typography>
                         <Typography variant="subtitle1">
                           Senior Software Engineer

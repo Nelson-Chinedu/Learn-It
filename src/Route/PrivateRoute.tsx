@@ -34,7 +34,12 @@ const PrivateRoute = ({ children }: Props) => {
     dispatch(getUserID(data?.payload?.id));
     dispatch(getUserDetail({ picture: data?.payload?.picture }));
     return children;
-  } else if (!isSubscribed && isLoggedIn) {
+  } else if (
+    !isSubscribed &&
+    isLoggedIn &&
+    data &&
+    data.payload.role !== 'mentor'
+  ) {
     return (
       <Navigate to={`/${BASE_PATHS.APP}/${STUDENT_PATHS.ONBOARDING}`} replace />
     );
