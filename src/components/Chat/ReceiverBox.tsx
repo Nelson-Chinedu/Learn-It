@@ -12,9 +12,10 @@ type Props = {
     picture: string;
     message: string;
   };
+  name?: string;
 };
 
-const ChatReceiver: FunctionComponent<Props> = ({ chat }) => {
+const ChatReceiver: FunctionComponent<Props> = ({ chat, name }) => {
   const classes = useStyles();
 
   return (
@@ -29,8 +30,20 @@ const ChatReceiver: FunctionComponent<Props> = ({ chat }) => {
           fontSize: '12px',
         }}
       />
-      <Box className="message">
-        <Typography>{chat.message}</Typography>
+      <Box>
+        <Typography
+          sx={{
+            textAlign: 'left',
+            marginLeft: '.6em',
+            fontWeight: 600,
+            textTransform: 'capitalize',
+          }}
+        >
+          {name}
+        </Typography>
+        <Box className="message">
+          <Typography>{chat.message}</Typography>
+        </Box>
       </Box>
     </Box>
   );

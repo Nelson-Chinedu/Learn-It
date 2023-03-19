@@ -107,13 +107,13 @@ export const studentSlice = createApi({
     }),
     getAllMentors: builder.query<any, void>({
       query: () => ({
-        url: '/mentors/',
+        url: '/subscription/mentors/all/',
         method: 'GET',
       }),
     }),
     getMentors: builder.query<any, any>({
       query: ({ id }) => ({
-        url: `/mentors/${id}/`,
+        url: `/subscription/${id}/mentors/`,
         method: 'GET',
       }),
       providesTags: ['Subscription'],

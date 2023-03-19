@@ -1,10 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import {
-  ICourses,
-  // IAddCourseProp,
-  IAddCourseResponse,
-} from 'src/interface/course';
+import { ICourses, IAddCourseResponse } from 'src/interface/course';
 import { IBio, IUpdateResponseProp } from 'src/interface/bio';
 
 export const teacherSlice = createApi({
@@ -13,7 +9,7 @@ export const teacherSlice = createApi({
     baseUrl: process.env.REACT_APP_BASE_URL,
     credentials: 'include',
   }),
-  tagTypes: ['Bio', 'Course'],
+  tagTypes: ['Bio', 'Course', 'Subscription'],
   endpoints: (builder) => ({
     updateBio: builder.mutation<void, IUpdateResponseProp>({
       query: ({ userId, payload }) => ({
@@ -44,6 +40,13 @@ export const teacherSlice = createApi({
       query: (userId) => ({ url: `/courses/${userId}/` }),
       providesTags: ['Course'],
     }),
+    getMentees: builder.query<any, any>({
+      query: ({ id }) => ({
+        url: `/subscription/${id}/mentees/`,
+        method: 'GET',
+      }),
+      providesTags: ['Subscription'],
+    }),
   }),
 });
 
@@ -52,4 +55,5 @@ export const {
   useGetUserBioQuery,
   useAddCourseMutation,
   useGetCoursesQuery,
+  useGetMenteesQuery,
 } = teacherSlice;
