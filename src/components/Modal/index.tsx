@@ -22,6 +22,7 @@ const Modal: FunctionComponent<Props> = ({ children, modalName, title }) => {
 
   const handleClose = () => {
     setState({ ...state, modalName: '' });
+    localStorage.removeItem('cmid');
   };
 
   return (

@@ -35,7 +35,7 @@ const MentorsList: FunctionComponent<Props> = ({ onSuccess, onClose }) => {
       if (unSubscribedMentors && subscribedMentors) {
         const mentors = unSubscribedMentors?.payload.filter((el: any) => {
           return !subscribedMentors?.payload.some((element: any) => {
-            return el?.profile?.id === element?.profile?.id;
+            return el?.profile?.id === element?.mentor?.id;
           });
         });
         dispatch(getUnSubscribedMentors({ data: mentors, isLoading: false }));
@@ -102,7 +102,7 @@ const MentorsList: FunctionComponent<Props> = ({ onSuccess, onClose }) => {
                     Currently accepting mentee:
                     {/* {mentor.accepting} */}
                   </Typography>
-                  <Typography>Fee: {`₦${mentor.price}`}</Typography>
+                  <Typography>Fee: {`₦${mentor.price || 2000}`}</Typography>
                 </Box>
                 <Button
                   handleClick={() => handleView(mentor.profile)}
