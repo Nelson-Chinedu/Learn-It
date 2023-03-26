@@ -1,5 +1,6 @@
 import { FunctionComponent } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -15,6 +16,13 @@ import DefaultUser from 'src/assets/images/default_user.png';
 import { IUserData } from 'src/interface/user';
 
 import { RootState } from 'src/store';
+
+import { useLogoutMutation } from 'src/modules/Auth/services/authSlice';
+
+import {
+  errorNotification,
+  successNotification,
+} from 'src/helpers/notification';
 
 interface ITopNavigation {
   path: string;
@@ -35,14 +43,24 @@ const TopNavigation: FunctionComponent<ITopNavigation> = ({
   handleClick,
   handleClose,
 }) => {
+  const navigate = useNavigate();
+  const [logout] = useLogoutMutation();
   const { isCollapsedSidenav } = useSelector(
     (state: RootState) => state.sidenav
   );
 
-  const _handleLogout = () => {
-    localStorage.removeItem('clu');
-    localStorage.removeItem('csu');
-    window.location.reload();
+  const _handleLogout = async () => {
+    try {
+      const res = await logout().unwrap();
+      if (res.status === 200) {
+        localStorage.removeItem('clu');
+        localStorage.removeItem('csu');
+        successNotification('Logout successful');
+        navigate('/auth/signin', { replace: true });
+      }
+    } catch (error) {
+      errorNotification('An error occured');
+    }
   };
 
   return (
