@@ -1,6 +1,15 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import {
+  createApi,
+  fetchBaseQuery,
+  FetchBaseQueryError,
+  BaseQueryFn,
+  FetchArgs,
+} from '@reduxjs/toolkit/query/react';
+import { Mutex } from 'async-mutex';
 
 import { IUserData } from 'src/interface/user';
+
+const mutex = new Mutex();
 
 export interface ICourse {
   name: string;
@@ -46,12 +55,56 @@ interface IUpdateProfilePictureProp {
   data: FormData;
 }
 
+const baseQuery = fetchBaseQuery({
+  baseUrl: process.env.REACT_APP_BASE_URL,
+  credentials: 'include',
+});
+
+const customFetchBase: BaseQueryFn<
+  string | FetchArgs,
+  unknown,
+  FetchBaseQueryError
+> = async (args, api, extraOptions) => {
+  // wait until the mutex is available without locking it
+  await mutex.waitForUnlock();
+  let result = await baseQuery(args, api, extraOptions);
+
+  if (result.error && result.error?.status === 401) {
+    if (!mutex.isLocked()) {
+      const release = await mutex.acquire();
+
+      try {
+        const refreshResult = await baseQuery(
+          { credentials: 'include', url: 'auth/refresh' },
+          api,
+          extraOptions
+        );
+
+        if (refreshResult.data) {
+          // Retry the initial query
+          result = await baseQuery(args, api, extraOptions);
+        } else {
+          window.location.href = '/auth/signin';
+          localStorage.removeItem('clu');
+          localStorage.removeItem('csu');
+        }
+      } finally {
+        // release must be called once the mutex should be released again.
+        release();
+      }
+    } else {
+      // wait until the mutex is available without locking it
+      await mutex.waitForUnlock();
+      result = await baseQuery(args, api, extraOptions);
+    }
+  }
+
+  return result;
+};
+
 export const userSlice = createApi({
   reducerPath: 'user',
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.REACT_APP_BASE_URL,
-    credentials: 'include',
-  }),
+  baseQuery: customFetchBase,
   tagTypes: ['Profile', 'Course'],
   endpoints: (builder) => ({
     getUserProfile: builder.query<IUserData, void>({
