@@ -18,10 +18,9 @@ import {
 import { useUpdateBioMutation } from 'src/modules/Teacher/services/teacherSlice';
 
 import { pxToRem } from 'src/helpers/formatFont';
-
 import useFetchMentorProfile from 'src/hooks/useFetchMentorProfile';
 
-const Bio: FunctionComponent<Record<string, never>> = () => {
+const Company: FunctionComponent<Record<string, never>> = () => {
   const { userId } = useSelector((state: RootState) => state.account);
   const [isEditable, setIsEditable] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -30,16 +29,16 @@ const Bio: FunctionComponent<Record<string, never>> = () => {
   const editEl = useRef(null);
   const [updateBio] = useUpdateBioMutation();
 
-  const _handleEditBio = () => setIsEditable(!isEditable);
+  const _handleEditCompany = () => setIsEditable(!isEditable);
 
-  const _handleSaveBio = async () => {
+  const _handleSaveCompany = async () => {
     setIsSubmitting(true);
     const payload = {
-      mentorBio: editEl.current.textContent,
+      company: editEl.current.textContent,
     };
     try {
       await updateBio({ userId, payload }).unwrap();
-      successNotification('Bio updated successfully');
+      successNotification('Company updated successfully');
       setIsSubmitting(false);
       setIsEditable(!isEditable);
     } catch (error) {
@@ -49,15 +48,15 @@ const Bio: FunctionComponent<Record<string, never>> = () => {
   };
 
   return (
-    <>
+    <Box mb={5}>
       <Grid container alignItems="baseline" justifyContent="space-between">
         <Grid item>
           <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-            Bio
+            Company
           </Typography>
         </Grid>
         <Grid item>
-          <IconButton size="small" onClick={_handleEditBio}>
+          <IconButton size="small" onClick={_handleEditCompany}>
             <EditIcon fontSize="small" sx={{ fontSize: '15px' }} />
           </IconButton>
         </Grid>
@@ -72,9 +71,10 @@ const Bio: FunctionComponent<Record<string, never>> = () => {
           padding: isEditable && '10px',
           fontFamily: "'Source Sans Pro', sans-serif",
           fontSize: pxToRem(14),
+          textTransform: 'capitalize',
         }}
       >
-        {isSuccess && data && data?.payload?.bio?.mentorBio}
+        {isSuccess && data && data?.payload?.bio?.company}
       </Box>
 
       {isEditable && (
@@ -83,7 +83,7 @@ const Bio: FunctionComponent<Record<string, never>> = () => {
             <Grid container spacing={2}>
               <Grid item md={5}>
                 <Button
-                  handleClick={_handleEditBio}
+                  handleClick={_handleEditCompany}
                   variant="outlined"
                   fullWidth={true}
                 >
@@ -92,7 +92,7 @@ const Bio: FunctionComponent<Record<string, never>> = () => {
               </Grid>
               <Grid item md={5}>
                 <Button
-                  handleClick={_handleSaveBio}
+                  handleClick={_handleSaveCompany}
                   fullWidth={true}
                   disabled={isSubmitting}
                 >
@@ -103,8 +103,8 @@ const Bio: FunctionComponent<Record<string, never>> = () => {
           </Grid>
         </Grid>
       )}
-    </>
+    </Box>
   );
 };
 
-export default Bio;
+export default Company;

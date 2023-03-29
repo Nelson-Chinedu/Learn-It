@@ -27,6 +27,7 @@ export interface ITextfield {
   multiline?: boolean;
   disabled?: boolean;
   onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
+  sx?: object;
 }
 
 const Input: FunctionComponent<ITextfield> = ({

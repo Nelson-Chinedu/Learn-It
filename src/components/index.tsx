@@ -13,6 +13,7 @@ import { Menu } from 'src/components/Menu';
 import { Dialog } from 'src/components/Dialog';
 import { ChatReceiver, ChatSender } from 'src/components/Chat';
 import { Drawer } from 'src/components/Drawer';
+import { FallbackLoader } from 'src/components/FallbackLoader';
 
 export {
   Button,
@@ -31,4 +32,5 @@ export {
   ChatReceiver,
   ChatSender,
   Drawer,
+  FallbackLoader,
 };

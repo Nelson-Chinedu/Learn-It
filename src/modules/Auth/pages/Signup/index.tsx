@@ -1,6 +1,6 @@
-import { FunctionComponent, ReactText, useState } from 'react';
+import { FunctionComponent, ReactText, useState, useEffect } from 'react';
 import { useFormik } from 'formik';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -8,6 +8,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import IconButton from '@mui/material/IconButton';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import MenuItem from '@mui/material/MenuItem';
 import useTheme from '@mui/material/styles/useTheme';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
@@ -25,6 +26,9 @@ import { ISignup } from 'src/interface/auth';
 
 import { validationSchema } from 'src/validations/signup';
 
+import { YOE } from 'src/constant/yearOfExperice';
+import { TITLES } from 'src/constant/titles';
+
 import { useStyles } from 'src/modules/Auth/pages/Signup/styled.signup';
 
 const Signup: FunctionComponent<Record<string, never>> = () => {
@@ -34,6 +38,17 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [createNewUser] = useCreateNewUserMutation();
+  const { search } = useLocation();
+  const [queryParam, setQueryParam] = useState('');
+
+  useEffect(() => {
+    const getQueryParam = () => {
+      const query = new URLSearchParams(search);
+      const role = query.get('q');
+      setQueryParam(role);
+    };
+    getQueryParam();
+  }, []);
 
   const _handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -45,8 +60,12 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
       lastname: values.lastname,
       email: values.email,
       password: values.password,
-      role: 'mentee',
+      company: values.company,
+      yearsOfExperience: values.yearsOfExperience,
+      title: values.title,
+      role: queryParam === 'm' ? 'mentor' : 'mentee',
     };
+
     try {
       const data = await createNewUser(payload).unwrap();
       const { status, message } = data;
@@ -73,6 +92,9 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
       lastname: '',
       email: '',
       password: '',
+      company: '',
+      yearsOfExperience: '',
+      title: '',
     },
     onSubmit: _handleSignup,
     validationSchema,
@@ -183,6 +205,73 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
                 />
               </Grid>
             </Grid>
+            {queryParam !== null && queryParam === 'm' && (
+              <>
+                <Grid container spacing={isMobile ? 0 : 2}>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={6}
+                    sx={{ marginBottom: isMobile && '1em' }}
+                  >
+                    <Input
+                      label="Company*"
+                      type="text"
+                      fullWidth
+                      name="company"
+                      value={values.company}
+                      handleChange={handleChange}
+                      onBlur={handleBlur}
+                      helperText={touched.company && errors.company}
+                      error={touched.company && Boolean(errors.company)}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <Input
+                      label="Years of Experience*"
+                      select
+                      fullWidth
+                      name="yearsOfExperience"
+                      value={values.yearsOfExperience}
+                      handleChange={handleChange}
+                      onBlur={handleBlur}
+                      helperText={
+                        touched.yearsOfExperience && errors.yearsOfExperience
+                      }
+                      error={
+                        touched.yearsOfExperience &&
+                        Boolean(errors.yearsOfExperience)
+                      }
+                    >
+                      {YOE.map(({ label, value }) => (
+                        <MenuItem value={value} key={label}>
+                          {label}
+                        </MenuItem>
+                      ))}
+                    </Input>
+                  </Grid>
+                </Grid>
+                <Grid item xs={12} sm={12}>
+                  <Input
+                    label="Title*"
+                    select
+                    fullWidth
+                    name="title"
+                    value={values.title}
+                    handleChange={handleChange}
+                    onBlur={handleBlur}
+                    helperText={touched.title && errors.title}
+                    error={touched.title && Boolean(errors.title)}
+                  >
+                    {TITLES.map(({ label, value }) => (
+                      <MenuItem value={value} key={label}>
+                        {label}
+                      </MenuItem>
+                    ))}
+                  </Input>
+                </Grid>
+              </>
+            )}
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12}>
                 <Button

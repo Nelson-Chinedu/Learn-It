@@ -67,7 +67,7 @@ export const teacherSlice = createApi({
     updateBio: builder.mutation<void, IUpdateResponseProp>({
       query: ({ userId, payload }) => ({
         url: `/users/${userId}/bio/`,
-        method: 'PUT',
+        method: 'PATCH',
         body: { ...payload },
       }),
       invalidatesTags: ['Bio'],

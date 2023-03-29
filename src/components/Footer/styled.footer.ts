@@ -14,5 +14,12 @@ export const useStyles = makeStyles({
       textAlign: 'left',
       marginBottom: (props: { isMobile: boolean }) => props.isMobile && '1em',
     },
+    '& a': {
+      textDecoration: 'none',
+      color: 'inherit !important',
+      '&:hover': {
+        textDecoration: 'underline',
+      },
+    },
   },
 });

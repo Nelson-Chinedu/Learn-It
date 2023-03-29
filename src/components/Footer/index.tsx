@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'react';
+import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -30,10 +31,10 @@ const Footer: FunctionComponent<Record<string, never>> = () => {
         </Grid>
         <Grid item xs={12} sm={12} md={2} className="footer">
           <Typography variant="h6">Quick Links</Typography>
-          {QUICK_LINKS.map((quick_link) => (
-            <Typography variant="subtitle2" key={quick_link}>
-              {quick_link}
-            </Typography>
+          {QUICK_LINKS.map(({ label, path }) => (
+            <Link to={path} key={label}>
+              <Typography variant="subtitle2">{label}</Typography>
+            </Link>
           ))}
         </Grid>
         <Grid item xs={12} sm={12} md={2} className="footer">
