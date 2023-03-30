@@ -11,6 +11,8 @@ import { ToastContainer } from 'react-toastify';
 
 import NotFound from 'src/assets/images/not-found.gif';
 
+import { FallbackLoader } from 'src/components';
+
 import { BASE_ROUTES } from 'src/constant/baseRoute';
 
 import ModalContextProvider from 'src/contexts/modal-ctx';
@@ -26,7 +28,7 @@ const Routes: FunctionComponent<Record<string, never>> = () => {
   return (
     <ThemeProvider theme={theme}>
       <ErrorBoundary>
-        <Suspense fallback={<p>Loading</p>}>
+        <Suspense fallback={<FallbackLoader />}>
           <BrowserRouter>
             <BrowserRoutes>
               {BASE_ROUTES.map(

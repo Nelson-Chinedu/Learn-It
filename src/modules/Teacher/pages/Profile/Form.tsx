@@ -1,7 +1,6 @@
 import { FunctionComponent } from 'react';
 import { useFormik } from 'formik';
 import { useSelector } from 'react-redux';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import MenuItem from '@mui/material/MenuItem';
@@ -93,7 +92,6 @@ const Form: FunctionComponent<Record<string, never>> = () => {
   return (
     <Card borderRadius="10px" width="" height="100vh">
       <Box className="formContainer">
-        <Typography>Personal Details</Typography>
         <UploadAvatar />
         <Box sx={{ m: '2em 0px' }}>
           <Grid

@@ -7,4 +7,7 @@ export const validationSchema = Yup.object().shape({
   password: Yup.string()
     .min(8, 'Password must be more than 8 characters')
     .required('Required'),
+  company: Yup.string(),
+  yearsOfExperience: Yup.string(),
+  title: Yup.string(),
 });

@@ -11,4 +11,7 @@ export interface IUser extends IAccount {
 export interface ISignup extends IAccount {
   firstname: string;
   lastname: string;
+  company?: string;
+  yearsOfExperience?: string;
+  title?: string;
 }

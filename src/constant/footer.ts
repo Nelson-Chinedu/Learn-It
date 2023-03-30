@@ -18,8 +18,8 @@ export const RESOURCES = [
 ] as const;
 
 export const QUICK_LINKS = [
-  'Home',
-  'About Us',
-  'Contact Us',
-  'Become a Mentor',
+  { label: 'Home', path: '/' },
+  { label: 'About Us', path: '/' },
+  { label: 'Contact Us', path: '/' },
+  { label: 'Become a Mentor', path: '/auth/signup?q=m' },
 ] as const;
