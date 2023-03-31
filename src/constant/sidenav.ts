@@ -112,6 +112,6 @@ export const TEACHER_SIDENAV_MENU = [
     menu: 'Settings',
     path: '/m/settings',
     Icon: SettingsIcon,
-    isComingSoon: true,
+    isComingSoon: false,
   },
 ];
