@@ -15,11 +15,13 @@ export const EMAIL_NOTIFICATION = [
   },
 ];
 
-export const TEACHER_SETTING_LINK: string[] = [
-  'General',
-  'Email Notification',
-  'Earning',
-  'Payment',
-  'Class Reminder',
-  'Account',
+export const TEACHER_SETTING_LINK: string[] = ['General'];
+
+export const GENERAL_NOTIFICATION = [
+  {
+    title: 'Currently accepting mentees',
+  },
+  {
+    title: 'Availability',
+  },
 ];

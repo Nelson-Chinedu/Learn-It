@@ -7,6 +7,8 @@ export interface IBio {
       title?: string;
       fee?: string;
       timezone?: string;
+      acceptingMentees?: boolean;
+      availability?: boolean;
     };
   };
 }
@@ -19,5 +21,7 @@ export interface IUpdateResponseProp {
     fee?: string;
     timezone?: string;
     yearsOfExperience?: string;
+    availability?: boolean;
+    acceptingMentees?: boolean;
   };
 }

@@ -5,10 +5,10 @@ import { Card } from 'src/components';
 
 import Bio from 'src/modules/Teacher/pages/Profile/Bio';
 import User from 'src/modules/Teacher/pages/Profile/User';
-import Company from './Company';
-import Experience from './Experience';
-import Timezone from './Timezone';
-import Fee from './Fee';
+import Company from 'src/modules/Teacher/pages/Profile/Company';
+import Experience from 'src/modules/Teacher/pages/Profile/Experience';
+import Timezone from 'src/modules/Teacher/pages/Profile/Timezone';
+import Fee from 'src/modules/Teacher/pages/Profile/Fee';
 
 const Info: FunctionComponent<Record<string, never>> = () => {
   return (
