@@ -10,7 +10,7 @@ export const MODULES = [
 export const STEPS = [
   {
     label: 'Getting started lessons',
-    description: `1 Video | 20 min`,
+    description: '1 Video | 20 min',
   },
   {
     label: 'Overview about basic tools',

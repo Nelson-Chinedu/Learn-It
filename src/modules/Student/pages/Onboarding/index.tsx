@@ -1,5 +1,5 @@
 import { FunctionComponent, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -17,20 +17,27 @@ import {
 } from 'src/modules/Student/services/studentSlice';
 
 import useLocalStorage from 'src/hooks/useLocalStorage';
+import useMenu from 'src/hooks/useMenu';
+import useDrawer from 'src/hooks/useDrawer';
+
 import {
   errorNotification,
   successNotification,
 } from 'src/helpers/notification';
-import useModal from 'src/hooks/useModal';
+
+import { TopNavigation } from 'src/components';
+
+import { useGetUserProfileQuery } from 'src/services/userSlice';
 
 const Onboarding: FunctionComponent<Record<never, string>> = () => {
   const navigate = useNavigate();
-  const [, setMentor] = useLocalStorage('cmid', '');
-  const [modal, _] = useModal();
+  const { pathname } = useLocation();
+  const { open, anchorEl, handleClick, handleClose } = useMenu();
   const [isSettingUp, setIsSettingUp] = useState(false);
   const [referenceId, setReferenceId] = useState('');
   const { userId } = useSelector((state: RootState) => state.account);
   const [, setStoredIsSubscribed] = useLocalStorage('csu', false);
+  const [state, setState] = useDrawer();
   const { data } = useVerifyPaymentQuery(
     { reference: referenceId, userId },
     {
@@ -38,18 +45,15 @@ const Onboarding: FunctionComponent<Record<never, string>> = () => {
     }
   );
   const [subscribe] = useSubscribeMutation();
+  const { data: userData, isSuccess } = useGetUserProfileQuery();
 
-  useEffect(() => {
-    if (modal.modalName) {
-      setMentor(modal?.data?.id);
-    }
-  }, [modal]);
+  const path = pathname.includes('m') ? '/m' : '/s';
 
   useEffect(() => {
     const subscription = async () => {
       const payload = {
         card: JSON.stringify(data?.payload),
-        mentorId: JSON.parse(localStorage.getItem('cmid') as string),
+        mentorId: state.data.id,
       };
 
       try {
@@ -59,9 +63,9 @@ const Onboarding: FunctionComponent<Record<never, string>> = () => {
         if (res) {
           setReferenceId('');
           setTimeout(() => {
-            localStorage.removeItem('cmid');
             setStoredIsSubscribed(true);
             setIsSettingUp(false);
+            setState({ ...state, drawerName: '', data: null });
             navigate('/s/dashboard');
             successNotification(res?.message);
           }, 10000);
@@ -96,7 +100,7 @@ const Onboarding: FunctionComponent<Record<never, string>> = () => {
       >
         <img src={Loader} style={{ width: '300px', height: '300px' }} />;
         <Typography variant="h3" sx={{ marginTop: '-3em' }}>
-          Please wait while we setup your dashboard
+          Hang on tight while we setup your dashboard!
         </Typography>
       </Box>
     );
@@ -122,7 +126,7 @@ const Onboarding: FunctionComponent<Record<never, string>> = () => {
           variant="h1"
           sx={{ mt: '8em', lineHeight: '1.3em', fontSize: '1.8rem' }}
         >
-          Select a Mentor to guide your journey to success
+          Achieve Your Goals, Find The Perfect Mentor.
         </Typography>
       </Grid>
       <Grid
@@ -134,7 +138,16 @@ const Onboarding: FunctionComponent<Record<never, string>> = () => {
           paddingLeft: '0px !important',
         }}
       >
-        <Box sx={{ margin: '2em 1em' }}>
+        <TopNavigation
+          isSuccess={isSuccess}
+          data={userData}
+          path={path}
+          open={open}
+          anchorEl={anchorEl}
+          handleClick={handleClick}
+          handleClose={handleClose}
+        />
+        <Box sx={{ margin: '6em 1em 2em' }}>
           <MentorList onSuccess={onSuccess} onClose={onClose} />
         </Box>
       </Grid>

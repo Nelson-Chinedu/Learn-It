@@ -4,14 +4,13 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useSelector } from 'react-redux';
 
 import { Card, Button } from 'src/components';
 
 import DefaultUser from 'src/assets/images/default__user.png';
 
-import useModal from 'src/hooks/useModal';
-
-import ViewMentorModal from 'src/modules/Student/components/Modals/ViewMentorModal';
+import useDrawer from 'src/hooks/useDrawer';
 
 import {
   useGetAllMentorsQuery,
@@ -19,13 +18,16 @@ import {
 } from 'src/modules/Student/services/studentSlice';
 
 import { Props } from 'src/types/paystack';
+
 import { RootState } from 'src/store';
-import { useSelector } from 'react-redux';
+
 import { getUnSubscribedMentors } from 'src/features/mentorSlice';
+
+import ViewMentorDrawer from 'src/modules/Student/components/Drawer/ViewMentorDrawer';
 
 const MentorsList: FunctionComponent<Props> = ({ onSuccess, onClose }) => {
   const dispatch = useDispatch();
-  const [state, setState] = useModal();
+  const [drawer, setDrawer] = useDrawer();
   const { userId } = useSelector((state: RootState) => state.account);
   const { data: unSubscribedMentors } = useGetAllMentorsQuery();
   const { data: subscribedMentors } = useGetMentorsQuery({ id: userId });
@@ -49,7 +51,7 @@ const MentorsList: FunctionComponent<Props> = ({ onSuccess, onClose }) => {
     isLoadingUnSubscribedMentors: isLoadingMentors,
   } = useSelector((state: RootState) => state.mentor);
 
-  const handleView = (data: {
+  const handleViewDrawer = (data: {
     title: string;
     firstname: string;
     lastname: string;
@@ -64,7 +66,7 @@ const MentorsList: FunctionComponent<Props> = ({ onSuccess, onClose }) => {
     years: string;
     fee: string;
   }) => {
-    setState({ ...state, modalName: 'ViewMentors', data });
+    setDrawer({ ...drawer, drawerName: 'viewMentor', data });
   };
 
   return (
@@ -98,16 +100,19 @@ const MentorsList: FunctionComponent<Props> = ({ onSuccess, onClose }) => {
                     {`${mentor.profile.firstname} ${mentor.profile.lastname}`}
                   </Typography>
                   <Typography>{mentor.title}</Typography>
-                  <Typography>
-                    Currently accepting mentee:
-                    {/* {mentor.accepting} */}
-                  </Typography>
+                  <Typography>{mentor.profile.bio.title}</Typography>
                   <Typography>Fee: {`₦${mentor.price || 2000}`}</Typography>
                 </Box>
                 <Button
-                  handleClick={() => handleView(mentor.profile)}
-                  variant="outlined"
-                  sx={{ borderRadius: '0px !important' }}
+                  handleClick={() => handleViewDrawer(mentor.profile)}
+                  variant="contained"
+                  size="large"
+                  sx={{
+                    width: '80%',
+                    mx: 'auto',
+                    mb: 4,
+                    display: 'block',
+                  }}
                 >
                   View
                 </Button>
@@ -116,7 +121,7 @@ const MentorsList: FunctionComponent<Props> = ({ onSuccess, onClose }) => {
           ))
         )}
       </Grid>
-      <ViewMentorModal onSuccess={onSuccess} onClose={onClose} />
+      <ViewMentorDrawer onSuccess={onSuccess} onClose={onClose} />
     </>
   );
 };

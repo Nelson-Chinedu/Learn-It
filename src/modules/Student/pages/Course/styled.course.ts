@@ -34,7 +34,7 @@ export const useStyles = makeStyles({
   },
   contentWrapper: {
     lineHeight: '1.8em',
-    fontFamily: "'Work Sans', sans-serif",
+    fontFamily: '"Work Sans", sans-serif',
     fontWeight: 300,
     fontSize: '14px',
     '& h1, h2, h3, h4, h5, h6': {

@@ -13,7 +13,7 @@ import {
 
 export const BASE_ROUTES = [
   {
-    path: `/*`,
+    path: '/*',
     Component: LandingRoute,
     useAuth: false,
   },

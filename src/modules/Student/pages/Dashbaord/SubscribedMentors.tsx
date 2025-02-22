@@ -77,7 +77,7 @@ const SubscribedMentors: FunctionComponent<Record<string, never>> = () => {
                     >
                       <Box>
                         <Avatar
-                          src={user.mentor.picture || DefaultUser}
+                          src={user?.mentor?.picture || DefaultUser}
                           alt="profile picture"
                           sx={{
                             width: 90,
@@ -92,12 +92,14 @@ const SubscribedMentors: FunctionComponent<Record<string, never>> = () => {
                             textTransform: 'capitalize',
                           }}
                         >
-                          {`${user.mentor.firstname} ${user.mentor.lastname}`}
+                          {`${user?.mentor?.firstname} ${user?.mentor?.lastname}`}
                         </Typography>
                         <Typography variant="subtitle1">
-                          Senior Software Engineer
+                          {user.mentor.bio.title}
                         </Typography>
-                        <Typography variant="subtitle1">Meta</Typography>
+                        <Typography variant="subtitle1">
+                          {user.mentor.bio.company}
+                        </Typography>
                       </Box>
                       <Button
                         fullWidth={false}

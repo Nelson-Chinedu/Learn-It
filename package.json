@@ -113,5 +113,11 @@
     "prettier": "^2.5.1",
     "ts-node": "^10.5.0",
     "webpack": "^5.65.0"
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "npm run lint",
+      "git add"
+    ]
   }
 }

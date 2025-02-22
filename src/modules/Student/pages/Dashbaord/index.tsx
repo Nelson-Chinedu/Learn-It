@@ -1,4 +1,4 @@
-import { FunctionComponent, useCallback, useState } from 'react';
+import { FunctionComponent, useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import { Calendar } from '@natscale/react-calendar';
@@ -10,8 +10,19 @@ import { SubscribedMentors } from 'src/modules/Student/pages/Dashbaord/Subscribe
 import { RootState } from 'src/store';
 
 import NewMentorDrawer from 'src/modules/Student/components/Drawer/NewMentorDrawer';
+import ViewMentorDrawer from 'src/modules/Student/components/Drawer/ViewMentorDrawer';
+
+import {
+  useSubscribeMutation,
+  useVerifyPaymentQuery,
+} from 'src/modules/Student/services/studentSlice';
 
 import { useStyles } from 'src/modules/Student/pages/Dashbaord/styled.dashboard';
+import useDrawer from 'src/hooks/useDrawer';
+import {
+  errorNotification,
+  successNotification,
+} from 'src/helpers/notification';
 
 const Dashboard: FunctionComponent<Record<string, never>> = () => {
   const { isCollapsedSidenav } = useSelector(
@@ -25,6 +36,54 @@ const Dashboard: FunctionComponent<Record<string, never>> = () => {
     },
     [setValue]
   );
+  const [state, setState] = useDrawer();
+
+  const [subscribe] = useSubscribeMutation();
+  const { userId } = useSelector((state: RootState) => state.account);
+
+  const [referenceId, setReferenceId] = useState('');
+
+  const { data } = useVerifyPaymentQuery(
+    { reference: referenceId },
+    {
+      skip: !referenceId,
+    }
+  );
+
+  useEffect(() => {
+    const subscription = async () => {
+      const payload = {
+        card: JSON.stringify(data?.payload),
+        mentorId: state.data.id,
+      };
+
+      try {
+        const res =
+          referenceId && (await subscribe({ userId, data: payload }).unwrap());
+
+        if (res) {
+          setReferenceId('');
+          setState({ ...state, drawerName: '' });
+          successNotification(res?.message);
+        }
+      } catch (error) {
+        setState({ ...state, drawerName: '' });
+        errorNotification('An error occurred, Please try again');
+      }
+    };
+    subscription();
+  }, [data, state?.drawerName]);
+
+  const onSuccess = (res: any) => {
+    if (res) {
+      setReferenceId(res.reference);
+    }
+  };
+
+  const onClose = () => {
+    // eslint-disable-next-line no-console
+    console.log('closed');
+  };
 
   return (
     <>
@@ -44,6 +103,7 @@ const Dashboard: FunctionComponent<Record<string, never>> = () => {
         </Grid>
       </Grid>
       <NewMentorDrawer />
+      <ViewMentorDrawer onSuccess={onSuccess} onClose={onClose} />
     </>
   );
 };

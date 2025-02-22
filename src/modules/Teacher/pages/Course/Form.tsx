@@ -51,7 +51,7 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    border: `1px dashed grey !important`,
+    border: '1px dashed grey !important',
     borderRadius: '5px',
     padding: '2em',
     textAlign: 'center',

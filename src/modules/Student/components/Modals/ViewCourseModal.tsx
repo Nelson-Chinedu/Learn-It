@@ -37,7 +37,7 @@ const useStyles = makeStyles({
   },
   contentWrapper: {
     lineHeight: '1.8em',
-    fontFamily: "'Work Sans', sans-serif",
+    fontFamily: '"Work Sans", sans-serif',
     fontWeight: 300,
     fontSize: '14px',
     marginLeft: '1em',

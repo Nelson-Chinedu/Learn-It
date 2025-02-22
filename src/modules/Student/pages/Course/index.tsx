@@ -154,7 +154,7 @@ const Course: FunctionComponent<Record<string, never>> = () => {
         menus={[
           {
             name: 'Unenroll course',
-            path: ``,
+            path: '',
             action: _handleUnenrollModal,
           },
         ]}

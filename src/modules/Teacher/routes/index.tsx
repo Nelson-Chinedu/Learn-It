@@ -11,7 +11,6 @@ const AddCourse = lazy(() => import('src/modules/Teacher/pages/Course/Form'));
 const Student = lazy(() => import('src/modules/Teacher/pages/Students'));
 const LiveClass = lazy(() => import('src/modules/Teacher/pages/LiveClass'));
 const Profile = lazy(() => import('src/modules/Teacher/pages/Profile'));
-const Setting = lazy(() => import('src/modules/Teacher/pages/Setting'));
 const Chat = lazy(() => import('src/modules/Teacher/pages/Chat'));
 
 const MentorRoute: FunctionComponent<Record<string, never>> = () => {
@@ -41,7 +40,6 @@ const MentorRoute: FunctionComponent<Record<string, never>> = () => {
           element={<Typography>Coming soon</Typography>}
         />
         <Route path={MENTOR_PATHS.PROFILE} element={<Profile />} />
-        <Route path={MENTOR_PATHS.SETTINGS} element={<Setting />} />
         <Route path="*" element={<Navigate to="dashboard" replace />} />
       </Route>
     </Routes>
