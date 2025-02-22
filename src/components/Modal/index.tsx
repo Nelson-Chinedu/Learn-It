@@ -14,15 +14,20 @@ type Props = {
   children: ReactNode;
   modalName: string;
   title: string;
+  width?: string;
 };
 
-const Modal: FunctionComponent<Props> = ({ children, modalName, title }) => {
-  const classes = useStyles();
+const Modal: FunctionComponent<Props> = ({
+  children,
+  modalName,
+  title,
+  width = '50%',
+}) => {
+  const classes = useStyles({ width });
   const [state, setState] = useModal();
 
   const handleClose = () => {
     setState({ ...state, modalName: '' });
-    localStorage.removeItem('cmid');
   };
 
   return (

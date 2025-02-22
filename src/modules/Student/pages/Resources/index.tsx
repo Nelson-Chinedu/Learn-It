@@ -73,6 +73,10 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
     setSelectedTab(data);
   };
 
+  const handleEdit = (data: any) => {
+    setState({ ...state, modalName: 'EditResource', data });
+  };
+
   return (
     <Box component="section" className={classes.root}>
       <Box>
@@ -153,6 +157,7 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
                           cursor: 'pointer',
                           '&:hover': {
                             background: '#f8f8f8',
+                            textDecoration: 'underline',
                           },
                           '& a': {
                             textDecoration: 'none',
@@ -168,7 +173,10 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
                         </a>
                         <Box>
                           <IconButton>
-                            <IconEdit fontSize="small" />
+                            <IconEdit
+                              fontSize="small"
+                              onClick={() => handleEdit(data)}
+                            />
                           </IconButton>
                           <IconButton>
                             <IconDelete fontSize="small" />
