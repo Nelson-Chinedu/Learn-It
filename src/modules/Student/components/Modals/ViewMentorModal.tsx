@@ -3,44 +3,14 @@ import { usePaystackPayment } from 'react-paystack';
 import { PaystackProps } from 'react-paystack/dist/types';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { makeStyles } from '@mui/styles';
 
 import { Modal, Button } from 'src/components';
 
-import { pxToRem } from 'src/helpers/formatFont';
+import { useStyles } from 'src/modules/Student/components/Modals/styled.viewMentorModal';
 
 import useModal from 'src/hooks/useModal';
 
 import { Props } from 'src/types/paystack';
-
-const useStyles = makeStyles({
-  root: {
-    '& .MuiTypography-subtitle2': {
-      paddingBottom: '1em',
-    },
-    '& .MuiTypography-body2': {
-      fontWeight: 600,
-    },
-    '& .MuiTypography-h3': {
-      fontSize: pxToRem(20),
-      fontWeight: 600,
-      margin: '1em .6em',
-    },
-    '& .MuiButton-contained': {
-      margin: '1em 0px',
-    },
-  },
-  contentWrapper: {
-    lineHeight: '1.8em',
-    fontFamily: '"Work Sans", sans-serif',
-    fontWeight: 300,
-    fontSize: '14px',
-    marginLeft: '1em',
-    '& h1, h2, h3, h4, h5, h6': {
-      margin: '.8em 0px',
-    },
-  },
-});
 
 const ViewMentorModal: FunctionComponent<Props> = ({ onSuccess, onClose }) => {
   const classes = useStyles();
