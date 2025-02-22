@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -23,6 +23,7 @@ import {
   errorNotification,
   successNotification,
 } from 'src/helpers/notification';
+import { BASE_PATHS, STUDENT_PATHS } from 'src/constant/path';
 
 interface ITopNavigation {
   path: string;
@@ -44,6 +45,7 @@ const TopNavigation: FunctionComponent<ITopNavigation> = ({
   handleClose,
 }) => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const [logout] = useLogoutMutation();
   const { isCollapsedSidenav } = useSelector(
     (state: RootState) => state.sidenav
@@ -71,7 +73,14 @@ const TopNavigation: FunctionComponent<ITopNavigation> = ({
         position: 'fixed',
         zIndex: 9,
         background: 'white',
-        width: isCollapsedSidenav ? '95%' : '82%',
+        boxSizing: 'border-box',
+        width: pathname.includes(
+          `${BASE_PATHS.APP}/${STUDENT_PATHS.ONBOARDING}`
+        )
+          ? '66.67%'
+          : isCollapsedSidenav
+          ? '95%'
+          : '82%',
       }}
     >
       <Toolbar disableGutters>

@@ -9,6 +9,8 @@ import Company from 'src/modules/Teacher/pages/Profile/Company';
 import Experience from 'src/modules/Teacher/pages/Profile/Experience';
 import Timezone from 'src/modules/Teacher/pages/Profile/Timezone';
 import Fee from 'src/modules/Teacher/pages/Profile/Fee';
+import AcceptingMentee from 'src/modules/Teacher/pages/Profile/AcceptingMentee';
+import Availability from 'src/modules/Teacher/pages/Profile/Availability';
 
 const Info: FunctionComponent<Record<string, never>> = () => {
   return (
@@ -18,6 +20,8 @@ const Info: FunctionComponent<Record<string, never>> = () => {
           <User />
         </Box>
         <Box className="bio">
+          <AcceptingMentee />
+          <Availability />
           <Company />
           <Experience />
           <Timezone />

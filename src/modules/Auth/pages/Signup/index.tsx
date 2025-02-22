@@ -1,6 +1,6 @@
 import { FunctionComponent, ReactText, useState, useEffect } from 'react';
 import { useFormik } from 'formik';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -17,6 +17,7 @@ import { Input, Button } from 'src/components';
 import { AUTH_PATHS, BASE_PATHS } from 'src/constant/path';
 
 import GetStarted from 'src/assets/images/getStartedImage.webp';
+import ConfirmEmailImage from 'src/assets/images/confirm-email.gif';
 
 import { useCreateNewUserMutation } from 'src/modules/Auth/services/authSlice';
 
@@ -40,6 +41,10 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
   const [createNewUser] = useCreateNewUserMutation();
   const { search } = useLocation();
   const [queryParam, setQueryParam] = useState('');
+  const [isNewSignup, setIsNewSignup] = useState<{
+    message: string;
+    show: boolean;
+  }>({ message: '', show: false });
 
   useEffect(() => {
     const getQueryParam = () => {
@@ -55,27 +60,34 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
   };
 
   const _handleSignup = async (values: ISignup): Promise<ReactText> => {
-    const payload = {
+    const common_payload = {
       firstname: values.firstname,
       lastname: values.lastname,
       email: values.email,
       password: values.password,
+      role: queryParam === 'm' ? 'mentor' : 'mentee',
+    };
+
+    const mentor_payload = {
+      ...common_payload,
       company: values.company,
       yearsOfExperience: values.yearsOfExperience,
       title: values.title,
-      role: queryParam === 'm' ? 'mentor' : 'mentee',
     };
+
+    const payload = queryParam === 'm' ? mentor_payload : common_payload;
 
     try {
       const data = await createNewUser(payload).unwrap();
       const { status, message } = data;
+
       if (status === 201) {
         resetForm();
-        navigate(`/${BASE_PATHS.AUTH}/${AUTH_PATHS.CONFIRM_EMAIL}`, {
-          state: { data: message },
-        });
+        setIsNewSignup({ message, show: true });
       }
     } catch (error: any) {
+      setIsNewSignup({ message: '', show: false });
+
       if (error && error.status === 409)
         return errorNotification(error.data.message);
 
@@ -110,6 +122,43 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
     isSubmitting,
     resetForm,
   } = formik;
+
+  if (isNewSignup.show) {
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          height: '100vh',
+          textAlign: 'center',
+        }}
+      >
+        <Box sx={{ width: '20%' }}>
+          <img
+            src={ConfirmEmailImage}
+            alt="Email animation"
+            style={{ width: '150px', height: '150px', objectFit: 'contain' }}
+          />
+          <Typography variant="h2">Check your email</Typography>
+          <Typography variant="body2" pt={2}>
+            {isNewSignup.message}.
+          </Typography>
+          <Button
+            sx={{ width: '60%', my: 4 }}
+            size="large"
+            disabled={isSubmitting}
+            handleClick={() =>
+              navigate(`/${BASE_PATHS.AUTH}/${AUTH_PATHS.SIGNIN}`)
+            }
+          >
+            Go to Login
+          </Button>
+        </Box>
+      </Box>
+    );
+  }
 
   return (
     <Box className={classes.root}>

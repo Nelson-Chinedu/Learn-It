@@ -56,7 +56,9 @@ const Routes: FunctionComponent<Record<string, never>> = () => {
                       element={
                         <PrivateRoute>
                           <ModalContextProvider>
-                            <Component />
+                            <DrawerContextProvider>
+                              <Component />
+                            </DrawerContextProvider>
                           </ModalContextProvider>
                         </PrivateRoute>
                       }

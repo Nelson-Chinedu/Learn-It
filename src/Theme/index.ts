@@ -2,7 +2,6 @@ import { createTheme } from '@mui/material/styles';
 import { pxToRem } from 'src/helpers/formatFont';
 import palette from './palette';
 import typography from './typography';
-// import breakpoints from './breakpoints';
 
 let themeInstance = createTheme({});
 
@@ -47,7 +46,7 @@ themeInstance = createTheme({
           color: '#fff',
           fontSize: pxToRem(14),
           textTransform: 'capitalize',
-          fontFamily: "'Source Sans Pro', sans-serif",
+          fontFamily: '"Source Sans Pro", sans-serif',
         },
       },
     },

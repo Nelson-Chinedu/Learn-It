@@ -32,7 +32,7 @@ const useStyles = makeStyles({
   },
   contentWrapper: {
     lineHeight: '1.8em',
-    fontFamily: "'Work Sans', sans-serif",
+    fontFamily: '"Work Sans", sans-serif',
     fontWeight: 300,
     fontSize: '14px',
     marginLeft: '1em',
@@ -64,59 +64,61 @@ const ViewMentorModal: FunctionComponent<Props> = ({ onSuccess, onClose }) => {
     >
       <Box className={classes.root}>
         <Box>
-          <Typography variant="body2">Title:</Typography>
-          <Typography variant="subtitle2">
-            {state?.data?.title || 'Software Engineer'}
-          </Typography>
+          <Typography variant="body2">Position:</Typography>
+          <Typography variant="subtitle2">{state?.data?.bio?.title}</Typography>
         </Box>
-        <Box>
-          <Typography variant="body2">Bio:</Typography>
-          <Typography variant="subtitle2">
-            {state?.data?.bio?.mentorBio}
-          </Typography>
-        </Box>
-        <Box>
-          <Typography variant="body2">Timezone:</Typography>
-          <Typography variant="subtitle2">
-            {state?.data?.timezone || 'GMT+1'}
-          </Typography>
-        </Box>
-        <Box>
-          <Typography variant="body2">Time:</Typography>
-          <Typography variant="subtitle2">
-            {state?.data?.time || '2:00pm - 4:00pm'}
-          </Typography>
-        </Box>
+        {state?.data?.bio?.mentorBio && (
+          <Box>
+            <Typography variant="body2">Bio:</Typography>
+            <Typography variant="subtitle2">
+              {state?.data?.bio?.mentorBio}
+            </Typography>
+          </Box>
+        )}
+        {state?.data?.bio?.timezone && (
+          <Box>
+            <Typography variant="body2">Timezone:</Typography>
+            <Typography variant="subtitle2">
+              {state?.data?.bio?.timezone}
+            </Typography>
+          </Box>
+        )}
         <Box>
           <Typography variant="body2">Availability:</Typography>
           <Typography variant="subtitle2">
-            {state?.data?.availabilty || 'Yes'}
+            {state?.data?.bio?.availabilty ? 'Yes' : 'Currently not available'}
           </Typography>
         </Box>
         <Box>
           <Typography variant="body2">Currently Accepting Mentee:</Typography>
           <Typography variant="subtitle2">
-            {state?.data?.accepting || 'Yes'}
+            {state?.data?.bio?.acceptingMentees
+              ? 'Yes'
+              : 'Currently not accepting mentees'}
           </Typography>
         </Box>
+        {state?.data?.bio?.company && (
+          <Box>
+            <Typography variant="body2">Company:</Typography>
+            <Typography variant="subtitle2">
+              {state?.data?.bio?.company}
+            </Typography>
+          </Box>
+        )}
         <Box>
-          <Typography variant="body2">Company:</Typography>
+          <Typography variant="body2">Years of Experience:</Typography>
           <Typography variant="subtitle2">
-            {state?.data?.company || 'State of mind'}
+            {state?.data?.bio?.yearsOfExperience}
           </Typography>
         </Box>
-        <Box>
-          <Typography variant="body2">Years:</Typography>
-          <Typography variant="subtitle2">
-            {state?.data?.experience || '4+'}
-          </Typography>
-        </Box>
-        <Box>
-          <Typography variant="body2">Fee:</Typography>
-          <Typography variant="subtitle2">
-            {`₦${state?.data?.price || '3000'}`}
-          </Typography>
-        </Box>
+        {state?.data?.bio?.price && (
+          <Box>
+            <Typography variant="body2">Fee:</Typography>
+            <Typography variant="subtitle2">
+              {`₦${state?.data?.bio?.price}`}
+            </Typography>
+          </Box>
+        )}
         <Button
           size="large"
           handleClick={() => {

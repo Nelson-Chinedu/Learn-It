@@ -36,7 +36,7 @@ import useLocalStorage from 'src/hooks/useLocalStorage';
 import {
   AUTH_PATHS,
   BASE_PATHS,
-  STUDENT_PATHS,
+  // STUDENT_PATHS,
   MENTOR_PATHS,
 } from 'src/constant/path';
 
@@ -65,6 +65,7 @@ const Signin: FunctionComponent<Record<string, never>> = () => {
     };
     try {
       const data = await login(payload).unwrap();
+
       const {
         status,
         payload: { role, isSubscribed },
@@ -77,9 +78,9 @@ const Signin: FunctionComponent<Record<string, never>> = () => {
         setStoredIsSubscribed(isSubscribed); // set subscribe user to true/false which stores to localstorage
 
         if (role === 'mentee' && isSubscribed) {
-          navigate(`/${BASE_PATHS.STUDENT}/${STUDENT_PATHS.DASHBOARD}`);
+          // window.location.href = `/${BASE_PATHS.STUDENT}/${STUDENT_PATHS.DASHBOARD}`;
         } else if (role === 'mentee' && !isSubscribed) {
-          navigate(`/${BASE_PATHS.APP}/${STUDENT_PATHS.ONBOARDING}`);
+          // window.location.href = `/${BASE_PATHS.APP}/${STUDENT_PATHS.ONBOARDING}`;
         } else {
           navigate(`/${BASE_PATHS.MENTOR}/${MENTOR_PATHS.DASHBOARD}`);
         }

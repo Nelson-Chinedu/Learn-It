@@ -1,17 +1,12 @@
-import { ChangeEvent, FunctionComponent, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { ChangeEvent, useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
+import Grid from '@mui/material/Grid';
 import Switch from '@mui/material/Switch';
-import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
-
 import { RootState } from 'src/store';
-
 import useFetchMentorProfile from 'src/hooks/useFetchMentorProfile';
-
 import { useUpdateBioMutation } from 'src/modules/Teacher/services/teacherSlice';
-
+import { useSelector } from 'react-redux';
 import {
   errorNotification,
   successNotification,
@@ -60,21 +55,19 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
     boxSizing: 'border-box',
   },
 }));
-
-const General: FunctionComponent<Record<never, string>> = () => {
+const AcceptingMentee = () => {
   const { userId } = useSelector((state: RootState) => state.account);
   const { data, isSuccess } = useFetchMentorProfile();
   const [updateBio] = useUpdateBioMutation();
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [generalSettings, setGeneralSettings] = useState({
-    availability: false,
     acceptingMentees: false,
   });
 
   useEffect(() => {
     if (isSuccess && data) {
       setGeneralSettings({
-        availability: data?.payload?.bio?.availability,
         acceptingMentees: data?.payload?.bio?.acceptingMentees,
       });
     }
@@ -89,56 +82,34 @@ const General: FunctionComponent<Record<never, string>> = () => {
     try {
       await updateBio({ userId, payload }).unwrap();
       setIsSubmitting(false);
-      setGeneralSettings(
-        (prev: { availability: boolean; acceptingMentees: boolean }) => ({
-          ...prev,
-          [name]: checked,
-        })
-      );
-      successNotification('Settings updated successfully');
+      setGeneralSettings((prev: { acceptingMentees: boolean }) => ({
+        ...prev,
+        [name]: checked,
+      }));
+      successNotification('Profile updated successfully');
     } catch (error) {
       setIsSubmitting(false);
       errorNotification('An error occurred, Please try again');
     }
   };
-
-  const GENERAL_NOTIFICATION = [
-    {
-      title: 'Currently accepting mentees',
-      value: generalSettings.acceptingMentees,
-      name: 'acceptingMentees',
-    },
-    {
-      title: 'Availability',
-      value: generalSettings.availability,
-      name: 'availability',
-    },
-  ];
-
   return (
-    <Box sx={{ width: '70%', margin: '2em 0px' }}>
-      {GENERAL_NOTIFICATION.map(
-        (notification: { title: string; value: boolean; name: string }) => (
-          <Stack
-            key={notification.title as string}
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-            mb={5}
-          >
-            <Typography variant="subtitle2">{notification.title}</Typography>
-            <AntSwitch
-              checked={notification.value}
-              disabled={isSubmitting}
-              onChange={_handleToggle}
-              inputProps={{ 'aria-label': 'Switch' }}
-              name={notification.name}
-            />
-          </Stack>
-        )
-      )}
-    </Box>
+    <Grid container alignItems="baseline" justifyContent="space-between" mb={5}>
+      <Grid item>
+        <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+          Accepting Mentee
+        </Typography>
+      </Grid>
+      <Grid item>
+        <AntSwitch
+          checked={generalSettings.acceptingMentees}
+          disabled={isSubmitting}
+          onChange={_handleToggle}
+          inputProps={{ 'aria-label': 'Switch' }}
+          name={'acceptingMentees'}
+        />
+      </Grid>
+    </Grid>
   );
 };
 
-export default General;
+export default AcceptingMentee;

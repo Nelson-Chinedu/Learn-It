@@ -1,4 +1,4 @@
-import { FunctionComponent, useState, useRef } from 'react';
+import { FunctionComponent, useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -24,25 +24,65 @@ const Fee: FunctionComponent<Record<string, never>> = () => {
   const { userId } = useSelector((state: RootState) => state.account);
   const { data, isSuccess } = useFetchMentorProfile();
   const [isEditable, setIsEditable] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [form, setForm] = useState({
+    message: '',
+    isError: false,
+    content: '',
+  });
 
   const editEl = useRef(null);
-  const [updateBio] = useUpdateBioMutation();
+  const [updateBio, { isLoading }] = useUpdateBioMutation();
 
-  const _handleEditFee = () => setIsEditable(!isEditable);
+  useEffect(() => {
+    setForm({ ...form, content: data?.payload?.bio?.fee });
+  }, [isSuccess]);
+
+  const _handleToggleFee = () => {
+    setIsEditable(!isEditable);
+    setForm({
+      isError: false,
+      message: '',
+      content: data?.payload?.bio?.fee,
+    });
+    editEl.current.textContent = data?.payload?.bio?.fee;
+  };
+
+  const handleInput = (e: { target: { textContent: string } }) => {
+    const inputValue = e.target.textContent;
+
+    const numbersOnly = inputValue.replace(/[^0-9]/g, '');
+    const sanitizedValue = numbersOnly.replace(/^(\d*\.)(?!.*\.)/g, '$1');
+
+    if (editEl.current) {
+      const el = editEl.current;
+      const range = document.createRange();
+      const sel = window.getSelection();
+
+      el.textContent = sanitizedValue;
+
+      range.setStart(el.firstChild || el, sanitizedValue.length);
+      range.collapse(true);
+      sel.removeAllRanges();
+      sel.addRange(range);
+
+      setForm({ ...form, content: sanitizedValue });
+    }
+  };
 
   const _handleSaveFee = async () => {
-    setIsSubmitting(true);
     const payload = {
       fee: editEl.current.textContent,
     };
     try {
-      await updateBio({ userId, payload }).unwrap();
-      successNotification('Fee updated successfully');
-      setIsSubmitting(false);
-      setIsEditable(!isEditable);
+      if (!editEl.current.textContent) {
+        setForm({ ...form, message: 'Fee is required', isError: true });
+      } else {
+        await updateBio({ userId, payload }).unwrap();
+        successNotification('Profile updated successfully');
+        setForm({ ...form, message: '', isError: false });
+        setIsEditable(!isEditable);
+      }
     } catch (error) {
-      setIsSubmitting(false);
       errorNotification('An error occurred, Please try again');
     }
   };
@@ -56,7 +96,7 @@ const Fee: FunctionComponent<Record<string, never>> = () => {
           </Typography>
         </Grid>
         <Grid item>
-          <IconButton size="small" onClick={_handleEditFee}>
+          <IconButton size="small" onClick={_handleToggleFee}>
             <EditIcon fontSize="small" sx={{ fontSize: '15px' }} />
           </IconButton>
         </Grid>
@@ -67,14 +107,25 @@ const Fee: FunctionComponent<Record<string, never>> = () => {
         suppressContentEditableWarning={true}
         ref={editEl}
         style={{
-          border: isEditable && '1px solid green',
+          border:
+            isEditable && !form.isError
+              ? '1px solid green'
+              : isEditable && form.isError
+              ? '1px solid red'
+              : '',
           padding: isEditable && '10px',
-          fontFamily: "'Source Sans Pro', sans-serif",
+          fontFamily: '"Source Sans Pro", sans-serif',
           fontSize: pxToRem(14),
         }}
+        onInput={(e: any) => handleInput(e)}
       >
-        {!isEditable && '₦'} {isSuccess && data && data?.payload?.bio?.fee}
+        {!isEditable && form.content !== 'Not set' && '₦'} {form.content}
       </Box>
+      {form.isError && (
+        <Typography variant="subtitle1" color={'red'}>
+          {form.message}
+        </Typography>
+      )}
 
       {isEditable && (
         <Grid container sx={{ mt: 2 }}>
@@ -82,7 +133,7 @@ const Fee: FunctionComponent<Record<string, never>> = () => {
             <Grid container spacing={2}>
               <Grid item md={5}>
                 <Button
-                  handleClick={_handleEditFee}
+                  handleClick={_handleToggleFee}
                   variant="outlined"
                   fullWidth={true}
                 >
@@ -93,7 +144,7 @@ const Fee: FunctionComponent<Record<string, never>> = () => {
                 <Button
                   handleClick={_handleSaveFee}
                   fullWidth={true}
-                  disabled={isSubmitting}
+                  disabled={isLoading}
                 >
                   Save
                 </Button>

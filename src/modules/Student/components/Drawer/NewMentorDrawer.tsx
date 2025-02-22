@@ -18,7 +18,6 @@ import {
 } from 'src/modules/Student/services/studentSlice';
 
 import useModal from 'src/hooks/useModal';
-import useLocalStorage from 'src/hooks/useLocalStorage';
 import {
   errorNotification,
   successNotification,
@@ -27,16 +26,9 @@ import {
 const NewMentorDrawer: FunctionComponent<Record<never, string>> = () => {
   const [state, setState] = useDrawer();
   const [modal, _] = useModal();
-  const [, setMentor] = useLocalStorage('cmid', '');
   const [referenceId, setReferenceId] = useState('');
   const { userId } = useSelector((state: RootState) => state.account);
   const [subscribe] = useSubscribeMutation();
-
-  useEffect(() => {
-    if (modal.modalName) {
-      setMentor(modal?.data?.id);
-    }
-  }, [modal]);
 
   const { data } = useVerifyPaymentQuery(
     { reference: referenceId },
@@ -49,7 +41,7 @@ const NewMentorDrawer: FunctionComponent<Record<never, string>> = () => {
     const subscription = async () => {
       const payload = {
         card: JSON.stringify(data?.payload),
-        mentorId: JSON.parse(localStorage.getItem('cmid') as string),
+        mentorId: '',
       };
 
       try {
@@ -59,7 +51,6 @@ const NewMentorDrawer: FunctionComponent<Record<never, string>> = () => {
         if (res) {
           setReferenceId('');
           setState({ ...state, drawerName: '' });
-          localStorage.removeItem('cmid');
           successNotification(res?.message);
         }
       } catch (error) {

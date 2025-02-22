@@ -1,4 +1,4 @@
-import { FunctionComponent, useState, useRef } from 'react';
+import { FunctionComponent, useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -23,26 +23,48 @@ import useFetchMentorProfile from 'src/hooks/useFetchMentorProfile';
 const Company: FunctionComponent<Record<string, never>> = () => {
   const { userId } = useSelector((state: RootState) => state.account);
   const [isEditable, setIsEditable] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [form, setForm] = useState({
+    message: '',
+    content: '',
+    isError: false,
+  });
   const { data, isSuccess } = useFetchMentorProfile();
 
-  const editEl = useRef(null);
-  const [updateBio] = useUpdateBioMutation();
+  useEffect(() => {
+    setForm({ ...form, content: data?.payload?.bio?.company });
+  }, [isSuccess]);
 
-  const _handleEditCompany = () => setIsEditable(!isEditable);
+  const editEl = useRef(null);
+  const [updateBio, { isLoading }] = useUpdateBioMutation();
+
+  const _handleToggleCompany = () => {
+    setIsEditable(!isEditable);
+    setForm({
+      isError: false,
+      message: '',
+      content: data?.payload?.bio?.company,
+    });
+    editEl.current.textContent = data?.payload?.bio?.company;
+  };
 
   const _handleSaveCompany = async () => {
-    setIsSubmitting(true);
     const payload = {
       company: editEl.current.textContent,
     };
+
     try {
-      await updateBio({ userId, payload }).unwrap();
-      successNotification('Company updated successfully');
-      setIsSubmitting(false);
-      setIsEditable(!isEditable);
-    } catch (error) {
-      setIsSubmitting(false);
+      if (!editEl.current.textContent) {
+        setForm({ ...form, message: 'Company is required', isError: true });
+      } else {
+        await updateBio({ userId, payload }).unwrap();
+        successNotification('Profile updated successfully');
+        setForm({ ...form, message: '', isError: false });
+        setIsEditable(!isEditable);
+      }
+    } catch (error: any) {
+      if (error.status === 400) {
+        errorNotification(error.data.message);
+      }
       errorNotification('An error occurred, Please try again');
     }
   };
@@ -56,7 +78,7 @@ const Company: FunctionComponent<Record<string, never>> = () => {
           </Typography>
         </Grid>
         <Grid item>
-          <IconButton size="small" onClick={_handleEditCompany}>
+          <IconButton size="small" onClick={_handleToggleCompany}>
             <EditIcon fontSize="small" sx={{ fontSize: '15px' }} />
           </IconButton>
         </Grid>
@@ -67,15 +89,25 @@ const Company: FunctionComponent<Record<string, never>> = () => {
         suppressContentEditableWarning={true}
         ref={editEl}
         style={{
-          border: isEditable && '1px solid green',
+          border:
+            isEditable && !form.isError
+              ? '1px solid green'
+              : isEditable && form.isError
+              ? '1px solid red'
+              : '',
           padding: isEditable && '10px',
-          fontFamily: "'Source Sans Pro', sans-serif",
+          fontFamily: '"Source Sans Pro", sans-serif',
           fontSize: pxToRem(14),
           textTransform: 'capitalize',
         }}
       >
-        {isSuccess && data && data?.payload?.bio?.company}
+        {form.content}
       </Box>
+      {form.isError && (
+        <Typography variant="subtitle1" color={'red'}>
+          {form.message}
+        </Typography>
+      )}
 
       {isEditable && (
         <Grid container sx={{ mt: 2 }}>
@@ -83,7 +115,7 @@ const Company: FunctionComponent<Record<string, never>> = () => {
             <Grid container spacing={2}>
               <Grid item md={5}>
                 <Button
-                  handleClick={_handleEditCompany}
+                  handleClick={_handleToggleCompany}
                   variant="outlined"
                   fullWidth={true}
                 >
@@ -94,7 +126,7 @@ const Company: FunctionComponent<Record<string, never>> = () => {
                 <Button
                   handleClick={_handleSaveCompany}
                   fullWidth={true}
-                  disabled={isSubmitting}
+                  disabled={isLoading}
                 >
                   Save
                 </Button>

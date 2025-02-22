@@ -1,7 +1,7 @@
 import { pxToRem } from 'src/helpers/formatFont';
 
 const typography = {
-  fontFamily: "'Source Sans Pro', sans-serif",
+  fontFamily: '"Source Sans Pro", sans-serif',
   h1: {
     fontWeight: 600,
     fontStyle: 'normal',
