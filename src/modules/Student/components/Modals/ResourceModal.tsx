@@ -13,6 +13,7 @@ import { Modal, Input, Button } from 'src/components';
 import {
   useGetCategoryQuery,
   useAddResourceMutation,
+  useEditResourceMutation,
 } from 'src/modules/Student/services/studentSlice';
 
 import {
@@ -46,6 +47,7 @@ const ResourceModal: FunctionComponent<Record<string, never>> = () => {
   const { userId } = useSelector((state: RootState) => state.account);
   const { data, isLoading } = useGetCategoryQuery(userId);
   const [addResource] = useAddResourceMutation();
+  const [editResource] = useEditResourceMutation();
 
   const _handleAdd = async (values: {
     categoryId: string;
@@ -63,6 +65,31 @@ const ResourceModal: FunctionComponent<Record<string, never>> = () => {
       if (data.status === 201) {
         successNotification(data.message);
         setState({ ...state, modalName: '' });
+        resetForm();
+      }
+    } catch (error) {
+      errorNotification('An error occurred, please try again');
+    }
+  };
+
+  const _handleEdit = async (values: {
+    categoryId: string;
+    name: string;
+    url: string;
+  }) => {
+    const payload = {
+      categoryId: values.categoryId,
+      name: values.name,
+      url: values.url,
+      resourceId: state.data.id,
+    };
+
+    try {
+      const data = await editResource({ userId, payload }).unwrap();
+      if (data.status === 200) {
+        successNotification(data.message);
+        setState({ ...state, modalName: '' });
+        resetForm();
       }
     } catch (error) {
       errorNotification('An error occurred, please try again');
@@ -71,12 +98,16 @@ const ResourceModal: FunctionComponent<Record<string, never>> = () => {
 
   const formik = useFormik({
     initialValues: {
-      categoryId: '',
-      name: '',
-      url: '',
+      categoryId:
+        state.modalName === 'EditResource'
+          ? (state.data.category.id as string)
+          : '',
+      name: state.modalName === 'EditResource' ? state.data.name : '',
+      url: state.modalName === 'EditResource' ? state.data.url : '',
     },
     validationSchema,
-    onSubmit: _handleAdd,
+    onSubmit: state.modalName === 'EditResource' ? _handleEdit : _handleAdd,
+    enableReinitialize: true,
   });
 
   const {
@@ -87,10 +118,18 @@ const ResourceModal: FunctionComponent<Record<string, never>> = () => {
     values,
     touched,
     isSubmitting,
+    resetForm,
   } = formik;
 
+  const modalName =
+    state.modalName === 'AddResource' ? 'AddResource' : 'EditResource';
+
   return (
-    <Modal modalName="AddResource" title="Add New Resource">
+    <Modal
+      modalName={modalName}
+      title={modalName === 'AddResource' ? 'Add New Resource' : 'Edit Resource'}
+      width="30%"
+    >
       <Box className={classes.root}>
         <Grid container spacing={2}>
           <Grid item sm={12} sx={{ margin: '.3em 0px' }}>
@@ -104,6 +143,7 @@ const ResourceModal: FunctionComponent<Record<string, never>> = () => {
               onBlur={handleBlur}
               helperText={touched.categoryId && errors.categoryId}
               error={touched.categoryId && Boolean(errors.categoryId)}
+              value={values.categoryId}
             >
               {isLoading ? (
                 <Typography>Loading...</Typography>
@@ -146,7 +186,7 @@ const ResourceModal: FunctionComponent<Record<string, never>> = () => {
           </Grid>
         </Grid>
         <Button size="large" handleClick={handleSubmit} disabled={isSubmitting}>
-          Add
+          {modalName === 'AddResource' ? 'Add' : 'Save'}
         </Button>
       </Box>
     </Modal>

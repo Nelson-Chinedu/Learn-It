@@ -77,7 +77,7 @@ const CategoryModal: FunctionComponent<Record<string, never>> = () => {
   } = formik;
 
   return (
-    <Modal modalName="AddCategory" title="Add New Category">
+    <Modal modalName="AddCategory" title="Add New Category" width="30%">
       <Box className={classes.root}>
         <Input
           size="small"

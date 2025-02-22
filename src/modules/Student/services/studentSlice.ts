@@ -103,6 +103,14 @@ export const studentSlice = createApi({
       }),
       invalidatesTags: ['Resource'],
     }),
+    editResource: builder.mutation<IAddResourceResponse, IAddResourceProp>({
+      query: ({ userId, payload }) => ({
+        url: `/resources/${userId}/`,
+        method: 'PUT',
+        body: { ...payload },
+      }),
+      invalidatesTags: ['Resource'],
+    }),
 
     getResource: builder.query<IResource, IGetResourceProp>({
       query: ({ userId, categoryId }) => ({
@@ -178,6 +186,7 @@ export const {
   useGetCategoryQuery,
   useAddCategoryMutation,
   useAddResourceMutation,
+  useEditResourceMutation,
   useGetResourceQuery,
   useEnrollCourseMutation,
   useGetEnrollCourseQuery,
