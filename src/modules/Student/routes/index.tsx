@@ -40,7 +40,14 @@ const StudentRoute: FunctionComponent<Record<string, never>> = () => {
           />
           <Route path=":title/:id" element={<CoursePreview />} />
         </Route>
-        <Route path={STUDENT_PATHS.RESOURCE} element={<Resources />} />
+        <Route
+          path={STUDENT_PATHS.RESOURCE}
+          element={
+            <DialogContextProvider>
+              <Resources />
+            </DialogContextProvider>
+          }
+        />
         <Route path={STUDENT_PATHS.PROFILE} element={<Profile />} />
         <Route path={STUDENT_PATHS.SETTING} element={<Setting />} />
         <Route path={STUDENT_PATHS.CHAT} element={<Chat />} />

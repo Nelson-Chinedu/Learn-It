@@ -23,8 +23,10 @@ import {
 
 import ResourceModal from 'src/modules/Student/components/Modals/ResourceModal';
 import CategoryModal from 'src/modules/Student/components/Modals/CategoryModal';
+import DeleteResourceDialog from 'src/modules/Student/components/Dialog/DeleteResource';
 
 import useModal from 'src/hooks/useModal';
+import useDialog from 'src/hooks/useDialog';
 
 import { RootState } from 'src/store';
 
@@ -47,6 +49,7 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
       { skip: !selectedTab?.id }
     );
   const [state, setState] = useModal();
+  const [dialog, setDialog] = useDialog();
 
   const handleAddCategory = () => {
     setState({ ...state, modalName: 'AddCategory' });
@@ -77,6 +80,10 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
     setState({ ...state, modalName: 'EditResource', data });
   };
 
+  const _handleDelete = (id: string) => {
+    setDialog({ ...dialog, dialogName: 'deleteResource', id });
+  };
+
   return (
     <Box component="section" className={classes.root}>
       <Box>
@@ -93,9 +100,7 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
               style={{ marginBottom: '1em' }}
             >
               <Grid item>
-                <Button handleClick={handleAddResource}>
-                  Add Resource url
-                </Button>
+                <Button handleClick={handleAddResource}>Add Resource</Button>
               </Grid>
             </Grid>
             {data?.payload?.map(
@@ -179,7 +184,10 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
                             />
                           </IconButton>
                           <IconButton>
-                            <IconDelete fontSize="small" />
+                            <IconDelete
+                              fontSize="small"
+                              onClick={() => _handleDelete(data.id)}
+                            />
                           </IconButton>
                         </Box>
                       </Stack>
@@ -207,6 +215,7 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
       </Box>
       <ResourceModal />
       <CategoryModal />
+      <DeleteResourceDialog />
     </Box>
   );
 };

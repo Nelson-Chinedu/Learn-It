@@ -14,6 +14,7 @@ import {
   IAddResourceProp,
   IAddResourceResponse,
   IGetResourceProp,
+  IDeleteResourceProp,
 } from 'src/interface/resource';
 import {
   ICategory,
@@ -111,12 +112,18 @@ export const studentSlice = createApi({
       }),
       invalidatesTags: ['Resource'],
     }),
-
     getResource: builder.query<IResource, IGetResourceProp>({
       query: ({ userId, categoryId }) => ({
         url: `/category/${userId}/resources?categoryId=${categoryId}`,
       }),
       providesTags: ['Resource'],
+    }),
+    deleteResource: builder.mutation<void, IDeleteResourceProp>({
+      query: ({ id }) => ({
+        url: `/resources/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Resource'],
     }),
     enrollCourse: builder.mutation<IEnrollCourseResponse, IEnrollCourseProp>({
       query: ({ userId, courseId }) => ({
@@ -187,6 +194,7 @@ export const {
   useAddCategoryMutation,
   useAddResourceMutation,
   useEditResourceMutation,
+  useDeleteResourceMutation,
   useGetResourceQuery,
   useEnrollCourseMutation,
   useGetEnrollCourseQuery,

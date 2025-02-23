@@ -29,3 +29,7 @@ export interface IGetResourceProp {
   userId: string;
   categoryId: string;
 }
+
+export interface IDeleteResourceProp {
+  id: string;
+}
