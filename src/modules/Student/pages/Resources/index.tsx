@@ -9,6 +9,7 @@ import AddIcon from '@mui/icons-material/Add';
 import Stack from '@mui/material/Stack';
 import IconEdit from '@mui/icons-material/EditOutlined';
 import IconDelete from '@mui/icons-material/DeleteOutline';
+import Chip from '@mui/material/Chip';
 import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material';
 
@@ -24,6 +25,7 @@ import {
 import ResourceModal from 'src/modules/Student/components/Modals/ResourceModal';
 import CategoryModal from 'src/modules/Student/components/Modals/CategoryModal';
 import DeleteResourceDialog from 'src/modules/Student/components/Dialog/DeleteResource';
+import DeleteCategoryDialog from 'src/modules/Student/components/Dialog/DeleteCategory';
 
 import useModal from 'src/hooks/useModal';
 import useDialog from 'src/hooks/useDialog';
@@ -84,6 +86,10 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
     setDialog({ ...dialog, dialogName: 'deleteResource', id });
   };
 
+  const _handleDeleteCategory = (data: any) => {
+    setDialog({ ...dialog, dialogName: 'deleteCategory', id: data.id, data });
+  };
+
   return (
     <Box component="section" className={classes.root}>
       <Box>
@@ -106,24 +112,23 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
             {data?.payload?.map(
               (data: { name: string; id: string | number }) => (
                 <>
-                  <Button
-                    fullWidth={false}
-                    variant="text"
-                    handleClick={() => handleCategory(data)}
-                    sx={{
-                      textTransform: 'capitalize',
-                      color: data.id !== selectedTab?.id && 'grey !important',
-                    }}
-                  >
-                    {data.name}
-                  </Button>
+                  <Chip
+                    label={data.name}
+                    onClick={() => handleCategory(data)}
+                    onDelete={() => _handleDeleteCategory(data)}
+                    variant="outlined"
+                    sx={{ mr: 4 }}
+                    color={
+                      selectedTab?.name === data?.name ? 'primary' : 'default'
+                    }
+                  />
                 </>
               )
             )}
             <IconButton size="small" onClick={handleAddCategory}>
               <AddIcon fontSize="small" />
             </IconButton>
-            <Divider />
+            <Divider sx={{ my: 4 }} />
             {resourceIsLoading && !resourceData ? (
               <Typography>Loading...</Typography>
             ) : (
@@ -216,6 +221,7 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
       <ResourceModal />
       <CategoryModal />
       <DeleteResourceDialog />
+      <DeleteCategoryDialog />
     </Box>
   );
 };
