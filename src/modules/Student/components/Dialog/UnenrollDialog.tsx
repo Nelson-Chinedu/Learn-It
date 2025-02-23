@@ -67,6 +67,7 @@ const UnenrollDialog: FunctionComponent<Record<string, never>> = () => {
       title="Are you sure you want to un-enroll?"
       handleAction={_handleAction}
       isLoading={isLoading}
+      btnLabel="Un-enroll"
     >
       <Typography variant="subtitle2" sx={{ padding: '0px 0px 1em' }}>
         When you un-enroll, this course will no longer appear on your course

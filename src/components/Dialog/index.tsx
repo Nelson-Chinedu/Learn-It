@@ -19,6 +19,8 @@ type Props = {
   handleAction: (e?: { preventDefault: () => void }) => void;
   isLoading: boolean;
   children: ReactElement;
+  btnLabel: string;
+  color?: 'primary' | 'error';
 };
 
 const Dialog: FunctionComponent<Props> = ({
@@ -27,6 +29,8 @@ const Dialog: FunctionComponent<Props> = ({
   handleAction,
   isLoading,
   children,
+  btnLabel,
+  color = 'primary',
 }) => {
   const [state, setState] = useDialog();
 
@@ -60,8 +64,9 @@ const Dialog: FunctionComponent<Props> = ({
               fullWidth={false}
               handleClick={handleAction}
               disabled={isLoading}
+              color={color}
             >
-              Un-enroll
+              {btnLabel}
             </Button>
           </Stack>
         </DialogActions>

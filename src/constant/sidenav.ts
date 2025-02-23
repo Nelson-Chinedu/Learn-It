@@ -18,7 +18,7 @@ export const STUDENT_SIDENAV_MENU = [
     isComingSoon: false,
   },
   {
-    menu: 'Recommended Courses',
+    menu: 'Recommended Learning',
     path: '/s/courses',
     Icon: LocalLibraryIcon,
     isComingSoon: false,
