@@ -95,6 +95,13 @@ export const studentSlice = createApi({
       }),
       invalidatesTags: ['Category'],
     }),
+    deleteCategory: builder.mutation<void, any>({
+      query: ({ id }) => ({
+        url: `/category/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Category'],
+    }),
 
     addResource: builder.mutation<IAddResourceResponse, IAddResourceProp>({
       query: ({ userId, payload }) => ({
@@ -192,6 +199,7 @@ export const studentSlice = createApi({
 export const {
   useGetCategoryQuery,
   useAddCategoryMutation,
+  useDeleteCategoryMutation,
   useAddResourceMutation,
   useEditResourceMutation,
   useDeleteResourceMutation,
