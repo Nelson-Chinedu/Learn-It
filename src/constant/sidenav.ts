@@ -20,13 +20,13 @@ export const STUDENT_SIDENAV_MENU = [
   {
     menu: 'Recommended Learning',
     path: '/s/courses',
-    Icon: LocalLibraryIcon,
+    Icon: AutoStoriesIcon,
     isComingSoon: false,
   },
   {
     menu: 'Resources',
     path: '/s/resources',
-    Icon: AutoStoriesIcon,
+    Icon: LocalLibraryIcon,
     isComingSoon: false,
   },
   {
@@ -66,17 +66,17 @@ export const TEACHER_SIDENAV_MENU = [
     Icon: DashboardIcon,
     isComingSoon: false,
   },
+  // {
+  //   menu: 'Course',
+  //   path: '/m/course',
+  //   Icon: LocalLibraryIcon,
+  //   isComingSoon: false,
+  // },
   {
-    menu: 'Course',
-    path: '/m/course',
-    Icon: LocalLibraryIcon,
-    isComingSoon: false,
-  },
-  {
-    menu: 'Student',
-    path: '/m/student',
+    menu: 'Mentees',
+    path: '/m/mentees',
     Icon: PeopleAltIcon,
-    isComingSoon: true,
+    isComingSoon: false,
   },
   {
     menu: 'Transactions',

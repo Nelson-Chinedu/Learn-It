@@ -1,3 +1,3 @@
-export const truncate = (str: string) => {
-  return str.length > 20 ? str.slice(0, 20) + '...' : str;
+export const truncate = (str: string, len = 20) => {
+  return str.length > len ? str.slice(0, len) + '...' : str;
 };

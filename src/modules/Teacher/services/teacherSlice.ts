@@ -62,7 +62,7 @@ const customFetchBase: BaseQueryFn<
 export const teacherSlice = createApi({
   reducerPath: 'teacher',
   baseQuery: customFetchBase,
-  tagTypes: ['Bio', 'Course', 'Subscription'],
+  tagTypes: ['Bio', 'Course', 'Subscription', 'Task'],
   endpoints: (builder) => ({
     updateBio: builder.mutation<void, IUpdateResponseProp>({
       query: ({ userId, payload }) => ({
@@ -100,6 +100,60 @@ export const teacherSlice = createApi({
       }),
       providesTags: ['Subscription'],
     }),
+    getSubscriptions: builder.query<any, any>({
+      query: ({ id }) => ({
+        method: 'GET',
+        url: `/subscription/${id}`,
+      }),
+    }),
+    getStudentCounts: builder.query<any, any>({
+      query: ({ id }) => ({
+        method: 'GET',
+        url: `/subscription/${id}/count`,
+      }),
+    }),
+    getAssignedTasks: builder.query<any, any>({
+      query: ({ mentorId, menteeId }) => ({
+        method: 'GET',
+        url: `/task/${menteeId}/mentor/${mentorId}`,
+      }),
+      providesTags: ['Task'],
+    }),
+    getMenteeDetail: builder.query<any, any>({
+      query: ({ mentorId, menteeId }) => ({
+        method: 'GET',
+        url: `/subscription/${menteeId}/mentee/${mentorId}`,
+      }),
+    }),
+    addTask: builder.mutation<IAddCourseResponse, any>({
+      query: ({ mentorId, data }) => ({
+        url: `/task/${mentorId}/mentor`,
+        method: 'POST',
+        body: { ...data },
+      }),
+      invalidatesTags: ['Task'],
+    }),
+    getMenteeSubmission: builder.query<any, any>({
+      query: ({ mentorId, taskId }) => ({
+        method: 'GET',
+        url: `/task/${taskId}/mentor/${mentorId}/submission`,
+      }),
+    }),
+    provideFeedback: builder.mutation<IAddCourseResponse, any>({
+      query: ({ params, data }) => ({
+        url: `/task/${params.taskId}/mentor/${params.mentorId}`,
+        method: 'PATCH',
+        body: { ...data },
+      }),
+      invalidatesTags: ['Task'],
+    }),
+    getFeedback: builder.query<any, any>({
+      query: ({ mentorId, taskId }) => ({
+        method: 'GET',
+        url: `/task/${taskId}/mentor/${mentorId}/feedback`,
+      }),
+      providesTags: ['Task'],
+    }),
   }),
 });
 
@@ -109,4 +163,12 @@ export const {
   useAddCourseMutation,
   useGetCoursesQuery,
   useGetMenteesQuery,
+  useGetSubscriptionsQuery,
+  useGetStudentCountsQuery,
+  useGetAssignedTasksQuery,
+  useGetMenteeDetailQuery,
+  useAddTaskMutation,
+  useGetMenteeSubmissionQuery,
+  useProvideFeedbackMutation,
+  useGetFeedbackQuery,
 } = teacherSlice;
