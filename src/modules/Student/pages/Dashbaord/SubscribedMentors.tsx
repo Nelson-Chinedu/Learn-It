@@ -6,13 +6,14 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
+import AddIcon from '@mui/icons-material/Add';
 
 import { RootState } from 'src/store';
 
 import { Card, Button } from 'src/components';
 
 import DefaultUser from 'src/assets/images/default_user.png';
-import PlusIcon from 'src/assets/images/plus.png';
+
 import Collaboration from 'src/assets/images/collaboration.gif';
 
 import ViewCourseModal from 'src/modules/Student/components/Modals/ViewCourseModal';
@@ -45,6 +46,13 @@ const SubscribedMentors: FunctionComponent<Record<string, never>> = () => {
           <Grid item>
             <Typography variant="h2">Mentors</Typography>
           </Grid>
+          {!isLoading && data && data.payload.length > 0 && (
+            <Grid item>
+              <Button variant="outlined" onClick={_handleOpenDrawer}>
+                <AddIcon /> Subscribe
+              </Button>
+            </Grid>
+          )}
         </Grid>
       )}
       <Box>
@@ -122,38 +130,6 @@ const SubscribedMentors: FunctionComponent<Record<string, never>> = () => {
                 </Card>
               </Grid>
             ))
-          )}
-          {!isLoading && data && data.payload.length > 0 && (
-            <Grid item md={4}>
-              <Card
-                borderRadius="10px"
-                width="250px"
-                height="300px"
-                border="1px solid rgb(0, 80, 200)"
-              >
-                <Box
-                  sx={{
-                    textAlign: 'center',
-                    display: 'flex',
-                    alignItems: 'center',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    margin: '5em 0px',
-                    cursor: 'pointer',
-                  }}
-                  onClick={_handleOpenDrawer}
-                >
-                  <img
-                    src={PlusIcon}
-                    alt=""
-                    style={{ width: '80px', height: '80px' }}
-                  />
-                  <Typography variant="subtitle2" mt={3}>
-                    Subscribe to another mentor
-                  </Typography>
-                </Box>
-              </Card>
-            </Grid>
           )}
         </Grid>
         {data && data.payload.length === 0 && (

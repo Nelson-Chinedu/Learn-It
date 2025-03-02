@@ -9,7 +9,7 @@ import TextField from '@mui/material/TextField';
 export interface ITextfield {
   variant?: 'outlined' | 'filled' | 'standard';
   value?: string;
-  type?: 'text' | 'password' | 'email' | 'search' | 'tel';
+  type?: 'text' | 'password' | 'email' | 'search' | 'tel' | 'date';
   size?: 'small' | 'medium';
   name?: string;
   fullWidth?: boolean;
@@ -17,6 +17,7 @@ export interface ITextfield {
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
   children?: ReactNode;
   InputProps?: object;
+  InputLabelProps?: object;
   label?: string;
   placeholder?: string;
   select?: boolean;

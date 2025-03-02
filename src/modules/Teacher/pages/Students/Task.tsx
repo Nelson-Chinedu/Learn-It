@@ -1,0 +1,121 @@
+import { SyntheticEvent, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import makeStyles from '@mui/styles/makeStyles';
+import CircularProgress from '@mui/material/CircularProgress';
+import { Theme } from '@mui/system';
+
+import { BASE_PATHS, MENTOR_PATHS } from 'src/constant/path';
+
+import { Button, TabNav } from 'src/components';
+
+import {
+  useGetMenteeDetailQuery,
+  useGetMenteeSubmissionQuery,
+} from 'src/modules/Teacher/services/teacherSlice';
+
+import { RootState } from 'src/store';
+
+import useModal from 'src/hooks/useModal';
+
+import FeedbackModal from 'src/modules/Teacher/components/Modals/FeedbackModal';
+
+import Submission from 'src/modules/Teacher/pages/Students/Submission';
+import Feedback from 'src/modules/Teacher/pages/Students/Feedback';
+import { truncate } from 'src/helpers/truncate';
+
+const LINKS = ['Submission', 'Feedback'];
+
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    '& .MuiBreadcrumbs-li': {
+      '& a': {
+        color: theme.palette.primary.main,
+        textDecoration: 'none',
+        '&:hover': {
+          textDecoration: 'underline',
+        },
+      },
+    },
+  },
+}));
+
+const Task = () => {
+  const classes = useStyles();
+
+  const { userId } = useSelector((state: RootState) => state.account);
+  const { id, taskId } = useParams();
+
+  const { data, isFetching } = useGetMenteeDetailQuery({
+    mentorId: userId,
+    menteeId: id,
+  });
+  const { data: submissionData, isFetching: isFetchingSubmission } =
+    useGetMenteeSubmissionQuery({
+      mentorId: userId,
+      taskId,
+    });
+
+  const [value, setValue] = useState(0);
+  const [state, setState] = useModal();
+
+  const handleAddFeedback = () => {
+    setState({ ...state, modalName: 'Feedback' });
+  };
+
+  return (
+    <Box className={classes.root}>
+      {isFetching || isFetchingSubmission ? (
+        <CircularProgress />
+      ) : (
+        <>
+          <Stack
+            flexDirection={'row'}
+            justifyContent={'space-between'}
+            alignItems={'center'}
+            mb={8}
+          >
+            <Breadcrumbs separator="›" aria-label="breadcrumb">
+              <Link to={`/${BASE_PATHS.MENTOR}/${MENTOR_PATHS.MENTEES}`}>
+                Mentees
+              </Link>
+              <Link to={`/${BASE_PATHS.MENTOR}/${MENTOR_PATHS.MENTEES}/${id}`}>
+                {`${data.payload.firstname} ${data.payload.lastname}`}
+              </Link>
+              <Typography>
+                {truncate(submissionData.payload.title, 30)}
+              </Typography>
+            </Breadcrumbs>
+            <Button fullWidth={false} handleClick={handleAddFeedback}>
+              Provide Feedback
+            </Button>
+          </Stack>
+          <Grid container alignItems="baseline" justifyContent="flex-start">
+            <Grid item md={12}>
+              <TabNav
+                nav={LINKS}
+                value={value}
+                handleChange={(_e: SyntheticEvent, newValue: number) =>
+                  setValue(newValue)
+                }
+              >
+                <Box sx={{ margin: '2em 0px' }}>
+                  {value === 0 && <Submission />}
+                  {value === 1 && <Feedback />}
+                </Box>
+              </TabNav>
+            </Grid>
+          </Grid>
+        </>
+      )}
+      <FeedbackModal />
+    </Box>
+  );
+};
+
+export default Task;

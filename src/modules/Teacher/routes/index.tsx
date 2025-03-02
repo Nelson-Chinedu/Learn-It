@@ -9,6 +9,10 @@ const Dashboard = lazy(() => import('src/modules/Teacher/pages/Dashboard'));
 const ViewCourse = lazy(() => import('src/modules/Teacher/pages/Course'));
 const AddCourse = lazy(() => import('src/modules/Teacher/pages/Course/Form'));
 const Student = lazy(() => import('src/modules/Teacher/pages/Students'));
+const ViewStudent = lazy(
+  () => import('src/modules/Teacher/pages/Students/View')
+);
+const ViewTask = lazy(() => import('src/modules/Teacher/pages/Students/Task'));
 const LiveClass = lazy(() => import('src/modules/Teacher/pages/LiveClass'));
 const Profile = lazy(() => import('src/modules/Teacher/pages/Profile'));
 const Chat = lazy(() => import('src/modules/Teacher/pages/Chat'));
@@ -23,7 +27,11 @@ const MentorRoute: FunctionComponent<Record<string, never>> = () => {
           <Route path="" element={<ViewCourse />} />
           <Route path="add" element={<AddCourse />} />
         </Route>
-        <Route path={MENTOR_PATHS.STUDENT} element={<Student />} />
+        <Route path={MENTOR_PATHS.MENTEES}>
+          <Route path="" element={<Student />} />
+          <Route path=":id" element={<ViewStudent />} />
+          <Route path=":id/task/:taskId" element={<ViewTask />} />
+        </Route>
         <Route path={MENTOR_PATHS.LIVE_CLASS}>
           <Route path="" element={<LiveClass />} />
           <Route path="create" element={<LiveClass />} />

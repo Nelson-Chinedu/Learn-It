@@ -23,7 +23,7 @@ export const Landing_PATHS = {
 export const MENTOR_PATHS = {
   DASHBOARD: 'dashboard',
   COURSE: 'course',
-  STUDENT: 'student',
+  MENTEES: 'mentees',
   TRANSACTION: 'transaction',
   CHAT: 'chat',
   SCHEDULE: 'schedule',

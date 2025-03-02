@@ -27,7 +27,7 @@ const Modal: FunctionComponent<Props> = ({
   const [state, setState] = useModal();
 
   const handleClose = () => {
-    setState({ ...state, modalName: '' });
+    setState({ ...state, modalName: '', data: null });
   };
 
   return (
