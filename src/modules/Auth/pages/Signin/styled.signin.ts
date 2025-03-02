@@ -24,12 +24,17 @@ export const useStyles = makeStyles({
   },
   imageWrapper: {
     '& img': {
-      width: '100%',
+      width: '50%',
       objectFit: 'cover',
       height: '100vh',
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      bottom: 0
     },
   },
   formWrapper: {
+    marginTop: '15em',
     '& .MuiGrid-container': {
       margin: '1em 0px',
       width: '100%',

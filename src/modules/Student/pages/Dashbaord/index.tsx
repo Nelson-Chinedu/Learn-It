@@ -54,7 +54,7 @@ const Dashboard: FunctionComponent<Record<string, never>> = () => {
     const subscription = async () => {
       const payload = {
         card: JSON.stringify(data?.payload),
-        mentorId: state.data.id,
+        mentorId: state?.data?.id,
       };
 
       try {

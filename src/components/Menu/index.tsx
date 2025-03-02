@@ -78,15 +78,21 @@ const Menu: FunctionComponent<IProps> = ({
         horizontal: 'right',
       }}
     >
-      {menus.map(({ name, path, action }) => (
-        <Link key={name} to={path} onClick={handleClose}>
-          <ListItem className={name}>
-            <Typography variant="subtitle2" onClick={action}>
-              {name}
-            </Typography>
+      {menus.map(({ name, path, action }) =>
+        path ? (
+          <Link key={name} to={path} onClick={handleClose}>
+            <ListItem className={name}>
+              <Typography variant="subtitle2" onClick={action}>
+                {name}
+              </Typography>
+            </ListItem>
+          </Link>
+        ) : (
+          <ListItem className={name} onClick={action}>
+            <Typography variant="subtitle2">{name}</Typography>
           </ListItem>
-        </Link>
-      ))}
+        )
+      )}
     </MuiMenu>
   );
 };
