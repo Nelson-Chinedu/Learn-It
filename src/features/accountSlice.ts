@@ -7,14 +7,11 @@ export interface AccountState {
   isSubscribed: boolean;
 }
 
-const clu = localStorage.getItem('clu') ? true : false; // check if custom logged user (clu) is set to true or false in localstorage
-const csu = JSON.parse(localStorage.getItem('csu')) === true ? true : false;
-
 const initialState: AccountState = {
-  isLoggedIn: clu,
+  isLoggedIn: false,
   userId: '',
   picture: '',
-  isSubscribed: csu,
+  isSubscribed: false
 };
 
 export const accountSlice = createSlice({

@@ -1,7 +1,6 @@
 import { FunctionComponent, ReactText, useState } from 'react';
 import { useFormik } from 'formik';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -13,8 +12,6 @@ import useTheme from '@mui/material/styles/useTheme';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { Input, Button } from 'src/components';
-
-import { RootState } from 'src/store';
 
 import TeamWork from 'src/assets/images/welcomeBack.webp';
 
@@ -29,15 +26,11 @@ import {
   successNotification,
 } from 'src/helpers/notification';
 
-import { loggedState } from 'src/features/accountSlice';
-
-import useLocalStorage from 'src/hooks/useLocalStorage';
-
 import {
   AUTH_PATHS,
   BASE_PATHS,
-  // STUDENT_PATHS,
   MENTOR_PATHS,
+  STUDENT_PATHS,
 } from 'src/constant/path';
 
 import { useStyles } from 'src/modules/Auth/pages/Signin/styled.signin';
@@ -46,13 +39,10 @@ const Signin: FunctionComponent<Record<string, never>> = () => {
   const classes = useStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { isLoggedIn } = useSelector((state: RootState) => state.account);
+
   const [showPassword, setShowPassword] = useState(false);
+
   const [login] = useLoginMutation();
-  const [, setStoredIsLoggedIn] = useLocalStorage('clu', false);
-  const [, setStoredIsSubscribed] = useLocalStorage('csu', false);
 
   const _handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -73,16 +63,13 @@ const Signin: FunctionComponent<Record<string, never>> = () => {
       if (status === 200) {
         resetForm();
         successNotification(data.message);
-        dispatch(loggedState({ login: !isLoggedIn, subscribed: isSubscribed }));
-        setStoredIsLoggedIn(true); // set loggedin user to true which stores to localstorage
-        setStoredIsSubscribed(isSubscribed); // set subscribe user to true/false which stores to localstorage
 
         if (role === 'mentee' && isSubscribed) {
-          // window.location.href = `/${BASE_PATHS.STUDENT}/${STUDENT_PATHS.DASHBOARD}`;
+          window.location.href = `/${BASE_PATHS.STUDENT}/${STUDENT_PATHS.DASHBOARD}`;
         } else if (role === 'mentee' && !isSubscribed) {
-          // window.location.href = `/${BASE_PATHS.APP}/${STUDENT_PATHS.ONBOARDING}`;
+          window.location.href = `/${BASE_PATHS.APP}/${STUDENT_PATHS.ONBOARDING}`;
         } else {
-          navigate(`/${BASE_PATHS.MENTOR}/${MENTOR_PATHS.DASHBOARD}`);
+          window.location.href = `/${BASE_PATHS.MENTOR}/${MENTOR_PATHS.DASHBOARD}`;
         }
       }
     } catch (error: any) {

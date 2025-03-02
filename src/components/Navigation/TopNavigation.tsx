@@ -153,7 +153,7 @@ const TopNavigation: FunctionComponent<ITopNavigation> = ({
         menus={[
           { name: 'My Profile', path: `${path}/profile` },
           { name: 'Settings', path: `${path}/settings` },
-          { name: 'Logout', path: '#', action: _handleLogout },
+          { name: 'Logout', action: _handleLogout },
         ]}
       />
     </Container>
