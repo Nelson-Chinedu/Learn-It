@@ -33,7 +33,7 @@ export const STUDENT_SIDENAV_MENU = [
     menu: 'Task',
     path: '/s/task',
     Icon: AssignmentIcon,
-    isComingSoon: true,
+    isComingSoon: false,
   },
   {
     menu: 'Chat',
