@@ -1,6 +1,6 @@
-import { makeStyles } from '@mui/styles';
-
-export const useStyles = makeStyles({
+import {styled} from '@mui/material'
+import Box from '@mui/material/Box'
+export const Wrapper = styled(Box)({
   root: {
     '& .top': {
       textAlign: 'center',

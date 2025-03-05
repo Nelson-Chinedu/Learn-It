@@ -4,7 +4,7 @@ import sanitizeHtml from 'sanitize-html';
 import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material';
 
 import { Modal, Button } from 'src/components';
 
@@ -21,34 +21,32 @@ import {
 
 import { RootState } from 'src/store';
 
-const useStyles = makeStyles({
-  root: {
-    '& .MuiTypography-subtitle2': {
-      paddingBottom: '1em',
-    },
-    '& .MuiTypography-h3': {
-      fontSize: pxToRem(20),
-      fontWeight: 600,
-      margin: '1em .6em',
-    },
-    '& .MuiButton-contained': {
-      margin: '1em 0px',
-    },
+const Wrapper = styled(Box)({
+  '& .MuiTypography-subtitle2': {
+    paddingBottom: '1em',
   },
-  contentWrapper: {
-    lineHeight: '1.8em',
-    fontFamily: '"Work Sans", sans-serif',
-    fontWeight: 300,
-    fontSize: '14px',
-    marginLeft: '1em',
-    '& h1, h2, h3, h4, h5, h6': {
-      margin: '.8em 0px',
-    },
+  '& .MuiTypography-h3': {
+    fontSize: pxToRem(20),
+    fontWeight: 600,
+    margin: '1em .6em',
+  },
+  '& .MuiButton-contained': {
+    margin: '1em 0px',
+  },
+});
+
+const ContentWrapper = styled('div')({
+  lineHeight: '1.8em',
+  fontFamily: '"Work Sans", sans-serif',
+  fontWeight: 300,
+  fontSize: '14px',
+  marginLeft: '1em',
+  '& h1, h2, h3, h4, h5, h6': {
+    margin: '.8em 0px',
   },
 });
 
 const ViewCourseModal: FunctionComponent<Record<string, never>> = () => {
-  const classes = useStyles();
   const [state, setState] = useModal();
   const { userId } = useSelector((state: RootState) => state.account);
 
@@ -69,16 +67,14 @@ const ViewCourseModal: FunctionComponent<Record<string, never>> = () => {
 
   return (
     <Modal modalName="ViewCourse" title={state?.data?.name}>
-      <Box className={classes.root}>
+      <Wrapper>
         <ReactPlayer url={state?.data?.video || ''} controls />
         <Box sx={{ mt: 2 }}>
           <Typography variant="h3">What you will learn</Typography>
-          <Box
-            component="div"
-            className={classes.contentWrapper}
+          <ContentWrapper
             dangerouslySetInnerHTML={{
               __html: sanitizeHtml(
-                JSON.parse(state?.data?.objectives ?? null)
+                JSON.parse(state?.data?.objectives ?? null),
               )?.replace(/["]+/g, ''),
             }}
           />
@@ -90,7 +86,7 @@ const ViewCourseModal: FunctionComponent<Record<string, never>> = () => {
         >
           Enroll
         </Button>
-      </Box>
+      </Wrapper>
     </Modal>
   );
 };

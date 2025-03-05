@@ -17,12 +17,15 @@ import { RootState } from 'src/store';
 
 import { useGetMenteesQuery } from 'src/modules/Teacher/services/teacherSlice';
 
-import { useStyles } from 'src/modules/Student/pages/Chat/styled.chat';
+import {
+  Wrapper,
+  SearchWrapper,
+  InputWrapper,
+} from 'src/modules/Teacher/pages/Chat/styled.chat';
 
 const socket = io.connect(process.env.REACT_APP_SERVER_URL);
 
 const Chat: FunctionComponent<Record<string, never>> = () => {
-  const classes = useStyles();
   const [message, setMessage] = useState<string>('');
   const [chats, setChats] = useState<
     Array<{ userId: string; picture: string; message: string }>
@@ -85,7 +88,7 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
   };
 
   return (
-    <Box component="section" className={classes.root}>
+    <Wrapper>
       <Grid
         container
         alignItems="flex-start"
@@ -103,7 +106,7 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
               {data && data.payload.length !== 0 && (
                 <>
                   <Typography variant="h5">Your Channel</Typography>
-                  <Box className={classes.search}>
+                  <SearchWrapper>
                     <Input
                       size="small"
                       type="search"
@@ -113,7 +116,7 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
                       handleChange={handleChange}
                       onBlur={handleChange}
                     />
-                  </Box>
+                  </SearchWrapper>
                 </>
               )}
 
@@ -212,7 +215,7 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
                 ChatList()
               )}
             </Box>
-            <Grid container alignItems="center" className={classes.input}>
+            <InputWrapper container alignItems="center">
               <Grid item md={12} component="form" onSubmit={handleSendMessage}>
                 <Input
                   size="small"
@@ -227,11 +230,11 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
                   <SendIcon />
                 </IconButton>
               </Grid>
-            </Grid>
+            </InputWrapper>
           </Grid>
         )}
       </Grid>
-    </Box>
+    </Wrapper>
   );
 };
 

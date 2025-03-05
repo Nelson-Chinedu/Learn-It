@@ -1,7 +1,8 @@
-import { makeStyles } from '@mui/styles';
+import {  styled } from '@mui/material';
+import Grid from '@mui/material/Grid2'
+import Box from '@mui/material/Box'
 
-export const useStyles = makeStyles({
-  root: {
+export const Wrapper = styled(Box)({
     '& .MuiOutlinedInput-input': {
       fontWeight: 400,
       fontStyle: 'normal',
@@ -21,41 +22,44 @@ export const useStyles = makeStyles({
         color: 'white',
       },
     },
-  },
-  imageWrapper: {
-    '& img': {
-      width: '50%',
-      objectFit: 'cover',
-      height: '100vh',
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      bottom: 0
-    },
-  },
-  formWrapper: {
-    marginTop: '15em',
-    '& .MuiGrid-container': {
-      margin: '1em 0px',
-      width: '100%',
-      '& .MuiGrid-item': {
-        paddingTop: '0px !important',
-      },
-      '& .MuiGrid-item:nth-child(1)': {
-        paddingLeft: '0px',
-      },
-    },
-  },
-  signin: {
-    textAlign: 'left',
-    paddingLeft: '0px !important',
-    width: '100%',
-    marginTop: '.5em !important',
-    '& a': {
-      color: 'inherit',
-      '&:hover': {
-        textDecoration: 'none',
-      },
-    },
-  },
 });
+
+
+export const ImageWrapper = styled(Grid)({
+  '& img': {
+    width: '50%',
+    objectFit: 'cover',
+    height: '100vh',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    bottom: 0
+  },
+})
+
+export const FormWrapper = styled(Grid)({
+  marginTop: '15em',
+  '& .MuiGrid2-container': {
+    margin: '1em 0px',
+    width: '100%',
+    '& .MuiGrid-item': {
+      paddingTop: '0px !important',
+    },
+    '& .MuiGrid-item:nth-child(1)': {
+      paddingLeft: '0px',
+    },
+  },
+})
+
+export const Footer = styled(Grid)({
+  textAlign: 'left',
+  paddingLeft: '0px !important',
+  width: '100%',
+  marginTop: '.5em !important',
+  '& a': {
+    color: 'inherit',
+    '&:hover': {
+      textDecoration: 'none',
+    },
+  },
+})

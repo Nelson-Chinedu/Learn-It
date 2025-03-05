@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import Rating from '@mui/material/Rating';
@@ -12,7 +12,7 @@ import { Button } from 'src/components';
 import EmptyState from 'src/assets/images/empty-cart-search.gif';
 
 import { LineItem } from 'src/modules/Student/pages/Dashbaord/LineItem';
-import { useStyles } from 'src/modules/Student/pages/Dashbaord/styled.dashboard';
+import { AuthorWrapper } from 'src/modules/Student/pages/Dashbaord/styled.dashboard';
 
 import ViewCourseModal from 'src/modules/Student/components/Modals/ViewCourseModal';
 
@@ -42,7 +42,6 @@ interface ICourseData {
 const MyCourses: FunctionComponent<Record<string, never>> = () => {
   const { userId } = useSelector((state: RootState) => state.account);
   const [state, setState] = useModal();
-  const classes = useStyles();
   const dispatch = useDispatch();
   const { data: unerolledCourses } = useGetAllCoursesQuery();
   const { data: enrolledCourses } = useGetEnrollCourseQuery(userId);
@@ -82,10 +81,10 @@ const MyCourses: FunctionComponent<Record<string, never>> = () => {
           justifyContent="space-between"
           style={{ padding: '20px 15px' }}
         >
-          <Grid item>
+          <Grid>
             <Typography variant="h2">All Courses</Typography>
           </Grid>
-          <Grid item>
+          <Grid>
             <Typography>Add filter by free or paid here</Typography>
           </Grid>
         </Grid>
@@ -119,19 +118,15 @@ const MyCourses: FunctionComponent<Record<string, never>> = () => {
                 justifyContent="space-between"
                 alignItems="center"
               >
-                <Grid item md={5}>
-                  <Grid
-                    container
-                    spacing={1.5}
-                    className={classes.authorWrapper}
-                  >
-                    <Grid item>
+                <Grid size={{ md: 5 }}>
+                  <AuthorWrapper container spacing={1.5}>
+                    <Grid>
                       <Avatar
                         src={data?.profile?.picture}
                         alt="course thumbnail"
                       />
                     </Grid>
-                    <Grid item>
+                    <Grid>
                       <Typography
                         variant="h5"
                         sx={{ textTransform: 'capitalize' }}
@@ -148,11 +143,10 @@ const MyCourses: FunctionComponent<Record<string, never>> = () => {
                         }`}
                       </Typography>
                     </Grid>
-                  </Grid>
+                  </AuthorWrapper>
                 </Grid>
                 <Grid
-                  md={3}
-                  item
+                  size={{ md: 3 }}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -167,10 +161,10 @@ const MyCourses: FunctionComponent<Record<string, never>> = () => {
                     readOnly
                   />
                 </Grid>
-                <Grid item md={2}>
+                <Grid size={{ md: 2 }}>
                   <Typography>{data.price}</Typography>
                 </Grid>
-                <Grid item md={2}>
+                <Grid size={{ md: 2 }}>
                   <Button
                     variant="outlined"
                     handleClick={() => handleViewCourse(data)}

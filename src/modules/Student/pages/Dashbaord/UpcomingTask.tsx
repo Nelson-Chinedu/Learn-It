@@ -1,49 +1,45 @@
 import { FunctionComponent } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import Avatar from '@mui/material/Avatar';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material';
 
 import AvatarImg from 'src/assets/images/Avatar.png';
 
 import { LineItem } from 'src/modules/Student/pages/Dashbaord/LineItem';
 
-const useStyles = makeStyles({
-  root: {},
-  header: {
-    padding: '1em .8em 0px',
+const HeaderWrapper = styled(Grid)({
+  padding: '1em .8em 0px',
+});
+
+const TaskWrapper = styled(Grid)({
+  '& .MuiTypography-subtitle2:nth-child(1)': {
+    fontSize: '13px',
+    lineHeight: '10px',
   },
-  wrapper: {
-    '& .MuiTypography-subtitle2:nth-child(1)': {
-      fontSize: '13px',
-      lineHeight: '10px',
-    },
-    '& .MuiTypography-subtitle2:nth-child(2)': {
-      fontSize: '12px',
-      color: '#5e5c5c',
-    },
+  '& .MuiTypography-subtitle2:nth-child(2)': {
+    fontSize: '12px',
+    color: '#5e5c5c',
   },
 });
 
 const UpcomingTask: FunctionComponent<Record<string, never>> = () => {
-  const classes = useStyles();
   return (
-    <Box className={classes.root}>
-      <Grid
+    <Box>
+      <HeaderWrapper
         container
         justifyContent="space-between"
         alignItems="center"
-        className={classes.header}
       >
-        <Grid item>
+        <Grid>
           <Typography variant="subtitle2">Upcoming Task</Typography>
         </Grid>
-        <Grid item>
+        <Grid>
           <Typography variant="subtitle2">See all</Typography>
         </Grid>
-      </Grid>
+      </HeaderWrapper>
       <Box>
         {[0, 1].map((number) => (
           <LineItem key={number}>
@@ -52,17 +48,12 @@ const UpcomingTask: FunctionComponent<Record<string, never>> = () => {
               justifyContent="space-between"
               alignItems="flex-start"
             >
-              <Grid item>
-                <Grid
-                  container
-                  alignItems="center"
-                  spacing={1}
-                  className={classes.wrapper}
-                >
-                  <Grid item>
+              <Grid>
+                <TaskWrapper container alignItems="center" spacing={1}>
+                  <Grid>
                     <Avatar src={AvatarImg} />
                   </Grid>
-                  <Grid item>
+                  <Grid>
                     <Typography variant="subtitle2">
                       Discussion Algorithm
                     </Typography>
@@ -73,9 +64,9 @@ const UpcomingTask: FunctionComponent<Record<string, never>> = () => {
                       08:00 AM - 10:00 AM
                     </Typography>
                   </Grid>
-                </Grid>
+                </TaskWrapper>
               </Grid>
-              <Grid item>
+              <Grid>
                 <MoreHorizOutlinedIcon fontSize="small" />
               </Grid>
             </Grid>

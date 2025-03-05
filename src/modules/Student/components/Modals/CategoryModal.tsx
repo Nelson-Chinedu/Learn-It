@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material';
 
 import { Modal, Input, Button } from 'src/components';
 
@@ -22,19 +22,16 @@ const validationSchema = Yup.object().shape({
   categoryName: Yup.string().required('Required'),
 });
 
-const useStyles = makeStyles({
-  root: {
-    '& .MuiTypography-subtitle2': {
-      paddingBottom: '1em',
-    },
-    '& .MuiButton-contained': {
-      margin: '2em 0px 1em',
-    },
+const Wrapper = styled(Box)({
+  '& .MuiTypography-subtitle2': {
+    paddingBottom: '1em',
+  },
+  '& .MuiButton-contained': {
+    margin: '2em 0px 1em',
   },
 });
 
 const CategoryModal: FunctionComponent<Record<string, never>> = () => {
-  const classes = useStyles();
   const [state, setState] = useModal();
   const [addCategory] = useAddCategoryMutation();
   const { userId } = useSelector((state: RootState) => state.account);
@@ -78,7 +75,7 @@ const CategoryModal: FunctionComponent<Record<string, never>> = () => {
 
   return (
     <Modal modalName="AddCategory" title="Add New Category" width="30%">
-      <Box className={classes.root}>
+      <Wrapper>
         <Input
           size="small"
           fullWidth={true}
@@ -93,7 +90,7 @@ const CategoryModal: FunctionComponent<Record<string, never>> = () => {
         <Button size="large" handleClick={handleSubmit} disabled={isSubmitting}>
           Add
         </Button>
-      </Box>
+      </Wrapper>
     </Modal>
   );
 };

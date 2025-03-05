@@ -4,11 +4,13 @@ import { Link, useLocation } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import MenuIcon from '@mui/icons-material/Menu';
-import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import Chip from '@mui/material/Chip';
 
-import { useStyles } from 'src/components/Navigation/styled.navigation';
+import {
+  Wrapper,
+  LogoWrapper,
+} from 'src/components/Navigation/styled.navigation';
 
 import { ISidenav, IRoute } from 'src/interface/sidenav';
 
@@ -18,16 +20,14 @@ const SideNavigation: FunctionComponent<ISidenav> = ({
   SIDE_MENUS,
   sidenav,
 }) => {
-  const classes = useStyles();
   const { pathname } = useLocation();
   const { isCollapsedSidenav } = useSelector(
-    (state: RootState) => state.sidenav
+    (state: RootState) => state.sidenav,
   );
 
   return (
-    <Box className={classes.root}>
-      <Stack
-        className={classes.logo}
+    <Wrapper>
+      <LogoWrapper
         direction="row"
         alignItems="center"
         justifyContent="space-between"
@@ -41,15 +41,13 @@ const SideNavigation: FunctionComponent<ISidenav> = ({
         <IconButton onClick={sidenav}>
           <MenuIcon />
         </IconButton>
-      </Stack>
+      </LogoWrapper>
       <Box style={{ margin: '3em 0px 3em' }}>
         {SIDE_MENUS.map(({ menu, path, Icon, isComingSoon }: IRoute) => (
           <Link
             to={!isComingSoon && path}
             key={menu}
-            className={
-              pathname.includes(path) ? classes.active : classes.inactive
-            }
+            className={pathname.includes(path) ? 'active' : 'inactive'}
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -81,7 +79,7 @@ const SideNavigation: FunctionComponent<ISidenav> = ({
           </Link>
         ))}
       </Box>
-    </Box>
+    </Wrapper>
   );
 };
 

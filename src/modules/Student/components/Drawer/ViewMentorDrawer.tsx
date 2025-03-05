@@ -4,7 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material';
 import { usePaystackPayment } from 'react-paystack';
 import { PaystackProps } from 'react-paystack/dist/types';
 
@@ -18,39 +18,25 @@ import useDrawer from 'src/hooks/useDrawer';
 
 import DefaultUser from 'src/assets/images/default__user.png';
 
-const useStyles = makeStyles({
-  root: {
-    padding: '6em 2em 3em',
-    '& .MuiTypography-subtitle2': {
-      paddingBottom: '1em',
-    },
-    '& .MuiTypography-body2': {
-      fontWeight: 600,
-    },
-    '& .MuiTypography-h3': {
-      fontSize: pxToRem(20),
-      fontWeight: 600,
-      margin: '1em .6em',
-    },
-    '& .MuiButton-contained': {
-      margin: '1em 0px',
-    },
+const Wrapper = styled(Box)({
+  padding: '6em 2em 3em',
+  '& .MuiTypography-subtitle2': {
+    paddingBottom: '1em',
   },
-  contentWrapper: {
-    lineHeight: '1.8em',
-    fontFamily: '"Work Sans", sans-serif',
-    fontWeight: 300,
-    fontSize: '14px',
-    marginLeft: '1em',
-    '& h1, h2, h3, h4, h5, h6': {
-      margin: '.8em 0px',
-    },
+  '& .MuiTypography-body2': {
+    fontWeight: 600,
+  },
+  '& .MuiTypography-h3': {
+    fontSize: pxToRem(20),
+    fontWeight: 600,
+    margin: '1em .6em',
+  },
+  '& .MuiButton-contained': {
+    margin: '1em 0px',
   },
 });
 
 const ViewMentorDrawer: FunctionComponent<Props> = ({ onSuccess, onClose }) => {
-  const classes = useStyles();
-
   const [state, setState] = useDrawer();
 
   const config: PaystackProps = {
@@ -90,7 +76,7 @@ const ViewMentorDrawer: FunctionComponent<Props> = ({ onSuccess, onClose }) => {
           </IconButton>
           <Typography variant="h5">Subscribe to a mentor</Typography>
         </Stack>
-        <Box className={classes.root}>
+        <Wrapper>
           <Box sx={{ textAlign: 'center', mb: 5 }}>
             <img
               src={state.data?.picture || DefaultUser}
@@ -171,12 +157,12 @@ const ViewMentorDrawer: FunctionComponent<Props> = ({ onSuccess, onClose }) => {
           <Button
             size="large"
             handleClick={() => {
-              initializePayment(onSuccess, onClose);
+              initializePayment({ onSuccess, onClose });
             }}
           >
             Continue
           </Button>
-        </Box>
+        </Wrapper>
       </>
     </Drawer>
   );

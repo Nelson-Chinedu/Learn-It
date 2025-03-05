@@ -1,6 +1,8 @@
-import { makeStyles } from '@mui/styles';
+import {  styled } from '@mui/material';
+import Box from '@mui/material/Box'
 
-export const useStyles = makeStyles({
+
+export const Wrapper = styled(Box)({
   root: {
     '& .userContainer': {
       padding: '2em',
@@ -27,7 +29,7 @@ export const useStyles = makeStyles({
     },
     '& .formContainer': {
       padding: '2em',
-      '& .MuiGrid-container': {
+      '& .MuiGrid2-container': {
         margin: '.4em 0px',
         width: '100%',
         '& .MuiGrid-item:nth-child(1)': {

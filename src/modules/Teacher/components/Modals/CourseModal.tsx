@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
-import { useStyles } from 'src/modules/Teacher/components/Modals/styled.modals';
+import { StyledLabel } from 'src/modules/Teacher/components/Modals/styled.modals';
 import { Upload } from 'src/modules/Teacher/components/Modals/Upload';
 
 import { Modal, Input, Button } from 'src/components';
@@ -27,7 +27,6 @@ const validationSchema = Yup.object().shape({
 });
 
 const CourseModal: FunctionComponent<Record<string, never>> = () => {
-  const classes = useStyles();
   const [state, setState] = useModal();
   const [addCourse] = useAddCourseMutation();
   const ref = useRef(null);
@@ -36,7 +35,7 @@ const CourseModal: FunctionComponent<Record<string, never>> = () => {
     status: number;
   }>({ name: '', status: 0 });
   const [uploadedFiles, setUploadedFiles] = useState<Array<{ name: string }>>(
-    []
+    [],
   );
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [videoUrl, setVideoUrl] = useState<Array<string>>([]);
@@ -93,11 +92,11 @@ const CourseModal: FunctionComponent<Record<string, never>> = () => {
           },
           onUploadProgress: (progressEvent) => {
             const percentCompleted = Math.round(
-              (progressEvent.loaded * 100) / progressEvent.total
+              (progressEvent.loaded * 100) / progressEvent.total,
             );
             setUploadingFile({ name: filename, status: percentCompleted });
           },
-        }
+        },
       );
 
       if (res) {
@@ -180,7 +179,7 @@ const CourseModal: FunctionComponent<Record<string, never>> = () => {
             />
           </Grid>
         </Grid>
-        <label className={classes.fileUpload}>
+        <StyledLabel>
           <CloudUploadIcon fontSize="large" />
           <Typography variant="subtitle2">Upload Videos</Typography>
           <Typography variant="subtitle1">Click to browse files</Typography>
@@ -190,7 +189,7 @@ const CourseModal: FunctionComponent<Record<string, never>> = () => {
             onChange={handleUpload}
             ref={ref}
           />
-        </label>
+        </StyledLabel>
         <Box sx={{ mb: 4 }}>
           {isUploading && uploadingFile !== null && (
             <Upload

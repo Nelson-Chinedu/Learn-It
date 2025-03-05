@@ -6,9 +6,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
-import makeStyles from '@mui/styles/makeStyles';
 import CircularProgress from '@mui/material/CircularProgress';
-import { Theme } from '@mui/system';
 
 import { BASE_PATHS, MENTOR_PATHS } from 'src/constant/path';
 
@@ -28,26 +26,23 @@ import FeedbackModal from 'src/modules/Teacher/components/Modals/FeedbackModal';
 import Submission from 'src/modules/Teacher/pages/Students/Submission';
 import Feedback from 'src/modules/Teacher/pages/Students/Feedback';
 import { truncate } from 'src/helpers/truncate';
+import { styled } from '@mui/material';
 
 const LINKS = ['Submission', 'Feedback'];
 
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    '& .MuiBreadcrumbs-li': {
-      '& a': {
-        color: theme.palette.primary.main,
-        textDecoration: 'none',
-        '&:hover': {
-          textDecoration: 'underline',
-        },
+const Wrapper = styled(Box)(({ theme }) => ({
+  '& .MuiBreadcrumbs-li': {
+    '& a': {
+      color: theme.palette.primary.main,
+      textDecoration: 'none',
+      '&:hover': {
+        textDecoration: 'underline',
       },
     },
   },
 }));
 
 const Task = () => {
-  const classes = useStyles();
-
   const { userId } = useSelector((state: RootState) => state.account);
   const { id, taskId } = useParams();
 
@@ -56,10 +51,13 @@ const Task = () => {
     menteeId: id,
   });
   const { data: submissionData, isFetching: isFetchingSubmission } =
-    useGetMenteeSubmissionQuery({
-      mentorId: userId,
-      taskId,
-    });
+    useGetMenteeSubmissionQuery(
+      {
+        mentorId: userId,
+        taskId,
+      },
+      { skip: !userId },
+    );
 
   const [value, setValue] = useState(0);
   const [state, setState] = useModal();
@@ -69,7 +67,7 @@ const Task = () => {
   };
 
   return (
-    <Box className={classes.root}>
+    <Wrapper>
       {isFetching || isFetchingSubmission ? (
         <CircularProgress />
       ) : (
@@ -114,7 +112,7 @@ const Task = () => {
         </>
       )}
       <FeedbackModal />
-    </Box>
+    </Wrapper>
   );
 };
 

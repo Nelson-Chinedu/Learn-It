@@ -1,23 +1,22 @@
 import { FunctionComponent } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 
 import { Transaction } from 'src/modules/Teacher/pages/Dashboard/Transaction';
 import { TopCourse } from 'src/modules/Teacher/pages/Dashboard/TopCourse';
 import { TopEngagement } from 'src/modules/Teacher/pages/Dashboard/TopEngagement';
 
-import { useStyles } from 'src/modules/Teacher/pages/Dashboard/styled.dashboard';
+import { Wrapper } from 'src/modules/Teacher/pages/Dashboard/styled.dashboard';
 
 import { TOTAL_FIGURES } from 'src/constant/figureCount';
 
 const TeacherDashboard: FunctionComponent<Record<string, never>> = () => {
-  const classes = useStyles();
   return (
-    <Box component="section" className={classes.root}>
+    <Wrapper>
       <Grid container spacing={2} className="top">
         {TOTAL_FIGURES.map((figure: { value: string; title: string }) => (
-          <Grid item md={3} key={figure.title}>
+          <Grid size={{ md: 3 }} key={figure.title}>
             <Box className="topWrapper">
               <Typography variant="subtitle1">{figure.value}</Typography>
               <Typography variant="subtitle2">{figure.title}</Typography>
@@ -32,27 +31,27 @@ const TeacherDashboard: FunctionComponent<Record<string, never>> = () => {
         }}
       >
         <Grid container spacing={2}>
-          <Grid item md={8}>
+          <Grid size={{ md: 8 }}>
             <Transaction />
           </Grid>
-          <Grid item md={4}>
+          <Grid size={{ md: 4 }}>
             <Grid
               container
               direction="column"
               spacing={3}
               justifyContent="space-between"
             >
-              <Grid item md={6}>
+              <Grid size={{ md: 6 }}>
                 <TopCourse />
               </Grid>
-              <Grid item md={6}>
+              <Grid size={{ md: 6 }}>
                 <TopEngagement />
               </Grid>
             </Grid>
           </Grid>
         </Grid>
       </Box>
-    </Box>
+    </Wrapper>
   );
 };
 

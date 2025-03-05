@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useSelector } from 'react-redux';
 
@@ -30,7 +30,10 @@ const MentorsList: FunctionComponent<Props> = ({ onSuccess, onClose }) => {
   const [drawer, setDrawer] = useDrawer();
   const { userId } = useSelector((state: RootState) => state.account);
   const { data: unSubscribedMentors } = useGetAllMentorsQuery();
-  const { data: subscribedMentors } = useGetMentorsQuery({ id: userId });
+  const { data: subscribedMentors } = useGetMentorsQuery(
+    { id: userId },
+    { skip: !userId },
+  );
 
   useEffect(() => {
     const getMentors = () => {
@@ -84,7 +87,7 @@ const MentorsList: FunctionComponent<Props> = ({ onSuccess, onClose }) => {
         ) : (
           mentorsData &&
           mentorsData?.map((mentor: any) => (
-            <Grid item md={3} sx={{ mb: 1 }} key={mentor.id}>
+            <Grid size={{ md: 3 }} sx={{ mb: 1 }} key={mentor.id}>
               <Card borderRadius="0px" width="220px" border="1px solid #e3e0e0">
                 <Box sx={{ textAlign: 'center', padding: '1em' }}>
                   <img

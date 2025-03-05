@@ -4,11 +4,11 @@ import SunEditor from 'suneditor-react';
 import SunEditorCore from 'suneditor/src/lib/core';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material';
 
 import { Upload } from 'src/modules/Teacher/components/Modals/Upload';
 
@@ -26,60 +26,58 @@ const validationSchema = Yup.object().shape({
   price: Yup.string().required('Required'),
 });
 
-const useStyles = makeStyles({
-  root: {
-    width: '80%',
-    margin: '7em auto',
-    '& .sun-editor': {
-      marginBottom: '2em',
-    },
-    '& .sun-editor-editable': {
-      height: '400px !important',
-    },
-    '& .se-resizing-bar': {
-      display: 'none !important',
-    },
-    '& .MuiTypography-h5': {
-      paddingBottom: '.2em',
-    },
-    '& .MuiButton-contained': {
-      marginBottom: '5em',
-    },
-  },
-  fileUpload: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    border: '1px dashed grey !important',
-    borderRadius: '5px',
-    padding: '2em',
-    textAlign: 'center',
-    height: '150px',
-    cursor: 'pointer',
+const Wrapper = styled(Box)({
+  width: '80%',
+  margin: '7em auto',
+  '& .sun-editor': {
     marginBottom: '2em',
-    '& input': {
-      display: 'none',
-    },
+  },
+  '& .sun-editor-editable': {
+    height: '400px !important',
+  },
+  '& .se-resizing-bar': {
+    display: 'none !important',
+  },
+  '& .MuiTypography-h5': {
+    paddingBottom: '.2em',
+  },
+  '& .MuiButton-contained': {
+    marginBottom: '5em',
+  },
+});
+
+const StyledLabel = styled('label')({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  border: '1px dashed grey !important',
+  borderRadius: '5px',
+  padding: '2em',
+  textAlign: 'center',
+  height: '150px',
+  cursor: 'pointer',
+  marginBottom: '2em',
+  '& input': {
+    display: 'none',
   },
 });
 
 const AddCourse: FunctionComponent<Record<string, never>> = () => {
-  const classes = useStyles();
   const [addCourse] = useAddCourseMutation();
   const [objectives, setObjectives] = useState(null);
   const [faq, setFaq] = useState(null);
   const ref = useRef(null);
   const thumbnailRef = useRef(null);
   const previewRef = useRef(null);
-  const editor_objective = useRef<SunEditorCore>();
-  const editor_faq = useRef<SunEditorCore>();
+  const editor_objective = useRef<SunEditorCore>(null);
+  const editor_faq = useRef<SunEditorCore>(null);
   const [uploadingFile, setUploadingFile] = useState<{
     name: string;
     status: number;
   }>({ name: '', status: 0 });
   const [uploadedFiles, setUploadedFiles] = useState<Array<{ name: string }>>(
-    []
+    [],
   );
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [videoUrl, setVideoUrl] = useState<Array<string>>([]);
@@ -143,7 +141,7 @@ const AddCourse: FunctionComponent<Record<string, never>> = () => {
 
   const handleUploadFile = async (
     e: { preventDefault: () => void; target: HTMLInputElement },
-    fileType: string
+    fileType: string,
   ) => {
     e.preventDefault();
     const filename = e.target.files[0].name;
@@ -169,11 +167,11 @@ const AddCourse: FunctionComponent<Record<string, never>> = () => {
           },
           onUploadProgress: (progressEvent) => {
             const percentCompleted = Math.round(
-              (progressEvent.loaded * 100) / progressEvent.total
+              (progressEvent.loaded * 100) / progressEvent.total,
             );
             setUploadingFile({ name: filename, status: percentCompleted });
           },
-        }
+        },
       );
 
       if (res) {
@@ -224,7 +222,7 @@ const AddCourse: FunctionComponent<Record<string, never>> = () => {
   } = formik;
 
   return (
-    <Box component="form" onSubmit={handleSubmit} className={classes.root}>
+    <Wrapper>
       <Grid
         container
         spacing={2}
@@ -232,7 +230,7 @@ const AddCourse: FunctionComponent<Record<string, never>> = () => {
         justifyContent="space-between"
         sx={{ marginBottom: '2em' }}
       >
-        <Grid item sm={6}>
+        <Grid size={{ sm: 6 }}>
           <Typography variant="h5">Course Title</Typography>
           <Input
             placeholder="Course Title"
@@ -245,7 +243,7 @@ const AddCourse: FunctionComponent<Record<string, never>> = () => {
             error={touched.courseName && Boolean(errors.courseName)}
           />
         </Grid>
-        <Grid item sm={6}>
+        <Grid size={{ sm: 6 }}>
           <Typography variant="h5">Price</Typography>
           <Input
             placeholder="Price"
@@ -261,7 +259,7 @@ const AddCourse: FunctionComponent<Record<string, never>> = () => {
         </Grid>
       </Grid>
       <Typography variant="h5">Upload course thumbnail</Typography>
-      <label className={classes.fileUpload}>
+      <StyledLabel>
         <CloudUploadIcon fontSize="large" />
         <Typography variant="subtitle2">Upload thumbnail</Typography>
         <Typography variant="subtitle1">Click to browse file</Typography>
@@ -271,10 +269,10 @@ const AddCourse: FunctionComponent<Record<string, never>> = () => {
           onChange={(e) => handleUploadFile(e, 'thumbnail')}
           ref={thumbnailRef}
         />
-      </label>
+      </StyledLabel>
 
       <Typography variant="h5">Upload course preview</Typography>
-      <label className={classes.fileUpload}>
+      <StyledLabel>
         <CloudUploadIcon fontSize="large" />
         <Typography variant="subtitle2">Upload course preview</Typography>
         <Typography variant="subtitle1">Click to browse file</Typography>
@@ -284,10 +282,10 @@ const AddCourse: FunctionComponent<Record<string, never>> = () => {
           onChange={(e) => handleUploadFile(e, 'course_preview')}
           ref={previewRef}
         />
-      </label>
+      </StyledLabel>
 
       <Typography variant="h5">Upload video(s) by modules</Typography>
-      <label className={classes.fileUpload}>
+      <StyledLabel>
         <CloudUploadIcon fontSize="large" />
         <Typography variant="subtitle2">Upload Video</Typography>
         <Typography variant="subtitle1">Click to browse file</Typography>
@@ -297,7 +295,7 @@ const AddCourse: FunctionComponent<Record<string, never>> = () => {
           onChange={(e) => handleUploadFile(e, 'video')}
           ref={ref}
         />
-      </label>
+      </StyledLabel>
       <Box sx={{ mb: 4 }}>
         {isUploading && uploadingFile !== null && (
           <Upload
@@ -337,7 +335,7 @@ const AddCourse: FunctionComponent<Record<string, never>> = () => {
       >
         Add Course
       </Button>
-    </Box>
+    </Wrapper>
   );
 };
 

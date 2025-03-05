@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { getUserID } from 'src/features/accountSlice';
@@ -14,10 +14,19 @@ const PrivateRoute = ({ children }: Props) => {
 
   const { isSuccess, data } = useGetUserProfileQuery();
 
+  const userId = useMemo(() => data?.payload?.id, [data?.payload?.id]);
+
+  useEffect(() => {
+    if (isSuccess && userId) {
+      dispatch(getUserID(userId));
+    }
+  }, [isSuccess, userId, dispatch]);
+
   if (isSuccess) {
-    dispatch(getUserID(data?.payload?.id));
     return children;
-  } else return null;
+  } else {
+    return null;
+  }
 };
 
 export default PrivateRoute;

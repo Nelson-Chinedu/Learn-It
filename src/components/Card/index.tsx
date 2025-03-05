@@ -1,6 +1,6 @@
 import { FunctionComponent, ReactNode } from 'react';
 import { Card as MCard } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material';
 
 export interface ICard {
   children: ReactNode;
@@ -12,11 +12,9 @@ export interface ICard {
   border?: string;
 }
 
-const useStyles = makeStyles({
-  root: {
-    boxShadow:
-      '0px 1px 1px -1px rgb(0 0 0 / 20%), 0px 1px 2px 0px rgb(0 0 0 / 12%), 0px 1px 4px 0px rgb(0 0 0 / 5%) !important',
-  },
+const Wrapper = styled(MCard)({
+  boxShadow:
+    '0px 1px 1px -1px rgb(0 0 0 / 20%), 0px 1px 2px 0px rgb(0 0 0 / 12%), 0px 1px 4px 0px rgb(0 0 0 / 5%) !important',
 });
 
 const Card: FunctionComponent<ICard> = ({
@@ -27,15 +25,13 @@ const Card: FunctionComponent<ICard> = ({
   borderRadius,
   ...rest
 }) => {
-  const classes = useStyles();
   return (
-    <MCard
+    <Wrapper
       elevation={3}
-      className={classes.root}
       style={{ width, height, borderRadius, overflow, ...rest }}
     >
       {children}
-    </MCard>
+    </Wrapper>
   );
 };
 

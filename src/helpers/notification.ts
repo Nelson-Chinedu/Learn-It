@@ -1,7 +1,6 @@
-import { ReactText } from 'react';
 import { toast } from 'react-toastify';
 
-export const successNotification = (message: string): ReactText => {
+export const successNotification = (message: string) => {
   return toast.success(message, {
     position: 'top-right',
     autoClose: 5000,
@@ -14,7 +13,7 @@ export const successNotification = (message: string): ReactText => {
   });
 };
 
-export const errorNotification = (message: string): ReactText => {
+export const errorNotification = (message: string) => {
   return toast.error(message, {
     position: 'top-right',
     autoClose: 5000,

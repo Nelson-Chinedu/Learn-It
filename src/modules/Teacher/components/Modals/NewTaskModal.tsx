@@ -32,7 +32,7 @@ const NewTaskModal: FC = () => {
     taskName: '',
     dueDate: '',
   });
-  const editor_note = useRef<SunEditorCore>();
+  const editor_note = useRef<SunEditorCore>(null);
 
   const getSunEditorInstance_Objective = (sunEditor: SunEditorCore) => {
     editor_note.current = sunEditor;

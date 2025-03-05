@@ -14,10 +14,9 @@ import { useGetCoursesQuery } from 'src/modules/Teacher/services/teacherSlice';
 
 import { RootState } from 'src/store';
 
-import { useStyles } from 'src/modules/Teacher/pages/Course/styled.course';
+import { EmptyStateWrapper } from 'src/modules/Teacher/pages/Course/styled.course';
 
 const TeacherCourse: FunctionComponent<Record<string, never>> = () => {
-  const classes = useStyles();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { userId } = useSelector((state: RootState) => state.account);
@@ -44,7 +43,7 @@ const TeacherCourse: FunctionComponent<Record<string, never>> = () => {
         </Grid>
       )}
       {data && data.payload.length === 0 ? (
-        <Box className={classes.emptyState}>
+        <EmptyStateWrapper>
           <img
             src={EmptyState}
             alt="Add new course"
@@ -60,7 +59,7 @@ const TeacherCourse: FunctionComponent<Record<string, never>> = () => {
           >
             Add New Course
           </Button>
-        </Box>
+        </EmptyStateWrapper>
       ) : (
         <Box style={{ margin: '2em 0px 0px' }}>
           <CourseTable

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { Input, ITextfield } from 'src/components/Input';
 
@@ -8,7 +8,7 @@ export default {
   component: Input,
 } as Meta;
 
-const Template: Story<ITextfield> = (args) => <Input {...args} />;
+const Template: StoryFn<ITextfield> = (args: ITextfield) => <Input {...args} />;
 
 export const Standard = Template.bind({});
 

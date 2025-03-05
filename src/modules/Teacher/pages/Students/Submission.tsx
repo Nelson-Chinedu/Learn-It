@@ -14,10 +14,13 @@ const Submission: FC = () => {
   const { userId } = useSelector((state: RootState) => state.account);
   const { taskId } = useParams();
 
-  const { data, isFetching } = useGetMenteeSubmissionQuery({
-    mentorId: userId,
-    taskId,
-  });
+  const { data, isFetching } = useGetMenteeSubmissionQuery(
+    {
+      mentorId: userId,
+      taskId,
+    },
+    { skip: !userId },
+  );
 
   if (isFetching) {
     return (

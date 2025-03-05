@@ -65,7 +65,7 @@ const Routes: FunctionComponent<Record<string, never>> = () => {
                     />
                   ) : (
                     <Route path={path} key={path} element={<Component />} />
-                  )
+                  ),
               )}
               <Route
                 path="*"

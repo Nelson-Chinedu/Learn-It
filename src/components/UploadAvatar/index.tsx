@@ -18,7 +18,10 @@ import {
   successNotification,
 } from 'src/helpers/notification';
 
-import { useStyles } from 'src/components/UploadAvatar/styled.uploadAvatar';
+import {
+  Wrapper,
+  StyledInput,
+} from 'src/components/UploadAvatar/styled.uploadAvatar';
 import { RootState } from 'src/store';
 import { useSelector } from 'react-redux';
 
@@ -28,7 +31,6 @@ const UploadAvatar: FunctionComponent<Record<string, never>> = () => {
 
   const [updateProfilePicture, { isLoading }] =
     useUpdateProfilePictureMutation();
-  const classes = useStyles({ isLoading });
 
   const handleUpdatePicture = async (e: { target: HTMLInputElement }) => {
     const formData = new FormData();
@@ -51,17 +53,16 @@ const UploadAvatar: FunctionComponent<Record<string, never>> = () => {
   };
 
   return (
-    <Box className={classes.root}>
+    <Wrapper isLoading={isLoading}>
       <Box className="container">
         <Avatar
-          src={(isSuccess && data?.payload?.picture) || DefaultUser}
+          src={(isSuccess && data && data?.payload?.picture) || DefaultUser}
           alt="profile picture"
           sx={{ width: 90, height: 90 }}
         />
         <Box className="upload">
-          <input
+          <StyledInput
             accept="image/png, image/jpg, image/jpeg"
-            className={classes.input}
             onChange={handleUpdatePicture}
             id="icon-button-file"
             type="file"
@@ -88,7 +89,7 @@ const UploadAvatar: FunctionComponent<Record<string, never>> = () => {
       >
         Maximum size of 1MB. JPG, or PNG.
       </Typography>
-    </Box>
+    </Wrapper>
   );
 };
 

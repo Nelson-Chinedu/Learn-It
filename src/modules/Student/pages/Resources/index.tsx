@@ -2,7 +2,7 @@ import { FunctionComponent, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
@@ -10,8 +10,7 @@ import Stack from '@mui/material/Stack';
 import IconEdit from '@mui/icons-material/EditOutlined';
 import IconDelete from '@mui/icons-material/DeleteOutline';
 import Chip from '@mui/material/Chip';
-import { makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
+import { styled } from '@mui/material';
 
 import EmptyState from 'src/assets/images/searching-data.gif';
 
@@ -32,7 +31,7 @@ import useDialog from 'src/hooks/useDialog';
 
 import { RootState } from 'src/store';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const Wrapper = styled('section')(({ theme }) => ({
   root: {
     '& .MuiButton-text': {
       color: theme.palette.primary.main,
@@ -41,14 +40,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const Resources: FunctionComponent<Record<string, never>> = () => {
-  const classes = useStyles();
   const [selectedTab, setSelectedTab] = useState(null);
   const { userId } = useSelector((state: RootState) => state.account);
   const { data, isLoading } = useGetCategoryQuery(userId);
   const { data: resourceData, isLoading: resourceIsLoading } =
     useGetResourceQuery(
       { userId, categoryId: selectedTab?.id },
-      { skip: !selectedTab?.id }
+      { skip: !selectedTab?.id },
     );
   const [state, setState] = useModal();
   const [dialog, setDialog] = useDialog();
@@ -91,7 +89,7 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
   };
 
   return (
-    <Box component="section" className={classes.root}>
+    <Wrapper>
       <Box>
         {isLoading && !data ? (
           <>
@@ -105,7 +103,7 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
               justifyContent="flex-end"
               style={{ marginBottom: '1em' }}
             >
-              <Grid item>
+              <Grid>
                 <Button handleClick={handleAddResource}>Add Resource</Button>
               </Grid>
             </Grid>
@@ -123,7 +121,7 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
                     }
                   />
                 </>
-              )
+              ),
             )}
             <IconButton size="small" onClick={handleAddCategory}>
               <AddIcon fontSize="small" />
@@ -156,7 +154,7 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
                 ) : (
                   resourceData?.payload?.map(
                     (
-                      data: { name: string; url: string; id: string } | null
+                      data: { name: string; url: string; id: string } | null,
                     ) => (
                       <Stack
                         key={data.id}
@@ -196,7 +194,7 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
                           </IconButton>
                         </Box>
                       </Stack>
-                    )
+                    ),
                   )
                 )}
               </Box>
@@ -222,7 +220,7 @@ const Resources: FunctionComponent<Record<string, never>> = () => {
       <CategoryModal />
       <DeleteResourceDialog />
       <DeleteCategoryDialog />
-    </Box>
+    </Wrapper>
   );
 };
 

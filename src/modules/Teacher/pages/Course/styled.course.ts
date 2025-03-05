@@ -1,10 +1,8 @@
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material';
+import Box from '@mui/material/Box';
 
-export const useStyles = makeStyles({
-  root: {},
-  emptyState: {
-    width: '50%',
-    margin: '3em auto 5em',
-    textAlign: 'center',
-  },
+export const EmptyStateWrapper = styled(Box)({
+  width: '50%',
+  margin: '3em auto 5em',
+  textAlign: 'center',
 });

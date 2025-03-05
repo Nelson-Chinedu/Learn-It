@@ -1,10 +1,11 @@
 import { FC, useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import Groups2Icon from '@mui/icons-material/Groups';
-import { Box, Stack } from '@mui/material';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 
 import { useGetStudentCountsQuery } from 'src/modules/Teacher/services/teacherSlice';
 import { RootState } from 'src/store';
@@ -13,9 +14,12 @@ import { useSelector } from 'react-redux';
 const TotalCount: FC = () => {
   const { userId } = useSelector((state: RootState) => state.account);
 
-  const { data: dt, isLoading: loadi } = useGetStudentCountsQuery({
-    id: userId,
-  });
+  const { data: countData, isLoading: loadi } = useGetStudentCountsQuery(
+    {
+      id: userId,
+    },
+    { skip: !userId },
+  );
   const [summary, setSummary] = useState([]);
 
   useEffect(() => {
@@ -23,29 +27,29 @@ const TotalCount: FC = () => {
       setSummary([
         {
           label: 'Total Mentees',
-          count: dt.payload.totalStudents,
+          count: countData && countData.payload.totalStudents,
           Icon: Groups2Icon,
         },
         {
           label: 'Active Mentees',
-          count: dt.payload.activeStudents,
+          count: countData && countData.payload.activeStudents,
           Icon: TrendingUpIcon,
         },
         {
           label: 'Inactive Mentees',
-          count: dt.payload.inactiveStudents,
+          count: countData && countData.payload.inactiveStudents,
           Icon: TrendingDownIcon,
         },
       ]);
     }
-  }, [dt]);
+  }, [countData]);
 
   return (
     <Grid container gap={4}>
       {summary.map(({ label, count, Icon }) => (
         <Grid
-          item
-          md={3}
+          size={{ md: 3 }}
+          key={label}
           sx={{
             background: '#0050C8',
             color: 'white',
