@@ -3,7 +3,6 @@ import Box from '@mui/material/Box'
 
 
 export const Wrapper = styled(Box)({
-  root: {
     '& .userContainer': {
       padding: '2em',
       '& .MuiAvatar-root': {
@@ -30,12 +29,11 @@ export const Wrapper = styled(Box)({
     '& .formContainer': {
       padding: '2em',
       '& .MuiGrid2-container': {
-        margin: '.4em 0px',
+        margin: '1em 0px',
         width: '100%',
         '& .MuiGrid-item:nth-child(1)': {
           paddingLeft: '0px',
         },
       },
     },
-  },
 });

@@ -41,10 +41,10 @@ const TeacherDashboard: FunctionComponent<Record<string, never>> = () => {
               spacing={3}
               justifyContent="space-between"
             >
-              <Grid size={{ md: 6 }}>
+              <Grid size={{ md: 12 }}>
                 <TopCourse />
               </Grid>
-              <Grid size={{ md: 6 }}>
+              <Grid size={{ md: 12 }}>
                 <TopEngagement />
               </Grid>
             </Grid>
