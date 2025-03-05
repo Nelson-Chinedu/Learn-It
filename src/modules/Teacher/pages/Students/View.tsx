@@ -17,8 +17,7 @@ import IconButton from '@mui/material/IconButton';
 import Chip from '@mui/material/Chip';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CircularProgress from '@mui/material/CircularProgress';
-import Grid from '@mui/material/Grid';
-import { makeStyles } from '@mui/styles';
+import Grid from '@mui/material/Grid2';
 
 import NewTaskModal from 'src/modules/Teacher/components/Modals/NewTaskModal';
 
@@ -36,9 +35,9 @@ import {
 } from 'src/modules/Teacher/services/teacherSlice';
 
 import useModal from 'src/hooks/useModal';
-import { Theme } from '@mui/material';
+import { styled } from '@mui/material';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const Wrapper = styled(Box)(({ theme }) => ({
   root: {
     '& .MuiBreadcrumbs-ol': {
       '& .MuiBreadcrumbs-li': {
@@ -64,8 +63,6 @@ const STATUS_COLOR: Record<string, any> = {
 };
 
 const ViewPage: FC = () => {
-  const classes = useStyles();
-
   const [state, setState] = useModal();
 
   const { userId } = useSelector((state: RootState) => state.account);
@@ -75,15 +72,21 @@ const ViewPage: FC = () => {
 
   const { data, isFetching, error, isError } = useGetAssignedTasksQuery<
     Record<string, any>
-  >({
-    mentorId: userId,
-    menteeId: id,
-  });
-  const { data: menteeData, isFetching: isFetchingMentee } =
-    useGetMenteeDetailQuery({
+  >(
+    {
       mentorId: userId,
       menteeId: id,
-    });
+    },
+    { skip: !userId },
+  );
+  const { data: menteeData, isFetching: isFetchingMentee } =
+    useGetMenteeDetailQuery(
+      {
+        mentorId: userId,
+        menteeId: id,
+      },
+      { skip: !userId },
+    );
 
   const handleViewTask = (id: string) => {
     navigate(`${pathname}/task/${id}`);
@@ -94,7 +97,7 @@ const ViewPage: FC = () => {
   };
 
   return (
-    <Box className={classes.root}>
+    <Wrapper>
       {isFetchingMentee || isFetching ? (
         <Box sx={{ textAlign: 'center' }}>
           <CircularProgress size={20} />
@@ -126,13 +129,13 @@ const ViewPage: FC = () => {
             }}
           >
             <Grid container gap={2} alignItems={'center'}>
-              <Grid item>
+              <Grid>
                 <Avatar
                   sx={{ width: 80, height: 80 }}
                   src={menteeData.payload.picture}
                 />
               </Grid>
-              <Grid item>
+              <Grid>
                 <Stack direction={'row'} gap={1} alignItems={'center'}>
                   <Typography variant="h5">
                     {menteeData.payload.firstname}
@@ -149,7 +152,7 @@ const ViewPage: FC = () => {
           </Box>
           <Box style={{ margin: '2em 0px 0px' }}>
             {isError && error.status === 404 ? (
-              <Typography>No Task Assigned Yet!</Typography>
+              <Typography>{error.data.message}</Typography>
             ) : data.payload.length === 0 ? (
               <Typography>No Task Assigned Yet!</Typography>
             ) : (
@@ -220,7 +223,7 @@ const ViewPage: FC = () => {
                             </IconButton>
                           </TableCell>
                         </TableRow>
-                      )
+                      ),
                     )}
                   </TableBody>
                 </Table>
@@ -230,7 +233,7 @@ const ViewPage: FC = () => {
         </Box>
       )}
       <NewTaskModal />
-    </Box>
+    </Wrapper>
   );
 };
 

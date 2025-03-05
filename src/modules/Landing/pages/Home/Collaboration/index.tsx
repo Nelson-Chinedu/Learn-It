@@ -4,24 +4,27 @@ import Typography from '@mui/material/Typography';
 
 import { COLLABORATION } from 'src/constant/collaboration';
 
-import { useStyles } from 'src/modules/Landing/pages/Home/Collaboration/styled.collaboration';
+import { Wrapper } from 'src/modules/Landing/pages/Home/Collaboration/styled.collaboration';
 
 const Collaboration = () => {
-  const classes = useStyles();
   return (
-    <Box className={classes.root}>
+    <Wrapper>
       <Box sx={{ width: '90%', margin: 'auto' }}>
         <Typography variant="body2">
           Collaborated With 50+ Leading Boards And Companies
         </Typography>
         {COLLABORATION.map(
-          (collaborator: {
-            width: string;
-            height: string;
-            logo: string;
-            alt: string;
-          }) => (
+          (
+            collaborator: {
+              width: string;
+              height: string;
+              logo: string;
+              alt: string;
+            },
+            index,
+          ) => (
             <img
+              key={index}
               src={collaborator.logo}
               alt={collaborator.alt}
               style={{
@@ -30,10 +33,10 @@ const Collaboration = () => {
                 objectFit: 'contain',
               }}
             />
-          )
+          ),
         )}
       </Box>
-    </Box>
+    </Wrapper>
   );
 };
 

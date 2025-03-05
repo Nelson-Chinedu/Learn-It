@@ -6,14 +6,13 @@ import Typography from '@mui/material/Typography';
 
 import { Modal, Button } from 'src/components';
 
-import { useStyles } from 'src/modules/Student/components/Modals/styled.viewMentorModal';
+import { Wrapper } from 'src/modules/Student/components/Modals/styled.viewMentorModal';
 
 import useModal from 'src/hooks/useModal';
 
 import { Props } from 'src/types/paystack';
 
 const ViewMentorModal: FunctionComponent<Props> = ({ onSuccess, onClose }) => {
-  const classes = useStyles();
   const [state, setState] = useModal();
 
   const config: PaystackProps = {
@@ -32,7 +31,7 @@ const ViewMentorModal: FunctionComponent<Props> = ({ onSuccess, onClose }) => {
       modalName="ViewMentors"
       title={`${state?.data?.firstname} ${state?.data?.lastname}`}
     >
-      <Box className={classes.root}>
+      <Wrapper>
         <Box>
           <Typography variant="body2">Position:</Typography>
           <Typography variant="subtitle2">{state?.data?.bio?.title}</Typography>
@@ -93,12 +92,12 @@ const ViewMentorModal: FunctionComponent<Props> = ({ onSuccess, onClose }) => {
           size="large"
           handleClick={() => {
             setState({ ...state, modalName: '', data: null });
-            initializePayment(onSuccess, onClose);
+            initializePayment({ onSuccess, onClose });
           }}
         >
           Continue
         </Button>
-      </Box>
+      </Wrapper>
     </Modal>
   );
 };

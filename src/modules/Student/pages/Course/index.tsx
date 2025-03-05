@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
@@ -15,7 +15,7 @@ import { Menu } from 'src/components';
 
 import UnenrollDialog from 'src/modules/Student/components/Dialog/UnenrollDialog';
 
-import { useStyles } from 'src/modules/Student/pages/Course/styled.course';
+import { Course_container } from 'src/modules/Student/pages/Course/styled.course';
 
 import { useGetEnrollCourseQuery } from 'src/modules/Student/services/studentSlice';
 
@@ -41,7 +41,6 @@ interface ICourses {
 }
 
 const Course: FunctionComponent<Record<string, never>> = () => {
-  const classes = useStyles();
   const { userId } = useSelector((state: RootState) => state.account);
   const [selected, setSelected] = useState<string | number>('');
   const { open, anchorEl, handleClick, handleClose } = useMenu();
@@ -51,7 +50,7 @@ const Course: FunctionComponent<Record<string, never>> = () => {
 
   const dispatch = useDispatch();
   const { enrolledCourses, isLoadingEnrolledCourses } = useSelector(
-    (state: RootState) => state.course
+    (state: RootState) => state.course,
   );
 
   useEffect(() => {
@@ -63,7 +62,7 @@ const Course: FunctionComponent<Record<string, never>> = () => {
   };
 
   return (
-    <Box component="section" className={classes.course_container}>
+    <Course_container>
       <Grid container spacing={4}>
         {isLoadingEnrolledCourses && !enrolledCourses.length ? (
           <>
@@ -84,7 +83,7 @@ const Course: FunctionComponent<Record<string, never>> = () => {
           </Box>
         ) : (
           enrolledCourses.map(({ course }: ICourses) => (
-            <Grid item md={3} key={course.id}>
+            <Grid size={{ md: 3 }} key={course.id}>
               <Link
                 to={`/s/courses/${course.name
                   .split(' ')
@@ -160,7 +159,7 @@ const Course: FunctionComponent<Record<string, never>> = () => {
         ]}
       />
       <UnenrollDialog />
-    </Box>
+    </Course_container>
   );
 };
 

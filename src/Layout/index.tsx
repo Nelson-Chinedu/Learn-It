@@ -7,7 +7,7 @@ import { SideNavigation, TopNavigation } from 'src/components';
 
 import useMenu from 'src/hooks/useMenu';
 
-import { useStyles } from 'src/Layout/styled.layout';
+import { Wrapper } from 'src/Layout/styled.layout';
 
 import { ILayout } from 'src/interface/layout';
 
@@ -19,10 +19,9 @@ import { useGetUserProfileQuery } from 'src/services/userSlice';
 
 const Layout: FunctionComponent<ILayout> = ({ children, sidenav }) => {
   const { isCollapsedSidenav } = useSelector(
-    (state: RootState) => state.sidenav
+    (state: RootState) => state.sidenav,
   );
   const dispatch = useDispatch();
-  const classes = useStyles(isCollapsedSidenav);
   const { pathname } = useLocation();
 
   const { data, isSuccess } = useGetUserProfileQuery();
@@ -35,7 +34,7 @@ const Layout: FunctionComponent<ILayout> = ({ children, sidenav }) => {
   };
 
   return (
-    <Box className={classes.root}>
+    <Wrapper isCollapsedSidenav={isCollapsedSidenav}>
       <Box component="nav" className="sidenav-wrapper">
         <SideNavigation SIDE_MENUS={sidenav} sidenav={_handleSidenav} />
       </Box>
@@ -64,7 +63,7 @@ const Layout: FunctionComponent<ILayout> = ({ children, sidenav }) => {
           {children}
         </Box>
       </Box>
-    </Box>
+    </Wrapper>
   );
 };
 

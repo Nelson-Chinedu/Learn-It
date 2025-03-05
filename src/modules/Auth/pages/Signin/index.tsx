@@ -1,15 +1,15 @@
-import { FunctionComponent, ReactText, useState } from 'react';
+import { FunctionComponent, useState } from 'react';
 import { useFormik } from 'formik';
-import { Link } from 'react-router-dom';
-import Box from '@mui/material/Box';
+import { Link, useNavigate } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import IconButton from '@mui/material/IconButton';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import useTheme from '@mui/material/styles/useTheme';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
 import { Input, Button } from 'src/components';
 
@@ -33,12 +33,18 @@ import {
   STUDENT_PATHS,
 } from 'src/constant/path';
 
-import { useStyles } from 'src/modules/Auth/pages/Signin/styled.signin';
+import {
+  Wrapper,
+  ImageWrapper,
+  FormWrapper,
+  FooterWrapper,
+} from 'src/modules/Auth/pages/Signin/styled.signin';
 
 const Signin: FunctionComponent<Record<string, never>> = () => {
-  const classes = useStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -48,7 +54,7 @@ const Signin: FunctionComponent<Record<string, never>> = () => {
     setShowPassword(!showPassword);
   };
 
-  const _handleSigin = async (values: IAccount): Promise<ReactText> => {
+  const _handleSigin = async (values: IAccount) => {
     const payload = {
       email: values.email,
       password: values.password,
@@ -84,6 +90,10 @@ const Signin: FunctionComponent<Record<string, never>> = () => {
     }
   };
 
+  const handleBack = () => {
+    navigate('/');
+  };
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -105,90 +115,102 @@ const Signin: FunctionComponent<Record<string, never>> = () => {
   } = formik;
 
   return (
-    <Box className={classes.root}>
+    <Wrapper>
       <Grid container alignItems="center">
         {!isMobile && (
-          <Grid item md={6} className={classes.imageWrapper}>
+          <ImageWrapper size={{ md: 6 }}>
             <img src={TeamWork} alt="Team work illustration" />
-          </Grid>
+          </ImageWrapper>
         )}
-        <Grid
-          item
-          xs={10}
-          sm={10}
-          md={4}
+        <FormWrapper
+          size={{ xs: 10, sm: 10, md: 4.2 }}
           sx={{ margin: '10em auto' }}
-          className={classes.formWrapper}
         >
-          <Grid container spacing={2}>
-            <Grid item sm={12}>
-              <Typography variant="h2">Welcome back</Typography>
+          <Grid container>
+            <Grid size={{ xs: 12 }}>
+              <Button
+                fullWidth={false}
+                variant="outlined"
+                handleClick={handleBack}
+              >
+                <KeyboardBackspaceIcon />
+                Back to Home
+              </Button>
+              <Typography mt={8} variant="h2">
+                Welcome back
+              </Typography>
+            </Grid>
+            <Grid size={{ xs: 12 }}>
+              <form onSubmit={handleSubmit}>
+                <Grid container spacing={2}>
+                  <Grid size={{ xs: 12, sm: 12 }}>
+                    <Input
+                      label="Email address*"
+                      type="email"
+                      fullWidth
+                      name="email"
+                      value={values.email}
+                      handleChange={handleChange}
+                      onBlur={handleBlur}
+                      helperText={touched.email && errors.email}
+                      error={touched.email && Boolean(errors.email)}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container spacing={2}>
+                  <Grid size={{ xs: 12, sm: 12 }}>
+                    <Input
+                      label="Password*"
+                      type={showPassword ? 'text' : 'password'}
+                      fullWidth
+                      name="password"
+                      value={values.password}
+                      handleChange={handleChange}
+                      onBlur={handleBlur}
+                      helperText={touched.password && errors.password}
+                      error={touched.password && Boolean(errors.password)}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton onClick={_handleTogglePassword}>
+                              {showPassword ? (
+                                <VisibilityOff />
+                              ) : (
+                                <Visibility />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container spacing={2}>
+                  <Grid size={{ xs: 12, sm: 12 }}>
+                    <Button
+                      fullWidth
+                      size="large"
+                      disabled={isSubmitting}
+                      handleClick={handleSubmit}
+                    >
+                      Sign in
+                    </Button>
+                  </Grid>
+                  <FooterWrapper>
+                    <Typography variant="subtitle2">
+                      Not yet a member?{' '}
+                      <Link to={`/${BASE_PATHS.AUTH}/${AUTH_PATHS.SIGNUP}`}>
+                        Sign up
+                      </Link>
+                    </Typography>
+                  </FooterWrapper>
+                </Grid>
+              </form>
             </Grid>
           </Grid>
-          <form onSubmit={handleSubmit}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={12}>
-                <Input
-                  label="Email address*"
-                  type="email"
-                  fullWidth
-                  name="email"
-                  value={values.email}
-                  handleChange={handleChange}
-                  onBlur={handleBlur}
-                  helperText={touched.email && errors.email}
-                  error={touched.email && Boolean(errors.email)}
-                />
-              </Grid>
-            </Grid>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={12}>
-                <Input
-                  label="Password*"
-                  type={showPassword ? 'text' : 'password'}
-                  fullWidth
-                  name="password"
-                  value={values.password}
-                  handleChange={handleChange}
-                  onBlur={handleBlur}
-                  helperText={touched.password && errors.password}
-                  error={touched.password && Boolean(errors.password)}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton onClick={_handleTogglePassword}>
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </Grid>
-            </Grid>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={12}>
-                <Button
-                  fullWidth
-                  size="large"
-                  disabled={isSubmitting}
-                  handleClick={handleSubmit}
-                >
-                  Sign in
-                </Button>
-              </Grid>
-              <Grid item className={classes.signup}>
-                <Typography variant="subtitle2">
-                  Not yet a member?{' '}
-                  <Link to={`/${BASE_PATHS.AUTH}/${AUTH_PATHS.SIGNUP}`}>
-                    Sign up
-                  </Link>
-                </Typography>
-              </Grid>
-            </Grid>
-          </form>
-        </Grid>
+        </FormWrapper>
       </Grid>
-    </Box>
+    </Wrapper>
   );
 };
 

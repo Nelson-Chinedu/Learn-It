@@ -1,7 +1,7 @@
-import { FunctionComponent, useCallback, useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import Grid from '@mui/material/Grid';
-import { Calendar } from '@natscale/react-calendar';
+import Grid from '@mui/material/Grid2';
+// import { Calendar } from '@natscale/react-calendar';
 
 import { UpcomingTask } from 'src/modules/Student/pages/Dashbaord/UpcomingTask';
 import { PaymentHistory } from 'src/modules/Student/pages/Dashbaord/PaymentHistory';
@@ -17,7 +17,10 @@ import {
   useVerifyPaymentQuery,
 } from 'src/modules/Student/services/studentSlice';
 
-import { useStyles } from 'src/modules/Student/pages/Dashbaord/styled.dashboard';
+import {
+  AsideWrapper,
+  GridWrapper,
+} from 'src/modules/Student/pages/Dashbaord/styled.dashboard';
 import useDrawer from 'src/hooks/useDrawer';
 import {
   errorNotification,
@@ -26,16 +29,16 @@ import {
 
 const Dashboard: FunctionComponent<Record<string, never>> = () => {
   const { isCollapsedSidenav } = useSelector(
-    (state: RootState) => state.sidenav
+    (state: RootState) => state.sidenav,
   );
-  const classes = useStyles();
-  const [value, setValue] = useState(new Date());
-  const onChange = useCallback(
-    (val) => {
-      setValue(val);
-    },
-    [setValue]
-  );
+
+  // const [value, setValue] = useState(new Date());
+  // const onChange = useCallback(
+  //   (val: Date) => {
+  //     setValue(val);
+  //   },
+  //   [setValue],
+  // );
   const [state, setState] = useDrawer();
 
   const [subscribe] = useSubscribeMutation();
@@ -47,7 +50,7 @@ const Dashboard: FunctionComponent<Record<string, never>> = () => {
     { reference: referenceId },
     {
       skip: !referenceId,
-    }
+    },
   );
 
   useEffect(() => {
@@ -87,21 +90,20 @@ const Dashboard: FunctionComponent<Record<string, never>> = () => {
 
   return (
     <>
-      <Grid
+      <GridWrapper
         container
         justifyContent="space-between"
-        className={classes.root}
         sx={{ width: '100%' }}
       >
-        <Grid item md={isCollapsedSidenav ? 9.4 : 9} component="section">
+        <Grid size={{ md: isCollapsedSidenav ? 9.3 : 8.8 }} component="section">
           <SubscribedMentors />
         </Grid>
-        <Grid item md={3} className={classes.aside} component="aside">
-          <Calendar value={value} onChange={onChange} />
+        <AsideWrapper size={{ md: 2.5 }}>
+          {/* <Calendar value={value} onChange={onChange} /> */}
           <UpcomingTask />
           <PaymentHistory />
-        </Grid>
-      </Grid>
+        </AsideWrapper>
+      </GridWrapper>
       <NewMentorDrawer />
       <ViewMentorDrawer onSuccess={onSuccess} onClose={onClose} />
     </>

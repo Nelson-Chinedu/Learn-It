@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 
 import StudentList from 'src/modules/Teacher/pages/Students/List';
 
@@ -12,7 +12,7 @@ const Student: FunctionComponent<Record<string, never>> = () => {
       <TotalCount />
       <Box style={{ marginTop: '1.5em' }}>
         <Grid container>
-          <Grid item md={12}>
+          <Grid size={{ md: 12 }}>
             <StudentList />
           </Grid>
         </Grid>

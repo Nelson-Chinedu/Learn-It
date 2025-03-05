@@ -1,25 +1,23 @@
 import { FunctionComponent } from 'react';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 
 import { Button } from 'src/components';
 
 import Instructor from 'src/assets/images/instructor.gif';
 
-import { useStyles } from 'src/modules/Landing/pages/Home/BecomeInstructor/styled.becomeInstructor';
+import { Wrapper } from 'src/modules/Landing/pages/Home/BecomeInstructor/styled.becomeInstructor';
 
 const BecomeInstructor: FunctionComponent<Record<string, never>> = () => {
-  const classes = useStyles();
   return (
-    <Container maxWidth="lg" className={classes.root}>
+    <Wrapper maxWidth="lg">
       <Grid
         container
         alignItems="center"
         justifyContent="space-between"
         spacing={4}
       >
-        <Grid item sm={5}>
+        <Grid size={{ sm: 5 }}>
           <img
             src={Instructor}
             style={{
@@ -29,7 +27,7 @@ const BecomeInstructor: FunctionComponent<Record<string, never>> = () => {
             }}
           />
         </Grid>
-        <Grid item sm={6}>
+        <Grid size={{ sm: 6 }}>
           <Typography variant="h4">Do you want to be a MENTOR?</Typography>
           <Typography variant="subtitle2">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam
@@ -42,7 +40,7 @@ const BecomeInstructor: FunctionComponent<Record<string, never>> = () => {
           </Button>
         </Grid>
       </Grid>
-    </Container>
+    </Wrapper>
   );
 };
 

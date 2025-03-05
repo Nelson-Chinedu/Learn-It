@@ -15,10 +15,13 @@ const Feedback: FC = () => {
   const { userId } = useSelector((state: RootState) => state.account);
   const { taskId } = useParams();
 
-  const { data, isFetching } = useGetFeedbackQuery({
-    mentorId: userId,
-    taskId,
-  });
+  const { data, isFetching } = useGetFeedbackQuery(
+    {
+      mentorId: userId,
+      taskId,
+    },
+    { skip: !userId },
+  );
 
   if (isFetching) {
     return (
@@ -62,12 +65,12 @@ const Feedback: FC = () => {
                 dangerouslySetInnerHTML={{
                   __html: sanitizeHtml(JSON.parse(feedback ?? null))?.replace(
                     /["]+/g,
-                    ''
+                    '',
                   ),
                 }}
               />
             </Box>
-          )
+          ),
         )
       )}
     </Box>

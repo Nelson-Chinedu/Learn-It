@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 
@@ -13,12 +13,12 @@ const StudentsEnrolled: FunctionComponent<Record<string, never>> = () => {
     <Card borderRadius="10px" width="100%" overflow="" height="350px">
       <Box style={{ padding: '20px' }}>
         <Grid container alignItems="center" justifyContent="space-between">
-          <Grid item md={8}>
+          <Grid size={{ md: 8 }}>
             <Typography variant="subtitle1">
               Students Enrolled &amp; Left
             </Typography>
           </Grid>
-          <Grid item md={3}>
+          <Grid size={{ md: 3 }}>
             <Input
               select
               label="Year"

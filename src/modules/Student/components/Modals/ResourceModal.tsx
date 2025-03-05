@@ -3,10 +3,10 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material';
 
 import { Modal, Input, Button } from 'src/components';
 
@@ -30,19 +30,16 @@ const validationSchema = Yup.object().shape({
   url: Yup.string().required('Required'),
 });
 
-const useStyles = makeStyles({
-  root: {
-    '& .MuiTypography-subtitle2': {
-      paddingBottom: '1em',
-    },
-    '& .MuiButton-contained': {
-      margin: '1em 0px',
-    },
+const Wrapper = styled(Box)({
+  '& .MuiTypography-subtitle2': {
+    paddingBottom: '1em',
+  },
+  '& .MuiButton-contained': {
+    margin: '1em 0px',
   },
 });
 
 const ResourceModal: FunctionComponent<Record<string, never>> = () => {
-  const classes = useStyles();
   const [state, setState] = useModal();
   const { userId } = useSelector((state: RootState) => state.account);
   const { data, isLoading } = useGetCategoryQuery(userId);
@@ -130,9 +127,9 @@ const ResourceModal: FunctionComponent<Record<string, never>> = () => {
       title={modalName === 'AddResource' ? 'Add New Resource' : 'Edit Resource'}
       width="30%"
     >
-      <Box className={classes.root}>
+      <Wrapper>
         <Grid container spacing={2}>
-          <Grid item sm={12} sx={{ margin: '.3em 0px' }}>
+          <Grid size={{ sm: 12 }} sx={{ margin: '.3em 0px' }}>
             <Input
               select
               size="small"
@@ -147,7 +144,8 @@ const ResourceModal: FunctionComponent<Record<string, never>> = () => {
             >
               {isLoading ? (
                 <Typography>Loading...</Typography>
-              ) : data.payload.length > 0 ? (
+              ) : data && data.payload.length > 0 ? (
+                data &&
                 data?.payload?.map((category: any) => (
                   <MenuItem value={category.id} key={category.id}>
                     {category.name}
@@ -158,7 +156,7 @@ const ResourceModal: FunctionComponent<Record<string, never>> = () => {
               )}
             </Input>
           </Grid>
-          <Grid item sm={12} sx={{ margin: '.3em 0px' }}>
+          <Grid size={{ sm: 12 }} sx={{ margin: '.3em 0px' }}>
             <Input
               size="small"
               fullWidth={true}
@@ -171,7 +169,7 @@ const ResourceModal: FunctionComponent<Record<string, never>> = () => {
               error={touched.name && Boolean(errors.name)}
             />
           </Grid>
-          <Grid item sm={12} sx={{ margin: '.3em 0px' }}>
+          <Grid size={{ sm: 12 }} sx={{ margin: '.3em 0px' }}>
             <Input
               size="small"
               fullWidth={true}
@@ -188,7 +186,7 @@ const ResourceModal: FunctionComponent<Record<string, never>> = () => {
         <Button size="large" handleClick={handleSubmit} disabled={isSubmitting}>
           {modalName === 'AddResource' ? 'Add' : 'Save'}
         </Button>
-      </Box>
+      </Wrapper>
     </Modal>
   );
 };

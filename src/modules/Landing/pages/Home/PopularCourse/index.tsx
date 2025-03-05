@@ -1,32 +1,27 @@
 import { FunctionComponent } from 'react';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 
-import { useStyles } from 'src/modules/Landing/pages/Home/PopularCourse/styled.popularcourse';
+import {
+  StyledContainer,
+  TitleWrapper,
+  Wrapper,
+} from 'src/modules/Landing/pages/Home/PopularCourse/styled.popularcourse';
 
 import Course from 'src/modules/Landing/pages/Home/PopularCourse/Course';
 
 const PopularCourse: FunctionComponent<Record<string, never>> = () => {
-  const classes = useStyles();
   return (
-    <Box className={classes.wrapper}>
-      <Container maxWidth="lg" className={classes.root}>
-        <Box className={classes.title}>
+    <Wrapper>
+      <StyledContainer maxWidth="lg">
+        <TitleWrapper>
           <Typography variant="h2">Our popular courses</Typography>
-        </Box>
-        <Grid
-          container
-          alignItems="center"
-          justifyContent="center"
-          spacing={2}
-          className={classes.cardContainer}
-        >
+        </TitleWrapper>
+        <Grid container alignItems="center" justifyContent="center" spacing={2}>
           <Course />
         </Grid>
-      </Container>
-    </Box>
+      </StyledContainer>
+    </Wrapper>
   );
 };
 

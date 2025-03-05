@@ -2,38 +2,39 @@ import { FunctionComponent } from 'react';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import Stack from '@mui/material/Stack';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material';
 
 import { Button } from 'src/components/Button';
 
 import { NAVBAR } from 'src/constant/navbar';
 import { AUTH_PATHS, BASE_PATHS } from 'src/constant/path';
 
-const useStyles = makeStyles({
-  root: {
-    position: 'fixed',
-    borderBottom: (props: { isVisible: boolean }) =>
-      !props.isVisible && '1px solid rgba(0,0,0,.12)',
-    background: '#f8f9fc',
-    zIndex: 4,
-    width: '100%',
-    height: '65px',
-  },
-});
+const Wrapper = styled(Box)<{ isVisible: boolean }>(({ isVisible }) => ({
+  position: 'fixed',
+  borderBottom: !isVisible && '1px solid rgba(0,0,0,.12)',
+  background: '#f8f9fc',
+  zIndex: 4,
+  width: '100%',
+  height: '65px',
+}));
 
 type Props = {
   isVisible: boolean;
 };
 
 const TopnavDesktop: FunctionComponent<Props> = ({ isVisible }) => {
-  const classes = useStyles({ isVisible });
   return (
-    <Box className={classes.root}>
+    <Wrapper isVisible={isVisible}>
       <Toolbar disableGutters sx={{ width: '95%', margin: 'auto' }}>
-        <Grid container justifyContent="space-between" alignItems="center">
-          <Grid item md={4}>
+        <Grid
+          size={{ xs: 12 }}
+          container
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Grid size={{ md: 4 }}>
             <Typography
               variant="h6"
               noWrap
@@ -43,7 +44,7 @@ const TopnavDesktop: FunctionComponent<Props> = ({ isVisible }) => {
               LearnIT
             </Typography>
           </Grid>
-          <Grid item md={4}>
+          <Grid size={{ md: 4 }}>
             <Box component="nav">
               <Stack
                 direction="row"
@@ -52,12 +53,14 @@ const TopnavDesktop: FunctionComponent<Props> = ({ isVisible }) => {
                 spacing={6}
               >
                 {NAVBAR.map((menu: { name: string; path: string }) => (
-                  <Typography variant="body2">{menu.name}</Typography>
+                  <Typography variant="body2" key={menu.name}>
+                    {menu.name}
+                  </Typography>
                 ))}
               </Stack>
             </Box>
           </Grid>
-          <Grid item md={4}>
+          <Grid size={{ md: 4 }}>
             <Stack
               direction="row"
               alignItems="center"
@@ -81,7 +84,7 @@ const TopnavDesktop: FunctionComponent<Props> = ({ isVisible }) => {
           </Grid>
         </Grid>
       </Toolbar>
-    </Box>
+    </Wrapper>
   );
 };
 export default TopnavDesktop;

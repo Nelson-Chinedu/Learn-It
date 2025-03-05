@@ -1,5 +1,5 @@
 import React from 'react';
-import { Story, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { Button, IProps } from 'src/components/Button';
 
@@ -23,7 +23,7 @@ export default {
   },
 } as Meta<typeof Button>;
 
-const Template: Story<IProps> = (args) => <Button {...args} />;
+const Template: StoryFn<IProps> = (args: IProps) => <Button {...args} />;
 
 export const Primary = Template.bind({});
 

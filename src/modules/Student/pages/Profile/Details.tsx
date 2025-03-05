@@ -1,12 +1,11 @@
 import React, { FunctionComponent } from 'react';
 import { useFormik } from 'formik';
 import { useSelector } from 'react-redux';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 
 import { Input, Button, UploadAvatar } from 'src/components';
 
-import { useStyles } from 'src/modules/Student/pages/Profile/styled.profile';
+import { DetailWrapper } from 'src/modules/Student/pages/Profile/styled.profile';
 
 import {
   useGetUserProfileQuery,
@@ -35,7 +34,6 @@ interface IValues {
 }
 
 const Details: FunctionComponent<Record<string, never>> = () => {
-  const classes = useStyles();
   const { userId } = useSelector((state: RootState) => state.account);
   const { data, isSuccess } = useGetUserProfileQuery();
   const [updateUserProfile] = useUpdateUserProfileMutation();
@@ -93,7 +91,7 @@ const Details: FunctionComponent<Record<string, never>> = () => {
   } = formik;
 
   return (
-    <Box className={classes.detail}>
+    <DetailWrapper>
       <UploadAvatar />
       <Grid
         container
@@ -101,7 +99,7 @@ const Details: FunctionComponent<Record<string, never>> = () => {
         alignItems="flex-start"
         justifyContent="space-between"
       >
-        <Grid item md={6}>
+        <Grid size={{ md: 6 }}>
           <Input
             label="Firstname"
             size="small"
@@ -115,7 +113,7 @@ const Details: FunctionComponent<Record<string, never>> = () => {
             error={touched.firstname && Boolean(errors.firstname)}
           />
         </Grid>
-        <Grid item md={6}>
+        <Grid size={{ md: 6 }}>
           <Input
             label="Lastname"
             size="small"
@@ -136,7 +134,7 @@ const Details: FunctionComponent<Record<string, never>> = () => {
         alignItems="flex-start"
         justifyContent="space-between"
       >
-        <Grid item md={12}>
+        <Grid size={{ md: 12 }}>
           <Input
             label="Phone number"
             size="small"
@@ -157,7 +155,7 @@ const Details: FunctionComponent<Record<string, never>> = () => {
         alignItems="flex-start"
         justifyContent="space-between"
       >
-        <Grid item md={6}>
+        <Grid size={{ md: 6 }}>
           <Input
             label="City"
             size="small"
@@ -171,7 +169,7 @@ const Details: FunctionComponent<Record<string, never>> = () => {
             error={touched.city && Boolean(errors.city)}
           />
         </Grid>
-        <Grid item md={6}>
+        <Grid size={{ md: 6 }}>
           <Input
             label="State/Province"
             size="small"
@@ -192,7 +190,7 @@ const Details: FunctionComponent<Record<string, never>> = () => {
         alignItems="flex-start"
         justifyContent="space-between"
       >
-        <Grid item md={6}>
+        <Grid size={{ md: 6 }}>
           <Input
             label="Zip code"
             size="small"
@@ -206,7 +204,7 @@ const Details: FunctionComponent<Record<string, never>> = () => {
             error={touched.zipCode && Boolean(errors.zipCode)}
           />
         </Grid>
-        <Grid item md={6}>
+        <Grid size={{ md: 6 }}>
           <Input
             label="Country"
             size="small"
@@ -227,7 +225,7 @@ const Details: FunctionComponent<Record<string, never>> = () => {
         alignItems="flex-start"
         justifyContent="space-between"
       >
-        <Grid item md={12}>
+        <Grid size={{ md: 12 }}>
           <Input
             label="Address"
             size="small"
@@ -243,7 +241,7 @@ const Details: FunctionComponent<Record<string, never>> = () => {
         </Grid>
       </Grid>
       <Grid container spacing={2}>
-        <Grid item md={3}>
+        <Grid size={{ md: 3 }}>
           <Button
             variant="contained"
             color="primary"
@@ -256,7 +254,7 @@ const Details: FunctionComponent<Record<string, never>> = () => {
           </Button>
         </Grid>
       </Grid>
-    </Box>
+    </DetailWrapper>
   );
 };
 

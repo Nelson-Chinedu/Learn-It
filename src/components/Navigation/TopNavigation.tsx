@@ -3,9 +3,11 @@ import { useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import Avatar from '@mui/material/Avatar';
 import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
@@ -25,7 +27,7 @@ import {
 } from 'src/helpers/notification';
 import { BASE_PATHS, STUDENT_PATHS } from 'src/constant/path';
 
-interface ITopNavigation {
+export interface ITopNavigation {
   path: string;
   isSuccess: boolean;
   data: IUserData;
@@ -48,7 +50,7 @@ const TopNavigation: FunctionComponent<ITopNavigation> = ({
   const { pathname } = useLocation();
   const [logout] = useLogoutMutation();
   const { isCollapsedSidenav } = useSelector(
-    (state: RootState) => state.sidenav
+    (state: RootState) => state.sidenav,
   );
 
   const _handleLogout = async () => {
@@ -75,75 +77,64 @@ const TopNavigation: FunctionComponent<ITopNavigation> = ({
         background: 'white',
         boxSizing: 'border-box',
         width: pathname.includes(
-          `${BASE_PATHS.APP}/${STUDENT_PATHS.ONBOARDING}`
+          `${BASE_PATHS.APP}/${STUDENT_PATHS.ONBOARDING}`,
         )
           ? '66.67%'
           : isCollapsedSidenav
-          ? '95%'
-          : '82%',
+            ? '95%'
+            : '82%',
       }}
     >
       <Toolbar disableGutters>
-        <Grid container justifyContent="flex-end" alignItems="flex-end">
-          <Grid item>
-            <Grid
-              container
-              spacing={2}
-              alignItems="center"
-              justifyContent="center"
+        <Stack
+          direction={'row'}
+          alignItems={'center'}
+          justifyContent={'flex-end'}
+          width={'100%'}
+          spacing={3}
+        >
+          <Box>
+            <NotificationsNoneOutlinedIcon fontSize="small" />
+          </Box>
+          <Box>
+            <Avatar
+              alt="Profile picture"
+              src={(data && data?.payload?.picture) || DefaultUser}
+              sx={{
+                width: 30,
+                height: 30,
+                textTransform: 'capitalize',
+                fontSize: '12px',
+              }}
             >
-              <Grid item>
-                <NotificationsNoneOutlinedIcon fontSize="small" />
-              </Grid>
-              <Grid item>
-                <Avatar
-                  alt="Profile picture"
-                  src={data?.payload?.picture || DefaultUser}
-                  sx={{
-                    width: 30,
-                    height: 30,
-                    textTransform: 'capitalize',
-                    fontSize: '12px',
-                  }}
-                >
-                  {`${data?.payload?.firstname?.charAt(
-                    0
-                  )} ${data?.payload?.lastname?.charAt(0)}`}
-                </Avatar>
-              </Grid>
-              <Grid
-                item
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  cursor: 'pointer',
-                }}
+              {`${
+                data && data?.payload?.firstname?.charAt(0)
+              } ${data && data?.payload?.lastname?.charAt(0)}`}
+            </Avatar>
+          </Box>
+          <Grid
+            container
+            alignItems="center"
+            onClick={handleClick}
+            className="menu"
+            sx={{ cursor: 'pointer' }}
+          >
+            <Grid>
+              <Typography
+                variant="subtitle2"
+                sx={{ textTransform: 'capitalize' }}
               >
-                <Grid
-                  container
-                  alignItems="center"
-                  onClick={handleClick}
-                  className="menu"
-                >
-                  <Grid item>
-                    <Typography
-                      variant="subtitle2"
-                      sx={{ textTransform: 'capitalize' }}
-                    >
-                      {(data &&
-                        isSuccess &&
-                        `${data.payload.firstname} ${data.payload.lastname}`) ||
-                        'Welcome'}
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <ArrowDropDownIcon fontSize="small" />
-                  </Grid>
-                </Grid>
-              </Grid>
+                {(data &&
+                  isSuccess &&
+                  `${data.payload.firstname} ${data.payload.lastname}`) ||
+                  'Welcome'}
+              </Typography>
+            </Grid>
+            <Grid>
+              <ArrowDropDownIcon fontSize="small" />
             </Grid>
           </Grid>
-        </Grid>
+        </Stack>
       </Toolbar>
 
       <Menu

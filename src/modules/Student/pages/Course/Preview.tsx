@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import ReactPlayer from 'react-player';
 import sanitizeHtml from 'sanitize-html';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
 import Collapse from '@mui/material/Collapse';
 import Stepper from '@mui/material/Stepper';
@@ -16,7 +16,10 @@ import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
-import { useStyles } from 'src/modules/Student/pages/Course/styled.course';
+import {
+  StepperWrapper,
+  ContentWrapper,
+} from 'src/modules/Student/pages/Course/styled.course';
 
 import { TabNav } from 'src/components';
 
@@ -29,13 +32,12 @@ import { RootState } from 'src/store';
 const LINKS = ['Overview', 'FAQ'];
 
 const CoursePreview: FunctionComponent<Record<string, never>> = () => {
-  const classes = useStyles();
   const { title, id } = useParams();
   const { userId } = useSelector((state: RootState) => state.account);
   const [value, setValue] = useState(0);
   const { data, isLoading } = useGetEnrollCourseDetailQuery(
     { userId, courseId: id },
-    { skip: !id }
+    { skip: !id },
   );
   const [isToggled, setIsToggled] = useState<number>();
 
@@ -51,7 +53,7 @@ const CoursePreview: FunctionComponent<Record<string, never>> = () => {
         <Typography>Something went wrong</Typography>
       ) : (
         <Grid container spacing={2}>
-          <Grid item md={8}>
+          <Grid size={{ md: 8 }}>
             <Box sx={{ padding: '0px 20px' }}>
               <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />}>
                 <Link to="/s/courses">Courses</Link>,
@@ -74,11 +76,11 @@ const CoursePreview: FunctionComponent<Record<string, never>> = () => {
                   variant="subtitle2"
                   sx={{ textTransform: 'capitalize' }}
                 >
-                  {`${data.payload.firstname} ${data.payload.lastname}`}
+                  {`${data && data.payload.firstname} ${data && data.payload.lastname}`}
                 </Typography>
               </Box>
               <Grid container alignItems="baseline" justifyContent="flex-start">
-                <Grid item md={12}>
+                <Grid size={{ md: 12 }}>
                   <TabNav
                     nav={LINKS}
                     value={value}
@@ -88,23 +90,21 @@ const CoursePreview: FunctionComponent<Record<string, never>> = () => {
                   >
                     <Box sx={{ margin: '2em 0px' }}>
                       {value === 0 && (
-                        <Box
-                          component="div"
-                          className={classes.contentWrapper}
+                        <ContentWrapper
                           dangerouslySetInnerHTML={{
                             __html: sanitizeHtml(
-                              JSON.parse(data?.payload?.objectives ?? null)
+                              JSON.parse(
+                                (data && data?.payload?.objectives) ?? null,
+                              ),
                             )?.replace(/["]+/g, ''),
                           }}
                         />
                       )}
                       {value === 1 && (
-                        <Box
-                          component="div"
-                          className={classes.contentWrapper}
+                        <ContentWrapper
                           dangerouslySetInnerHTML={{
                             __html: sanitizeHtml(
-                              JSON.parse(data?.payload?.faq ?? null)
+                              JSON.parse((data && data?.payload?.faq) ?? null),
                             )?.replace(/["]+/g, ''),
                           }}
                         />
@@ -115,7 +115,7 @@ const CoursePreview: FunctionComponent<Record<string, never>> = () => {
               </Grid>
             </Box>
           </Grid>
-          <Grid item md={4} sx={{ paddingTop: '0px !important' }}>
+          <Grid size={{ md: 4 }} sx={{ paddingTop: '0px !important' }}>
             <Box
               style={{
                 padding: '35px 20px',
@@ -138,18 +138,18 @@ const CoursePreview: FunctionComponent<Record<string, never>> = () => {
                     alignItems="center"
                     justifyContent="space-between"
                   >
-                    <Grid item>
+                    <Grid>
                       <Typography variant="subtitle1">{module}</Typography>
                       <Typography variant="subtitle2">Introduction</Typography>
                     </Grid>
-                    <Grid item>
+                    <Grid>
                       <Grid container alignItems="center" spacing={1}>
-                        <Grid item>
+                        <Grid>
                           <Typography variant="subtitle2">
                             21 Lecture 54 Min
                           </Typography>
                         </Grid>
-                        <Grid item>
+                        <Grid>
                           <IconButton
                             size="small"
                             onClick={() => handleToggle(index)}
@@ -165,7 +165,7 @@ const CoursePreview: FunctionComponent<Record<string, never>> = () => {
                   </Grid>
                   <Collapse in={isToggled === index ? true : false}>
                     <Grid container>
-                      <Grid item className={classes.stepper}>
+                      <StepperWrapper>
                         <Stepper activeStep={1} orientation="vertical">
                           {STEPS.map(
                             (step: { label: string; description: string }) => (
@@ -181,10 +181,10 @@ const CoursePreview: FunctionComponent<Record<string, never>> = () => {
                                   </Typography>
                                 </StepContent>
                               </Step>
-                            )
+                            ),
                           )}
                         </Stepper>
-                      </Grid>
+                      </StepperWrapper>
                     </Grid>
                   </Collapse>
                 </Box>

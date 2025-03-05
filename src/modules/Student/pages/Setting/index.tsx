@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
-import Box from '@mui/material/Box';
 
-import { useStyles } from 'src/modules/Student/pages/Setting/styled.setting';
+import { Wrapper } from 'src/modules/Student/pages/Setting/styled.setting';
 
 import { SETTING_LINK } from 'src/constant/setting';
 
@@ -11,7 +10,6 @@ import Subscription from 'src/modules/Student/pages/Setting/Subscription';
 import { TabNav } from 'src/components';
 
 const Setting: FunctionComponent<Record<string, never>> = () => {
-  const classes = useStyles();
   const [value, setValue] = useState(0);
 
   const _handleChange = (_event: React.SyntheticEvent, newValue: number) => {
@@ -19,11 +17,11 @@ const Setting: FunctionComponent<Record<string, never>> = () => {
   };
 
   return (
-    <Box component="section" className={classes.root}>
+    <Wrapper>
       <TabNav nav={SETTING_LINK} value={value} handleChange={_handleChange} />
       {value === 0 && <EmailNotification />}
       {value === 1 && <Subscription />}
-    </Box>
+    </Wrapper>
   );
 };
 

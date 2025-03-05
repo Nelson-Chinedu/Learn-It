@@ -3,7 +3,7 @@ import * as io from 'socket.io-client';
 import { useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import Avatar from '@mui/material/Avatar';
 import SendIcon from '@mui/icons-material/Send';
 import IconButton from '@mui/material/IconButton';
@@ -17,7 +17,12 @@ import { RootState } from 'src/store';
 
 import { useGetMentorsQuery } from 'src/modules/Student/services/studentSlice';
 
-import { useStyles } from 'src/modules/Student/pages/Chat/styled.chat';
+import {
+  Wrapper,
+  SearchWrapper,
+  ChatContainer,
+  InputWrapper,
+} from 'src/modules/Student/pages/Chat/styled.chat';
 
 const socket = io.connect(process.env.REACT_APP_SERVER_URL);
 
@@ -31,7 +36,6 @@ interface IChat {
 }
 
 const Chat: FunctionComponent<Record<string, never>> = () => {
-  const classes = useStyles();
   const [message, setMessage] = useState<string>('');
   const [chats, setChats] = useState<
     Array<{ userId: string; picture: string; message: string }>
@@ -39,8 +43,14 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
   const [roomNumber, setRoomNumber] = useState<string | number>('');
   const [name, setName] = useState('');
   const { userId, picture } = useSelector((state: RootState) => state.account);
+  const { isCollapsedSidenav } = useSelector(
+    (state: RootState) => state.sidenav,
+  );
 
-  const { data, isLoading } = useGetMentorsQuery({ id: userId });
+  const { data, isFetching } = useGetMentorsQuery(
+    { id: userId },
+    { skip: !userId },
+  );
 
   useEffect(() => {
     socket.on('receive_message', (data) => {
@@ -95,14 +105,14 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
   };
 
   return (
-    <Box component="section" className={classes.root}>
+    <Wrapper isCollapsedSidenav={isCollapsedSidenav}>
       <Grid
         container
         alignItems="flex-start"
         justifyContent="space-between"
         spacing={2}
       >
-        <Grid item md={4} style={{ position: 'relative' }}>
+        <Grid size={{ md: 4 }} style={{ position: 'relative' }}>
           <Card
             borderRadius="10px"
             width="100%"
@@ -113,7 +123,7 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
               {data && data.payload.length !== 0 && (
                 <>
                   <Typography variant="h5">Chat</Typography>
-                  <Box className={classes.search}>
+                  <SearchWrapper>
                     <Input
                       size="small"
                       type="search"
@@ -123,14 +133,14 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
                       handleChange={handleChange}
                       onBlur={handleChange}
                     />
-                  </Box>
+                  </SearchWrapper>
                 </>
               )}
 
               <Box>
-                {isLoading ? (
+                {isFetching ? (
                   <Typography>Please wait...</Typography>
-                ) : !data.payload.length ? (
+                ) : !data?.payload?.length ? (
                   <Box>
                     <img
                       src={ChatNotFound}
@@ -142,6 +152,7 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
                     </Typography>
                   </Box>
                 ) : (
+                  data &&
                   data?.payload?.map((user: IChat) => (
                     <Grid
                       container
@@ -156,15 +167,15 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
                       }
                       key={user.id}
                     >
-                      <Grid item>
+                      <Grid>
                         <Grid container alignItems="center" spacing={1}>
-                          <Grid item>
+                          <Grid>
                             <Avatar
                               sx={{ width: 30, height: 30 }}
                               src={user?.mentor?.picture}
                             />
                           </Grid>
-                          <Grid item>
+                          <Grid>
                             <Typography
                               variant="subtitle1"
                               className="username"
@@ -183,8 +194,8 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
           </Card>
         </Grid>
         {data && data.payload.length !== 0 && (
-          <Grid item md={8}>
-            <Box className={classes.chatContainer}>
+          <Grid size={{ md: 8 }}>
+            <ChatContainer>
               {!roomNumber ? (
                 <>
                   <Box className="containerHeader">
@@ -203,9 +214,13 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
               ) : (
                 ChatList()
               )}
-            </Box>
-            <Grid container alignItems="center" className={classes.input}>
-              <Grid item md={12} component="form" onSubmit={handleSendMessage}>
+            </ChatContainer>
+            <InputWrapper container alignItems="center">
+              <Grid
+                size={{ md: 12 }}
+                component="form"
+                onSubmit={handleSendMessage}
+              >
                 <Input
                   size="small"
                   type="text"
@@ -219,11 +234,11 @@ const Chat: FunctionComponent<Record<string, never>> = () => {
                   <SendIcon />
                 </IconButton>
               </Grid>
-            </Grid>
+            </InputWrapper>
           </Grid>
         )}
       </Grid>
-    </Box>
+    </Wrapper>
   );
 };
 

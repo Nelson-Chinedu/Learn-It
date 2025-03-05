@@ -34,13 +34,13 @@ const NewMentorDrawer: FunctionComponent<Record<never, string>> = () => {
     { reference: referenceId },
     {
       skip: !referenceId,
-    }
+    },
   );
 
   useEffect(() => {
     const subscription = async () => {
       const payload = {
-        card: JSON.stringify(data?.payload),
+        card: JSON.stringify(data && data?.payload),
         mentorId: '',
       };
 

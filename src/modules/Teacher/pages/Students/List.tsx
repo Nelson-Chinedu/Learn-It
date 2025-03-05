@@ -33,20 +33,24 @@ const StudentList: FunctionComponent<Record<string, never>> = () => {
   const { open, anchorEl, handleClick, handleClose } = useMenu();
   const [state, setState] = useModal();
 
-  const { data, isFetching } = useGetSubscriptionsQuery({ id: userId });
+  const { data, isFetching } = useGetSubscriptionsQuery(
+    { id: userId },
+    { skip: !userId },
+  );
 
   const [selected, setSelected] = useState('');
 
   const _handleAddNewTask = () => {
     setState({ ...state, modalName: 'NewTask', data: selected });
   };
+
   if (isFetching) {
     return <Typography>Please wait..</Typography>;
   }
 
   return (
     <>
-      {!isFetching && data.payload.length === 0 ? (
+      {!isFetching && data && data.payload.length === 0 ? (
         <Box
           sx={{
             width: '50%',
@@ -76,78 +80,79 @@ const StudentList: FunctionComponent<Record<string, never>> = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {data.payload.map(
-                    (student: {
-                      id: string;
-                      firstname: string;
-                      lastname: string;
-                      picture: string;
-                      is_active: boolean;
-                      phone: string;
-                      email: string;
-                    }) => (
-                      <TableRow key={student.id} hover>
-                        <TableCell
-                          sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: 2,
-                            py: '10px',
-                          }}
-                        >
-                          <Avatar
-                            alt={'Student'}
-                            src={student.picture}
-                            sx={{ width: 40, height: 40 }}
-                          >
-                            {`${student.firstname.charAt(0)} `}
-                          </Avatar>
-
-                          {`${student.firstname} ${student.lastname}`}
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            py: '10px',
-                          }}
-                        >
-                          {student.email || '-'}
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            py: '10px',
-                          }}
-                        >
-                          {student.phone || '-'}
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            py: '10px',
-                          }}
-                        >
-                          <Chip
-                            label={student.is_active ? 'Active' : 'Inactive'}
-                            color={student.is_active ? 'success' : 'warning'}
-                            size="small"
-                          />
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            py: '10px',
-                          }}
-                        >
-                          <IconButton
-                            sx={{ cursor: 'pointer' }}
-                            onClick={(e) => {
-                              setSelected(student.id);
-                              handleClick(e);
+                  {data &&
+                    data.payload.map(
+                      (student: {
+                        id: string;
+                        firstname: string;
+                        lastname: string;
+                        picture: string;
+                        is_active: boolean;
+                        phone: string;
+                        email: string;
+                      }) => (
+                        <TableRow key={student.id} hover>
+                          <TableCell
+                            sx={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: 2,
+                              py: '10px',
                             }}
                           >
-                            <MoreVert fontSize="small" />
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    )
-                  )}
+                            <Avatar
+                              alt={'Student'}
+                              src={student.picture}
+                              sx={{ width: 40, height: 40 }}
+                            >
+                              {`${student.firstname.charAt(0)} `}
+                            </Avatar>
+
+                            {`${student.firstname} ${student.lastname}`}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              py: '10px',
+                            }}
+                          >
+                            {student.email || '-'}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              py: '10px',
+                            }}
+                          >
+                            {student.phone || '-'}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              py: '10px',
+                            }}
+                          >
+                            <Chip
+                              label={student.is_active ? 'Active' : 'Inactive'}
+                              color={student.is_active ? 'success' : 'warning'}
+                              size="small"
+                            />
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              py: '10px',
+                            }}
+                          >
+                            <IconButton
+                              sx={{ cursor: 'pointer' }}
+                              onClick={(e) => {
+                                setSelected(student.id);
+                                handleClick(e);
+                              }}
+                            >
+                              <MoreVert fontSize="small" />
+                            </IconButton>
+                          </TableCell>
+                        </TableRow>
+                      ),
+                    )}
                 </TableBody>
               </Table>
             </TableContainer>

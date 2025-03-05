@@ -1,7 +1,6 @@
 import { FunctionComponent } from 'react';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
 
 import { Card } from 'src/components';
@@ -10,20 +9,18 @@ import Team from 'src/assets/images/team.jpg';
 
 import { Offers } from 'src/constant/whatWeOffer';
 
-import { useStyles } from 'src/modules/Landing/pages/Home/Offer/styled.offer';
+import { Wrapper } from 'src/modules/Landing/pages/Home/Offer/styled.offer';
 
 const Offer: FunctionComponent<Record<string, never>> = () => {
-  const classes = useStyles();
-
   return (
-    <Container maxWidth="lg" className={classes.root}>
+    <Wrapper maxWidth="lg">
       <Grid
         container
         alignItems="flex-start"
         justifyContent="space-evenly"
         spacing={4}
       >
-        <Grid item md={5} className="why-we-different-text">
+        <Grid size={{ md: 5 }} className="why-we-different-text">
           <Typography variant="h2">
             This is why we are best from others
           </Typography>
@@ -35,11 +32,11 @@ const Offer: FunctionComponent<Record<string, never>> = () => {
           </Typography>
           <img src={Team} alt="Why we different from others as a team" />
         </Grid>
-        <Grid item md={5}>
+        <Grid size={{ md: 5 }}>
           <Grid container spacing={6}>
             {Offers.map(
               (offer: { title: string; text: string; icon: string }) => (
-                <Grid item xs={12} sm={12} md={6}>
+                <Grid size={{ xs: 12, sm: 12, md: 6 }} key={offer.title}>
                   <Card
                     key={offer.title}
                     width="100%"
@@ -63,12 +60,12 @@ const Offer: FunctionComponent<Record<string, never>> = () => {
                     </Box>
                   </Card>
                 </Grid>
-              )
+              ),
             )}
           </Grid>
         </Grid>
       </Grid>
-    </Container>
+    </Wrapper>
   );
 };
 

@@ -23,7 +23,7 @@ export interface ITextfield {
   select?: boolean;
   rows?: number;
   required?: boolean;
-  helperText?: ReactNode;
+  helperText?: any;
   error?: boolean;
   multiline?: boolean;
   disabled?: boolean;

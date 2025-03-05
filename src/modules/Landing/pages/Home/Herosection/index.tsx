@@ -21,7 +21,7 @@ import FemaleMentor from 'src/assets/images/mentor2.png';
 import { MENTORS } from 'src/constant/mentorAvatar';
 import { AUTH_PATHS, BASE_PATHS } from 'src/constant/path';
 
-import { useStyles } from 'src/modules/Landing/pages/Home/Herosection/styled.herosection';
+import { Wrapper } from 'src/modules/Landing/pages/Home/Herosection/styled.herosection';
 
 type Props = {
   handleToggleMenu: () => void;
@@ -29,7 +29,6 @@ type Props = {
 };
 
 const Home: FunctionComponent<Props> = ({ handleToggleMenu, isToggle }) => {
-  const classes = useStyles();
   const ref = useRef<HTMLDivElement | null>(null);
   const entry = useIntersectionObserver(ref, {});
   const isVisible = !!entry?.isIntersecting;
@@ -37,7 +36,7 @@ const Home: FunctionComponent<Props> = ({ handleToggleMenu, isToggle }) => {
   const isMobileSm = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <Box className={classes.root}>
+    <Wrapper>
       {isMobileSm ? (
         <TopNavMobile handleToggleMenu={handleToggleMenu} isToggle={isToggle} />
       ) : (
@@ -172,7 +171,7 @@ const Home: FunctionComponent<Props> = ({ handleToggleMenu, isToggle }) => {
           </Typography>
         </Box>
       </Box>
-    </Box>
+    </Wrapper>
   );
 };
 

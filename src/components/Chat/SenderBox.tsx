@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 
 import DefaultUser from 'src/assets/images/default_user.png';
 
-import { useStyles } from 'src/components/Chat/styled.chat';
+import { SenderWrapper } from 'src/components/Chat/styled.chat';
 
 type Props = {
   chat: {
@@ -16,10 +16,8 @@ type Props = {
 };
 
 const ChatSender: FunctionComponent<Props> = ({ chat }) => {
-  const classes = useStyles();
-
   return (
-    <Box className={classes.sender}>
+    <SenderWrapper>
       <Avatar
         alt="Profile picture"
         src={chat?.picture || DefaultUser}
@@ -48,7 +46,7 @@ const ChatSender: FunctionComponent<Props> = ({ chat }) => {
           <Typography>{chat.message}</Typography>
         </Box>
       </Box>
-    </Box>
+    </SenderWrapper>
   );
 };
 

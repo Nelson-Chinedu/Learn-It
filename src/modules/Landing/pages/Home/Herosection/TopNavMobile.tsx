@@ -7,35 +7,34 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material';
 import { NAVBAR } from 'src/constant/navbar';
 
-const useStyles = makeStyles({
-  root: {
-    position: 'fixed',
-    borderBottom: '1px solid rgba(0,0,0,.12)',
-    background: '#f8f9fc',
-    zIndex: 4,
-    width: '100%',
-    '& .MuiToolbar-root': {
-      width: '95%',
-      margin: 'auto',
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-    },
+const Wrapper = styled(Box)({
+  position: 'fixed',
+  borderBottom: '1px solid rgba(0,0,0,.12)',
+  background: '#f8f9fc',
+  zIndex: 4,
+  width: '100%',
+  '& .MuiToolbar-root': {
+    width: '95%',
+    margin: 'auto',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
-  sidenav: {
-    background: '#fff',
-    height: '100vh',
-    zIndex: 9,
-    position: 'fixed',
-    top: 0,
-    width: '100%',
-    '& a': {
-      textDecoration: 'none',
-      color: '#000',
-    },
+});
+
+const SidenavWrapper = styled(Box)({
+  background: '#fff',
+  height: '100vh',
+  zIndex: 9,
+  position: 'fixed',
+  top: 0,
+  width: '100%',
+  '& a': {
+    textDecoration: 'none',
+    color: '#000',
   },
 });
 
@@ -48,20 +47,18 @@ const TopnavMobile: FunctionComponent<Props> = ({
   handleToggleMenu,
   isToggle,
 }) => {
-  const classes = useStyles();
-
   return (
     <>
-      <Box className={classes.root}>
+      <Wrapper>
         <Toolbar disableGutters>
           <Typography variant="h6">LearnIT</Typography>
           <IconButton onClick={handleToggleMenu}>
             <MenuIcon />
           </IconButton>
         </Toolbar>
-      </Box>
+      </Wrapper>
       {isToggle && (
-        <Box className={classes.sidenav}>
+        <SidenavWrapper>
           <Stack
             direction="row"
             alignItems="center"
@@ -82,7 +79,7 @@ const TopnavMobile: FunctionComponent<Props> = ({
               </Link>
             ))}
           </Box>
-        </Box>
+        </SidenavWrapper>
       )}
     </>
   );

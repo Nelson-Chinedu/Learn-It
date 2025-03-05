@@ -14,13 +14,11 @@ import { Button } from 'src/components';
 
 import { AUTH_PATHS, BASE_PATHS } from 'src/constant/path';
 
-import { useStyles } from 'src/modules/Landing/pages/Home/StepByStepGuide/styled.stepByStep';
+import { StyledSection } from 'src/modules/Landing/pages/Home/StepByStepGuide/styled.stepByStep';
 
 const StepByStepGuide = () => {
-  const classes = useStyles();
-
   return (
-    <Box component="section" className={classes.root}>
+    <StyledSection>
       <Container maxWidth="xl" sx={{ overflow: 'hidden' }}>
         <Box className="step_by_step_wrapper">
           <Typography variant="subtitle2" color="primary">
@@ -182,7 +180,7 @@ const StepByStepGuide = () => {
           Join Now
         </Button>
       </Box>
-    </Box>
+    </StyledSection>
   );
 };
 

@@ -7,7 +7,7 @@ import { Card } from 'src/components';
 
 import { TESTIMONIALS } from 'src/constant/testimonial';
 
-import { useStyles } from 'src/modules/Landing/pages/Home/Testimonial/styled.testimonial';
+import { Wrapper } from 'src/modules/Landing/pages/Home/Testimonial/styled.testimonial';
 
 const responsive = {
   0: { items: 1 },
@@ -16,8 +16,6 @@ const responsive = {
 };
 
 const Testimonial = () => {
-  const classes = useStyles();
-
   const handleDragStart = (e: { preventDefault: () => any }) =>
     e.preventDefault();
 
@@ -28,7 +26,7 @@ const Testimonial = () => {
       name: string;
       field: string;
     }) => (
-      <Card width="320px" borderRadius="10px">
+      <Card width="320px" borderRadius="10px" key={testimonial.name}>
         <Box sx={{ padding: '10px' }}>
           <Typography>{testimonial.paragraph}</Typography>
           <Stack direction="row" alignItems="center" spacing={2} mt={2}>
@@ -50,11 +48,11 @@ const Testimonial = () => {
           </Stack>
         </Box>
       </Card>
-    )
+    ),
   );
 
   return (
-    <Box className={classes.root}>
+    <Wrapper>
       <Typography variant="h3">
         <q>What our mentee's are saying</q>
       </Typography>
@@ -69,7 +67,7 @@ const Testimonial = () => {
           autoPlayInterval={1000}
         />
       </Container>
-    </Box>
+    </Wrapper>
   );
 };
 

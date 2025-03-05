@@ -1,9 +1,9 @@
-import { FunctionComponent, ReactText, useState, useEffect } from 'react';
+import { FunctionComponent, useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import IconButton from '@mui/material/IconButton';
@@ -11,6 +11,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import MenuItem from '@mui/material/MenuItem';
 import useTheme from '@mui/material/styles/useTheme';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
 import { Input, Button } from 'src/components';
 
@@ -30,10 +31,14 @@ import { validationSchema } from 'src/validations/signup';
 import { YOE } from 'src/constant/yearOfExperice';
 import { TITLES } from 'src/constant/titles';
 
-import { useStyles } from 'src/modules/Auth/pages/Signup/styled.signup';
+import {
+  Footer,
+  FormWrapper,
+  ImageWrapper,
+  Wrapper,
+} from 'src/modules/Auth/pages/Signup/styled.signup';
 
 const Signup: FunctionComponent<Record<string, never>> = () => {
-  const classes = useStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const navigate = useNavigate();
@@ -59,7 +64,11 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
     setShowPassword(!showPassword);
   };
 
-  const _handleSignup = async (values: ISignup): Promise<ReactText> => {
+  const handleBack = () => {
+    navigate('/');
+  };
+
+  const _handleSignup = async (values: ISignup) => {
     const common_payload = {
       firstname: values.firstname,
       lastname: values.lastname,
@@ -161,190 +170,201 @@ const Signup: FunctionComponent<Record<string, never>> = () => {
   }
 
   return (
-    <Box className={classes.root}>
+    <Wrapper>
       <Grid container alignItems="center">
         {!isMobile && (
-          <Grid item md={6} className={classes.imageWrapper}>
+          <ImageWrapper size={{ md: 6 }}>
             <img src={GetStarted} alt="Team work illustration" />
-          </Grid>
+          </ImageWrapper>
         )}
-        <Grid
-          item
-          xs={10}
-          sm={10}
-          md={4}
-          className={classes.formWrapper}
+        <FormWrapper
+          size={{ xs: 10, sm: 10, md: 4.2 }}
           sx={{ margin: '10em auto' }}
         >
-          <Grid container spacing={2}>
-            <Grid item>
-              <Typography variant="h2">Sign up</Typography>
-            </Grid>
-          </Grid>
-          <form onSubmit={handleSubmit}>
-            <Grid container spacing={isMobile ? 0 : 2}>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                sx={{ marginBottom: isMobile && '1em' }}
+          <Grid container>
+            <Grid size={{ xs: 12 }}>
+              <Button
+                fullWidth={false}
+                variant="outlined"
+                handleClick={handleBack}
               >
-                <Input
-                  label="Firstname*"
-                  type="text"
-                  fullWidth
-                  name="firstname"
-                  value={values.firstname}
-                  handleChange={handleChange}
-                  onBlur={handleBlur}
-                  helperText={touched.firstname && errors.firstname}
-                  error={touched.firstname && Boolean(errors.firstname)}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Input
-                  label="Lastname*"
-                  type="text"
-                  fullWidth
-                  name="lastname"
-                  value={values.lastname}
-                  handleChange={handleChange}
-                  onBlur={handleBlur}
-                  helperText={touched.lastname && errors.lastname}
-                  error={touched.lastname && Boolean(errors.lastname)}
-                />
-              </Grid>
+                <KeyboardBackspaceIcon />
+                Back to Home
+              </Button>
+              <Typography variant="h2" mt={8}>
+                Sign up
+              </Typography>
             </Grid>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={12}>
-                <Input
-                  label="Email address*"
-                  type="email"
-                  fullWidth
-                  name="email"
-                  value={values.email}
-                  handleChange={handleChange}
-                  onBlur={handleBlur}
-                  helperText={touched.email && errors.email}
-                  error={touched.email && Boolean(errors.email)}
-                />
-              </Grid>
-            </Grid>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={12}>
-                <Input
-                  label="Password*"
-                  type={showPassword ? 'text' : 'password'}
-                  fullWidth
-                  name="password"
-                  value={values.password}
-                  handleChange={handleChange}
-                  onBlur={handleBlur}
-                  helperText={touched.password && errors.password}
-                  error={touched.password && Boolean(errors.password)}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton onClick={_handleTogglePassword}>
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </Grid>
-            </Grid>
-            {queryParam !== null && queryParam === 'm' && (
-              <>
-                <Grid container spacing={isMobile ? 0 : 2}>
+            <Grid size={{ xs: 12 }}>
+              <form onSubmit={handleSubmit}>
+                <Grid container spacing={isMobile ? 0 : 2} columns={12}>
                   <Grid
-                    item
-                    xs={12}
-                    sm={6}
+                    size={{ xs: 12, sm: 6 }}
                     sx={{ marginBottom: isMobile && '1em' }}
                   >
                     <Input
-                      label="Company*"
+                      label="Firstname*"
                       type="text"
                       fullWidth
-                      name="company"
-                      value={values.company}
+                      name="firstname"
+                      value={values.firstname}
                       handleChange={handleChange}
                       onBlur={handleBlur}
-                      helperText={touched.company && errors.company}
-                      error={touched.company && Boolean(errors.company)}
+                      helperText={touched.firstname && errors.firstname}
+                      error={touched.firstname && Boolean(errors.firstname)}
                     />
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid size={{ xs: 12, sm: 6 }}>
                     <Input
-                      label="Years of Experience*"
-                      select
+                      label="Lastname*"
+                      type="text"
                       fullWidth
-                      name="yearsOfExperience"
-                      value={values.yearsOfExperience}
+                      name="lastname"
+                      value={values.lastname}
                       handleChange={handleChange}
                       onBlur={handleBlur}
-                      helperText={
-                        touched.yearsOfExperience && errors.yearsOfExperience
-                      }
-                      error={
-                        touched.yearsOfExperience &&
-                        Boolean(errors.yearsOfExperience)
-                      }
-                    >
-                      {YOE.map(({ label, value }) => (
-                        <MenuItem value={value} key={label}>
-                          {label}
-                        </MenuItem>
-                      ))}
-                    </Input>
+                      helperText={touched.lastname && errors.lastname}
+                      error={touched.lastname && Boolean(errors.lastname)}
+                    />
                   </Grid>
                 </Grid>
-                <Grid item xs={12} sm={12}>
-                  <Input
-                    label="Title*"
-                    select
-                    fullWidth
-                    name="title"
-                    value={values.title}
-                    handleChange={handleChange}
-                    onBlur={handleBlur}
-                    helperText={touched.title && errors.title}
-                    error={touched.title && Boolean(errors.title)}
-                  >
-                    {TITLES.map(({ label, value }) => (
-                      <MenuItem value={value} key={label}>
-                        {label}
-                      </MenuItem>
-                    ))}
-                  </Input>
+                <Grid container spacing={2}>
+                  <Grid size={{ xs: 12 }}>
+                    <Input
+                      label="Email address*"
+                      type="email"
+                      fullWidth
+                      name="email"
+                      value={values.email}
+                      handleChange={handleChange}
+                      onBlur={handleBlur}
+                      helperText={touched.email && errors.email}
+                      error={touched.email && Boolean(errors.email)}
+                    />
+                  </Grid>
                 </Grid>
-              </>
-            )}
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={12}>
-                <Button
-                  fullWidth
-                  size="large"
-                  disabled={isSubmitting}
-                  handleClick={handleSubmit}
-                >
-                  Sign up
-                </Button>
-              </Grid>
-              <Grid item className={classes.signin}>
-                <Typography variant="subtitle2">
-                  Already a member?{' '}
-                  <Link to={`/${BASE_PATHS.AUTH}/${AUTH_PATHS.SIGNIN}`}>
-                    Sign in
-                  </Link>
-                </Typography>
-              </Grid>
+                <Grid container spacing={2}>
+                  <Grid size={{ xs: 12 }}>
+                    <Input
+                      label="Password*"
+                      type={showPassword ? 'text' : 'password'}
+                      fullWidth
+                      name="password"
+                      value={values.password}
+                      handleChange={handleChange}
+                      onBlur={handleBlur}
+                      helperText={touched.password && errors.password}
+                      error={touched.password && Boolean(errors.password)}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton onClick={_handleTogglePassword}>
+                              {showPassword ? (
+                                <VisibilityOff />
+                              ) : (
+                                <Visibility />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+                {queryParam !== null && queryParam === 'm' && (
+                  <>
+                    <Grid size={{ xs: 12, sm: 12 }}>
+                      <Input
+                        label="Title*"
+                        select
+                        fullWidth
+                        name="title"
+                        value={values.title}
+                        handleChange={handleChange}
+                        onBlur={handleBlur}
+                        helperText={touched.title && errors.title}
+                        error={touched.title && Boolean(errors.title)}
+                      >
+                        {TITLES.map(({ label, value }) => (
+                          <MenuItem value={value} key={label}>
+                            {label}
+                          </MenuItem>
+                        ))}
+                      </Input>
+                    </Grid>
+                    <Grid container spacing={isMobile ? 0 : 2}>
+                      <Grid
+                        size={{ xs: 12, sm: 6 }}
+                        sx={{ marginBottom: isMobile && '1em' }}
+                      >
+                        <Input
+                          label="Company*"
+                          type="text"
+                          fullWidth
+                          name="company"
+                          value={values.company}
+                          handleChange={handleChange}
+                          onBlur={handleBlur}
+                          helperText={touched.company && errors.company}
+                          error={touched.company && Boolean(errors.company)}
+                        />
+                      </Grid>
+                      <Grid size={{ xs: 12, sm: 6 }}>
+                        <Input
+                          label="Years of Experience*"
+                          select
+                          fullWidth
+                          name="yearsOfExperience"
+                          value={values.yearsOfExperience}
+                          handleChange={handleChange}
+                          onBlur={handleBlur}
+                          helperText={
+                            touched.yearsOfExperience &&
+                            errors.yearsOfExperience
+                          }
+                          error={
+                            touched.yearsOfExperience &&
+                            Boolean(errors.yearsOfExperience)
+                          }
+                        >
+                          {YOE.map(({ label, value }) => (
+                            <MenuItem value={value} key={label}>
+                              {label}
+                            </MenuItem>
+                          ))}
+                        </Input>
+                      </Grid>
+                    </Grid>
+                  </>
+                )}
+                <Grid container spacing={2}>
+                  <Grid size={{ xs: 12 }}>
+                    <Button
+                      fullWidth
+                      size="large"
+                      disabled={isSubmitting}
+                      handleClick={handleSubmit}
+                    >
+                      Sign up
+                    </Button>
+                  </Grid>
+                  <Footer
+                  // className={classes.signin}
+                  >
+                    <Typography variant="subtitle2">
+                      Already a member?{' '}
+                      <Link to={`/${BASE_PATHS.AUTH}/${AUTH_PATHS.SIGNIN}`}>
+                        Sign in
+                      </Link>
+                    </Typography>
+                  </Footer>
+                </Grid>
+              </form>
             </Grid>
-          </form>
-        </Grid>
+          </Grid>
+        </FormWrapper>
       </Grid>
-    </Box>
+    </Wrapper>
   );
 };
 

@@ -1,7 +1,8 @@
-import { makeStyles } from '@mui/styles';
-import { Theme } from '@mui/system';
 
-export const useStyles = makeStyles((theme: Theme) => ({
+import {styled} from '@mui/material'
+import Box from '@mui/material/Box'
+
+export const Wrapper = styled(Box)(({theme}) => ({
   root: {
     '& .MuiTypography-subtitle2': {
       fontSize: '.9rem',

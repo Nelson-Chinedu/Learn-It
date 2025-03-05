@@ -2,16 +2,14 @@ import React, { ReactNode } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material';
 
-const useStyles = makeStyles({
-  root: {
-    '& .MuiTab-root': {
-      textTransform: 'capitalize',
-    },
-    '& .MuiIconButton-root': {
-      padding: '15px !important',
-    },
+const Wrapper = styled(Box)({
+  '& .MuiTab-root': {
+    textTransform: 'capitalize',
+  },
+  '& .MuiIconButton-root': {
+    padding: '15px !important',
   },
 });
 
@@ -55,10 +53,8 @@ const TabNav = ({
   handleChange?: (e: React.SyntheticEvent, value: number) => void;
   value?: string | number;
 }) => {
-  const classes = useStyles();
-
   return (
-    <Box sx={{ width: '100%' }} className={classes.root}>
+    <Wrapper sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs
           value={value}
@@ -72,7 +68,7 @@ const TabNav = ({
         </Tabs>
       </Box>
       {children}
-    </Box>
+    </Wrapper>
   );
 };
 

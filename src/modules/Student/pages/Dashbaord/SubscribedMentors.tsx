@@ -2,7 +2,7 @@ import { FunctionComponent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
@@ -36,7 +36,10 @@ const SubscribedMentors: FunctionComponent<Record<string, never>> = () => {
   const [state, setState] = useDrawer();
   const navigate = useNavigate();
   const { userId } = useSelector((state: RootState) => state.account);
-  const { data, isLoading } = useGetMentorsQuery({ id: userId });
+  const { data, isLoading } = useGetMentorsQuery(
+    { id: userId },
+    { skip: !userId },
+  );
 
   const [layout, setLayout] = useState('board');
 
@@ -62,11 +65,11 @@ const SubscribedMentors: FunctionComponent<Record<string, never>> = () => {
             justifyContent="space-between"
             style={{ padding: '20px 0px' }}
           >
-            <Grid item>
+            <Grid>
               <Typography variant="h2">Mentors</Typography>
             </Grid>
             {!isLoading && data && data.payload.length > 0 && (
-              <Grid item>
+              <Grid>
                 <Button variant="outlined" onClick={_handleOpenDrawer}>
                   <AddIcon /> Subscribe
                 </Button>
@@ -118,7 +121,7 @@ const SubscribedMentors: FunctionComponent<Record<string, never>> = () => {
             data &&
             data?.payload?.map((user: any) =>
               layout === 'board' ? (
-                <Grid item md={4} key={user.id} mt={10}>
+                <Grid size={{ md: 4 }} key={user.id} mt={10}>
                   <Card
                     borderRadius="10px"
                     width="250px"
@@ -266,12 +269,12 @@ const SubscribedMentors: FunctionComponent<Record<string, never>> = () => {
                               </Button>
                             </TableCell>
                           </TableRow>
-                        )
+                        ),
                       )}
                     </TableBody>
                   </Table>
                 </TableContainer>
-              )
+              ),
             )
           )}
         </Grid>

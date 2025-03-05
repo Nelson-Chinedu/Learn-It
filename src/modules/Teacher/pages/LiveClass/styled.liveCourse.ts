@@ -1,9 +1,9 @@
-import { makeStyles } from '@mui/styles';
-import { Theme } from '@mui/system';
+import {styled} from '@mui/material'
+import Box from '@mui/material/Box'
 
-export const useStyles = makeStyles((theme: Theme) => ({
+export const Wrapper = styled(Box)(({theme}) => ({
   root: {
-    '& .MuiGrid-container': {
+    '& .MuiGrid2-container': {
       margin: '0px 0px .8em',
       '& .MuiGrid-item:nth-child(1)': {
         paddingLeft: '0px',
@@ -23,7 +23,7 @@ export const useStyles = makeStyles((theme: Theme) => ({
         borderRadius: '5px',
         padding: '5px 10px',
         marginBottom: '.8em',
-        '& .MuiGrid-container': {
+        '& .MuiGrid2-container': {
           margin: '0px',
           '& .MuiTypography-subtitle2': {
             color: '#a29999',
@@ -52,7 +52,7 @@ export const useStyles = makeStyles((theme: Theme) => ({
           fontWeight: 100,
           fontStyle: 'normal',
         },
-        '& .MuiGrid-container': {
+        '& .MuiGrid2-container': {
           margin: '0px',
         },
       },

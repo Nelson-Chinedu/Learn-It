@@ -1,7 +1,7 @@
 import { FunctionComponent, useState } from 'react';
 import GoogleOneTapLogin from 'react-google-one-tap-login';
 import Box from '@mui/material/Box';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material';
 
 import Herosection from 'src/modules/Landing/pages/Home/Herosection';
 import Collaboration from 'src//modules/Landing/pages/Home/Collaboration';
@@ -11,25 +11,21 @@ import Testimonial from 'src/modules/Landing/pages/Home/Testimonial';
 
 import { Footer } from 'src/components';
 
-const useStyles = makeStyles({
-  root: {
-    background: '#f8f9fc',
-    height: (props: { isToggle: boolean }) => props.isToggle && '100vh',
-    position: (props: { isToggle: boolean }) =>
-      props.isToggle ? 'fixed' : 'unset',
-  },
-});
+const Wrapper = styled(Box)<{ isToggle: boolean }>(({ isToggle }) => ({
+  background: '#f8f9fc',
+  height: isToggle && '100vh',
+  position: isToggle ? 'fixed' : 'unset',
+}));
 
 const Home: FunctionComponent<Record<string, never>> = () => {
   const [isToggle, setIsToggle] = useState(false);
-  const classes = useStyles({ isToggle });
 
   const handleToggleMenu = () => {
     setIsToggle(!isToggle);
   };
 
   return (
-    <Box className={classes.root}>
+    <Wrapper isToggle={isToggle}>
       <GoogleOneTapLogin
         // eslint-disable-next-line no-console
         onError={(error) => console.log(error)}
@@ -45,7 +41,7 @@ const Home: FunctionComponent<Record<string, never>> = () => {
       <Testimonial />
       <StepByStepGuide />
       <Footer />
-    </Box>
+    </Wrapper>
   );
 };
 
