@@ -1,5 +1,5 @@
 import { FC, useRef, useState } from 'react';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import SunEditorCore from 'suneditor/src/lib/core';
 import SunEditor from 'suneditor-react';
 import { useParams } from 'react-router-dom';

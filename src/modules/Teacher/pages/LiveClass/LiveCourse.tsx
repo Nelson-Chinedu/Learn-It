@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
 
 import AddNote from 'src/assets/images/AddNote.svg';
@@ -29,14 +29,14 @@ const LiveCourse: FunctionComponent<Record<string, never>> = () => {
         justifyContent="space-between"
         style={{ marginTop: '5em' }}
       >
-        <Grid item md={5}>
+        <Grid size={{ md: 5 }}>
           <Grid
             container
             spacing={2}
             alignItems="flex-start"
             justifyContent="space-between"
           >
-            <Grid item md={6}>
+            <Grid size={{ md: 6 }}>
               <Input
                 label="Course Title"
                 fullWidth={true}
@@ -45,7 +45,7 @@ const LiveCourse: FunctionComponent<Record<string, never>> = () => {
                 onBlur={handleChange}
               />
             </Grid>
-            <Grid item md={6}>
+            <Grid size={{ md: 6 }}>
               <Input
                 label="Lecture"
                 fullWidth={true}
@@ -56,7 +56,7 @@ const LiveCourse: FunctionComponent<Record<string, never>> = () => {
             </Grid>
           </Grid>
           <Grid container spacing={2}>
-            <Grid item md={12}>
+            <Grid size={{ md: 2 }}>
               <Input
                 multiline={true}
                 rows={6}
@@ -70,12 +70,12 @@ const LiveCourse: FunctionComponent<Record<string, never>> = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item md={5}>
+        <Grid size={{ md: 5 }}>
           <img src={AddNote} alt="An adding note illustration " />
         </Grid>
       </Grid>
       <Grid container spacing={2}>
-        <Grid item md={2}>
+        <Grid size={{ md: 2 }}>
           <Button
             variant="outlined"
             size="small"
@@ -85,7 +85,7 @@ const LiveCourse: FunctionComponent<Record<string, never>> = () => {
             Back
           </Button>
         </Grid>
-        <Grid item md={2}>
+        <Grid size={{ md: 2 }}>
           <Button size="small" fullWidth={true} handleClick={handleNext}>
             Next
           </Button>

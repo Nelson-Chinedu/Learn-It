@@ -35,7 +35,12 @@ const Submission: FC = () => {
         <Typography variant="subtitle2" pb={2}>
           URL
         </Typography>
-        <Typography variant="h5">
+        <Typography
+          variant="h5"
+          component={'a'}
+          href={data.payload.submissionUrl}
+          target="_blank"
+        >
           {data.payload.submissionUrl || 'N/A'}
         </Typography>
       </Box>

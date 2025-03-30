@@ -110,6 +110,7 @@ const Form: FunctionComponent<Record<string, never>> = () => {
                 onBlur={handleBlur}
                 helperText={touched.firstname && errors.firstname}
                 error={touched.firstname && Boolean(errors.firstname)}
+                size="small"
               />
             </Grid>
             <Grid size={{ md: 6 }}>
@@ -122,6 +123,7 @@ const Form: FunctionComponent<Record<string, never>> = () => {
                 onBlur={handleBlur}
                 helperText={touched.lastname && errors.lastname}
                 error={touched.lastname && Boolean(errors.lastname)}
+                size="small"
               />
             </Grid>
           </Grid>

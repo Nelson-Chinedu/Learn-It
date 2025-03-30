@@ -13,7 +13,7 @@ import DialogContextProvider from 'src/contexts/dialog-ctx';
 const Dashboard = lazy(() => import('src/modules/Student/pages/Dashbaord'));
 const Course = lazy(() => import('src/modules/Student/pages/Course'));
 const CoursePreview = lazy(
-  () => import('src/modules/Student/pages/Course/Preview')
+  () => import('src/modules/Student/pages/Course/Preview'),
 );
 const Resources = lazy(() => import('src/modules/Student/pages/Resources'));
 const Profile = lazy(() => import('src/modules/Student/pages/Profile'));
