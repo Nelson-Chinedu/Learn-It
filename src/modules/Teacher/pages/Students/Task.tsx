@@ -2,7 +2,7 @@ import { SyntheticEvent, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
@@ -69,7 +69,9 @@ const Task = () => {
   return (
     <Wrapper>
       {isFetching || isFetchingSubmission ? (
-        <CircularProgress />
+        <Box sx={{ textAlign: 'center' }}>
+          <CircularProgress size={20} />
+        </Box>
       ) : (
         <>
           <Stack
@@ -94,7 +96,7 @@ const Task = () => {
             </Button>
           </Stack>
           <Grid container alignItems="baseline" justifyContent="flex-start">
-            <Grid item md={12}>
+            <Grid size={{ md: 12 }}>
               <TabNav
                 nav={LINKS}
                 value={value}

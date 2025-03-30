@@ -9,7 +9,7 @@ import TextField from '@mui/material/TextField';
 export interface ITextfield {
   variant?: 'outlined' | 'filled' | 'standard';
   value?: string;
-  type?: 'text' | 'password' | 'email' | 'search' | 'tel' | 'date';
+  type?: 'text' | 'password' | 'email' | 'search' | 'tel' | 'date' | 'url';
   size?: 'small' | 'medium';
   name?: string;
   fullWidth?: boolean;
@@ -22,6 +22,7 @@ export interface ITextfield {
   placeholder?: string;
   select?: boolean;
   rows?: number;
+  maxRows?: number;
   required?: boolean;
   helperText?: any;
   error?: boolean;

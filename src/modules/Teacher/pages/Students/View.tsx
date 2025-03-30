@@ -54,12 +54,13 @@ const Wrapper = styled(Box)(({ theme }) => ({
 }));
 
 const STATUS_COLOR: Record<string, any> = {
-  Todo: 'default',
-  Pending: 'info',
-  'In-Review': 'warning',
-  Completed: 'primary',
-  Submitted: 'success',
-  'In-Progress': 'info',
+  todo: 'default',
+  pending: 'info',
+  in_review: 'warning',
+  completed: 'primary',
+  submitted: 'success',
+  in_progress: 'info',
+  done: 'success',
 };
 
 const ViewPage: FC = () => {
@@ -95,6 +96,13 @@ const ViewPage: FC = () => {
   const _handleAddNewTask = () => {
     setState({ ...state, modalName: 'NewTask' });
   };
+
+  if (!userId)
+    return (
+      <Box sx={{ textAlign: 'center' }}>
+        <CircularProgress size={20} />
+      </Box>
+    );
 
   return (
     <Wrapper>
@@ -201,10 +209,11 @@ const ViewPage: FC = () => {
                           <TableCell
                             sx={{
                               py: '10px',
+                              textTransform: 'capitalize',
                             }}
                           >
                             <Chip
-                              label={task.status}
+                              label={task.status?.replace(/_/gi, ' ')}
                               color={STATUS_COLOR[task.status]}
                               size="small"
                             />

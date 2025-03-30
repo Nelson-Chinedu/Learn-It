@@ -80,7 +80,7 @@ const customFetchBase: BaseQueryFn<
 export const studentSlice = createApi({
   reducerPath: 'student',
   baseQuery: customFetchBase,
-  tagTypes: ['Category', 'Resource', 'Course', 'EnrollCourse', 'Subscription'],
+  tagTypes: ['Category', 'Resource', 'Course', 'EnrollCourse', 'Subscription', 'Assigned_task'],
   endpoints: (builder) => ({
     getCategory: builder.query<ICategory, string>({
       query: (userId) => ({ url: `/category/${userId}/` }),
@@ -193,6 +193,29 @@ export const studentSlice = createApi({
       }),
       providesTags: ['Subscription'],
     }),
+    getTasks: builder.query<any, any>({
+      query: (id ) => ({
+        url: `/tasks/${id}`,
+        method: 'GET',
+      }),
+      providesTags: ['Assigned_task'],
+    }),
+    taskSubmission: builder.mutation({
+      query: ({ taskId, data }) => ({
+        url: `/task/${taskId}/`,
+        method: 'PATCH',
+        body: { ...data },
+      }),
+      invalidatesTags: ['Assigned_task'],
+    }),
+    updateTaskStatus: builder.mutation({
+      query: ({ taskId, status }) => ({
+        url: `/task/${taskId}/status`,
+        method: 'PATCH',
+        body: { status },
+      }),
+      invalidatesTags: ['Assigned_task'],
+    }),
   }),
 });
 
@@ -212,4 +235,7 @@ export const {
   useVerifyPaymentQuery,
   useGetAllMentorsQuery,
   useGetMentorsQuery,
+  useGetTasksQuery,
+  useTaskSubmissionMutation,
+  useUpdateTaskStatusMutation
 } = studentSlice;

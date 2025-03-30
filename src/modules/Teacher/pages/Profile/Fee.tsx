@@ -1,7 +1,7 @@
 import { FunctionComponent, useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
@@ -90,12 +90,12 @@ const Fee: FunctionComponent<Record<string, never>> = () => {
   return (
     <Box mb={5}>
       <Grid container alignItems="baseline" justifyContent="space-between">
-        <Grid item>
+        <Grid>
           <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
             Fee
           </Typography>
         </Grid>
-        <Grid item>
+        <Grid>
           <IconButton size="small" onClick={_handleToggleFee}>
             <EditIcon fontSize="small" sx={{ fontSize: '15px' }} />
           </IconButton>
@@ -111,8 +111,8 @@ const Fee: FunctionComponent<Record<string, never>> = () => {
             isEditable && !form.isError
               ? '1px solid green'
               : isEditable && form.isError
-              ? '1px solid red'
-              : '',
+                ? '1px solid red'
+                : '',
           padding: isEditable && '10px',
           fontFamily: '"Source Sans Pro", sans-serif',
           fontSize: pxToRem(14),
@@ -129,9 +129,9 @@ const Fee: FunctionComponent<Record<string, never>> = () => {
 
       {isEditable && (
         <Grid container sx={{ mt: 2 }}>
-          <Grid item md={8}>
+          <Grid size={{ md: 8 }}>
             <Grid container spacing={2}>
-              <Grid item md={5}>
+              <Grid size={{ md: 5 }}>
                 <Button
                   handleClick={_handleToggleFee}
                   variant="outlined"
@@ -140,7 +140,7 @@ const Fee: FunctionComponent<Record<string, never>> = () => {
                   Cancel
                 </Button>
               </Grid>
-              <Grid item md={5}>
+              <Grid size={{ md: 5 }}>
                 <Button
                   handleClick={_handleSaveFee}
                   fullWidth={true}
